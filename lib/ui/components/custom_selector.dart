@@ -1,0 +1,85 @@
+import 'package:flutter/material.dart';
+import 'package:masoyinbo_mobile/extension/extension.dart';
+import 'package:masoyinbo_mobile/ui/ui.dart';
+
+class MultiGroupedSelector extends StatelessWidget {
+  const MultiGroupedSelector({
+    super.key,
+    required this.options,
+    required this.selectedOptions,
+    required this.onChanged,
+  });
+
+  final List<String> options;
+  final List<String> selectedOptions;
+  final ValueChanged<String> onChanged;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: options.map((option) {
+        final isSelected = selectedOptions.contains(option);
+        return Container(
+          margin: const EdgeInsets.only(bottom: 16),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(12),
+            color: isSelected ? AppColors.blueE7 : null,
+            border: Border.all(
+              color: AppColors.blue12,
+            ),
+          ),
+          child: InkWell(
+            onTap: () => onChanged(option),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 16,
+                vertical: 13,
+              ),
+              child: Row(
+                children: [
+                  Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      Container(
+                        width: 16.w,
+                        height: 16.w,
+                        decoration: BoxDecoration(
+                          color: isSelected ? AppColors.blue12 : null,
+                          borderRadius: BorderRadius.circular(4),
+                          border: Border.all(
+                            color: AppColors.blue12,
+                            width: 0.7,
+                          ),
+                        ),
+                      ),
+                      if (isSelected)
+                        const Center(
+                          child: Icon(
+                            Icons.check_rounded,
+                            color: AppColors.white,
+                            size: 15,
+                          ),
+                        ),
+                    ],
+                  ),
+                  const SizedBox(width: 8),
+                  Expanded(
+                    child: Transform.translate(
+                      offset: const Offset(0, -1),
+                      child: Text(
+                        option,
+                        style: context.textTheme.bodySmall!.copyWith(
+                          fontSize: 13.sp,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      }).toList(),
+    );
+  }
+}
