@@ -15,7 +15,7 @@ class NavObserver extends NavigatorObserver {
 }
 
 final router = GoRouter(
-  initialLocation: '/',
+  initialLocation: '/diveInScreen',
   observers: [
     // NavObserver(),
   ],
@@ -39,6 +39,11 @@ final router = GoRouter(
       name: SurveyScreen.id,
       path: '/surveyScreen',
       builder: (context, state) => const SurveyScreen(),
+    ),
+    GoRoute(
+      name: DiveInScreen.id,
+      path: '/diveInScreen',
+      builder: (context, state) => const DiveInScreen(),
     ),
   ],
   // errorBuilder: (context, state) => const PageNotFound(),

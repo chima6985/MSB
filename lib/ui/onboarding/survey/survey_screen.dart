@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:masoyinbo_mobile/app/app.dart';
 import 'package:masoyinbo_mobile/extension/context_extension.dart';
+import 'package:masoyinbo_mobile/ui/onboarding/dive_in_screen.dart';
 import 'package:masoyinbo_mobile/ui/ui.dart';
 import 'package:masoyinbo_mobile/utils/utils.dart';
 
@@ -11,13 +12,7 @@ class SurveyScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final selectedOptions = ValueNotifier<List<String>>([]);
-    final currentIndex = ValueNotifier(0);
-
-    final questionList = [
-      increaseKnowledgeList,
-      doWithYorubaLanguageList,
-    ];
-
+    final currentIndex = ValueNotifier(2);
     final btmPad = MediaQuery.of(context).viewPadding.bottom;
     return Scaffold(
       body: DecoratedContainer(
@@ -63,11 +58,11 @@ class SurveyScreen extends StatelessWidget {
                   builder: (context, val, child) {
                     return Expanded(
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 36),
+                        padding: const EdgeInsets.symmetric(horizontal: 28),
                         child: Column(
                           children: [
                             Text(
-                              increaseKnowledgeYr,
+                              surveyText[currentIndex.value]![0] as String,
                               textAlign: TextAlign.center,
                               style: context.textTheme.titleLarge!.copyWith(
                                 fontFamily: 'Margarine',
@@ -75,16 +70,13 @@ class SurveyScreen extends StatelessWidget {
                               ),
                             ),
                             const SizedBox(height: 8),
-                            Padding(
-                              padding: const EdgeInsets.only(right: 15),
-                              child: Text(
-                                increaseKnowledgeEr,
-                                textAlign: TextAlign.center,
-                                style: context.textTheme.bodySmall!.copyWith(
-                                  fontStyle: FontStyle.italic,
-                                  height: 1.4,
-                                  letterSpacing: 0.3,
-                                ),
+                            Text(
+                              surveyText[currentIndex.value]![1] as String,
+                              textAlign: TextAlign.center,
+                              style: context.textTheme.bodySmall!.copyWith(
+                                fontStyle: FontStyle.italic,
+                                height: 1.4,
+                                letterSpacing: 0.3,
                               ),
                             ),
                             const SizedBox(height: 32),
@@ -92,8 +84,10 @@ class SurveyScreen extends StatelessWidget {
                               valueListenable: selectedOptions,
                               builder: (context, val, child) {
                                 return MultiGroupedSelector(
-                                  options: questionList[currentIndex.value],
+                                  options: surveyText[currentIndex.value]![2]
+                                      as List<String>,
                                   selectedOptions: val,
+                                  isMultipleSelection: currentIndex.value < 2,
                                   onChanged: (listOption) {
                                     final newSelection = List<String>.from(val);
                                     if (newSelection.contains(listOption)) {
@@ -116,6 +110,9 @@ class SurveyScreen extends StatelessWidget {
                                     if (selectedOptions.value.isNotEmpty &&
                                         currentIndex.value < 3) {
                                       currentIndex.value++;
+                                    }
+                                    if (currentIndex.value == 3) {
+                                      context.pushNamed(DiveInScreen.id);
                                     }
                                   },
                                   color: selectedOptions.value.isEmpty

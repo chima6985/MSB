@@ -15,3 +15,27 @@ const doWithYorubaLanguageList = [
   interactWithLocalsYr,
   artsMoveYr,
 ];
+
+const timeToCommitList = [
+  tenMinsYr,
+  fifteenMinsYr,
+  twentyMinsYr,
+  thirtyMinsYr,
+];
+
+const ageList = [
+  under18En,
+  eighteenToTwentyFourEn,
+  twentyFiveToThirtyFour,
+  thirtyFiveToFourtyFour,
+  fourtyFiveToFiftyFour,
+  fiftyFiveToSixtyFour,
+  sixtyFiveAndAbove,
+];
+
+const surveyText = {
+  0: [increaseKnowledgeYr, increaseKnowledgeEr, increaseKnowledgeList],
+  1: [likeToDoYr, likeToDoEn, doWithYorubaLanguageList],
+  2: [timeToCommitYr, timeToCommitEn, timeToCommitList],
+  3: [howOldYr, howOldEn, ageList],
+};

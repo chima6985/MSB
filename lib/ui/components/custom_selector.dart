@@ -8,11 +8,13 @@ class MultiGroupedSelector extends StatelessWidget {
     required this.options,
     required this.selectedOptions,
     required this.onChanged,
+    this.isMultipleSelection = true,
   });
 
   final List<String> options;
   final List<String> selectedOptions;
   final ValueChanged<String> onChanged;
+  final bool isMultipleSelection;
 
   @override
   Widget build(BuildContext context) {
@@ -37,31 +39,10 @@ class MultiGroupedSelector extends StatelessWidget {
               ),
               child: Row(
                 children: [
-                  Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      Container(
-                        width: 16.w,
-                        height: 16.w,
-                        decoration: BoxDecoration(
-                          color: isSelected ? AppColors.blue12 : null,
-                          borderRadius: BorderRadius.circular(4),
-                          border: Border.all(
-                            color: AppColors.blue12,
-                            width: 0.7,
-                          ),
-                        ),
-                      ),
-                      if (isSelected)
-                        const Center(
-                          child: Icon(
-                            Icons.check_rounded,
-                            color: AppColors.white,
-                            size: 15,
-                          ),
-                        ),
-                    ],
-                  ),
+                  if (isMultipleSelection)
+                    _RadioIndicator(isSelected: isSelected)
+                  else
+                    _CheckBoxIndicator(isSelected: isSelected),
                   const SizedBox(width: 8),
                   Expanded(
                     child: Transform.translate(
@@ -80,6 +61,77 @@ class MultiGroupedSelector extends StatelessWidget {
           ),
         );
       }).toList(),
+    );
+  }
+}
+
+class _CheckBoxIndicator extends StatelessWidget {
+  const _CheckBoxIndicator({
+    required this.isSelected,
+  });
+
+  final bool isSelected;
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      alignment: Alignment.center,
+      children: [
+        Container(
+          width: 16.w,
+          height: 16.w,
+          decoration: BoxDecoration(
+            color: isSelected ? AppColors.white : null,
+            shape: BoxShape.circle,
+            border: Border.all(
+              color: AppColors.blue12,
+              width: 0.7,
+            ),
+          ),
+        ),
+        if (isSelected)
+          const CircleAvatar(
+            radius: 6,
+            backgroundColor: AppColors.blue12,
+          ),
+      ],
+    );
+  }
+}
+
+class _RadioIndicator extends StatelessWidget {
+  const _RadioIndicator({
+    required this.isSelected,
+  });
+
+  final bool isSelected;
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      alignment: Alignment.center,
+      children: [
+        Container(
+          width: 16.w,
+          height: 16.w,
+          decoration: BoxDecoration(
+            color: isSelected ? AppColors.blue12 : null,
+            borderRadius: BorderRadius.circular(4),
+            border: Border.all(
+              color: AppColors.blue12,
+              width: 0.7,
+            ),
+          ),
+        ),
+        if (isSelected)
+          const Center(
+            child: Icon(
+              Icons.check_rounded,
+              color: AppColors.white,
+              size: 15,
+            ),
+          ),
+      ],
     );
   }
 }
