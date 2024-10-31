@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:masoyinbo_mobile/app/app.dart';
 import 'package:masoyinbo_mobile/extension/context_extension.dart';
-import 'package:masoyinbo_mobile/ui/onboarding/dive_in_screen.dart';
 import 'package:masoyinbo_mobile/ui/ui.dart';
 import 'package:masoyinbo_mobile/utils/utils.dart';
 
@@ -12,8 +11,7 @@ class SurveyScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final selectedOptions = ValueNotifier<List<String>>([]);
-    final currentIndex = ValueNotifier(2);
-    final btmPad = MediaQuery.of(context).viewPadding.bottom;
+    final currentIndex = ValueNotifier(0);
     return Scaffold(
       body: DecoratedContainer(
         child: ValueListenableBuilder(
@@ -21,9 +19,7 @@ class SurveyScreen extends StatelessWidget {
           builder: (context, val, child) {
             return Column(
               children: [
-                SizedBox(
-                  height: MediaQuery.of(context).viewPadding.top,
-                ),
+                SizedBox(height: context.topPadding),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -41,7 +37,7 @@ class SurveyScreen extends StatelessWidget {
                     Transform.translate(
                       offset: const Offset(-5, 0),
                       child: TextButton(
-                        onPressed: () {},
+                        onPressed: () => context.goNamed(DiveInScreen.id),
                         child: Text(
                           'SKIP',
                           textScaler: TextScaler.noScaling,
@@ -112,7 +108,7 @@ class SurveyScreen extends StatelessWidget {
                                       currentIndex.value++;
                                     }
                                     if (currentIndex.value == 3) {
-                                      context.pushNamed(DiveInScreen.id);
+                                      context.goNamed(DiveInScreen.id);
                                     }
                                   },
                                   color: selectedOptions.value.isEmpty
@@ -140,7 +136,7 @@ class SurveyScreen extends StatelessWidget {
                                 );
                               },
                             ),
-                            SizedBox(height: btmPad),
+                            SizedBox(height: context.btmPadding),
                           ],
                         ),
                       ),

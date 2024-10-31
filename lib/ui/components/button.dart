@@ -14,7 +14,7 @@ class Button extends StatelessWidget {
     this.verticalPadding = 10.5,
     this.isShowArrow = false,
     this.isBoldLabelText = false,
-    this.enabled = true,
+    this.isOutlined = true,
   });
   final String label;
   final void Function() onPressed;
@@ -25,7 +25,7 @@ class Button extends StatelessWidget {
   final double? width;
   final bool isShowArrow;
   final bool isBoldLabelText;
-  final bool enabled;
+  final bool isOutlined;
 
   @override
   Widget build(BuildContext context) {
@@ -34,14 +34,16 @@ class Button extends StatelessWidget {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
         elevation: 0,
+        shadowColor: AppColors.transparent,
         padding: EdgeInsets.symmetric(vertical: verticalPadding),
-        backgroundColor: enabled
-            ? color ?? AppColors.blue12
-            : AppColors.lightBackgroundColor,
+        backgroundColor:
+            isOutlined ? color ?? AppColors.blue12 : AppColors.transparent,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(24),
         ),
-        side: enabled ? null : const BorderSide(color: AppColors.blue12),
+        side: BorderSide(
+          color: isOutlined ? AppColors.black15 : AppColors.blue12,
+        ),
       ),
       onPressed: onPressed,
       child: IntrinsicWidth(
@@ -56,7 +58,7 @@ class Button extends StatelessWidget {
                       label,
                       textScaler: TextScaler.noScaling,
                       style: textTheme.bodyMedium!.copyWith(
-                        color: enabled ? labelColor : AppColors.white,
+                        color: isOutlined ? labelColor : AppColors.white,
                         fontWeight:
                             isBoldLabelText ? FontWeight.w500 : FontWeight.w400,
                       ),

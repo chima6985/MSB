@@ -19,9 +19,7 @@ class OnboardingScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(
-                    height: MediaQuery.of(context).viewPadding.top,
-                  ),
+                  SizedBox(height: context.topPadding),
                   Hero(
                     tag: 'masoyinbo_logo',
                     child: AppAssets.images.jpegs.masoyinboLogo.image(

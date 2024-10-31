@@ -66,3 +66,44 @@ const saveProvidedDetailsYr =
     'Fi àwọn èsì ìdánimọ̀ tí e ti fisilẹ pamọ́ kí ẹ sì gbádùn àwọn àbá àkànṣe tó jẹ́ tìrẹ nìkan.';
 const saveProvidedDetailsEn =
     'Save the details you have provided and enjoy recommendations personalized just for you';
+
+const createAccountYr =
+    'Ṣẹda àkọọlẹ̀ kan kí o sì bẹ̀rẹ̀ ẹ̀kọ́ nígbà tí o bá ń ṣeré.';
+const createAccountEn = 'Create an account and start learning while playing';
+
+const emailAddressYr = 'Ìkọ̀nì ìfìwéránsẹ́ sí rẹ';
+const emailAddressEn = 'Email address';
+const passwordYr = 'ọ̀rọ̀ àbáwọlé';
+const passwordEn = 'password';
+const confirmPasswordEn = 're-enter password';
+
+const moveForwardYr = 'Tẹ̀síwájú';
+const alreadyAUserEn = 'Already a user?';
+const logInYr = 'Wọlé';
+const bySigningUp = 'By signing up on Másòyìnbó, I agree to its';
+const termsAndConditions = 'Terms & Conditions';
+
+const personalizeYourAccountFurther = 'Personalize your account further';
+const genderYr = 'Akọ/abo';
+const genderEn = 'Gender';
+const usernameYr = 'Orúkọ aṣàmúlò';
+const usernameEn = 'Username';
+const fipamoYr = 'Fipamọ́';
+
+const allSetEn = 'You are all set!';
+const allSetYr =
+    'Bẹ̀rẹ̀ ìrìn-àjò re sí níní ìmọ̀ ìjìnlẹ̀ nípa Yorùbá pẹ̀lú Másọ̀yìnbó-- níbi tí ẹ̀kọ́ ti Dàpọ̀ mọ́ ìdárayá! Wọlé kanlẹ̀ sínú eré alájoṣe tí yò mú lílọ èdè lárinrin kí ó tún ní ìwúlò.';
+const letsGoYr = 'Je ka lo';
+
+const enterDetailsYr =
+    'Tẹ ìméèlì àti ọ̀rọ̀ àṣínà rẹ láti wọlé kí o bẹ̀rẹ̀ ẹ̀kọ́.';
+const enterDetailsEn = 'Enter your details to log in and start learning';
+const dontHaveAnAccount = 'Ṣe o ko ni àkọọlẹ sibẹ?';
+const signUp = ' Ṣe àkọọlẹ tuntun';
+
+const signUpWithGoogleYr = 'Darapọ̀ pẹ̀lú Google';
+
+const homeEn = 'Home';
+const leaderboardEn = 'Leaderboard';
+const lessonsEn = 'Lessons';
+const meEn = 'Me';

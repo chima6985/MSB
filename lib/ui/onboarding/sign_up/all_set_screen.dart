@@ -3,9 +3,9 @@ import 'package:masoyinbo_mobile/app/app.dart';
 import 'package:masoyinbo_mobile/extension/context_extension.dart';
 import 'package:masoyinbo_mobile/ui/ui.dart';
 
-class DiveInScreen extends StatelessWidget {
-  const DiveInScreen({super.key});
-  static const String id = 'diveInScreen';
+class AllSetScreen extends StatelessWidget {
+  const AllSetScreen({super.key});
+  static const String id = 'allSetScreen';
 
   @override
   Widget build(BuildContext context) {
@@ -18,15 +18,15 @@ class DiveInScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             SizedBox(
-              height: context.topPadding + 40.h,
+              height: context.topPadding,
             ),
             Hero(
               tag: 'masoyinbo_logo',
-              child: AppAssets.images.jpegs.masoyinboLogo.image(scale: 4.5),
+              child: AppAssets.images.jpegs.masoyinboLogo.image(scale: 3.8),
             ),
             SizedBox(height: mqr.height * 0.03),
             Text(
-              driveRightInYr,
+              allSetEn,
               textAlign: TextAlign.center,
               style: context.textTheme.titleLarge!.copyWith(
                 fontFamily: 'Margarine',
@@ -34,37 +34,40 @@ class DiveInScreen extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 16),
-            Text(
-              saveProvidedDetailsYr,
-              textAlign: TextAlign.center,
-              style: context.textTheme.bodySmall!.copyWith(
-                height: 1.4,
-                letterSpacing: 0.3,
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 5.w),
+              child: Text(
+                allSetYr,
+                textAlign: TextAlign.center,
+                style: context.textTheme.bodySmall!.copyWith(
+                  height: 1.8,
+                  letterSpacing: 0.3,
+                ),
               ),
             ),
-            SizedBox(height: mqr.height * 0.07),
+            SizedBox(height: 60.h),
             Button(
               label: '',
-              onPressed: () => context.pushReplacementNamed(SignUpScreen.id),
+              onPressed: () => context.goNamed(DashboardIndexScreen.id),
               child: RichText(
                 text: TextSpan(
                   style: context.textTheme.bodyMedium!.copyWith(
                     color: AppColors.white,
                   ),
-                  children: [
-                    const TextSpan(text: continueYr),
-                    TextSpan(
-                      text: ' ($continueEn)',
-                      style: context.textTheme.bodySmall!.copyWith(
-                        color: AppColors.white,
-                        fontWeight: FontWeight.w300,
-                      ),
-                    ),
+                  children: const [
+                    TextSpan(text: letsGoYr),
+                    // TextSpan(
+                    //   text: ' ($continueEn)',
+                    //   style: context.textTheme.bodySmall!.copyWith(
+                    //     color: AppColors.white,
+                    //     fontWeight: FontWeight.w300,
+                    //   ),
+                    // ),
                   ],
                 ),
               ),
             ),
-            SizedBox(height: context.btmPadding),
+            SizedBox(height: context.btmPadding + 38.h),
           ],
         ),
       ),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-extension ThemeContextExtension on BuildContext {
-  ThemeData get currentTheme => Theme.of(this);
-  bool get isDarkMode => currentTheme.brightness == Brightness.dark;
+extension AppExtensions on BuildContext {
   TextTheme get textTheme => Theme.of(this).textTheme;
+  double get topPadding => MediaQuery.of(this).viewPadding.top;
+  double get btmPadding => MediaQuery.of(this).viewPadding.bottom;
 }

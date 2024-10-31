@@ -14,9 +14,8 @@ class AppTheme {
     scaffoldBackgroundColor: AppColors.backgroundColor,
     // dialogTheme: _dialogTheme,
     checkboxTheme: CheckboxThemeData(
-      checkColor: WidgetStateProperty.all(AppColors.blue12),
-      fillColor:
-          WidgetStateProperty.all(AppColors.secondaryColor.withOpacity(0.1)),
+      checkColor: WidgetStateProperty.all(AppColors.white),
+      fillColor: WidgetStateProperty.all(AppColors.black15.withOpacity(0.3)),
       materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(4),

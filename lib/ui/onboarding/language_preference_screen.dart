@@ -17,9 +17,7 @@ class LanguagePreferenceScreen extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 24),
           child: Column(
             children: [
-              SizedBox(
-                height: MediaQuery.of(context).viewPadding.top,
-              ),
+              SizedBox(height: context.topPadding),
               const SizedBox(height: 15),
               AppAssets.images.jpegs.bawoniHello.image(
                 scale: 2.45.sp,
