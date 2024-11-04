@@ -107,3 +107,38 @@ const homeEn = 'Home';
 const leaderboardEn = 'Leaderboard';
 const lessonsEn = 'Lessons';
 const meEn = 'Me';
+
+const goodAfternoonYr = 'Ẹ káàsán';
+const goodAfternoonEn = 'Good afternoon';
+const lessonYr = 'Ẹ̀kọ́';
+const lessonEr = 'Lesson';
+
+const lesson1Of4 = 'Lesson 1 of 4';
+const alphabetsYr = 'Álífábẹ́ẹ̀tì';
+const alphabetsEr = 'Alphabets';
+
+const practiceYr = 'Ìfikọ́ra';
+const practiceEr = 'Practice';
+
+const proverbYr = 'Òwe';
+const proverbEr = 'Proverb';
+
+const questionAndAnswerYr = 'Ìbéèrè ati Ìdáhùn';
+const questionAndAnswerEr = 'Question & Answer';
+
+const meaningYr = 'Ìtumọ̀';
+const meaningEn = 'Meaning';
+
+const numbersYr = 'Ọ̀nka';
+const numbersEn = 'Numbers';
+
+const playYr = 'Eré';
+const playEn = 'Play';
+
+const singlePlayerYr = 'Eré aládáṣe';
+const singlePlayerEn = 'Single player';
+
+const multiPlayerYr = 'Eré alájùmọ̀ṣe';
+const multiPlayerEn = 'Multi-player';
+
+const verifyEmailEr = 'Check your mail to verify email address';

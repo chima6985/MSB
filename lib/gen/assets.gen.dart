@@ -25,6 +25,10 @@ class $AssetsImagesGen {
 class $AssetsImagesJpegsGen {
   const $AssetsImagesJpegsGen();
 
+  /// File path: assets/images/jpegs/alphabet.png
+  AssetGenImage get alphabet =>
+      const AssetGenImage('assets/images/jpegs/alphabet.png');
+
   /// File path: assets/images/jpegs/bawoni_hello.png
   AssetGenImage get bawoniHello =>
       const AssetGenImage('assets/images/jpegs/bawoni_hello.png');
@@ -33,13 +37,41 @@ class $AssetsImagesJpegsGen {
   AssetGenImage get bgPattern =>
       const AssetGenImage('assets/images/jpegs/bg_pattern.png');
 
+  /// File path: assets/images/jpegs/coin_2.png
+  AssetGenImage get coin2 =>
+      const AssetGenImage('assets/images/jpegs/coin_2.png');
+
   /// File path: assets/images/jpegs/masoyinbo_logo.png
   AssetGenImage get masoyinboLogo =>
       const AssetGenImage('assets/images/jpegs/masoyinbo_logo.png');
 
+  /// File path: assets/images/jpegs/meaning.png
+  AssetGenImage get meaning =>
+      const AssetGenImage('assets/images/jpegs/meaning.png');
+
+  /// File path: assets/images/jpegs/multiple_player.png
+  AssetGenImage get multiplePlayer =>
+      const AssetGenImage('assets/images/jpegs/multiple_player.png');
+
+  /// File path: assets/images/jpegs/numbers.png
+  AssetGenImage get numbers =>
+      const AssetGenImage('assets/images/jpegs/numbers.png');
+
   /// File path: assets/images/jpegs/onboarding_circles.png
   AssetGenImage get onboardingCircles =>
       const AssetGenImage('assets/images/jpegs/onboarding_circles.png');
+
+  /// File path: assets/images/jpegs/proverb.png
+  AssetGenImage get proverb =>
+      const AssetGenImage('assets/images/jpegs/proverb.png');
+
+  /// File path: assets/images/jpegs/question_and_answer.png
+  AssetGenImage get questionAndAnswer =>
+      const AssetGenImage('assets/images/jpegs/question_and_answer.png');
+
+  /// File path: assets/images/jpegs/single_player.png
+  AssetGenImage get singlePlayer =>
+      const AssetGenImage('assets/images/jpegs/single_player.png');
 
   /// File path: assets/images/jpegs/yoruba_group_avatar.png
   AssetGenImage get yorubaGroupAvatar =>
@@ -47,10 +79,18 @@ class $AssetsImagesJpegsGen {
 
   /// List of all assets
   List<AssetGenImage> get values => [
+        alphabet,
         bawoniHello,
         bgPattern,
+        coin2,
         masoyinboLogo,
+        meaning,
+        multiplePlayer,
+        numbers,
         onboardingCircles,
+        proverb,
+        questionAndAnswer,
+        singlePlayer,
         yorubaGroupAvatar
       ];
 }
