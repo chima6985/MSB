@@ -6,6 +6,6 @@ export 'package:masoyinbo_mobile/theme/app_theme.dart';
 export 'package:masoyinbo_mobile/theme/theme.dart';
 
 export 'components/components.dart';
-export 'dashboard/dashboard_index_screen.dart';
+export 'dashboard/dashboard.dart';
 export 'onboarding/onboarding.dart';
 export 'splash_screen.dart';

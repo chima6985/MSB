@@ -142,3 +142,27 @@ const multiPlayerYr = 'Eré alájùmọ̀ṣe';
 const multiPlayerEn = 'Multi-player';
 
 const verifyEmailEr = 'Check your mail to verify email address';
+
+const leaderboardYr = 'Ààyè olórí';
+
+const top10Advance = 'Top 10 advances to the next league';
+
+const completeLessonToJoinWeekDashboardYr =
+    'Pari è̩kó̩ kan láti darapò̩ mó̩ ààyè olórí ò̩sè̩ yí';
+const completeLessonToJoinWeekDashboardEn =
+    'Complete a lesson to join this week’s leaderboard';
+
+const startALessonEn = 'Start a Lesson';
+const alphabetLesson =
+    "In this lesson, you'll embark on an exciting journey to learn the alphabets of the Yoruba language. We'll guide you through each letter, helping you understand how to pronounce and write them, as well as recognize their unique sounds. By the end of this lesson, you'll have a strong foundation to build upon as you continue your language learning journey.\n\nTo ensure you’ve mastered the content, there will be a knowledge review at the end of the module. This review will help reinforce what you've learned and prepare you for the next steps.\n\nLet’s get started!";
+
+const goToModulesEr = 'Go to Modules';
+const backToLessonsYr = 'Padà sí ẹ̀kọ́';
+const backToLessonsEn = 'Back to Lessons';
+
+const welcomeToYourYrLearningClass =
+    'Welcome to Your Yoruba Alphabet Learning Class!';
+const inThisModuleScreenEn =
+    "In this module, you'll embark on an exciting journey to learn the alphabets of the Yoruba language. We'll guide you through each letter, helping you understand how to pronounce and write them, as well as recognize their unique sounds. By the end of this lesson, you'll have a strong foundation to build upon as you continue your language learning journey.\n\nTo ensure you’ve mastered the content, there will be a knowledge review at the end of the module. This review will help reinforce what you've learned and prepare you for the next steps.\n\nLet’s get started!";
+const startLessonsYr = 'Bẹ̀rẹ̀ ipele';
+const startLessonsEn = 'Start Lessons';

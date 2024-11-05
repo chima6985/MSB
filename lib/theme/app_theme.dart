@@ -10,7 +10,7 @@ class AppTheme {
     textTheme: textTheme,
     primaryColor: AppColors.blue12,
     fontFamily: 'Kanit',
-    highlightColor: AppColors.black15,
+    highlightColor: AppColors.black15.withOpacity(0.1),
     scaffoldBackgroundColor: AppColors.backgroundColor,
     // dialogTheme: _dialogTheme,
     checkboxTheme: CheckboxThemeData(

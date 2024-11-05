@@ -14,7 +14,7 @@ class Button extends StatelessWidget {
     this.verticalPadding = 10.5,
     this.isShowArrow = false,
     this.isBoldLabelText = false,
-    this.isOutlined = true,
+    this.isOutlined = false,
   });
   final String label;
   final void Function() onPressed;
@@ -37,7 +37,7 @@ class Button extends StatelessWidget {
         shadowColor: AppColors.transparent,
         padding: EdgeInsets.symmetric(vertical: verticalPadding),
         backgroundColor:
-            isOutlined ? color ?? AppColors.blue12 : AppColors.transparent,
+            !isOutlined ? color ?? AppColors.blue12 : AppColors.transparent,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(24),
         ),
@@ -86,6 +86,8 @@ class CustomBackButton extends StatelessWidget {
           customBorder: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(4),
           ),
+          splashColor: AppColors.black15.withOpacity(0.1),
+          highlightColor: AppColors.black15.withOpacity(0.1),
           child: const Padding(
             padding: EdgeInsets.symmetric(vertical: 8, horizontal: 6),
             child: Icon(

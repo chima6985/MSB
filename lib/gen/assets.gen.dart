@@ -25,6 +25,9 @@ class $AssetsImagesGen {
 class $AssetsImagesJpegsGen {
   const $AssetsImagesJpegsGen();
 
+  /// File path: assets/images/jpegs/123.png
+  AssetGenImage get a123 => const AssetGenImage('assets/images/jpegs/123.png');
+
   /// File path: assets/images/jpegs/alphabet.png
   AssetGenImage get alphabet =>
       const AssetGenImage('assets/images/jpegs/alphabet.png');
@@ -36,6 +39,9 @@ class $AssetsImagesJpegsGen {
   /// File path: assets/images/jpegs/bg_pattern.png
   AssetGenImage get bgPattern =>
       const AssetGenImage('assets/images/jpegs/bg_pattern.png');
+
+  /// File path: assets/images/jpegs/chat.png
+  AssetGenImage get chat => const AssetGenImage('assets/images/jpegs/chat.png');
 
   /// File path: assets/images/jpegs/coin_2.png
   AssetGenImage get coin2 =>
@@ -79,9 +85,11 @@ class $AssetsImagesJpegsGen {
 
   /// List of all assets
   List<AssetGenImage> get values => [
+        a123,
         alphabet,
         bawoniHello,
         bgPattern,
+        chat,
         coin2,
         masoyinboLogo,
         meaning,
@@ -98,11 +106,18 @@ class $AssetsImagesJpegsGen {
 class $AssetsImagesSvgsGen {
   const $AssetsImagesSvgsGen();
 
+  /// File path: assets/images/svgs/bolt.svg
+  SvgGenImage get bolt => const SvgGenImage('assets/images/svgs/bolt.svg');
+
+  /// File path: assets/images/svgs/diamond_shape.svg
+  SvgGenImage get diamondShape =>
+      const SvgGenImage('assets/images/svgs/diamond_shape.svg');
+
   /// File path: assets/images/svgs/google .svg
   SvgGenImage get google => const SvgGenImage('assets/images/svgs/google .svg');
 
   /// List of all assets
-  List<SvgGenImage> get values => [google];
+  List<SvgGenImage> get values => [bolt, diamondShape, google];
 }
 
 class AppAssets {
