@@ -16,62 +16,64 @@ class ModulesScreen extends HookWidget {
     final mqr = MediaQuery.of(context).size;
     final selectedPosition = useState<int?>(null);
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            SizedBox(height: context.topPadding),
-            Stack(
-              children: [
-                const CustomBackButton(),
-                Padding(
-                  padding: const EdgeInsets.only(top: 7),
-                  child: Center(
-                    child: Text(
-                      'Alphabets',
-                      style: context.textTheme.titleLarge!.copyWith(
-                        fontFamily: FontFamily.margarine,
+      body: DecoratedContainer(
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              SizedBox(height: context.topPadding),
+              Stack(
+                children: [
+                  const CustomBackButton(),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 7),
+                    child: Center(
+                      child: Text(
+                        'Alphabets',
+                        style: context.textTheme.titleLarge!.copyWith(
+                          fontFamily: FontFamily.margarine,
+                        ),
                       ),
                     ),
                   ),
-                ),
-              ],
-            ),
-            Text(
-              welcomeToYourYrLearningClass,
-              textScaler: TextScaler.noScaling,
-              style: context.textTheme.bodySmall,
-            ),
-            SizedBox(height: 30.h),
-            Padding(
-              padding: const EdgeInsetsDirectional.symmetric(horizontal: 23),
-              child: Column(
-                children: [
-                  _AlphabetModeuleListTileWidget(
-                    title: 'Master the alphabets. Part 1',
-                    position: 0,
-                    selectedPosition: selectedPosition,
-                  ),
-                  _AlphabetModeuleListTileWidget(
-                    title: 'Master the alphabets. Part 2',
-                    position: 1,
-                    selectedPosition: selectedPosition,
-                  ),
-                  _AlphabetModeuleListTileWidget(
-                    title: 'Tone marks',
-                    position: 2,
-                    selectedPosition: selectedPosition,
-                  ),
-                  _AlphabetModeuleListTileWidget(
-                    title: 'Master the alphabets',
-                    position: 3,
-                    selectedPosition: selectedPosition,
-                  ),
-                  SizedBox(height: 12.h),
-                  SizedBox(height: mqr.height * 0.2 + context.btmPadding),
                 ],
               ),
-            ),
-          ],
+              Text(
+                welcomeToYourYrLearningClass,
+                textScaler: TextScaler.noScaling,
+                style: context.textTheme.bodySmall,
+              ),
+              SizedBox(height: 30.h),
+              Padding(
+                padding: const EdgeInsetsDirectional.symmetric(horizontal: 23),
+                child: Column(
+                  children: [
+                    _AlphabetModeuleListTileWidget(
+                      title: 'Master the alphabets. Part 1',
+                      position: 0,
+                      selectedPosition: selectedPosition,
+                    ),
+                    _AlphabetModeuleListTileWidget(
+                      title: 'Master the alphabets. Part 2',
+                      position: 1,
+                      selectedPosition: selectedPosition,
+                    ),
+                    _AlphabetModeuleListTileWidget(
+                      title: 'Tone marks',
+                      position: 2,
+                      selectedPosition: selectedPosition,
+                    ),
+                    _AlphabetModeuleListTileWidget(
+                      title: 'Master the alphabets',
+                      position: 3,
+                      selectedPosition: selectedPosition,
+                    ),
+                    SizedBox(height: 12.h),
+                    SizedBox(height: mqr.height * 0.2 + context.btmPadding),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -97,12 +99,18 @@ class _AlphabetModeuleListTileWidget extends StatelessWidget {
         InkWell(
           onTap: () {
             if (isSelected) {
-              context.pushNamed(ModuleIntroScreen.id);
+              context.pushNamed(
+                ModuleIntroScreen.id,
+                extra: {'title': title},
+              );
             } else {
               selectedPosition.value = position;
               Future.delayed(900.ms).then((_) {
                 if (!context.mounted) return;
-                context.pushNamed(ModuleIntroScreen.id);
+                context.pushNamed(
+                  ModuleIntroScreen.id,
+                  extra: {'title': title},
+                );
               });
             }
           },

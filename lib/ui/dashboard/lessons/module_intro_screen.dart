@@ -4,8 +4,13 @@ import 'package:masoyinbo_mobile/extension/context_extension.dart';
 import 'package:masoyinbo_mobile/ui/ui.dart';
 
 class ModuleIntroScreen extends StatelessWidget {
-  const ModuleIntroScreen({super.key});
+  const ModuleIntroScreen({
+    super.key,
+    required this.title,
+  });
   static const String id = 'moduleIntroScreen';
+
+  final String title;
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +23,7 @@ class ModuleIntroScreen extends StatelessWidget {
             children: [
               SizedBox(height: context.topPadding),
               Text(
-                alphabetsEr,
+                title,
                 textAlign: TextAlign.center,
                 style: context.textTheme.titleLarge!.copyWith(
                   fontFamily: 'Margarine',
@@ -43,7 +48,10 @@ class ModuleIntroScreen extends StatelessWidget {
               SizedBox(height: 60.h),
               Button(
                 label: startLessonsYr,
-                onPressed: () => context.pushNamed(ModuleScreen.id),
+                onPressed: () => context.pushNamed(
+                  ModuleScreen.id,
+                  extra: {'title': title},
+                ),
               ),
               const SizedBox(height: 16),
               Button(

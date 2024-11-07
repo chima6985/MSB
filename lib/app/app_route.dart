@@ -15,7 +15,7 @@ class NavObserver extends NavigatorObserver {
 }
 
 final router = GoRouter(
-  initialLocation: '/dashboardIndexScreen',
+  initialLocation: '/',
   observers: [
     // NavObserver(),
   ],
@@ -83,12 +83,32 @@ final router = GoRouter(
     GoRoute(
       name: ModuleIntroScreen.id,
       path: '/moduleIntroScreen',
-      builder: (context, state) => const ModuleIntroScreen(),
+      builder: (context, state) {
+        final paramHandler = state.extra is Map ? state.extra as Map? : {};
+        return ModuleIntroScreen(
+          title: paramHandler?['title'] ?? 'Alphabets',
+        );
+      }, 
     ),
     GoRoute(
       name: ModuleScreen.id,
       path: '/moduleScreen',
-      builder: (context, state) => const ModuleScreen(),
+      builder: (context, state) {
+        final paramHandler = state.extra is Map ? state.extra as Map? : {};
+        return ModuleScreen(
+          title: paramHandler?['title'] ?? 'Alphabets',
+        );
+      },
+    ),
+    GoRoute(
+      name: PlayScreen.id,
+      path: '/playScreen',
+      builder: (context, state) => const PlayScreen(),
+    ),
+    GoRoute(
+      name: QuizLoaderScreen.id,
+      path: '/quizLoaderScreen',
+      builder: (context, state) => const QuizLoaderScreen(),
     ),
   ],
   // errorBuilder: (context, state) => const PageNotFound(),

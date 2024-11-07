@@ -166,3 +166,12 @@ const inThisModuleScreenEn =
     "In this module, you'll embark on an exciting journey to learn the alphabets of the Yoruba language. We'll guide you through each letter, helping you understand how to pronounce and write them, as well as recognize their unique sounds. By the end of this lesson, you'll have a strong foundation to build upon as you continue your language learning journey.\n\nTo ensure you’ve mastered the content, there will be a knowledge review at the end of the module. This review will help reinforce what you've learned and prepare you for the next steps.\n\nLet’s get started!";
 const startLessonsYr = 'Bẹ̀rẹ̀ ipele';
 const startLessonsEn = 'Start Lessons';
+
+const takeQuizYr = 'Dán ìmọ̀ mi wò';
+const takeQuizEn = 'Take Quiz';
+
+const timeForKnowledgeReviewYr = 'Asìkò fún àtúnyẹ̀wò ìmọ̀';
+const timeForKnowledgeReviewEn = 'It’s time for a knowledge review';
+
+const questionIsComingYr = 'ìbéèrè re̩ ń bò̩...';
+const pleaseWaitForQuestionsYr = 'Dúró  bí a s̩e ń s̩ètò àwo̩n ìbéèrè  e';

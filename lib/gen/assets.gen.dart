@@ -47,6 +47,14 @@ class $AssetsImagesJpegsGen {
   AssetGenImage get coin2 =>
       const AssetGenImage('assets/images/jpegs/coin_2.png');
 
+  /// File path: assets/images/jpegs/dark_decorated_bg.png
+  AssetGenImage get darkDecoratedBg =>
+      const AssetGenImage('assets/images/jpegs/dark_decorated_bg.png');
+
+  /// File path: assets/images/jpegs/light_bulb.png
+  AssetGenImage get lightBulb =>
+      const AssetGenImage('assets/images/jpegs/light_bulb.png');
+
   /// File path: assets/images/jpegs/masoyinbo_logo.png
   AssetGenImage get masoyinboLogo =>
       const AssetGenImage('assets/images/jpegs/masoyinbo_logo.png');
@@ -91,6 +99,8 @@ class $AssetsImagesJpegsGen {
         bgPattern,
         chat,
         coin2,
+        darkDecoratedBg,
+        lightBulb,
         masoyinboLogo,
         meaning,
         multiplePlayer,

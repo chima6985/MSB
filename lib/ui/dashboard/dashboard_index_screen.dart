@@ -4,7 +4,6 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:masoyinbo_mobile/app/app.dart';
 import 'package:masoyinbo_mobile/extension/extension.dart';
-import 'package:masoyinbo_mobile/ui/dashboard/dashboard.dart';
 import 'package:masoyinbo_mobile/ui/ui.dart';
 
 class DashboardIndexScreen extends HookWidget {

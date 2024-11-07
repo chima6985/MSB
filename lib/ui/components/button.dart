@@ -15,6 +15,7 @@ class Button extends StatelessWidget {
     this.isShowArrow = false,
     this.isBoldLabelText = false,
     this.isOutlined = false,
+    this.borderColor = AppColors.black15,
   });
   final String label;
   final void Function() onPressed;
@@ -26,6 +27,7 @@ class Button extends StatelessWidget {
   final bool isShowArrow;
   final bool isBoldLabelText;
   final bool isOutlined;
+  final Color borderColor;
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +44,7 @@ class Button extends StatelessWidget {
           borderRadius: BorderRadius.circular(24),
         ),
         side: BorderSide(
-          color: isOutlined ? AppColors.black15 : AppColors.blue12,
+          color: isOutlined ? borderColor : AppColors.blue12,
         ),
       ),
       onPressed: onPressed,
