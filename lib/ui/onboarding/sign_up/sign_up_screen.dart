@@ -158,7 +158,7 @@ class SignUpScreen extends HookWidget {
               const SizedBox(height: 22),
               Button(
                 label: logInYr,
-                isOutlined: false,
+                isOutlined: true,
                 onPressed: () {},
                 child: Row(
                   children: [

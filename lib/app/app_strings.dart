@@ -175,3 +175,16 @@ const timeForKnowledgeReviewEn = 'It’s time for a knowledge review';
 
 const questionIsComingYr = 'ìbéèrè re̩ ń bò̩...';
 const pleaseWaitForQuestionsYr = 'Dúró  bí a s̩e ń s̩ètò àwo̩n ìbéèrè  e';
+
+const completedLessonsEn = 'Completed Lessons';
+const coinEarnedYr = 'Owó ide̩ tí o ti je̩';
+const coninEarnedEn = 'COIN EARNED';
+
+const lessonCoveredYr = 'È̩kó̩ tí o ti s̩e';
+const lessonCoveredEn = 'LESSONS COVERED';
+
+const currentStreakYr = 'Ibi tí o dé';
+const currentStreakEn = 'CURRENT STREAK';
+
+const bestStreakYr = 'Èyí tó dára jùlo̩';
+const bestStreakEn = 'BEST STREAK';

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:masoyinbo_mobile/extension/extension.dart';
 import 'package:masoyinbo_mobile/ui/ui.dart';
 
@@ -15,8 +16,8 @@ class BottomNavButton extends StatelessWidget {
   });
 
   final String buttonName;
-  final IconData buttonIcon;
-  final IconData buttonIconBold;
+  final String buttonIcon;
+  final String buttonIconBold;
   final int position;
   final int currentPosition;
   final void Function() onPressed;
@@ -31,8 +32,7 @@ class BottomNavButton extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(
-            size: position == currentPosition ? 26.sp : 26.sp,
+          SvgPicture.asset(
             position == currentPosition ? buttonIconBold : buttonIcon,
           ),
           const SizedBox(height: 5),

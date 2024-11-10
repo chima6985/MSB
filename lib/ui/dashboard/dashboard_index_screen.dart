@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:iconsax/iconsax.dart';
 import 'package:masoyinbo_mobile/app/app.dart';
 import 'package:masoyinbo_mobile/extension/extension.dart';
 import 'package:masoyinbo_mobile/ui/ui.dart';
@@ -27,10 +26,9 @@ class DashboardIndexScreen extends HookWidget {
           children: [
             if (currentPosition.value == 0) const Home(),
             if (currentPosition.value == 1)
-              LeaderBoard(currentPosition: currentPosition),
-            if (currentPosition.value == 2) const LessonsScreen(),
-            // if (currentPosition.value == 3) const SettingsScreen(),
-            // if (isAction.value) const BlurOverlay(),
+              LearnScreen(currentPosition: currentPosition),
+            if (currentPosition.value == 2) const LeaderBoard(),
+            if (currentPosition.value == 3) const MeScreen(),
             Align(
               alignment: Alignment.bottomCenter,
               child: IntrinsicHeight(
@@ -61,8 +59,8 @@ class DashboardIndexScreen extends HookWidget {
                       children: [
                         BottomNavButton(
                           buttonName: homeEn,
-                          buttonIcon: Iconsax.home_1,
-                          buttonIconBold: Iconsax.home5,
+                          buttonIcon: AppAssets.images.svgs.home.path,
+                          buttonIconBold: AppAssets.images.svgs.homeBold.path,
                           currentPosition: currentPosition.value,
                           onPressed: () {
                             if (0 != currentPosition.value) {
@@ -72,9 +70,9 @@ class DashboardIndexScreen extends HookWidget {
                           },
                         ),
                         BottomNavButton(
-                          buttonName: leaderboardEn,
-                          buttonIcon: Iconsax.ranking_14,
-                          buttonIconBold: Iconsax.ranking_15,
+                          buttonName: lessonsEn,
+                          buttonIcon: AppAssets.images.svgs.learn.path,
+                          buttonIconBold: AppAssets.images.svgs.learnBold.path,
                           position: 1,
                           currentPosition: currentPosition.value,
                           onPressed: () {
@@ -85,9 +83,10 @@ class DashboardIndexScreen extends HookWidget {
                           },
                         ),
                         BottomNavButton(
-                          buttonName: lessonsEn,
-                          buttonIcon: Iconsax.book,
-                          buttonIconBold: Iconsax.book5,
+                          buttonName: leaderboardEn,
+                          buttonIcon: AppAssets.images.svgs.leaderBoard.path,
+                          buttonIconBold:
+                              AppAssets.images.svgs.leaderBoardBold.path,
                           position: 2,
                           currentPosition: currentPosition.value,
                           onPressed: () {
@@ -99,8 +98,8 @@ class DashboardIndexScreen extends HookWidget {
                         ),
                         BottomNavButton(
                           buttonName: meEn,
-                          buttonIcon: Iconsax.profile_circle,
-                          buttonIconBold: Iconsax.profile_circle5,
+                          buttonIcon: AppAssets.images.svgs.me.path,
+                          buttonIconBold: AppAssets.images.svgs.meBold.path,
                           position: 3,
                           currentPosition: currentPosition.value,
                           onPressed: () {

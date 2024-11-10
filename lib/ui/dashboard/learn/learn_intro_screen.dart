@@ -3,9 +3,9 @@ import 'package:masoyinbo_mobile/app/app.dart';
 import 'package:masoyinbo_mobile/extension/context_extension.dart';
 import 'package:masoyinbo_mobile/ui/ui.dart';
 
-class LessonIntroScreen extends StatelessWidget {
-  const LessonIntroScreen({super.key});
-  static const String id = 'lessonIntroScreen';
+class LearnIntroScreen extends StatelessWidget {
+  const LearnIntroScreen({super.key});
+  static const String id = 'learnIntroScreen';
 
   @override
   Widget build(BuildContext context) {

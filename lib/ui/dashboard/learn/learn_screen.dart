@@ -6,8 +6,8 @@ import 'package:masoyinbo_mobile/extension/extension.dart';
 import 'package:masoyinbo_mobile/gen/fonts.gen.dart';
 import 'package:masoyinbo_mobile/ui/ui.dart';
 
-class LessonsScreen extends HookWidget {
-  const LessonsScreen({
+class LearnScreen extends HookWidget {
+  const LearnScreen({
     super.key,
     this.currentPosition,
   });
@@ -49,7 +49,7 @@ class LessonsScreen extends HookWidget {
               image: AppAssets.images.jpegs.alphabet.path,
               title: 'Alphabets',
               isLocked: false,
-              onTap: () => context.pushNamed(LessonIntroScreen.id),
+              onTap: () => context.pushNamed(LearnIntroScreen.id),
             ),
             _LessonsListTileWidget(
               image: AppAssets.images.jpegs.a123.path,

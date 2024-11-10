@@ -15,7 +15,7 @@ class NavObserver extends NavigatorObserver {
 }
 
 final router = GoRouter(
-  initialLocation: '/',
+  initialLocation: '/dashboardIndexScreen',
   observers: [
     // NavObserver(),
   ],
@@ -71,9 +71,9 @@ final router = GoRouter(
       builder: (context, state) => const DashboardIndexScreen(),
     ),
     GoRoute(
-      name: LessonIntroScreen.id,
-      path: '/lessonIntroScreen',
-      builder: (context, state) => const LessonIntroScreen(),
+      name: LearnIntroScreen.id,
+      path: '/learnIntroScreen',
+      builder: (context, state) => const LearnIntroScreen(),
     ),
     GoRoute(
       name: ModulesScreen.id,
@@ -88,7 +88,7 @@ final router = GoRouter(
         return ModuleIntroScreen(
           title: paramHandler?['title'] ?? 'Alphabets',
         );
-      }, 
+      },
     ),
     GoRoute(
       name: ModuleScreen.id,

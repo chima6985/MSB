@@ -51,6 +51,10 @@ class $AssetsImagesJpegsGen {
   AssetGenImage get darkDecoratedBg =>
       const AssetGenImage('assets/images/jpegs/dark_decorated_bg.png');
 
+  /// File path: assets/images/jpegs/lesson_covered.png
+  AssetGenImage get lessonCovered =>
+      const AssetGenImage('assets/images/jpegs/lesson_covered.png');
+
   /// File path: assets/images/jpegs/light_bulb.png
   AssetGenImage get lightBulb =>
       const AssetGenImage('assets/images/jpegs/light_bulb.png');
@@ -100,6 +104,7 @@ class $AssetsImagesJpegsGen {
         chat,
         coin2,
         darkDecoratedBg,
+        lessonCovered,
         lightBulb,
         masoyinboLogo,
         meaning,
@@ -126,8 +131,48 @@ class $AssetsImagesSvgsGen {
   /// File path: assets/images/svgs/google .svg
   SvgGenImage get google => const SvgGenImage('assets/images/svgs/google .svg');
 
+  /// File path: assets/images/svgs/home.svg
+  SvgGenImage get home => const SvgGenImage('assets/images/svgs/home.svg');
+
+  /// File path: assets/images/svgs/home_bold.svg
+  SvgGenImage get homeBold =>
+      const SvgGenImage('assets/images/svgs/home_bold.svg');
+
+  /// File path: assets/images/svgs/leader_board.svg
+  SvgGenImage get leaderBoard =>
+      const SvgGenImage('assets/images/svgs/leader_board.svg');
+
+  /// File path: assets/images/svgs/leader_board_bold.svg
+  SvgGenImage get leaderBoardBold =>
+      const SvgGenImage('assets/images/svgs/leader_board_bold.svg');
+
+  /// File path: assets/images/svgs/learn.svg
+  SvgGenImage get learn => const SvgGenImage('assets/images/svgs/learn.svg');
+
+  /// File path: assets/images/svgs/learn_bold.svg
+  SvgGenImage get learnBold =>
+      const SvgGenImage('assets/images/svgs/learn_bold.svg');
+
+  /// File path: assets/images/svgs/me.svg
+  SvgGenImage get me => const SvgGenImage('assets/images/svgs/me.svg');
+
+  /// File path: assets/images/svgs/me_bold.svg
+  SvgGenImage get meBold => const SvgGenImage('assets/images/svgs/me_bold.svg');
+
   /// List of all assets
-  List<SvgGenImage> get values => [bolt, diamondShape, google];
+  List<SvgGenImage> get values => [
+        bolt,
+        diamondShape,
+        google,
+        home,
+        homeBold,
+        leaderBoard,
+        leaderBoardBold,
+        learn,
+        learnBold,
+        me,
+        meBold
+      ];
 }
 
 class AppAssets {
