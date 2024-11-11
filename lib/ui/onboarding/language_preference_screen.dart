@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:masoyinbo_mobile/app/app.dart';
 import 'package:masoyinbo_mobile/extension/context_extension.dart';
+import 'package:masoyinbo_mobile/gen/fonts.gen.dart';
 import 'package:masoyinbo_mobile/ui/ui.dart';
 
 class LanguagePreferenceScreen extends StatelessWidget {
@@ -26,7 +27,7 @@ class LanguagePreferenceScreen extends StatelessWidget {
               Text(
                 languagePreferenceEn,
                 style: context.textTheme.bodyLarge!.copyWith(
-                  fontFamily: 'Margarine',
+                  fontFamily: FontFamily.margarine,
                   fontWeight: FontWeight.w500,
                 ),
               ),

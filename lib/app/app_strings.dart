@@ -188,3 +188,52 @@ const currentStreakEn = 'CURRENT STREAK';
 
 const bestStreakYr = 'Èyí tó dára jùlo̩';
 const bestStreakEn = 'BEST STREAK';
+
+const settingsYr = '';
+const settingsEn = 'Settings';
+
+const generalYr = '';
+const generalEn = 'GENERAL';
+
+const accountYr = 'Àko̩sílè̩';
+const accountEn = 'Account';
+
+const notificationsYr = 'Ìpàkíyèsí';
+const notificationsEn = 'Notifications';
+
+const paymentPlanYr = 'ìsò̩rí owó sísan';
+const paymentPlanEn = 'Payment plan';
+
+const languageYr = 'Èdè';
+const languageEn = 'Language';
+
+const soundEffectYr = 'Ìró ohùn';
+const soundEffectEn = 'Sound effects';
+
+const othersYr = 'OTHERS';
+const othersEn = 'OTHERS';
+
+const helpYr = 'Ìrànló̩wó̩';
+const helpEn = 'Ìrànló̩wó̩';
+
+const logoutYr = 'Kúrò lórí ìkànì yí';
+const logoutEn = 'Log out';
+
+const deleteAccountYr = 'Pa àko̩sílè̩ ré̩';
+const deleteAccountEn = 'Delete account';
+
+const remindersEn = 'Reminders';
+const streakRemindersEn = 'Streak reminders';
+const inAppNotificationEn = 'In-app notification';
+const emailNotificationEn = 'Email notification';
+const smsNotificationEn = 'SMS notification';
+
+const selectPreferredLanguageYr =
+    'Yan èdè ààyò re̩ fún ìtó̩na lórí app yi, o lè s̩e ìmúdójùìwoò̩n às̩àyàn re̩ nígbàkugbà nínú abala àtúnto.';
+
+const selectPreferredLanguage2En =
+    'Select your preferred primary language for navigation and communication in the app';
+
+const needHelpYr = '';
+const needHelpEn =
+    "Need help? Our Support team is here for you!\nWe're dedicated to resolving your issues fast & efficiently. ";

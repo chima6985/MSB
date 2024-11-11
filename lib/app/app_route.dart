@@ -110,6 +110,26 @@ final router = GoRouter(
       path: '/quizLoaderScreen',
       builder: (context, state) => const QuizLoaderScreen(),
     ),
+    GoRoute(
+      name: SettingsScreen.id,
+      path: '/settingsScreen',
+      builder: (context, state) => const SettingsScreen(),
+    ),
+    GoRoute(
+      name: NotificationsScreen.id,
+      path: '/notificationsScreen',
+      builder: (context, state) => const NotificationsScreen(),
+    ),
+    GoRoute(
+      name: LanguageScreen.id,
+      path: '/languageScreen',
+      builder: (context, state) => const LanguageScreen(),
+    ),
+    GoRoute(
+      name: HelpScreen.id,
+      path: '/helpScreen',
+      builder: (context, state) => const HelpScreen(),
+    ),
   ],
   // errorBuilder: (context, state) => const PageNotFound(),
 );

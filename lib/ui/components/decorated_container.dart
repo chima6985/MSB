@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:masoyinbo_mobile/ui/ui.dart';
 
 class DecoratedContainer extends StatefulWidget {
@@ -43,7 +44,9 @@ class _DecoratedContainerState extends State<DecoratedContainer>
 
     if (widget.isAnimate) {
       Future.delayed(1.5.seconds, () {
-        _controller.repeat(reverse: true);
+        SchedulerBinding.instance.addPostFrameCallback((_) {
+          _controller.repeat(reverse: true);
+        });
       });
     }
   }

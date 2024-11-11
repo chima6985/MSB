@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:masoyinbo_mobile/app/app.dart';
 import 'package:masoyinbo_mobile/extension/context_extension.dart';
+import 'package:masoyinbo_mobile/gen/fonts.gen.dart';
 import 'package:masoyinbo_mobile/ui/ui.dart';
 
 class SignUpScreen extends HookWidget {
@@ -37,7 +38,7 @@ class SignUpScreen extends HookWidget {
                 createAccountYr,
                 textScaler: TextScaler.noScaling,
                 style: context.textTheme.titleLarge!.copyWith(
-                  fontFamily: 'Margarine',
+                  fontFamily: FontFamily.margarine,
                   height: 1.8,
                 ),
               ),

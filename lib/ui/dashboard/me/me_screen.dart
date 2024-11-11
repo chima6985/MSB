@@ -20,8 +20,12 @@ class MeScreen extends HookWidget {
           children: [
             SizedBox(height: context.topPadding),
             SizedBox(height: 24.h),
-            CircleAvatar(
-              radius: 40.sp,
+            Stack(
+              children: [
+                CircleAvatar(
+                  radius: 40.sp,
+                ),
+              ],
             ),
             const SizedBox(height: 16),
             Text(

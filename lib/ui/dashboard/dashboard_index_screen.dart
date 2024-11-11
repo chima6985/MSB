@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:masoyinbo_mobile/app/app.dart';
 import 'package:masoyinbo_mobile/extension/extension.dart';
+import 'package:masoyinbo_mobile/gen/fonts.gen.dart';
 import 'package:masoyinbo_mobile/ui/ui.dart';
 
 class DashboardIndexScreen extends HookWidget {
@@ -21,6 +23,36 @@ class DashboardIndexScreen extends HookWidget {
     final currentPosition = useState(initialIndex);
     return Scaffold(
       resizeToAvoidBottomInset: false,
+      appBar: currentPosition.value == 3
+          ? AppBar(
+              title: Text(
+                'Me',
+                style: context.textTheme.titleLarge!.copyWith(
+                  fontFamily: FontFamily.margarine,
+                ),
+              ),
+              actions: [
+                Transform.translate(
+                  offset: const Offset(-10, 0),
+                  child: InkWell(
+                    onTap: () => context.pushNamed(SettingsScreen.id),
+                    customBorder: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(4),
+                    ),
+                    splashColor: AppColors.black15.withOpacity(0.1),
+                    highlightColor: AppColors.black15.withOpacity(0.1),
+                    child: const Padding(
+                      padding: EdgeInsets.symmetric(vertical: 4, horizontal: 6),
+                      child: Icon(
+                        Iconsax.setting_2,
+                        color: AppColors.black15,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            )
+          : null,
       body: DecoratedContainer(
         child: Stack(
           children: [

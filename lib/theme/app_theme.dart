@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:masoyinbo_mobile/gen/fonts.gen.dart';
 import 'package:masoyinbo_mobile/theme/theme.dart';
 
 class AppTheme {
@@ -9,7 +10,7 @@ class AppTheme {
   static ThemeData themeData = ThemeData(
     textTheme: textTheme,
     primaryColor: AppColors.blue12,
-    fontFamily: 'Kanit',
+    fontFamily: FontFamily.kanit,
     highlightColor: AppColors.black15.withOpacity(0.1),
     scaffoldBackgroundColor: AppColors.backgroundColor,
     // dialogTheme: _dialogTheme,
@@ -25,6 +26,19 @@ class AppTheme {
         width: 0.9,
         color: AppColors.black15,
       ),
+    ),
+    appBarTheme: const AppBarTheme(
+      elevation: 0.5,
+      backgroundColor: AppColors.white,
+      centerTitle: false,
+      iconTheme: IconThemeData(
+        color: AppColors.black15,
+      ),
+      // systemOverlayStyle: SystemUiOverlayStyle(
+      //   statusBarBrightness: Brightness.dark,
+      //   statusBarColor: AppColors.white,
+      //   statusBarIconBrightness: Brightness.light,
+      // ),
     ),
     datePickerTheme: DatePickerThemeData(
       headerBackgroundColor: AppColors.secondaryColor,

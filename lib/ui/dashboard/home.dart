@@ -52,7 +52,7 @@ class Home extends StatelessWidget {
                   goodAfternoonYr,
                   textScaler: TextScaler.noScaling,
                   style: context.textTheme.titleLarge!.copyWith(
-                    fontFamily: 'Margarine',
+                    fontFamily: FontFamily.margarine,
                   ),
                 ),
                 const Spacer(),
