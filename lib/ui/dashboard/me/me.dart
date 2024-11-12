@@ -1,5 +1,9 @@
+export 'account_screen.dart';
+export 'change_avatar_screen.dart';
 export 'help_screen.dart';
 export 'language_screen.dart';
 export 'me_screen.dart';
 export 'notifications_screen.dart';
+export 'password_screen.dart';
+export 'payment_screen.dart';
 export 'settings_screen.dart';

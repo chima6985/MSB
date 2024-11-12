@@ -9,10 +9,7 @@ import 'package:masoyinbo_mobile/ui/ui.dart';
 class LearnScreen extends HookWidget {
   const LearnScreen({
     super.key,
-    this.currentPosition,
   });
-
-  final ValueNotifier<int>? currentPosition;
 
   @override
   Widget build(BuildContext context) {

@@ -42,7 +42,7 @@ class MultiGroupedSelector extends StatelessWidget {
                   if (isMultipleSelection)
                     _RadioIndicator(isSelected: isSelected)
                   else
-                    _CheckBoxIndicator(isSelected: isSelected),
+                    CheckBoxIndicator(isSelected: isSelected),
                   const SizedBox(width: 8),
                   Expanded(
                     child: Transform.translate(
@@ -65,8 +65,8 @@ class MultiGroupedSelector extends StatelessWidget {
   }
 }
 
-class _CheckBoxIndicator extends StatelessWidget {
-  const _CheckBoxIndicator({
+class CheckBoxIndicator extends StatelessWidget {
+  const CheckBoxIndicator({super.key, 
     required this.isSelected,
   });
 

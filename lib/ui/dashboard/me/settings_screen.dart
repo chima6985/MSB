@@ -59,7 +59,7 @@ class SettingsScreen extends HookWidget {
                     _SettingsWidget(
                       title: accountYr,
                       iconData: Iconsax.user,
-                      onTap: () {},
+                      onTap: () => context.pushNamed(AccountScreen.id),
                     ),
                     _SettingsWidget(
                       title: notificationsYr,
@@ -69,7 +69,7 @@ class SettingsScreen extends HookWidget {
                     _SettingsWidget(
                       title: paymentPlanYr,
                       iconData: Iconsax.moneys,
-                      onTap: () {},
+                      onTap: () => context.pushNamed(PaymentScreen.id),
                     ),
                     _SettingsWidget(
                       title: languageYr,

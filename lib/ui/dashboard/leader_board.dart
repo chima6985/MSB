@@ -352,7 +352,7 @@ class _EmptyLeaderboardWidget extends StatelessWidget {
         Button(
           label: startALessonEn,
           width: mqr.width * 0.38,
-          onPressed: () => currentPosition?.value = 2,
+          onPressed: () => currentPosition?.value = 1,
         ),
       ],
     );

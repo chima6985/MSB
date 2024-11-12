@@ -72,7 +72,7 @@ class LoginScreen extends HookWidget {
                     foregroundColor: AppColors.blue12,
                   ),
                   child: Text(
-                    'Forgot Password?',
+                    forgotPasswordEn,
                     textScaler: TextScaler.noScaling,
                     style: context.textTheme.bodySmall!.copyWith(
                       fontWeight: FontWeight.w500,

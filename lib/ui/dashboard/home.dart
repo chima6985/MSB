@@ -111,97 +111,101 @@ class Home extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 10),
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-              decoration: BoxDecoration(
-                color: AppColors.purpleF1,
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    lesson1Of4,
-                    textScaler: TextScaler.noScaling,
-                    style: context.textTheme.bodySmall!.copyWith(
-                      fontWeight: FontWeight.w400,
+            GestureDetector(
+              onTap: () => context.pushNamed(LearnIntroScreen.id),
+              child: Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                decoration: BoxDecoration(
+                  color: AppColors.purpleF1,
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      lesson1Of4,
+                      textScaler: TextScaler.noScaling,
+                      style: context.textTheme.bodySmall!.copyWith(
+                        fontWeight: FontWeight.w400,
+                      ),
                     ),
-                  ),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: Stack(
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Stack(
+                            children: [
+                              Container(
+                                clipBehavior: Clip.hardEdge,
+                                height: 4.h,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(12),
+                                  color: AppColors.purple12.withOpacity(0.12),
+                                ),
+                              ),
+                              Container(
+                                width: 120,
+                                height: 4.h,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(12),
+                                  color: AppColors.purple12,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(width: 16),
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 5),
+                          child: Text(
+                            '12%',
+                            textScaler: TextScaler.noScaling,
+                            style: context.textTheme.bodyMedium,
+                          ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        AppAssets.images.jpegs.alphabet.image(
+                          width: 40.w,
+                          height: 40.w,
+                        ),
+                        const SizedBox(width: 12),
+                        Column(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Container(
-                              clipBehavior: Clip.hardEdge,
-                              height: 4.h,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(12),
-                                color: AppColors.purple12.withOpacity(0.12),
+                            Text(
+                              alphabetsEr,
+                              textScaler: TextScaler.noScaling,
+                              style: context.textTheme.bodyLarge!.copyWith(
+                                fontWeight: FontWeight.w500,
                               ),
                             ),
-                            Container(
-                              width: 120,
-                              height: 4.h,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(12),
-                                color: AppColors.purple12,
+                            Text(
+                              alphabetsYr,
+                              textScaler: TextScaler.noScaling,
+                              style: context.textTheme.bodySmall!.copyWith(
+                                fontStyle: FontStyle.italic,
+                                fontWeight: FontWeight.w300,
                               ),
                             ),
                           ],
                         ),
-                      ),
-                      const SizedBox(width: 16),
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 5),
-                        child: Text(
-                          '12%',
+                        const Spacer(),
+                        Text(
+                          continueEn,
                           textScaler: TextScaler.noScaling,
-                          style: context.textTheme.bodyMedium,
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      AppAssets.images.jpegs.alphabet.image(
-                        width: 40.w,
-                        height: 40.w,
-                      ),
-                      const SizedBox(width: 12),
-                      Column(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            alphabetsEr,
-                            textScaler: TextScaler.noScaling,
-                            style: context.textTheme.bodyLarge!.copyWith(
-                              fontWeight: FontWeight.w500,
-                            ),
+                          style: context.textTheme.bodySmall!.copyWith(
+                            fontWeight: FontWeight.w500,
                           ),
-                          Text(
-                            alphabetsYr,
-                            textScaler: TextScaler.noScaling,
-                            style: context.textTheme.bodySmall!.copyWith(
-                              fontStyle: FontStyle.italic,
-                              fontWeight: FontWeight.w300,
-                            ),
-                          ),
-                        ],
-                      ),
-                      const Spacer(),
-                      Text(
-                        continueEn,
-                        textScaler: TextScaler.noScaling,
-                        style: context.textTheme.bodySmall!.copyWith(
-                          fontWeight: FontWeight.w500,
                         ),
-                      ),
-                    ],
-                  ),
-                ],
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
             const SizedBox(height: 32),

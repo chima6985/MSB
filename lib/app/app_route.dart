@@ -130,6 +130,26 @@ final router = GoRouter(
       path: '/helpScreen',
       builder: (context, state) => const HelpScreen(),
     ),
+    GoRoute(
+      name: AccountScreen.id,
+      path: '/accountScreen',
+      builder: (context, state) => const AccountScreen(),
+    ),
+     GoRoute(
+      name: PasswordScreen.id,
+      path: '/passwordScreen',
+      builder: (context, state) => const PasswordScreen(),
+    ),
+    GoRoute(
+      name: ChangeAvatarScreen.id,
+      path: '/changeAvatarScreen',
+      builder: (context, state) => const ChangeAvatarScreen(),
+    ),
+    GoRoute(
+      name: PaymentScreen.id,
+      path: '/paymentScreen',
+      builder: (context, state) => const PaymentScreen(),
+    ),
   ],
   // errorBuilder: (context, state) => const PageNotFound(),
 );

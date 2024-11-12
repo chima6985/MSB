@@ -40,6 +40,10 @@ class $AssetsImagesJpegsGen {
   AssetGenImage get bgPattern =>
       const AssetGenImage('assets/images/jpegs/bg_pattern.png');
 
+  /// File path: assets/images/jpegs/books.png
+  AssetGenImage get books =>
+      const AssetGenImage('assets/images/jpegs/books.png');
+
   /// File path: assets/images/jpegs/chat.png
   AssetGenImage get chat => const AssetGenImage('assets/images/jpegs/chat.png');
 
@@ -51,6 +55,14 @@ class $AssetsImagesJpegsGen {
   AssetGenImage get darkDecoratedBg =>
       const AssetGenImage('assets/images/jpegs/dark_decorated_bg.png');
 
+  /// File path: assets/images/jpegs/drums.png
+  AssetGenImage get drums =>
+      const AssetGenImage('assets/images/jpegs/drums.png');
+
+  /// File path: assets/images/jpegs/interactive_quiz.png
+  AssetGenImage get interactiveQuiz =>
+      const AssetGenImage('assets/images/jpegs/interactive_quiz.png');
+
   /// File path: assets/images/jpegs/lesson_covered.png
   AssetGenImage get lessonCovered =>
       const AssetGenImage('assets/images/jpegs/lesson_covered.png');
@@ -58,6 +70,9 @@ class $AssetsImagesJpegsGen {
   /// File path: assets/images/jpegs/light_bulb.png
   AssetGenImage get lightBulb =>
       const AssetGenImage('assets/images/jpegs/light_bulb.png');
+
+  /// File path: assets/images/jpegs/lips.png
+  AssetGenImage get lips => const AssetGenImage('assets/images/jpegs/lips.png');
 
   /// File path: assets/images/jpegs/masoyinbo_logo.png
   AssetGenImage get masoyinboLogo =>
@@ -71,13 +86,25 @@ class $AssetsImagesJpegsGen {
   AssetGenImage get multiplePlayer =>
       const AssetGenImage('assets/images/jpegs/multiple_player.png');
 
+  /// File path: assets/images/jpegs/no_ads.png
+  AssetGenImage get noAds =>
+      const AssetGenImage('assets/images/jpegs/no_ads.png');
+
   /// File path: assets/images/jpegs/numbers.png
   AssetGenImage get numbers =>
       const AssetGenImage('assets/images/jpegs/numbers.png');
 
+  /// File path: assets/images/jpegs/offline.png
+  AssetGenImage get offline =>
+      const AssetGenImage('assets/images/jpegs/offline.png');
+
   /// File path: assets/images/jpegs/onboarding_circles.png
   AssetGenImage get onboardingCircles =>
       const AssetGenImage('assets/images/jpegs/onboarding_circles.png');
+
+  /// File path: assets/images/jpegs/profile_image.png
+  AssetGenImage get profileImage =>
+      const AssetGenImage('assets/images/jpegs/profile_image.png');
 
   /// File path: assets/images/jpegs/proverb.png
   AssetGenImage get proverb =>
@@ -91,6 +118,14 @@ class $AssetsImagesJpegsGen {
   AssetGenImage get singlePlayer =>
       const AssetGenImage('assets/images/jpegs/single_player.png');
 
+  /// File path: assets/images/jpegs/stars.png
+  AssetGenImage get stars =>
+      const AssetGenImage('assets/images/jpegs/stars.png');
+
+  /// File path: assets/images/jpegs/trapezium_blue.png
+  AssetGenImage get trapeziumBlue =>
+      const AssetGenImage('assets/images/jpegs/trapezium_blue.png');
+
   /// File path: assets/images/jpegs/yoruba_group_avatar.png
   AssetGenImage get yorubaGroupAvatar =>
       const AssetGenImage('assets/images/jpegs/yoruba_group_avatar.png');
@@ -101,19 +136,28 @@ class $AssetsImagesJpegsGen {
         alphabet,
         bawoniHello,
         bgPattern,
+        books,
         chat,
         coin2,
         darkDecoratedBg,
+        drums,
+        interactiveQuiz,
         lessonCovered,
         lightBulb,
+        lips,
         masoyinboLogo,
         meaning,
         multiplePlayer,
+        noAds,
         numbers,
+        offline,
         onboardingCircles,
+        profileImage,
         proverb,
         questionAndAnswer,
         singlePlayer,
+        stars,
+        trapeziumBlue,
         yorubaGroupAvatar
       ];
 }

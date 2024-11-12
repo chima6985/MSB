@@ -154,7 +154,7 @@ const completeLessonToJoinWeekDashboardEn =
 
 const startALessonEn = 'Start a Lesson';
 const alphabetLesson =
-    "In this lesson, you'll embark on an exciting journey to learn the alphabets of the Yoruba language. We'll guide you through each letter, helping you understand how to pronounce and write them, as well as recognize their unique sounds. By the end of this lesson, you'll have a strong foundation to build upon as you continue your language learning journey.\n\nTo ensure you’ve mastered the content, there will be a knowledge review at the end of the module. This review will help reinforce what you've learned and prepare you for the next steps.\n\nLet’s get started!";
+    "In this module, you'll embark on an exciting journey to learn the alphabets of the Yoruba language. We'll guide you through each letter, helping you understand how to pronounce and write them, as well as recognize their unique sounds. By the end of this lesson, you'll have a strong foundation to build upon as you continue your language learning journey.\n\nTo ensure you’ve mastered the content, there will be a knowledge review at the end of the module. This review will help reinforce what you've learned and prepare you for the next steps.\n\nLet’s get started!";
 
 const goToModulesEr = 'Go to Modules';
 const backToLessonsYr = 'Padà sí ẹ̀kọ́';
@@ -163,7 +163,7 @@ const backToLessonsEn = 'Back to Lessons';
 const welcomeToYourYrLearningClass =
     'Welcome to Your Yoruba Alphabet Learning Class!';
 const inThisModuleScreenEn =
-    "In this module, you'll embark on an exciting journey to learn the alphabets of the Yoruba language. We'll guide you through each letter, helping you understand how to pronounce and write them, as well as recognize their unique sounds. By the end of this lesson, you'll have a strong foundation to build upon as you continue your language learning journey.\n\nTo ensure you’ve mastered the content, there will be a knowledge review at the end of the module. This review will help reinforce what you've learned and prepare you for the next steps.\n\nLet’s get started!";
+    "In this lesson, you'll embark on an exciting journey to learn the alphabets of the Yoruba language. We'll guide you through each letter, helping you understand how to pronounce and write them, as well as recognize their unique sounds. By the end of this lesson, you'll have a strong foundation to build upon as you continue your language learning journey.\n\nTo ensure you’ve mastered the content, there will be a knowledge review at the end of the module. This review will help reinforce what you've learned and prepare you for the next steps.\n\nLet’s get started!";
 const startLessonsYr = 'Bẹ̀rẹ̀ ipele';
 const startLessonsEn = 'Start Lessons';
 
@@ -237,3 +237,48 @@ const selectPreferredLanguage2En =
 const needHelpYr = '';
 const needHelpEn =
     "Need help? Our Support team is here for you!\nWe're dedicated to resolving your issues fast & efficiently. ";
+
+const passwordEn2 = 'Password';
+const currentPasswordEn = 'Current password';
+const newPasswordEn = 'New password';
+const reEnterNewPasswordEn = 'Re-enter new password';
+const changeYourAvatarEn = 'Change your Avatar';
+const updateChangesEn = 'Update Changes';
+const updateEn = 'Update';
+
+const forgotPasswordEn = 'Forgot Password?';
+const updatePasswordEn = 'Update Password';
+
+const selectAnAvatarOfYourChoiceEn = 'Select an avatar of your choice';
+const premiumPlanEn = 'Premium Plan';
+
+const withPremiumPlansEn = 'With a premium plan, you get all of the following:';
+
+const accessAdvancedLessonsEn = 'Access to Advanced Lessons:';
+const unlockMoreIndepthEn =
+    'Unlock more in-depth Yoruba grammar, vocabulary, and cultural insights.';
+
+const addsFreeEn = 'Ad-free experience:';
+const enjoyWithoutAdsEn = 'Enjoy uninterrupted learning without ads.';
+
+const downloadForOfflineLearning = 'Download for offline learning:';
+const downloadLessonsEn =
+    'Download lessons and materials to learn anytime, even without an internet connection.';
+
+const interactiveQuizesEn = 'Interactive Quizzes and Tests:';
+const getAccessToPremiumQuizEn =
+    'Get access to premium quizzes, interactive exercises, and progress tracking to sharpen your skills.';
+
+const pronunciationAndSpeakingPracticeEn =
+    'Pronunciation and Speaking Practice:';
+const receiveExclusivePronunciationGuidesEn =
+    'Receive exclusive pronunciation guides and voice recognition tools for speaking practice.';
+
+const culturalContentEn = 'Cultural Content: ';
+const exploreYorubaProverbsEn =
+    'Explore Yoruba proverbs, folktales, and cultural lessons available only to premium users.';
+
+const cancelAnytimeEn = 'Cancel anytime with no charges.';
+const paymentPlansEn = 'Payment Plans';
+const choosePreferredPaymentPlanEn = 'Choose your preferred payment plan';
+const makePaymentEn = 'Make Payment';

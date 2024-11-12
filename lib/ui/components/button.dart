@@ -75,7 +75,12 @@ class Button extends StatelessWidget {
 }
 
 class CustomBackButton extends StatelessWidget {
-  const CustomBackButton({super.key});
+  const CustomBackButton({
+    super.key,
+    this.buttonColor = AppColors.black15,
+  });
+
+  final Color? buttonColor;
 
   @override
   Widget build(BuildContext context) {
@@ -90,11 +95,11 @@ class CustomBackButton extends StatelessWidget {
           ),
           splashColor: AppColors.black15.withOpacity(0.1),
           highlightColor: AppColors.black15.withOpacity(0.1),
-          child: const Padding(
-            padding: EdgeInsets.symmetric(vertical: 8, horizontal: 6),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 6),
             child: Icon(
               Iconsax.arrow_left_2,
-              color: AppColors.black15,
+              color: buttonColor,
             ),
           ),
         ),

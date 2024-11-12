@@ -57,9 +57,8 @@ class DashboardIndexScreen extends HookWidget {
         child: Stack(
           children: [
             if (currentPosition.value == 0) const Home(),
-            if (currentPosition.value == 1)
-              LearnScreen(currentPosition: currentPosition),
-            if (currentPosition.value == 2) const LeaderBoard(),
+            if (currentPosition.value == 1) LearnScreen(),
+            if (currentPosition.value == 2) LeaderBoard(currentPosition: currentPosition),
             if (currentPosition.value == 3) const MeScreen(),
             Align(
               alignment: Alignment.bottomCenter,

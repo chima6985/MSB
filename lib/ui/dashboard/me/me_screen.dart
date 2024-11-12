@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:masoyinbo_mobile/app/app.dart';
 import 'package:masoyinbo_mobile/extension/extension.dart';
 import 'package:masoyinbo_mobile/gen/fonts.gen.dart';
@@ -20,12 +21,26 @@ class MeScreen extends HookWidget {
           children: [
             SizedBox(height: context.topPadding),
             SizedBox(height: 24.h),
-            Stack(
-              children: [
-                CircleAvatar(
-                  radius: 40.sp,
-                ),
-              ],
+            GestureDetector(
+              onTap: () => context.pushNamed(ChangeAvatarScreen.id),
+              child: Stack(
+                alignment: Alignment.bottomRight,
+                children: [
+                  CircleAvatar(
+                    radius: 40.sp,
+                    backgroundColor: AppColors.blue13,
+                  ),
+                  CircleAvatar(
+                    backgroundColor: AppColors.blueE7,
+                    radius: 12.sp,
+                    child: Icon(
+                      Iconsax.edit_2,
+                      color: AppColors.blue12,
+                      size: 17.sp,
+                    ),
+                  ),
+                ],
+              ),
             ),
             const SizedBox(height: 16),
             Text(
