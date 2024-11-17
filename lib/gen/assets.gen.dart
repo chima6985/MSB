@@ -122,6 +122,10 @@ class $AssetsImagesJpegsGen {
   AssetGenImage get stars =>
       const AssetGenImage('assets/images/jpegs/stars.png');
 
+  /// File path: assets/images/jpegs/success_icon.png
+  AssetGenImage get successIcon =>
+      const AssetGenImage('assets/images/jpegs/success_icon.png');
+
   /// File path: assets/images/jpegs/trapezium_blue.png
   AssetGenImage get trapeziumBlue =>
       const AssetGenImage('assets/images/jpegs/trapezium_blue.png');
@@ -157,6 +161,7 @@ class $AssetsImagesJpegsGen {
         questionAndAnswer,
         singlePlayer,
         stars,
+        successIcon,
         trapeziumBlue,
         yorubaGroupAvatar
       ];

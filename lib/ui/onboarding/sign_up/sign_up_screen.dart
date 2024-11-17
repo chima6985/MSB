@@ -16,8 +16,8 @@ class SignUpScreen extends HookWidget {
     final passwordController = useTextEditingController();
     final confirmPasswordController = useTextEditingController();
     final isAgreement = useState(false);
-    return Scaffold(
-      body: DecoratedContainer(
+    return DecoratedContainer(
+      child: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24),
           child: Column(
@@ -175,6 +175,7 @@ class SignUpScreen extends HookWidget {
                   ],
                 ),
               ),
+              SizedBox(height: context.btmPadding),
             ],
           ),
         ),

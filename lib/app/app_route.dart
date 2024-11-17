@@ -15,7 +15,7 @@ class NavObserver extends NavigatorObserver {
 }
 
 final router = GoRouter(
-  initialLocation: '/dashboardIndexScreen',
+  initialLocation: '/',
   observers: [
     // NavObserver(),
   ],
@@ -135,7 +135,7 @@ final router = GoRouter(
       path: '/accountScreen',
       builder: (context, state) => const AccountScreen(),
     ),
-     GoRoute(
+    GoRoute(
       name: PasswordScreen.id,
       path: '/passwordScreen',
       builder: (context, state) => const PasswordScreen(),
@@ -149,6 +149,31 @@ final router = GoRouter(
       name: PaymentScreen.id,
       path: '/paymentScreen',
       builder: (context, state) => const PaymentScreen(),
+    ),
+    GoRoute(
+      name: DeleteAccountScreen.id,
+      path: '/deleteAccountScreen',
+      builder: (context, state) => const DeleteAccountScreen(),
+    ),
+    GoRoute(
+      name: DeleteAccountSurveyScreen.id,
+      path: '/deleteAccountSurveyScreen',
+      builder: (context, state) => const DeleteAccountSurveyScreen(),
+    ),
+    GoRoute(
+      name: ForgotPasswordScreen.id,
+      path: '/forgotPasswordScreen',
+      builder: (context, state) => const ForgotPasswordScreen(),
+    ),
+    GoRoute(
+      name: ForgotPasswordOtpScreen.id,
+      path: '/forgotPasswordOtpScreen',
+      builder: (context, state) => const ForgotPasswordOtpScreen(),
+    ),
+    GoRoute(
+      name: ChangePasswordScreen.id,
+      path: '/changePasswordScreen',
+      builder: (context, state) => const ChangePasswordScreen(),
     ),
   ],
   // errorBuilder: (context, state) => const PageNotFound(),

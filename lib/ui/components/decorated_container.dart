@@ -60,82 +60,84 @@ class _DecoratedContainerState extends State<DecoratedContainer>
   @override
   Widget build(BuildContext context) {
     final mqr = MediaQuery.of(context).size;
-    return AnimatedBuilder(
-      animation: _randomTweenAnimation,
-      builder: (context, child) {
-        return Stack(
-          children: [
-            Container(
-              width: mqr.width,
-              height: mqr.height,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AppAssets.images.jpegs.bgPattern.provider(),
-                ),
-              ),
-            ),
-            if (widget.isAnimate) ...[
-              Positioned(
-                bottom: 300.h,
-                right: -100.w * _randomTweenAnimation.value,
-                child: Container(
-                  width: 220.w,
-                  height: 220.w,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    boxShadow: [
-                      BoxShadow(
-                        color: AppColors.green62.withOpacity(0.3),
-                        blurRadius: 120,
-                      ),
-                    ],
+    return Scaffold(
+      body: AnimatedBuilder(
+        animation: _randomTweenAnimation,
+        builder: (context, child) {
+          return Stack(
+            children: [
+              Container(
+                width: mqr.width,
+                height: mqr.height,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AppAssets.images.jpegs.bgPattern.provider(),
                   ),
                 ),
               ),
-              Positioned(
-                bottom: 230.h,
-                left: -50.w * _randomTweenAnimation.value,
-                child: Container(
-                  width: 197.w,
-                  height: 197.w,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    boxShadow: [
-                      BoxShadow(
-                        color: AppColors.lilacD2.withOpacity(0.8),
-                        blurRadius: 120,
-                      ),
-                    ],
+              if (widget.isAnimate) ...[
+                Positioned(
+                  bottom: 300.h,
+                  right: -100.w * _randomTweenAnimation.value,
+                  child: Container(
+                    width: 220.w,
+                    height: 220.w,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      boxShadow: [
+                        BoxShadow(
+                          color: AppColors.green62.withOpacity(0.3),
+                          blurRadius: 120,
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-              Positioned(
-                bottom: -250.h * _randomTweenAnimation.value,
-                left: 1.w,
-                child: Container(
-                  width: 400.w,
-                  height: 400.w,
-                  decoration: const BoxDecoration(
-                    shape: BoxShape.circle,
-                    boxShadow: [
-                      BoxShadow(
-                        color: AppColors.blue12,
-                        blurRadius: 330,
-                      ),
-                    ],
+                Positioned(
+                  bottom: 230.h,
+                  left: -50.w * _randomTweenAnimation.value,
+                  child: Container(
+                    width: 197.w,
+                    height: 197.w,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      boxShadow: [
+                        BoxShadow(
+                          color: AppColors.lilacD2.withOpacity(0.8),
+                          blurRadius: 120,
+                        ),
+                      ],
+                    ),
                   ),
                 ),
+                Positioned(
+                  bottom: -250.h * _randomTweenAnimation.value,
+                  left: 1.w,
+                  child: Container(
+                    width: 400.w,
+                    height: 400.w,
+                    decoration: const BoxDecoration(
+                      shape: BoxShape.circle,
+                      boxShadow: [
+                        BoxShadow(
+                          color: AppColors.blue12,
+                          blurRadius: 330,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+              Padding(
+                padding: widget.enablePadding
+                    ? const EdgeInsetsDirectional.symmetric(horizontal: 23)
+                    : EdgeInsets.zero,
+                child: widget.child,
               ),
             ],
-            Padding(
-              padding: widget.enablePadding
-                  ? const EdgeInsetsDirectional.symmetric(horizontal: 23)
-                  : EdgeInsets.zero,
-              child: widget.child,
-            ),
-          ],
-        );
-      },
+          );
+        },
+      ),
     );
   }
 }

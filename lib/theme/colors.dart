@@ -38,5 +38,6 @@ class AppColors {
   static const grey95 = Color(0xFF958D8D);
   static const green4A = Color(0xFF4A9E63);
   static const redFF = Color(0xFFFF3B30);
+  static const blue0F = Color(0xFF007AFF);
   static const transparent = Colors.transparent;
 }

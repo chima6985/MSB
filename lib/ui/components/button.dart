@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:masoyinbo_mobile/extension/extension.dart';
 import 'package:masoyinbo_mobile/ui/ui.dart';
 
 class Button extends StatelessWidget {
@@ -31,7 +32,6 @@ class Button extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
     final mqr = MediaQuery.of(context).size;
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
@@ -59,7 +59,7 @@ class Button extends StatelessWidget {
                     Text(
                       label,
                       textScaler: TextScaler.noScaling,
-                      style: textTheme.bodyMedium!.copyWith(
+                      style: context.textTheme.bodyMedium!.copyWith(
                         color: isOutlined ? labelColor : AppColors.white,
                         fontWeight:
                             isBoldLabelText ? FontWeight.w500 : FontWeight.w400,

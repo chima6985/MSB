@@ -135,6 +135,9 @@ const numbersEn = 'Numbers';
 const playYr = 'Eré';
 const playEn = 'Play';
 
+const backYr = 'Padà';
+const backEn = 'Back';
+
 const singlePlayerYr = 'Eré aládáṣe';
 const singlePlayerEn = 'Single player';
 
@@ -282,3 +285,84 @@ const cancelAnytimeEn = 'Cancel anytime with no charges.';
 const paymentPlansEn = 'Payment Plans';
 const choosePreferredPaymentPlanEn = 'Choose your preferred payment plan';
 const makePaymentEn = 'Make Payment';
+
+const callEn = 'Call';
+const needToSpeakToUsEn = 'Need to speak with us? Give us a call!';
+
+const mailEn = 'Mail';
+const reachUsViaMailEn = 'Reach us via email with your concerns';
+
+const sureToDeleteAccountEn = 'Are you sure you want to delete your account?';
+const ifYouDeleteYourAccountEn = 'If you delete your account:';
+const learningProgressDeleteAccountEn =
+    'Learning Progress: All your lessons, streaks, and achievements will be erased and cannot be restored.';
+const profileAndSettingsEn =
+    'Profile & Settings: Your personalized settings and any customizations will be lost.';
+const actionCannotBeUndoneEn =
+    'This action cannot be undone. If you delete your account, you will need to start from scratch if you decide to return in the future.';
+const ifYouAreCertainEn =
+    "If you're certain you want to delete your account, tap Confirm below. Otherwise, feel free to reach out to us at";
+const ifYouHaveQuestionsEn = 'if you have questions!';
+const confirmEn = 'Confirm';
+const confirmYr = 'Ṣe ìdánilójú';
+
+const quickSurveyEn = 'Quick Survey';
+const weHateToSeeYouGoEn =
+    'We hate to see you go, but before you go, please, tell us what we have done wrong. Your feedback will help us improve our service';
+const howCanWeImproveOurServiceEn = 'How we can improve our service?';
+const optionalEn = 'Optional';
+const saySomethingEn = 'Say something';
+const cantAffordAPremiumAccountEn = 'I can’t afford the premium account';
+const tooManyAdsEn = 'Too many ads';
+const yourubaIsDifficultToLearnEn = 'Yoruba is difficult to learn';
+const enterYourPasswordEn = 'Enter your Password';
+const toCompleteYourDeletionProcess =
+    'To complete your account deletion process, please enter your password';
+const deleteMyAccountEn = 'Delete my Account';
+const thankYouForUsingOurProductEn =
+    'Thank you for using our product!\nWe look forward to seeing you again';
+const closeTheApp = 'Close the App';
+const areYouSureYouWantToContinueEn =
+    'Are you sure you want to continue with this action?';
+
+const resetPasswordYr = 'Tun ọrọ aṣínà ṣe';
+const resetPasswordEn = 'Reset the password';
+
+const enterEmailAddressToReceiveOtpYr =
+    'Tẹ adirẹsi imeeli rẹ silẹ lati gba OTP lati tun ọrọ aṣínà rẹ ṣe';
+const enterEmailAddressToReceiveOtpEn =
+    'Enter your email address to receive an OTP to reset your password';
+
+const createANewPasswordYr = 'Ṣẹda ọrọ aṣínà tuntun';
+const createANewPasswordEn = 'Create a new password';
+
+const createANewPasswordForYourAccountYr =
+    'Ṣẹda ọrọ aṣínà tuntun fun àkọọlẹ rẹ';
+const createANewPasswordForYourAccountEn =
+    'Create a new password for your account';
+
+const newPasswordYr = 'Ọrọ aṣínà tuntun';
+const newPasswrodEn = 'New password';
+
+const confirmPasswordYr = 'Ṣe ìdánilójú ọrọ aṣínà';
+const cofirmPasswordEn = 'Confirm password';
+
+const savePasswordYr = 'Fipamọ ọrọ aṣínà';
+const savePasswordEn = 'Save password';
+
+const yourPasswordHasBeenSetYr = 'A ti ṣeto ọrọ aṣínà';
+const yourPasswordHasBeenSetEn = 'A password has been set';
+
+const successfullyCreatedNewPasswordYr =
+    'O ti ṣẹda ọrọ aṣínà tuntun pẹlu aṣeyọri. Tẹsiwaju lati wọlé';
+const successfullyCreatedNewPasswordEn =
+    'You have successfully created a new password. Continue to enter';
+
+const confirmYourOtpYr = 'Ṣe ìfọwọ́sí OTP rẹ';
+const confirmYourOtpEn = 'Confirm your OTP';
+
+const enterTheOtpYr = 'Tẹ OTP ti a rán sí';
+const enterTheOtpEn = 'Enter the OTP sent to ';
+
+const toResetYourPasswordYr = 'lati tun ọrọ aṣínà rẹ ṣe';
+const toResetYourPasswordEn = 'to reset your password';

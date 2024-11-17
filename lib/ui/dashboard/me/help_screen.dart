@@ -48,13 +48,13 @@ class HelpScreen extends HookWidget {
                   ),
                   SizedBox(height: 36.h),
                   const _HelpWidget(
-                    title: 'Call',
-                    subtitle: 'Need to speak with us? Give us a call!',
+                    title: callEn,
+                    subtitle: needToSpeakToUsEn,
                     iconData: Iconsax.call_outgoing5,
                   ),
                   const _HelpWidget(
-                    title: 'Mail',
-                    subtitle: 'Reach us via email with your concerns',
+                    title: mailEn,
+                    subtitle: reachUsViaMailEn,
                     iconData: Iconsax.sms5,
                   ),
                 ],

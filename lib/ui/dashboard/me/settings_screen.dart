@@ -121,13 +121,23 @@ class SettingsScreen extends HookWidget {
                     _SettingsWidget(
                       title: logoutYr,
                       iconData: Iconsax.logout,
-                      onTap: () {},
+                      onTap: () => showModalBottomSheet(
+                        context: context,
+                        builder: (context) => const LogoutModal(),
+                        isScrollControlled: true,
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(24),
+                            topRight: Radius.circular(24),
+                          ),
+                        ),
+                      ),
                     ),
                     _SettingsWidget(
                       title: deleteAccountYr,
                       iconData: Iconsax.trash,
                       foregroundColor: AppColors.redFF,
-                      onTap: () {},
+                      onTap: () => context.pushNamed(DeleteAccountScreen.id),
                     ),
                   ],
                 ),

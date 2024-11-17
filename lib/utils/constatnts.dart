@@ -39,3 +39,9 @@ const surveyText = {
   2: [timeToCommitYr, timeToCommitEn, timeToCommitList],
   3: [howOldYr, howOldEn, ageList],
 };
+
+final surveyDeleteOptions = [
+  cantAffordAPremiumAccountEn,
+  tooManyAdsEn,
+  yourubaIsDifficultToLearnEn,
+];

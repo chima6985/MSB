@@ -19,7 +19,7 @@ class MeScreen extends HookWidget {
         padding: const EdgeInsetsDirectional.symmetric(horizontal: 23),
         child: Column(
           children: [
-            SizedBox(height: context.topPadding),
+            SizedBox(height: context.topPadding + 100.h),
             SizedBox(height: 24.h),
             GestureDetector(
               onTap: () => context.pushNamed(ChangeAvatarScreen.id),

@@ -1,7 +1,9 @@
 export 'account_screen.dart';
 export 'change_avatar_screen.dart';
+export 'delete_account/delete_account.dart';
 export 'help_screen.dart';
 export 'language_screen.dart';
+export 'logout_modal.dart';
 export 'me_screen.dart';
 export 'notifications_screen.dart';
 export 'password_screen.dart';
