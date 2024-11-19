@@ -130,7 +130,7 @@ class _DecoratedContainerState extends State<DecoratedContainer>
               ],
               Padding(
                 padding: widget.enablePadding
-                    ? const EdgeInsetsDirectional.symmetric(horizontal: 23)
+                    ? const EdgeInsets.symmetric(horizontal: 23)
                     : EdgeInsets.zero,
                 child: widget.child,
               ),

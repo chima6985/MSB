@@ -42,7 +42,7 @@ class ModuleScreen extends HookWidget {
               ),
               SizedBox(height: 10.h),
               Padding(
-                padding: const EdgeInsetsDirectional.symmetric(horizontal: 23),
+                padding: const EdgeInsets.symmetric(horizontal: 23),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -113,7 +113,7 @@ class ModuleScreen extends HookWidget {
               ),
               SizedBox(height: 30.h),
               Padding(
-                padding: const EdgeInsetsDirectional.symmetric(horizontal: 23),
+                padding: const EdgeInsets.symmetric(horizontal: 23),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [

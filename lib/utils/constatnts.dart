@@ -45,3 +45,5 @@ final surveyDeleteOptions = [
   tooManyAdsEn,
   yourubaIsDifficultToLearnEn,
 ];
+
+enum DifficultyLevel { easy, medium, hard, random }

@@ -59,6 +59,12 @@ class $AssetsImagesJpegsGen {
   AssetGenImage get drums =>
       const AssetGenImage('assets/images/jpegs/drums.png');
 
+  /// File path: assets/images/jpegs/easy.png
+  AssetGenImage get easy => const AssetGenImage('assets/images/jpegs/easy.png');
+
+  /// File path: assets/images/jpegs/hard.png
+  AssetGenImage get hard => const AssetGenImage('assets/images/jpegs/hard.png');
+
   /// File path: assets/images/jpegs/interactive_quiz.png
   AssetGenImage get interactiveQuiz =>
       const AssetGenImage('assets/images/jpegs/interactive_quiz.png');
@@ -81,6 +87,10 @@ class $AssetsImagesJpegsGen {
   /// File path: assets/images/jpegs/meaning.png
   AssetGenImage get meaning =>
       const AssetGenImage('assets/images/jpegs/meaning.png');
+
+  /// File path: assets/images/jpegs/medium.png
+  AssetGenImage get medium =>
+      const AssetGenImage('assets/images/jpegs/medium.png');
 
   /// File path: assets/images/jpegs/multiple_player.png
   AssetGenImage get multiplePlayer =>
@@ -114,6 +124,10 @@ class $AssetsImagesJpegsGen {
   AssetGenImage get questionAndAnswer =>
       const AssetGenImage('assets/images/jpegs/question_and_answer.png');
 
+  /// File path: assets/images/jpegs/random.png
+  AssetGenImage get random =>
+      const AssetGenImage('assets/images/jpegs/random.png');
+
   /// File path: assets/images/jpegs/single_player.png
   AssetGenImage get singlePlayer =>
       const AssetGenImage('assets/images/jpegs/single_player.png');
@@ -145,12 +159,15 @@ class $AssetsImagesJpegsGen {
         coin2,
         darkDecoratedBg,
         drums,
+        easy,
+        hard,
         interactiveQuiz,
         lessonCovered,
         lightBulb,
         lips,
         masoyinboLogo,
         meaning,
+        medium,
         multiplePlayer,
         noAds,
         numbers,
@@ -159,6 +176,7 @@ class $AssetsImagesJpegsGen {
         profileImage,
         proverb,
         questionAndAnswer,
+        random,
         singlePlayer,
         stars,
         successIcon,
@@ -176,6 +194,9 @@ class $AssetsImagesSvgsGen {
   /// File path: assets/images/svgs/diamond_shape.svg
   SvgGenImage get diamondShape =>
       const SvgGenImage('assets/images/svgs/diamond_shape.svg');
+
+  /// File path: assets/images/svgs/flip.svg
+  SvgGenImage get flip => const SvgGenImage('assets/images/svgs/flip.svg');
 
   /// File path: assets/images/svgs/google .svg
   SvgGenImage get google => const SvgGenImage('assets/images/svgs/google .svg');
@@ -202,16 +223,23 @@ class $AssetsImagesSvgsGen {
   SvgGenImage get learnBold =>
       const SvgGenImage('assets/images/svgs/learn_bold.svg');
 
+  /// File path: assets/images/svgs/listen.svg
+  SvgGenImage get listen => const SvgGenImage('assets/images/svgs/listen.svg');
+
   /// File path: assets/images/svgs/me.svg
   SvgGenImage get me => const SvgGenImage('assets/images/svgs/me.svg');
 
   /// File path: assets/images/svgs/me_bold.svg
   SvgGenImage get meBold => const SvgGenImage('assets/images/svgs/me_bold.svg');
 
+  /// File path: assets/images/svgs/speak.svg
+  SvgGenImage get speak => const SvgGenImage('assets/images/svgs/speak.svg');
+
   /// List of all assets
   List<SvgGenImage> get values => [
         bolt,
         diamondShape,
+        flip,
         google,
         home,
         homeBold,
@@ -219,8 +247,10 @@ class $AssetsImagesSvgsGen {
         leaderBoardBold,
         learn,
         learnBold,
+        listen,
         me,
-        meBold
+        meBold,
+        speak
       ];
 }
 

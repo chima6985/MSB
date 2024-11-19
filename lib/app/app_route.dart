@@ -15,7 +15,7 @@ class NavObserver extends NavigatorObserver {
 }
 
 final router = GoRouter(
-  initialLocation: '/',
+  initialLocation: '/dashboardIndexScreen',
   observers: [
     // NavObserver(),
   ],
@@ -174,6 +174,21 @@ final router = GoRouter(
       name: ChangePasswordScreen.id,
       path: '/changePasswordScreen',
       builder: (context, state) => const ChangePasswordScreen(),
+    ),
+     GoRoute(
+      name: PlayerScreen.id,
+      path: '/playerScreen',
+      builder: (context, state) => const PlayerScreen(),
+    ),
+    GoRoute(
+      name: SinglePlayerIntroScreen.id,
+      path: '/singlePlayerIntroScreen',
+      builder: (context, state) => const SinglePlayerIntroScreen(),
+    ),
+    GoRoute(
+      name: PlayQuestionScreen.id,
+      path: '/playQuestionScreen',
+      builder: (context, state) => const PlayQuestionScreen(),
     ),
   ],
   // errorBuilder: (context, state) => const PageNotFound(),

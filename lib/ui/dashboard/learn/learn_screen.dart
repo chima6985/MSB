@@ -16,7 +16,7 @@ class LearnScreen extends HookWidget {
     final mqr = MediaQuery.of(context).size;
     return SingleChildScrollView(
       child: Padding(
-        padding: const EdgeInsetsDirectional.symmetric(horizontal: 23),
+        padding: const EdgeInsets.symmetric(horizontal: 23),
         child: Column(
           children: [
             SizedBox(height: context.topPadding),
@@ -97,8 +97,8 @@ class _LessonsListTileWidget extends StatelessWidget {
                 border: Border.all(
                   width: isLocked ? 0.6 : 1.5,
                   color: isLocked
-                      ? AppColors.purple12.withOpacity(0.6)
-                      : AppColors.purple12,
+                      ? AppColors.blue12.withOpacity(0.6)
+                      : AppColors.blue12,
                 ),
               ),
               child: Row(

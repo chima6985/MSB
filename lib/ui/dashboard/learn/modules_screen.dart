@@ -44,7 +44,7 @@ class ModulesScreen extends HookWidget {
               ),
               SizedBox(height: 30.h),
               Padding(
-                padding: const EdgeInsetsDirectional.symmetric(horizontal: 23),
+                padding: const EdgeInsets.symmetric(horizontal: 23),
                 child: Column(
                   children: [
                     _AlphabetModeuleListTileWidget(
@@ -123,8 +123,8 @@ class _AlphabetModeuleListTileWidget extends StatelessWidget {
               border: Border.all(
                 width: isSelected ? 1.5 : 0.6,
                 color: isSelected
-                    ? AppColors.purple12
-                    : AppColors.purple12.withOpacity(0.6),
+                    ? AppColors.blue12
+                    : AppColors.blue12.withOpacity(0.6),
               ),
             ),
             child: Row(

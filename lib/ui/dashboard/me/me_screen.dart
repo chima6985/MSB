@@ -16,7 +16,7 @@ class MeScreen extends HookWidget {
     final mqr = MediaQuery.of(context).size;
     return SingleChildScrollView(
       child: Padding(
-        padding: const EdgeInsetsDirectional.symmetric(horizontal: 23),
+        padding: const EdgeInsets.symmetric(horizontal: 23),
         child: Column(
           children: [
             SizedBox(height: context.topPadding + 100.h),

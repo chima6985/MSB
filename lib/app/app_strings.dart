@@ -366,3 +366,25 @@ const enterTheOtpEn = 'Enter the OTP sent to ';
 
 const toResetYourPasswordYr = 'lati tun ọrọ aṣínà rẹ ṣe';
 const toResetYourPasswordEn = 'to reset your password';
+
+const modifyPlayModeYr = 'Àtúnṣe ipò ere';
+
+const selectCategoryYr = 'Yan ìsò̩rí';
+const selectCategoryEn = 'Select category';
+
+const selectDifficultyYr = 'Yan ipele tó le';
+const selectDifficultyEn = 'Choose difficulty level';
+
+const introductionToSinglePlayerYr = 'Káàbọ̀ sí eré aládáṣe';
+const introductionToSinglePlayerEn = 'Introduction to single player';
+
+const getReadyToTestYourSkillsYr =
+    'Gbaradì láti ṣe àyẹ̀wò ìmọ̀ re ní ipò eré!\n\nÌbéèrè márùndínlógún lati pèsè láti fi dán ìmọ re wò. Ànfàní mẹta lówà láti fi dáhùn gbogbo àwọn ìbéèrè, nítorínà, ro àwọn ìdáhùn rẹ dáadá. Ti àwọn ànfàní métẹ̀ta báti tán, eré dópin- sugbọn má ṣèyọnu, o lè gbìyànjú si tóbáyá.\n\nGẹ́gẹ́ bí èrè fún píparí ere, wàá jẹ àwọn owó idẹ tí o lè lò làti fi ni ànfàni si àwọn ohun àkànṣe tí a ti yà sọ́tọ̀. Gbaradì láti dàn ìmọ̀ rẹ wo kí o sì bẹ̀rẹ̀ sí gba owó idẹ re! Ire o!';
+const getReadyToTestYourSkillsEn =
+    "Get ready to test your skills in Play Mode!\n\nYou'll face 15 questions designed to challenge your knowledge. You have 3 lives to make it through all the questions, so choose your answers wisely. If you run out of lives, the game ends—but don’t worry, you can always try again.\nAs a reward for completing Play Mode, you'll earn coins that you can use to unlock special features or content. Get ready to test your knowledge and start collecting those coins! Good luck!";
+
+const startPlayingYr = 'Bẹ̀rẹ̀ eré';
+const startPlayingEn = 'Start playing';
+
+const learnWhileYouPlayYr = 'Kẹ́kọ̀ọ́ nígba tí o bá ń seré lọ́wọ́';
+const learnWhileYouPlayEn = 'Learn while you play';

@@ -12,7 +12,7 @@ class Home extends StatelessWidget {
     final mqr = MediaQuery.of(context).size;
     return SingleChildScrollView(
       child: Padding(
-        padding: const EdgeInsetsDirectional.symmetric(horizontal: 23),
+        padding: const EdgeInsets.symmetric(horizontal: 23),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -140,7 +140,7 @@ class Home extends StatelessWidget {
                                 height: 4.h,
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(12),
-                                  color: AppColors.purple12.withOpacity(0.12),
+                                  color: AppColors.blue12.withOpacity(0.12),
                                 ),
                               ),
                               Container(
@@ -148,7 +148,7 @@ class Home extends StatelessWidget {
                                 height: 4.h,
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(12),
-                                  color: AppColors.purple12,
+                                  color: AppColors.blue12,
                                 ),
                               ),
                             ],
@@ -306,6 +306,7 @@ class Home extends StatelessWidget {
                     subText: singlePlayerEn,
                     color: AppColors.lemon9C,
                     image: AppAssets.images.jpegs.singlePlayer.path,
+                    onTap: () => context.pushNamed(PlayerScreen.id),
                   ),
                 ),
                 const SizedBox(width: 16),
@@ -315,6 +316,7 @@ class Home extends StatelessWidget {
                     subText: multiPlayerEn,
                     color: AppColors.lilac9E,
                     image: AppAssets.images.jpegs.multiplePlayer.path,
+                    onTap: () => context.pushNamed(PlayerScreen.id),
                   ),
                 ),
               ],
@@ -402,50 +404,55 @@ class _QuickActionPlayWidget extends StatelessWidget {
     required this.color,
     required this.mainText,
     required this.subText,
+    required this.onTap,
   });
 
   final String image;
   final Color color;
   final String mainText;
   final String subText;
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(14),
-      decoration: BoxDecoration(
-        color: color,
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            mainText,
-            textScaler: TextScaler.noScaling,
-            style: context.textTheme.bodyMedium!.copyWith(
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-          Transform.translate(
-            offset: const Offset(0, -3),
-            child: Text(
-              subText,
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.all(14),
+        decoration: BoxDecoration(
+          color: color,
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              mainText,
               textScaler: TextScaler.noScaling,
-              style: context.textTheme.bodySmall!.copyWith(
-                fontStyle: FontStyle.italic,
-                fontWeight: FontWeight.w300,
+              style: context.textTheme.bodyMedium!.copyWith(
+                fontWeight: FontWeight.w500,
               ),
             ),
-          ),
-          const SizedBox(height: 15),
-          Center(
-            child: Image.asset(
-              image,
-              scale: 3,
+            Transform.translate(
+              offset: const Offset(0, -3),
+              child: Text(
+                subText,
+                textScaler: TextScaler.noScaling,
+                style: context.textTheme.bodySmall!.copyWith(
+                  fontStyle: FontStyle.italic,
+                  fontWeight: FontWeight.w300,
+                ),
+              ),
             ),
-          ),
-        ],
+            const SizedBox(height: 15),
+            Center(
+              child: Image.asset(
+                image,
+                scale: 3,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

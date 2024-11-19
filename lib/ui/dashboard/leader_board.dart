@@ -27,7 +27,7 @@ class LeaderBoard extends HookWidget {
           Column(
             children: [
               Padding(
-                padding: const EdgeInsetsDirectional.symmetric(horizontal: 23),
+                padding: const EdgeInsets.symmetric(horizontal: 23),
                 child: Row(
                   children: [
                     Text(
@@ -110,8 +110,7 @@ class LeaderBoard extends HookWidget {
               if (!isShowEmptyState.value) ...[
                 const SizedBox(height: 8),
                 Padding(
-                  padding:
-                      const EdgeInsetsDirectional.symmetric(horizontal: 23),
+                  padding: const EdgeInsets.symmetric(horizontal: 23),
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
@@ -153,7 +152,7 @@ class LeaderBoard extends HookWidget {
           ),
           SizedBox(height: 24.h),
           Padding(
-            padding: const EdgeInsetsDirectional.symmetric(horizontal: 23),
+            padding: const EdgeInsets.symmetric(horizontal: 23),
             child: isShowEmptyState.value
                 ? _EmptyLeaderboardWidget(currentPosition: currentPosition)
                 : SingleChildScrollView(
