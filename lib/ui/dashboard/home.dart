@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:masoyinbo_mobile/app/app.dart';
 import 'package:masoyinbo_mobile/extension/extension.dart';
 import 'package:masoyinbo_mobile/gen/fonts.gen.dart';
 import 'package:masoyinbo_mobile/ui/ui.dart';
+import 'package:masoyinbo_mobile/utils/utils.dart';
 
-class Home extends StatelessWidget {
+class Home extends HookWidget {
   const Home({super.key});
 
   @override
   Widget build(BuildContext context) {
     final mqr = MediaQuery.of(context).size;
+    final isShowEmailVerify = useState(true);
     return SingleChildScrollView(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 23),
@@ -17,34 +20,38 @@ class Home extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(height: context.topPadding),
-            Container(
-              padding: const EdgeInsets.fromLTRB(16, 12, 12, 12),
-              decoration: BoxDecoration(
-                color: AppColors.blueE6,
-                borderRadius: BorderRadius.circular(8),
-                border: Border.all(
-                  color: AppColors.blue00,
-                ),
-              ),
-              child: Row(
-                children: [
-                  const Icon(
-                    Icons.error_outline_outlined,
-                    size: 21,
-                    color: AppColors.blue00,
-                  ),
-                  const SizedBox(width: 8),
-                  Text(
-                    verifyEmailEr,
-                    textScaler: TextScaler.noScaling,
-                    style: context.textTheme.bodyMedium!.copyWith(
-                      fontWeight: FontWeight.w300,
-                      letterSpacing: 0.1,
+            if (isShowEmailVerify.value)
+              GestureDetector(
+                onTap: () => isShowEmailVerify.value = false,
+                child: Container(
+                  padding: const EdgeInsets.fromLTRB(16, 12, 12, 12),
+                  decoration: BoxDecoration(
+                    color: AppColors.blueE6,
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(
+                      color: AppColors.blue00,
                     ),
                   ),
-                ],
+                  child: Row(
+                    children: [
+                      const Icon(
+                        Icons.error_outline_outlined,
+                        size: 21,
+                        color: AppColors.blue00,
+                      ),
+                      const SizedBox(width: 8),
+                      Text(
+                        verifyEmailEr,
+                        textScaler: TextScaler.noScaling,
+                        style: context.textTheme.bodyMedium!.copyWith(
+                          fontWeight: FontWeight.w300,
+                          letterSpacing: 0.1,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ),
-            ),
             const SizedBox(height: 16),
             Row(
               children: [
@@ -233,9 +240,7 @@ class Home extends StatelessWidget {
                     width: 78.w,
                   ),
                   width: mqr.width * 0.375,
-                  color: AppColors.purpleF1,
-                  mainText: proverbYr,
-                  subText: proverbEr,
+                  section: PracticeSection.proverb,
                 ),
                 const SizedBox(width: 16),
                 Expanded(
@@ -247,9 +252,7 @@ class Home extends StatelessWidget {
                       ),
                     ),
                     width: mqr.width * 0.38,
-                    color: AppColors.greenCE,
-                    mainText: questionAndAnswerYr,
-                    subText: questionAndAnswerEr,
+                    section: PracticeSection.qAndA,
                   ),
                 ),
               ],
@@ -263,9 +266,7 @@ class Home extends StatelessWidget {
                       width: 100.w,
                     ),
                     width: mqr.width * 0.38,
-                    color: AppColors.lemonEC,
-                    mainText: meaningYr,
-                    subText: meaningEn,
+                    section: PracticeSection.meaning,
                   ),
                 ),
                 const SizedBox(width: 16),
@@ -274,9 +275,7 @@ class Home extends StatelessWidget {
                     width: 90.w,
                   ),
                   width: mqr.width * 0.375,
-                  color: AppColors.greyB6,
-                  mainText: numbersYr,
-                  subText: numbersEn,
+                  section: PracticeSection.numbers,
                 ),
               ],
             ),
@@ -333,66 +332,104 @@ class _QuickActionsPracticeWidget extends StatelessWidget {
   const _QuickActionsPracticeWidget({
     required this.image,
     required this.width,
-    required this.color,
-    required this.mainText,
-    required this.subText,
+    required this.section,
   });
 
   final Widget image;
   final double width;
-  final Color color;
-  final String mainText;
-  final String subText;
+  final PracticeSection section;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: width,
-      padding: const EdgeInsets.symmetric(horizontal: 8),
-      decoration: BoxDecoration(
-        color: color,
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: Stack(
-        children: [
-          Align(
-            alignment: Alignment.topRight,
-            child: image,
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(height: 70.h),
-              Transform.translate(
-                offset: const Offset(0, -13),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      mainText,
-                      textScaler: TextScaler.noScaling,
-                      style: context.textTheme.bodyMedium!.copyWith(
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                    Transform.translate(
-                      offset: const Offset(0, -3),
-                      child: Text(
-                        subText,
+    final mainText = {
+      PracticeSection.proverb: proverbYr,
+      PracticeSection.qAndA: questionAndAnswerYr,
+      PracticeSection.meaning: meaningYr,
+      PracticeSection.numbers: numbersYr,
+    };
+
+    final subText = {
+      PracticeSection.proverb: proverbEr,
+      PracticeSection.qAndA: questionAndAnswerEr,
+      PracticeSection.meaning: meaningEn,
+      PracticeSection.numbers: numbersEn,
+    };
+
+    final color = {
+      PracticeSection.proverb: AppColors.purpleF1,
+      PracticeSection.qAndA: AppColors.greenCE,
+      PracticeSection.meaning: AppColors.lemonEC,
+      PracticeSection.numbers: AppColors.greyB6,
+    };
+    return InkWell(
+      onTap: () {
+        if (section == PracticeSection.proverb) {
+          showModalBottomSheet(
+            context: context,
+            builder: (context) => const SetAvatarModal(),
+            isScrollControlled: true,
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(24),
+                topRight: Radius.circular(24),
+              ),
+            ),
+          );
+        } else {
+          context.pushNamed(
+            PlayerScreen.id,
+            extra: {'isPractice': true},
+          );
+        }
+      },
+      child: Container(
+        width: width,
+        padding: const EdgeInsets.symmetric(horizontal: 8),
+        decoration: BoxDecoration(
+          color: color[section] ?? AppColors.purpleF1,
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Stack(
+          children: [
+            Align(
+              alignment: Alignment.topRight,
+              child: image,
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(height: 70.h),
+                Transform.translate(
+                  offset: const Offset(0, -13),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        mainText[section]?.titleCase() ?? '',
                         textScaler: TextScaler.noScaling,
-                        style: context.textTheme.bodySmall!.copyWith(
-                          fontStyle: FontStyle.italic,
-                          fontWeight: FontWeight.w300,
+                        style: context.textTheme.bodyMedium!.copyWith(
+                          fontWeight: FontWeight.w500,
                         ),
                       ),
-                    ),
-                  ],
+                      Transform.translate(
+                        offset: const Offset(0, -3),
+                        child: Text(
+                          subText[section]?.titleCase() ?? '',
+                          textScaler: TextScaler.noScaling,
+                          style: context.textTheme.bodySmall!.copyWith(
+                            fontStyle: FontStyle.italic,
+                            fontWeight: FontWeight.w300,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            ],
-          ),
-        ],
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

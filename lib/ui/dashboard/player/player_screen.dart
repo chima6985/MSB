@@ -9,8 +9,11 @@ import 'package:masoyinbo_mobile/utils/utils.dart';
 class PlayerScreen extends HookWidget {
   const PlayerScreen({
     super.key,
+    this.isPractice = false,
   });
   static const String id = 'playerScreen';
+
+  final bool isPractice;
 
   @override
   Widget build(BuildContext context) {
@@ -78,28 +81,47 @@ class PlayerScreen extends HookWidget {
               scrollDirection: Axis.horizontal,
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  _SelectCategoryWidget(
-                    title: proverbYr,
-                    isSelected: selectedPracticeSection.value == 'proverb',
-                    onTap: () => selectedPracticeSection.value = 'proverb',
-                  ),
-                  _SelectCategoryWidget(
-                    title: meaningYr,
-                    isSelected: selectedPracticeSection.value == 'meaning',
-                    onTap: () => selectedPracticeSection.value = 'meaning',
-                  ),
-                  _SelectCategoryWidget(
-                    title: numbersYr,
-                    isSelected: selectedPracticeSection.value == 'number',
-                    onTap: () => selectedPracticeSection.value = 'number',
-                  ),
-                  _SelectCategoryWidget(
-                    title: questionAndAnswerYr,
-                    isSelected: selectedPracticeSection.value == 'qAndA',
-                    onTap: () => selectedPracticeSection.value = 'qAndA',
-                  ),
-                ],
+                children: isPractice
+                    ? [
+                        SelectCategoryWidget(
+                          title: 'Timed',
+                          isSelected: selectedPracticeSection.value == 'timed',
+                          onTap: () => selectedPracticeSection.value = 'timed',
+                        ),
+                        SelectCategoryWidget(
+                          title: 'Not timed',
+                          isSelected:
+                              selectedPracticeSection.value == 'not_timed',
+                          onTap: () =>
+                              selectedPracticeSection.value = 'not_timed',
+                        ),
+                      ]
+                    : [
+                        SelectCategoryWidget(
+                          title: proverbYr,
+                          isSelected:
+                              selectedPracticeSection.value == 'proverb',
+                          onTap: () =>
+                              selectedPracticeSection.value = 'proverb',
+                        ),
+                        SelectCategoryWidget(
+                          title: meaningYr,
+                          isSelected:
+                              selectedPracticeSection.value == 'meaning',
+                          onTap: () =>
+                              selectedPracticeSection.value = 'meaning',
+                        ),
+                        SelectCategoryWidget(
+                          title: numbersYr,
+                          isSelected: selectedPracticeSection.value == 'number',
+                          onTap: () => selectedPracticeSection.value = 'number',
+                        ),
+                        SelectCategoryWidget(
+                          title: questionAndAnswerYr,
+                          isSelected: selectedPracticeSection.value == 'qAndA',
+                          onTap: () => selectedPracticeSection.value = 'qAndA',
+                        ),
+                      ],
               ),
             ),
             SizedBox(height: 40.h),
@@ -174,7 +196,15 @@ class PlayerScreen extends HookWidget {
               child: Button(
                 label: '',
                 width: mqr.width * 0.85,
-                onPressed: () => context.pushNamed(SinglePlayerIntroScreen.id),
+                onPressed: () => context.pushNamed(
+                  PlayerIntroScreen.id,
+                  extra: {
+                    'isPractice': isPractice,
+                    'isTimed': isPractice
+                        ? selectedPracticeSection.value == 'timed'
+                        : true,
+                  },
+                ),
                 child: RichText(
                   text: TextSpan(
                     style: context.textTheme.bodyMedium!.copyWith(
@@ -198,52 +228,6 @@ class PlayerScreen extends HookWidget {
           ],
         ),
       ),
-    );
-  }
-}
-
-class _SelectCategoryWidget extends StatelessWidget {
-  const _SelectCategoryWidget({
-    required this.title,
-    required this.isSelected,
-    required this.onTap,
-  });
-
-  final String title;
-  final bool isSelected;
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        InkWell(
-          onTap: onTap,
-          customBorder: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(30),
-          ),
-          child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 8),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(30),
-              color: isSelected ? AppColors.blueE7 : null,
-              border: Border.all(
-                width: isSelected ? 1.5 : 0.4,
-                color: isSelected ? AppColors.blue12 : AppColors.blackB6,
-              ),
-            ),
-            child: Text(
-              title,
-              textScaler: TextScaler.noScaling,
-              style: context.textTheme.bodyMedium!.copyWith(
-                fontWeight: isSelected ? FontWeight.w500 : FontWeight.w300,
-              ),
-            ),
-          ),
-        ),
-        const SizedBox(width: 16),
-      ],
     );
   }
 }

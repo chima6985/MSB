@@ -47,3 +47,5 @@ final surveyDeleteOptions = [
 ];
 
 enum DifficultyLevel { easy, medium, hard, random }
+
+enum PracticeSection { proverb, qAndA, meaning, numbers }

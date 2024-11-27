@@ -15,7 +15,7 @@ class NavObserver extends NavigatorObserver {
 }
 
 final router = GoRouter(
-  initialLocation: '/dashboardIndexScreen',
+  initialLocation: '/',
   observers: [
     // NavObserver(),
   ],
@@ -175,20 +175,37 @@ final router = GoRouter(
       path: '/changePasswordScreen',
       builder: (context, state) => const ChangePasswordScreen(),
     ),
-     GoRoute(
+    GoRoute(
       name: PlayerScreen.id,
       path: '/playerScreen',
-      builder: (context, state) => const PlayerScreen(),
+      builder: (context, state) {
+        final paramHandler = state.extra is Map ? state.extra as Map? : {};
+        return PlayerScreen(
+          isPractice: paramHandler?['isPractice'] ?? false,
+        );
+      },
     ),
     GoRoute(
-      name: SinglePlayerIntroScreen.id,
+      name: PlayerIntroScreen.id,
       path: '/singlePlayerIntroScreen',
-      builder: (context, state) => const SinglePlayerIntroScreen(),
+      builder: (context, state) {
+        final paramHandler = state.extra is Map ? state.extra as Map? : {};
+        return PlayerIntroScreen(
+          isPractice: paramHandler?['isPractice'] ?? false,
+          isTimed: paramHandler?['isTimed'] ?? true,
+        );
+      },
     ),
     GoRoute(
       name: PlayQuestionScreen.id,
       path: '/playQuestionScreen',
-      builder: (context, state) => const PlayQuestionScreen(),
+      builder: (context, state) {
+        final paramHandler = state.extra is Map ? state.extra as Map? : {};
+        return PlayQuestionScreen(
+          isPractice: paramHandler?['isPractice'] ?? false,
+          isTimed: paramHandler?['isTimed'] ?? true,
+        );
+      },
     ),
   ],
   // errorBuilder: (context, state) => const PageNotFound(),

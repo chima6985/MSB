@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:iconsax/iconsax.dart';
 import 'package:masoyinbo_mobile/app/app.dart';
 import 'package:masoyinbo_mobile/extension/extension.dart';
 import 'package:masoyinbo_mobile/gen/fonts.gen.dart';
@@ -103,7 +102,7 @@ class DashboardIndexScreen extends HookWidget {
                           },
                         ),
                         BottomNavButton(
-                          buttonName: lessonsEn,
+                          buttonName: learnEn,
                           buttonIcon: AppAssets.images.svgs.learn.path,
                           buttonIconBold: AppAssets.images.svgs.learnBold.path,
                           position: 1,

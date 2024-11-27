@@ -5,4 +5,5 @@ export 'custom_selector.dart';
 export 'custom_switch.dart';
 export 'custom_text_field.dart';
 export 'decorated_container.dart';
+export 'selected_category_widget.dart';
 export 'unfocus.dart';

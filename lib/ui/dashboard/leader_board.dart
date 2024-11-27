@@ -349,7 +349,7 @@ class _EmptyLeaderboardWidget extends StatelessWidget {
         ),
         SizedBox(height: 30.h),
         Button(
-          label: startALessonEn,
+          label: startLearningEn,
           width: mqr.width * 0.38,
           onPressed: () => currentPosition?.value = 1,
         ),

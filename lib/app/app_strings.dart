@@ -105,7 +105,7 @@ const signUpWithGoogleYr = 'Darapọ̀ pẹ̀lú Google';
 
 const homeEn = 'Home';
 const leaderboardEn = 'Leaderboard';
-const lessonsEn = 'Lessons';
+const learnEn = 'Learn';
 const meEn = 'Me';
 
 const goodAfternoonYr = 'Ẹ káàsán';
@@ -155,7 +155,7 @@ const completeLessonToJoinWeekDashboardYr =
 const completeLessonToJoinWeekDashboardEn =
     'Complete a lesson to join this week’s leaderboard';
 
-const startALessonEn = 'Start a Lesson';
+const startLearningEn = 'Start Learning';
 const alphabetLesson =
     "In this module, you'll embark on an exciting journey to learn the alphabets of the Yoruba language. We'll guide you through each letter, helping you understand how to pronounce and write them, as well as recognize their unique sounds. By the end of this lesson, you'll have a strong foundation to build upon as you continue your language learning journey.\n\nTo ensure you’ve mastered the content, there will be a knowledge review at the end of the module. This review will help reinforce what you've learned and prepare you for the next steps.\n\nLet’s get started!";
 
@@ -375,8 +375,8 @@ const selectCategoryEn = 'Select category';
 const selectDifficultyYr = 'Yan ipele tó le';
 const selectDifficultyEn = 'Choose difficulty level';
 
-const introductionToSinglePlayerYr = 'Káàbọ̀ sí eré aládáṣe';
-const introductionToSinglePlayerEn = 'Introduction to single player';
+const introductionToPlayerYr = 'Káàbọ̀ sí eré aládáṣe';
+const introductionToPlayerEn = 'Introduction to single player';
 
 const getReadyToTestYourSkillsYr =
     'Gbaradì láti ṣe àyẹ̀wò ìmọ̀ re ní ipò eré!\n\nÌbéèrè márùndínlógún lati pèsè láti fi dán ìmọ re wò. Ànfàní mẹta lówà láti fi dáhùn gbogbo àwọn ìbéèrè, nítorínà, ro àwọn ìdáhùn rẹ dáadá. Ti àwọn ànfàní métẹ̀ta báti tán, eré dópin- sugbọn má ṣèyọnu, o lè gbìyànjú si tóbáyá.\n\nGẹ́gẹ́ bí èrè fún píparí ere, wàá jẹ àwọn owó idẹ tí o lè lò làti fi ni ànfàni si àwọn ohun àkànṣe tí a ti yà sọ́tọ̀. Gbaradì láti dàn ìmọ̀ rẹ wo kí o sì bẹ̀rẹ̀ sí gba owó idẹ re! Ire o!';
@@ -388,3 +388,49 @@ const startPlayingEn = 'Start playing';
 
 const learnWhileYouPlayYr = 'Kẹ́kọ̀ọ́ nígba tí o bá ń seré lọ́wọ́';
 const learnWhileYouPlayEn = 'Learn while you play';
+
+const letsGetYouAnAvatarYr = 'Jẹ ka fún ẹ ní àwòrán “avatar”';
+const letsGetYouAnAvatarEn = 'Let’s get you an avatar!';
+
+const addSomeTouchOfPersonalityYr =
+    'Fi àwo̩n ohun díè̩ kún ìrínisí re̩ pè̩lú avatar. O lè s̩e èyí nísìyí tàbí tóbáyá.';
+const addSomeTouchOfPersonalityEn =
+    'Add some touch of personality to your profile with an avatar. You can do ths now or later';
+
+const setAvatarYr = 'Ṣètò “avatar”';
+const setAvatarEn = 'Set avatar';
+
+const iWillDoThisLaterYr = 'Màá ṣe èyí tóbáyá';
+const iWillDoThisLaterEn = 'I will do this later';
+
+const remindMeYr = 'Rán mi létí';
+const remindMeEn = 'Remind me';
+
+const remindMeLaterYr = 'Sètò ìránilétí tóbáyá';
+const remindMeLaterEn = 'Remind me later';
+
+const welcomeToPracticeModeYr = 'Káàbọ̀ sí ìfikọ́ra';
+const welcomeToPracticeModeEn = 'Welcome to Practice mode';
+
+const practicePrepYr =
+    'Báyìí, o ní ìbéèrè mẹwa láti dáhùn nígbà tóbá wùn ẹ. Àǹfàní tí ò lópin lówà láti fi dáhùn àwọn ìbéère--dáhùn lásìkò tóbá rọrùn fún e, kí o sì wo àwọn ìdáhùn ẹ fínífíní.\n\nRántí wípé ipò ìfikọra ma ràn ẹ́ lọ́wọ́ láti le ṣe ojúlówó eré gangan, nítorí nà tẹ̀ẹ́ jẹ́jẹ́.\n\nṢé o ti ṣetán láti wọlé kanlẹ̀? Jẹ́ká bẹ̀rẹ!';
+
+const practicePrepEn =
+    "Here, you'll be presented with 10 questions to test your knowledge at your own pace.\n\nYou have no lives to look out for— Take your time, or not, think through your answers.\n\nRemember, practice Mode helps you gear up for the real deal, so take it easy on yourself.\nReady to dive in? Let's go!";
+
+const startPracticeYr = 'Bẹ̀rẹ ifikọ́ra';
+const startPracticeEn = 'Start practice';
+
+const selectAnswersFromOptionBelowYr =
+    'Yan àwo̩n Ìdáhùn re̩ nínú àte̩ tí a pèsè sílè̩ yí';
+const selectAnswersFromOptionBelowEn =
+    'Select your answers from the options below';
+
+const writeYourAnswerHereYr = 'Write your answer here';
+const writeYourAnswerHereEn = 'Write your answer here';
+
+const formTheSentenceYr = 'Form the sentence using the words below';
+const formTheSentenceEn = 'Form the sentence using the words below';
+
+const selectMatchingImageYr = 'Aworan to ba oro na mu';
+const selectMatchingImageEn = 'Select the image that matches the term below';

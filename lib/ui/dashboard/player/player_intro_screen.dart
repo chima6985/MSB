@@ -5,11 +5,16 @@ import 'package:masoyinbo_mobile/extension/context_extension.dart';
 import 'package:masoyinbo_mobile/gen/fonts.gen.dart';
 import 'package:masoyinbo_mobile/ui/ui.dart';
 
-class SinglePlayerIntroScreen extends HookWidget {
-  const SinglePlayerIntroScreen({
+class PlayerIntroScreen extends HookWidget {
+  const PlayerIntroScreen({
     super.key,
+    this.isPractice = false,
+    this.isTimed = true,
   });
-  static const String id = 'singlePlayerIntroScreen';
+  static const String id = 'playerIntroScreen';
+
+  final bool isPractice;
+  final bool isTimed;
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +27,7 @@ class SinglePlayerIntroScreen extends HookWidget {
           children: [
             SizedBox(height: context.topPadding),
             Text(
-              introductionToSinglePlayerYr,
+              isPractice ? welcomeToPracticeModeYr : introductionToPlayerYr,
               textAlign: TextAlign.center,
               style: context.textTheme.titleLarge!.copyWith(
                 fontFamily: FontFamily.margarine,
@@ -30,16 +35,28 @@ class SinglePlayerIntroScreen extends HookWidget {
               ),
             ),
             const Spacer(),
-            Text(
-              locale.value == 'yr'
-                  ? getReadyToTestYourSkillsYr
-                  : getReadyToTestYourSkillsEn,
-              textAlign: TextAlign.center,
-              style: context.textTheme.bodySmall!.copyWith(
-                height: 1.8,
-                letterSpacing: 0.3,
+            if (isPractice)
+              Text(
+                locale.value == 'yr' ? practicePrepYr : practicePrepEn,
+                textAlign: TextAlign.center,
+                style: context.textTheme.bodySmall!.copyWith(
+                  fontSize: 12.5.sp,
+                  height: 1.8,
+                  letterSpacing: 0.3,
+                ),
+              )
+            else
+              Text(
+                locale.value == 'yr'
+                    ? getReadyToTestYourSkillsYr
+                    : getReadyToTestYourSkillsEn,
+                textAlign: TextAlign.center,
+                style: context.textTheme.bodySmall!.copyWith(
+                  fontSize: 12.5.sp,
+                  height: 1.8,
+                  letterSpacing: 0.3,
+                ),
               ),
-            ),
             const SizedBox(height: 24),
             TextButton(
               onPressed: () {
@@ -62,17 +79,26 @@ class SinglePlayerIntroScreen extends HookWidget {
             const SizedBox(height: 30),
             Button(
               label: '',
-              onPressed: () =>
-                  context.pushReplacementNamed(PlayQuestionScreen.id),
+              onPressed: () => context.pushReplacementNamed(
+                PlayQuestionScreen.id,
+                extra: {
+                  'isPractice': isPractice,
+                  'isTimed': isTimed,
+                },
+              ),
               child: RichText(
                 text: TextSpan(
                   style: context.textTheme.bodyMedium!.copyWith(
                     color: AppColors.white,
                   ),
                   children: [
-                    const TextSpan(text: startPlayingYr),
                     TextSpan(
-                      text: ' ($startPlayingEn)',
+                      text: isPractice ? startPracticeYr : startPlayingYr,
+                    ),
+                    TextSpan(
+                      text: isPractice
+                          ? ' ($startPracticeEn)'
+                          : ' ($startPlayingEn)',
                       style: context.textTheme.bodySmall!.copyWith(
                         color: AppColors.white,
                         fontWeight: FontWeight.w300,

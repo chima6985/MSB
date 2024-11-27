@@ -128,6 +128,14 @@ class $AssetsImagesJpegsGen {
   AssetGenImage get random =>
       const AssetGenImage('assets/images/jpegs/random.png');
 
+  /// File path: assets/images/jpegs/remind.png
+  AssetGenImage get remind =>
+      const AssetGenImage('assets/images/jpegs/remind.png');
+
+  /// File path: assets/images/jpegs/select_avatar.png
+  AssetGenImage get selectAvatar =>
+      const AssetGenImage('assets/images/jpegs/select_avatar.png');
+
   /// File path: assets/images/jpegs/single_player.png
   AssetGenImage get singlePlayer =>
       const AssetGenImage('assets/images/jpegs/single_player.png');
@@ -177,6 +185,8 @@ class $AssetsImagesJpegsGen {
         proverb,
         questionAndAnswer,
         random,
+        remind,
+        selectAvatar,
         singlePlayer,
         stars,
         successIcon,
