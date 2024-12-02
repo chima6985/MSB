@@ -207,6 +207,11 @@ final router = GoRouter(
         );
       },
     ),
+    GoRoute(
+      name: BookmarkScreen.id,
+      path: '/bookmarkScreen',
+      builder: (context, state) => BookmarkScreen(),
+    ),
   ],
   // errorBuilder: (context, state) => const PageNotFound(),
 );
