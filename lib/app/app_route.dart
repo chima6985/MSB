@@ -15,7 +15,7 @@ class NavObserver extends NavigatorObserver {
 }
 
 final router = GoRouter(
-  initialLocation: '/',
+  initialLocation: '/dashboardIndexScreen',
   observers: [
     // NavObserver(),
   ],
@@ -108,7 +108,12 @@ final router = GoRouter(
     GoRoute(
       name: QuizLoaderScreen.id,
       path: '/quizLoaderScreen',
-      builder: (context, state) => const QuizLoaderScreen(),
+      builder: (context, state) {
+        final paramHandler = state.extra is Map ? state.extra as Map? : {};
+        return QuizLoaderScreen(
+          navigateTo: paramHandler?['navigateTo'],
+        );
+      },
     ),
     GoRoute(
       name: SettingsScreen.id,
@@ -204,13 +209,46 @@ final router = GoRouter(
         return PlayQuestionScreen(
           isPractice: paramHandler?['isPractice'] ?? false,
           isTimed: paramHandler?['isTimed'] ?? true,
+          isTeamLeader: paramHandler?['isTeamLeader'] ?? false,
+          isMultiPlayer: paramHandler?['isMultiPlayer'] ?? false,
+          isGameMaster: paramHandler?['isGameMaster'] ?? false,
         );
       },
     ),
     GoRoute(
       name: BookmarkScreen.id,
       path: '/bookmarkScreen',
-      builder: (context, state) => BookmarkScreen(),
+      builder: (context, state) => const BookmarkScreen(),
+    ),
+    GoRoute(
+      name: JoinGameByCodeScreen.id,
+      path: '/joinGameByCodeScreen',
+      builder: (context, state) => const JoinGameByCodeScreen(),
+    ),
+    GoRoute(
+      name: GameRoomScreen.id,
+      path: '/gameRoomScreen',
+      builder: (context, state) => const GameRoomScreen(),
+    ),
+    GoRoute(
+      name: TeamAllSetScreen.id,
+      path: '/teamAllSetScreen',
+      builder: (context, state) => const TeamAllSetScreen(),
+    ),
+    GoRoute(
+      name: ScoreBoardScreen.id,
+      path: '/scoreBoardScreen',
+      builder: (context, state) => const ScoreBoardScreen(),
+    ),
+    GoRoute(
+      name: NewGameScreen.id,
+      path: '/newGameScreen',
+      builder: (context, state) {
+        final paramHandler = state.extra is Map ? state.extra as Map? : {};
+        return NewGameScreen(
+          isPlayAgainWithSameSettings: paramHandler?['isPlayAgainWithSameSettings'] ?? false,
+        );
+      },
     ),
   ],
   // errorBuilder: (context, state) => const PageNotFound(),

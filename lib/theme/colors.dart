@@ -10,6 +10,7 @@ class AppColors {
   static const lightBackgroundColor = Color(0xFFFFFCF4);
   static const white = Color(0xFFFFFFFF);
   static const whiteFF = Color(0xFFFFFBFB);
+  static const whiteFB = Color(0xFFFBF9FE);
   static const black = Color(0xFF000000);
   static const black15 = Color(0xFF151514);
   static const greyB6 = Color(0xFFB6C4CF);
@@ -28,6 +29,7 @@ class AppColors {
   static const goldCE = Color(0xFFCEA70B);
   static const greenE7 = Color(0xFFE7F8ED);
   static const lemonC3 = Color(0xFFC3F44C);
+  static const lemonF6 = Color(0xFFF6FDE4);
   static const lemonF9 = Color(0xFFF9FEED);
   static const cyan32 = Color(0xFF32ADE6);
   static const mint00 = Color(0xFF00C7BE);
@@ -40,5 +42,6 @@ class AppColors {
   static const blue0F = Color(0xFF007AFF);
   static const green4C = Color(0xFF4CAF50);
   static const blue07 = Color(0xFF007AFF);
+  static const green58 = Color(0xFF58BE77);
   static const transparent = Colors.transparent;
 }

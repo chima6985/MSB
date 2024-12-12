@@ -44,6 +44,9 @@ const funYr = 'Ayò (Fun)';
 const nextYr = 'Èyí tókàn';
 const nextEn = 'Next';
 
+const notedYr = 'Noted';
+const notedEn = 'Noted';
+
 const sendTextYr = 'Fi ìwé ránṣẹ́ (Send texts and emails)';
 const haveConversationsYr = 'Ní ìjíròrò (Have conversations)';
 const culturalValuesYr = 'Fun Ìlànà àṣà (Adapt to cultural values)';
@@ -176,8 +179,12 @@ const takeQuizEn = 'Take Quiz';
 const timeForKnowledgeReviewYr = 'Asìkò fún àtúnyẹ̀wò ìmọ̀';
 const timeForKnowledgeReviewEn = 'It’s time for a knowledge review';
 
-const questionIsComingYr = 'ìbéèrè re̩ ń bò̩...';
+const questionIsComingYr = 'ìbéèrè re̩ ń bò̩';
+const questionIsComingEn = 'Loading your quiz';
+
 const pleaseWaitForQuestionsYr = 'Dúró  bí a s̩e ń s̩ètò àwo̩n ìbéèrè  e';
+const pleaseWaitForQuestionsEn =
+    'Please, wait while we prepare your set of questions.';
 
 const completedLessonsEn = 'Completed Lessons';
 const coinEarnedYr = 'Owó ide̩ tí o ti je̩';
@@ -292,8 +299,12 @@ const needToSpeakToUsEn = 'Need to speak with us? Give us a call!';
 const mailEn = 'Mail';
 const reachUsViaMailEn = 'Reach us via email with your concerns';
 
+const sureToDeleteAccountYr = 'Are you sure you want to delete your account?';
 const sureToDeleteAccountEn = 'Are you sure you want to delete your account?';
-const ifYouDeleteYourAccountEn = 'If you delete your account:';
+
+const whatHappensWhenYouDeleteYr = 'What happens when you delete your account:';
+const whatHappensWhenYouDeleteEn = 'What happens when you delete your account:';
+
 const learningProgressDeleteAccountEn =
     'Learning Progress: All your lessons, streaks, and achievements will be erased and cannot be restored.';
 const profileAndSettingsEn =
@@ -434,3 +445,143 @@ const formTheSentenceEn = 'Form the sentence using the words below';
 
 const selectMatchingImageYr = 'Aworan to ba oro na mu';
 const selectMatchingImageEn = 'Select the image that matches the term below';
+
+const bookmarksYr = 'Bookmarks';
+const bookmarksEn = 'Bookmarks';
+
+const searchBookMarksYr = 'Search bookmarks';
+const searchBookMarksEn = 'Search bookmarks';
+
+const joinGameYr = 'Darapọ̀ mọ́ eré';
+const joinGameEn = 'Join game';
+
+const findGameRoomYr = 'Wá yara eré';
+const findGameRoomEn = 'Find Game Room';
+
+const joinGameRoomYr = 'Darapọ̀ mọ́ yara eré';
+const joinGameRoomEn = 'Join Game Room';
+
+const inputGameCodeYr = 'Tẹ ònka ere tí ọ̀rẹ́ rẹ pín pẹ̀lú re sí ìsàlẹ̀';
+const inputGameCodeEn = 'Input the game code your friend shared with you below';
+
+const gameCodeYr = 'Game code';
+const gameCodeEn = 'Game code';
+
+const gameSetupYr = 'Iṣètò eré';
+const gameSetupEn = 'Game Set-up';
+
+const gamePreparedByFriendYr = 'Èyí ní eré tí ọ̀rẹ re ti ṣètò';
+const gamePreparedByFriendEn =
+    'Here is the game set-up as prepared by your friend';
+
+const enterGameRoomYr = 'Wo̩ Iyàrá eré';
+const enterGameRoomEn = 'Enter Game Room';
+
+const leaveYr = 'Kúrò ';
+const leaveEn = 'Leave';
+
+const gameCategoryYr = 'Game category';
+const gameCategoryEn = 'Game category';
+
+const gameDifficultyYr = 'Game difficulty';
+const gameDifficultyEn = 'Game difficulty';
+
+const teamModeYr = 'Team mode';
+const teamModeEn = 'Team mode';
+
+const gameRoomYr = 'Game Room';
+const gameRoomEn = 'Game Room';
+
+const leaveGameRoomYr = 'Kúrò ní iyàrá';
+const leaveGameRoomEn = 'Leave Game Room';
+
+const confirmActionYr = 'S̩e àrídájú ìgbé̩sè̩ re̩';
+const confirmActionEn = 'Confirm Action';
+
+const dontLeaveYr = 'Má kúrò';
+const dontLeaveEn = 'Don’t leave';
+
+const leaveRoomYr = 'Bé̩è̩ni, kúrò ní iyàrá';
+const leaveRoomEn = 'Yes, leave room';
+
+const sureToLeaveGameYr = 's̩é ó dá e̩ lójú pé o fé̩ fi iyàrá eré sílè̩?';
+const sureToLeaveGameEn = 'Are you sure you want to leave the game room?';
+
+const teamAllSetYr = 'Team All Set';
+const teamAllSetEn = 'Team All Set';
+
+const eachPlayerInstructionYr =
+    'Gbogbo olùdíje ni yíò rí àwo̩n ìbéèrè níbikíbi ti wó̩n bá wà tí wó̩n sì lè yan èyí tó wùn wó̩n, nígbàtí olórí e̩gbé̩ á fi ìdáhùn ìke̩yìn sílè̩.. gbogbo èyí kò ní ko̩já o̩gbò̩n ìs̩é̩ju àáyá lórí ìbéèrè kan.';
+const eachPlayerInstructionEn =
+    'Each player will see the quiz at their end and they can select an option, while the team leader submit the final answer. All this within 30secs per question.';
+
+const systemRecognizesTeamLeadersChoicesYr =
+    'È̩ro̩ á gba ìdáhùn ìke̩hìn tí olórí e̩gbé̩ bá múlè̩ ge̩gé̩ bíí ìdáhùn gbogbo e̩gbé̩.';
+const systemRecognizesTeamLeadersChoicesEn =
+    "The system records the team leader's choice as the official team answer";
+
+const waitingForGameMasterToStartTheGameYr =
+    'Dúró fún olórí eré láti bè̩rè̩ eré';
+const waitingForGameMasterToStartTheGameEn =
+    'Waiting for the game master to start the game';
+
+const teamLeaderYr = 'Olórí e̩gbé̩';
+const teamLeaderEn = 'Team Leader';
+
+const editTeamNameYr = 'S̩e àtúns̩e orúko̩ e̩gbé̩';
+const editTeamNameEn = 'Edit Team Name';
+
+const selectedAsTeamLeadYr =
+    'Ati yàn é̩ láti s̩eré gé̩gé̩ bíi olórí e̩gbé̩ re̩';
+const selectedAsTeamLeadEn =
+    'You have been selected to play as your team leader!!';
+
+const teamNameYr = 'Orúko̩ e̩gbé̩';
+const teamNameEn = 'Team Name';
+
+const enterTeamNameYr = 'Te̩ orúko̩ e̩gbé̩ wo̩lé';
+const enterTeamNameEn = 'Enter team name';
+
+const waitingForTeamLeaderToSubmitFinalAnswerYr =
+    'Dúró fún olórí e̩gbé̩ láti fi ìdáhùn wo̩n sílè̩';
+const waitingForTeamLeaderToSubmitFinalAnswerEn =
+    'Waiting for the team leader to submit final answer';
+
+const voteYr = 'Vote';
+const voteEn = 'Vote';
+
+const successNailedItYr =
+    'Ati s̩às̩eyorí,  gbogbo yín e̩kú is̩é̩ takun takun 🎉💡';
+const successNailedItEn = ' We nailed it—great job, everyone! 🎉💡';
+
+const failedZaggedYr = 'ó dá bí pé ati jágbó nígbà tó ye ká jánà! 🙁';
+const failedZaggedEn = 'Looks like we zigged when we should’ve zagged!';
+
+const nicelyDoneYr = 'Èyí dára!';
+const nicelyDoneEn = 'Nicely done!';
+
+const oppsYr = 'Yeee!';
+const oppsEn = 'Oopsies!';
+
+const scoreboardYr = 'Scoreboard';
+const scoreboardEn = 'Scoreboard';
+
+const playAgainYr = 'Play Again';
+const playAgainEn = 'Play Again';
+
+const returnToLobbyYr = 'Return to Lobby';
+const returnToLobbyEn = 'Return to Lobby';
+
+const acceptGameYr = 'Accept game';
+const acceptGameEn = 'Accept game';
+
+const goHomeYr = 'Go Home';
+const goHomeEn = 'Go Home';
+
+const aboutToPlayAgainWithSameSettingsYr =
+    'You are about to play again with the same game set up, team mode, and formation';
+const aboutToPlayAgainWithSameSettingsEn =
+    'You are about to play again with the same game set up, team mode, and formation';
+
+const aboutToPlayAgainWithSameCode =
+    'You are about to play again with the same invite code';

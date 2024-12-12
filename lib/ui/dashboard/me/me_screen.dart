@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:iconsax/iconsax.dart';
 import 'package:masoyinbo_mobile/app/app.dart';
 import 'package:masoyinbo_mobile/extension/extension.dart';
 import 'package:masoyinbo_mobile/gen/fonts.gen.dart';
@@ -118,7 +117,7 @@ class MeScreen extends HookWidget {
             Align(
               alignment: Alignment.centerLeft,
               child: Text(
-                bestStreakEn,
+                completedLessonsEn,
                 textScaler: TextScaler.noScaling,
                 style: context.textTheme.bodyLarge!.copyWith(
                   fontFamily: FontFamily.margarine,
@@ -235,6 +234,7 @@ class _CompletedLessonsWidget extends StatelessWidget {
                   ),
                 ),
               ),
+              const SizedBox(width: 15),
               const Icon(
                 Icons.check_circle,
                 color: AppColors.green4A,

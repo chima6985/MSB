@@ -315,7 +315,17 @@ class Home extends HookWidget {
                     subText: multiPlayerEn,
                     color: AppColors.lilac9E,
                     image: AppAssets.images.jpegs.multiplePlayer.path,
-                    onTap: () => context.pushNamed(PlayerScreen.id),
+                    onTap: () => showModalBottomSheet(
+                      context: context,
+                      builder: (context) => const ChooseMutliPlayerModeModal(),
+                      isScrollControlled: true,
+                      shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(24),
+                          topRight: Radius.circular(24),
+                        ),
+                      ),
+                    ),
                   ),
                 ),
               ],

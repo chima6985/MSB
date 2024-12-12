@@ -42,10 +42,15 @@ class DeleteAccountScreen extends HookWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    sureToDeleteAccountEn,
+                    sureToDeleteAccountYr,
                     style: context.textTheme.titleLarge,
                   ),
                   SizedBox(height: 24.h),
+                  Text(
+                    whatHappensWhenYouDeleteYr,
+                    style: context.textTheme.bodyMedium,
+                  ),
+                  SizedBox(height: 13.h),
                   Text(
                     learningProgressDeleteAccountEn,
                     style: context.textTheme.bodyMedium!.copyWith(

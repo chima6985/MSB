@@ -7,6 +7,7 @@ class Button extends StatelessWidget {
     super.key,
     required this.label,
     required this.onPressed,
+    this.onLongPress,
     this.labelColor = AppColors.white,
     this.child,
     this.color,
@@ -19,7 +20,8 @@ class Button extends StatelessWidget {
   });
   final String label;
   final void Function() onPressed;
-  final Color labelColor;
+  final void Function()? onLongPress;
+  final Color? labelColor;
   final Color? color;
   final Widget? child;
   final double verticalPadding;
@@ -27,7 +29,7 @@ class Button extends StatelessWidget {
   final bool isShowArrow;
   final bool isBoldLabelText;
   final bool isOutlined;
-  final Color borderColor;
+  final Color? borderColor;
 
   @override
   Widget build(BuildContext context) {
@@ -43,10 +45,13 @@ class Button extends StatelessWidget {
           borderRadius: BorderRadius.circular(24),
         ),
         side: BorderSide(
-          color: isOutlined ? borderColor : AppColors.blue12,
+          color: isOutlined
+              ? (borderColor ?? AppColors.black15)
+              : borderColor ?? AppColors.blue12,
         ),
       ),
       onPressed: onPressed,
+      onLongPress: onLongPress,
       child: IntrinsicWidth(
         child: SizedBox(
           width: width ?? mqr.width,
@@ -59,7 +64,7 @@ class Button extends StatelessWidget {
                       label,
                       textScaler: TextScaler.noScaling,
                       style: context.textTheme.bodyMedium!.copyWith(
-                        color: isOutlined ? labelColor : AppColors.white,
+                        color: labelColor ?? AppColors.white,
                         fontWeight:
                             isBoldLabelText ? FontWeight.w500 : FontWeight.w400,
                       ),
@@ -77,9 +82,11 @@ class CustomBackButton extends StatelessWidget {
   const CustomBackButton({
     super.key,
     this.buttonColor = AppColors.black15,
+    this.onTap,
   });
 
   final Color? buttonColor;
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -88,7 +95,7 @@ class CustomBackButton extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.only(left: 16),
         child: InkWell(
-          onTap: () => context.pop(),
+          onTap: onTap ?? () => context.pop(),
           customBorder: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(4),
           ),

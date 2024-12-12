@@ -51,6 +51,10 @@ class $AssetsImagesJpegsGen {
   AssetGenImage get coin2 =>
       const AssetGenImage('assets/images/jpegs/coin_2.png');
 
+  /// File path: assets/images/jpegs/confetti.png
+  AssetGenImage get confetti =>
+      const AssetGenImage('assets/images/jpegs/confetti.png');
+
   /// File path: assets/images/jpegs/dark_decorated_bg.png
   AssetGenImage get darkDecoratedBg =>
       const AssetGenImage('assets/images/jpegs/dark_decorated_bg.png');
@@ -61,6 +65,10 @@ class $AssetsImagesJpegsGen {
 
   /// File path: assets/images/jpegs/easy.png
   AssetGenImage get easy => const AssetGenImage('assets/images/jpegs/easy.png');
+
+  /// File path: assets/images/jpegs/exit_door.png
+  AssetGenImage get exitDoor =>
+      const AssetGenImage('assets/images/jpegs/exit_door.png');
 
   /// File path: assets/images/jpegs/hard.png
   AssetGenImage get hard => const AssetGenImage('assets/images/jpegs/hard.png');
@@ -116,6 +124,10 @@ class $AssetsImagesJpegsGen {
   AssetGenImage get profileImage =>
       const AssetGenImage('assets/images/jpegs/profile_image.png');
 
+  /// File path: assets/images/jpegs/profile_image_1.png
+  AssetGenImage get profileImage1 =>
+      const AssetGenImage('assets/images/jpegs/profile_image_1.png');
+
   /// File path: assets/images/jpegs/proverb.png
   AssetGenImage get proverb =>
       const AssetGenImage('assets/images/jpegs/proverb.png');
@@ -131,6 +143,18 @@ class $AssetsImagesJpegsGen {
   /// File path: assets/images/jpegs/remind.png
   AssetGenImage get remind =>
       const AssetGenImage('assets/images/jpegs/remind.png');
+
+  /// File path: assets/images/jpegs/scoreboard_position_1.png
+  AssetGenImage get scoreboardPosition1 =>
+      const AssetGenImage('assets/images/jpegs/scoreboard_position_1.png');
+
+  /// File path: assets/images/jpegs/scoreboard_position_2.png
+  AssetGenImage get scoreboardPosition2 =>
+      const AssetGenImage('assets/images/jpegs/scoreboard_position_2.png');
+
+  /// File path: assets/images/jpegs/scoreboard_positoin_3.png
+  AssetGenImage get scoreboardPositoin3 =>
+      const AssetGenImage('assets/images/jpegs/scoreboard_positoin_3.png');
 
   /// File path: assets/images/jpegs/select_avatar.png
   AssetGenImage get selectAvatar =>
@@ -165,9 +189,11 @@ class $AssetsImagesJpegsGen {
         books,
         chat,
         coin2,
+        confetti,
         darkDecoratedBg,
         drums,
         easy,
+        exitDoor,
         hard,
         interactiveQuiz,
         lessonCovered,
@@ -182,10 +208,14 @@ class $AssetsImagesJpegsGen {
         offline,
         onboardingCircles,
         profileImage,
+        profileImage1,
         proverb,
         questionAndAnswer,
         random,
         remind,
+        scoreboardPosition1,
+        scoreboardPosition2,
+        scoreboardPositoin3,
         selectAvatar,
         singlePlayer,
         stars,
@@ -200,6 +230,12 @@ class $AssetsImagesSvgsGen {
 
   /// File path: assets/images/svgs/bolt.svg
   SvgGenImage get bolt => const SvgGenImage('assets/images/svgs/bolt.svg');
+
+  /// File path: assets/images/svgs/cancel.svg
+  SvgGenImage get cancel => const SvgGenImage('assets/images/svgs/cancel.svg');
+
+  /// File path: assets/images/svgs/crown.svg
+  SvgGenImage get crown => const SvgGenImage('assets/images/svgs/crown.svg');
 
   /// File path: assets/images/svgs/diamond_shape.svg
   SvgGenImage get diamondShape =>
@@ -236,18 +272,30 @@ class $AssetsImagesSvgsGen {
   /// File path: assets/images/svgs/listen.svg
   SvgGenImage get listen => const SvgGenImage('assets/images/svgs/listen.svg');
 
+  /// File path: assets/images/svgs/master_game_console.svg
+  SvgGenImage get masterGameConsole =>
+      const SvgGenImage('assets/images/svgs/master_game_console.svg');
+
   /// File path: assets/images/svgs/me.svg
   SvgGenImage get me => const SvgGenImage('assets/images/svgs/me.svg');
 
   /// File path: assets/images/svgs/me_bold.svg
   SvgGenImage get meBold => const SvgGenImage('assets/images/svgs/me_bold.svg');
 
+  /// File path: assets/images/svgs/share.svg
+  SvgGenImage get share => const SvgGenImage('assets/images/svgs/share.svg');
+
   /// File path: assets/images/svgs/speak.svg
   SvgGenImage get speak => const SvgGenImage('assets/images/svgs/speak.svg');
+
+  /// File path: assets/images/svgs/thumbs.svg
+  SvgGenImage get thumbs => const SvgGenImage('assets/images/svgs/thumbs.svg');
 
   /// List of all assets
   List<SvgGenImage> get values => [
         bolt,
+        cancel,
+        crown,
         diamondShape,
         flip,
         google,
@@ -258,9 +306,12 @@ class $AssetsImagesSvgsGen {
         learn,
         learnBold,
         listen,
+        masterGameConsole,
         me,
         meBold,
-        speak
+        share,
+        speak,
+        thumbs
       ];
 }
 

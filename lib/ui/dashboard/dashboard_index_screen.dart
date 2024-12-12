@@ -32,6 +32,22 @@ class DashboardIndexScreen extends HookWidget {
                 ),
               ),
               actions: [
+                InkWell(
+                  onTap: () => context.pushNamed(BookmarkScreen.id),
+                  customBorder: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(4),
+                  ),
+                  splashColor: AppColors.black15.withOpacity(0.1),
+                  highlightColor: AppColors.black15.withOpacity(0.1),
+                  child: const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 4, horizontal: 6),
+                    child: Icon(
+                      Iconsax.bookmark,
+                      color: AppColors.black15,
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 20),
                 Transform.translate(
                   offset: const Offset(-10, 0),
                   child: InkWell(

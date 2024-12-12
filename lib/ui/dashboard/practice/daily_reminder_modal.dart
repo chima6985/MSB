@@ -72,7 +72,7 @@ class DailyReminderModal extends StatelessWidget {
                   ..pop(context)
                   ..pushNamed(
                     PlayerScreen.id,
-                    extra: {'practice': true},
+                    extra: {'isPractice': true},
                   ),
                 child: RichText(
                   text: TextSpan(

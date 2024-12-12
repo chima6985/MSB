@@ -14,6 +14,13 @@ class EnterYourPasswordModal extends HookWidget {
     final passwordController = useTextEditingController();
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 20),
+      decoration: const BoxDecoration(
+        color: AppColors.white,
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(24),
+          topRight: Radius.circular(24),
+        ),
+      ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -102,6 +109,7 @@ class EnterYourPasswordModal extends HookWidget {
             ),
           ),
           SizedBox(height: context.btmPadding),
+          SizedBox(height: MediaQuery.of(context).viewInsets.bottom),
         ],
       ),
     );
@@ -115,6 +123,13 @@ class AccountDeletedModal extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 20),
+      decoration: const BoxDecoration(
+        color: AppColors.white,
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(24),
+          topRight: Radius.circular(24),
+        ),
+      ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [

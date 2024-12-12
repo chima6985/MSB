@@ -1,4 +1,5 @@
 export 'account_screen.dart';
+export 'bookmark_screen.dart';
 export 'change_avatar_screen.dart';
 export 'delete_account/delete_account.dart';
 export 'help_screen.dart';

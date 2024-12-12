@@ -8,12 +8,21 @@ import 'package:masoyinbo_mobile/ui/ui.dart';
 class QuizLoaderScreen extends HookWidget {
   const QuizLoaderScreen({
     super.key,
+    this.navigateTo,
   });
   static const String id = 'quizLoaderScreen';
+
+  final VoidCallback? navigateTo;
 
   @override
   Widget build(BuildContext context) {
     final mqr = MediaQuery.of(context).size;
+    useEffect(() {
+      if (navigateTo != null) {
+        navigateTo?.call();
+      }
+      return null;
+    });
     return Scaffold(
       body: Container(
         width: mqr.width,
@@ -43,12 +52,23 @@ class QuizLoaderScreen extends HookWidget {
                   curve: Curves.easeInCubic,
                 ),
             SizedBox(height: 24.h),
-            Text(
-              questionIsComingYr,
-              style: context.textTheme.titleLarge!.copyWith(
-                color: AppColors.white,
-                fontFamily: FontFamily.margarine,
-              ),
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  questionIsComingYr,
+                  style: context.textTheme.titleLarge!.copyWith(
+                    color: AppColors.white,
+                    fontFamily: FontFamily.margarine,
+                  ),
+                ),
+                Transform.translate(
+                  offset: Offset(0, 1.6.sp),
+                  child: const TypeWriterProgressTextIndicator(
+                    color: AppColors.white,
+                  ),
+                ),
+              ],
             ),
             SizedBox(height: 8.h),
             Text(
