@@ -395,7 +395,7 @@ const getReadyToTestYourSkillsEn =
     "Get ready to test your skills in Play Mode!\n\nYou'll face 15 questions designed to challenge your knowledge. You have 3 lives to make it through all the questions, so choose your answers wisely. If you run out of lives, the game ends—but don’t worry, you can always try again.\nAs a reward for completing Play Mode, you'll earn coins that you can use to unlock special features or content. Get ready to test your knowledge and start collecting those coins! Good luck!";
 
 const startPlayingYr = 'Bẹ̀rẹ̀ eré';
-const startPlayingEn = 'Start playing';
+const startPlayingEn = 'Start Playing';
 
 const learnWhileYouPlayYr = 'Kẹ́kọ̀ọ́ nígba tí o bá ń seré lọ́wọ́';
 const learnWhileYouPlayEn = 'Learn while you play';
@@ -486,7 +486,7 @@ const gameCategoryEn = 'Game category';
 const gameDifficultyYr = 'Game difficulty';
 const gameDifficultyEn = 'Game difficulty';
 
-const teamModeYr = 'Team mode';
+const teamModeYr = 'Abala yíyan ìsò̩gbè';
 const teamModeEn = 'Team mode';
 
 const gameRoomYr = 'Game Room';
@@ -585,3 +585,100 @@ const aboutToPlayAgainWithSameSettingsEn =
 
 const aboutToPlayAgainWithSameCode =
     'You are about to play again with the same invite code';
+
+const createGameYr = 'Dá eré silẹ̀';
+const createGameEn = 'Create Game';
+
+const chooseAnExistingGameYr =
+    'Yan ìrìnàjò re nísàlè̩! Dá iyàrá eré tutun sílè̩ tàbí darapò̩ mó̩ iyàrá eré ti te̩lè̩.';
+const chooseAnExistingGameEn =
+    'Choose your adventure below! Create a new game room or join an existing one.';
+
+const invitingMoreThanFivePlayersYr =
+    'Turn on if you are inviting more than 5 players';
+
+const invitingMoreThanFivePlayersEn =
+    'Turn on if you are inviting more than 5 players';
+
+const teamFormationYr = 'Ìdásílè̩ e̩gbé̩';
+const teamFormationEn = 'Team formation';
+
+const automaticYr = 'Afèròs̩e';
+const automaticEn = 'Automatic';
+
+const manualYr = 'Afo̩wó̩s̩e';
+const manualEn = 'Manual';
+
+const createGameRoomYr = 'S̩àgbékalè̩ iyàrá ìs̩eré';
+const createGameRoomEn = 'Create Game Room';
+
+const gameRoomCreatedYr = 'Game Room Created';
+const gameRoomCreatedEn = 'Game Room Created';
+
+const inviteFriendsToYourGameYr =
+    'Pe àwo̩n ò̩ré̩ wá sí iyàrá eré nípa pínpín eré nà tàbí fífún wo̩n ní ìlànà àátò̩ sí eré nà';
+const inviteFriendsToYourGameEn =
+    'Invite friends to your game room by sharing the game or giving them the game code.';
+
+const isYourGameCodeYr = 'Is your game code';
+const isYourGameCodeEn = 'Is your game code';
+
+const shareGameYr = 'Pín eré pẹ̀lú àwọn ènìyàn';
+const shareGameEn = 'Share Game';
+
+const goToGameRoomYr = 'Lo̩sí iyàrá ìs̩eré';
+const goToGameRoomEn = 'Go to Game Room';
+
+const modifyGameSetupYr = 'Modify Game Setup';
+const modifyGameSetupEn = 'Modify Game Setup';
+
+const setTeamYr = 'Yan ìsò̩gbè';
+const setTeamEn = 'Set Team';
+
+const attentionYr = 'Àkíyèsí pàtàkì';
+const attentionEn = 'Attention';
+
+const goBackToRoomYr = 'Go Back to Room';
+const goBackToRoomEn = 'Go Back to Room';
+
+const yesSetTeamYr = 'Beeni, Yan ìsò̩gbè';
+const yesSetTeamEn = 'Yes, set team';
+
+const goingAheadToSetTeamYr =
+    'Tí o bá s̩ètò ìsò̩gbè re̩ báyi, ilè̩kùn àbáwo̩lé sí iyàrá eré á di títí àti pé  olùkópa tuntun kò ní lè darapò̩ mó̩';
+const goingAheadToSetTeamEn =
+    'If you go ahead to set team now, the door to the game room will be closed and new players won’t be able to join. ';
+
+const setTeamOnlyPlayersInYr =
+    'Yan ìsò̩gbè re̩ nígbàtí gbogbo olùdíje re̩ bá ti pé jo̩';
+const setTeamOnlyPlayersInEn =
+    'Set the team only when you have all of your players in';
+
+const eachPlayerGameInstructionYr =
+    'Each player will see the quiz at their end and they can select an option, while the team leader submit the final answer. All this within 30secs per question.';
+const eachPlayerGameInstructionEn =
+    'Each player will see the quiz at their end and they can select an option, while the team leader submit the final answer. All this within 30secs per question.';
+
+const adjustTeamYr = 'Adjust Team';
+const adjustTeamEn = 'Adjust Team';
+
+const teamLeadersChoiceInstructionYr =
+    "The system records the team leader's choice as the official team answer";
+const teamLeadersChoiceInstructionEn =
+    "The system records the team leader's choice as the official team answer";
+
+const allThingsSetYr = 'Gbogbo ìsò̩gbè ti tò';
+const allThingsSetEn = 'Gbogbo ìsò̩gbè ti tò';
+
+const teamSetUpYr = 'Team Set Up';
+const teamSetUpEn = 'Team Set Up';
+
+const clickAndDragFriendsIntoTeamYr =
+    'Yàn kí o sì wó̩ àwo̩n ò̩ré̩ lo̩ sí ibi ti o fé̩ kí wó̩n darapò̩ mó̩.';
+const clickAndDragFriendsIntoTeamEn =
+    'Click and drag friends into the team you want them to belong to ';
+
+const firstTeamMemberTeamLeaderYr =
+    'The first member of each team will be the team leader';
+const firstTeamMemberTeamLeaderEn =
+    'The first member of each team will be the team leader';

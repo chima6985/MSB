@@ -187,6 +187,7 @@ final router = GoRouter(
         final paramHandler = state.extra is Map ? state.extra as Map? : {};
         return PlayerScreen(
           isPractice: paramHandler?['isPractice'] ?? false,
+          isMultiPlayer: paramHandler?['isMultiPlayer'] ?? false,
         );
       },
     ),
@@ -228,7 +229,15 @@ final router = GoRouter(
     GoRoute(
       name: GameRoomScreen.id,
       path: '/gameRoomScreen',
-      builder: (context, state) => const GameRoomScreen(),
+      builder: (context, state) {
+        final paramHandler = state.extra is Map ? state.extra as Map? : {};
+        return GameRoomScreen(
+          isMultiplayer: paramHandler?['isMultiplayer'] ?? false,
+          isTeamMode: paramHandler?['isTeamMode'] ?? false,
+          isTeamFormationAutomatic:
+              paramHandler?['isTeamFormationAutomatic'] ?? false,
+        );
+      },
     ),
     GoRoute(
       name: TeamAllSetScreen.id,
@@ -241,12 +250,36 @@ final router = GoRouter(
       builder: (context, state) => const ScoreBoardScreen(),
     ),
     GoRoute(
+      name: GameRoomCreatedScreen.id,
+      path: '/gameRoomCreatedScreen',
+      builder: (context, state) {
+        final paramHandler = state.extra is Map ? state.extra as Map? : {};
+        return GameRoomCreatedScreen(
+          isTeamMode: paramHandler?['isTeamMode'] ?? false,
+          isTeamFormationAutomatic:
+              paramHandler?['isTeamFormationAutomatic'] ?? false,
+        );
+      },
+    ),
+    GoRoute(
       name: NewGameScreen.id,
       path: '/newGameScreen',
       builder: (context, state) {
         final paramHandler = state.extra is Map ? state.extra as Map? : {};
         return NewGameScreen(
-          isPlayAgainWithSameSettings: paramHandler?['isPlayAgainWithSameSettings'] ?? false,
+          isPlayAgainWithSameSettings:
+              paramHandler?['isPlayAgainWithSameSettings'] ?? false,
+        );
+      },
+    ),
+    GoRoute(
+      name: TeamSetupScreen.id,
+      path: '/teamSetupScreen',
+      builder: (context, state) {
+        final paramHandler = state.extra is Map ? state.extra as Map? : {};
+        return TeamSetupScreen(
+          isTeamFormationAutomatic:
+              paramHandler?['isTeamFormationAutomatic'] ?? false,
         );
       },
     ),

@@ -234,42 +234,58 @@ class TeamAllSetScreen extends HookWidget {
 class TeamFormationWidget extends StatelessWidget {
   const TeamFormationWidget({
     super.key,
+    this.teamNo,
   });
+
+  final int? teamNo;
 
   @override
   Widget build(BuildContext context) {
     final mqr = MediaQuery.of(context).size;
-    return Container(
-      width: mqr.width * 0.41,
-      padding: const EdgeInsets.fromLTRB(12, 8, 12, 16),
-      margin: const EdgeInsets.only(right: 18),
-      decoration: BoxDecoration(
-        color: AppColors.blueE7,
-        borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: AppColors.greyB6),
-      ),
-      child: Wrap(
-        spacing: 39.sp,
-        children: [
-          TeamSetProfileWidget(
-            isTeamLeader: true,
-            image: AppAssets.images.jpegs.profileImage.path,
-            name: 'P4',
+    return Column(
+      children: [
+        Container(
+          width: mqr.width * 0.41,
+          padding: const EdgeInsets.fromLTRB(12, 8, 12, 16),
+          margin: const EdgeInsets.only(right: 18),
+          decoration: BoxDecoration(
+            color: AppColors.blueE7,
+            borderRadius: BorderRadius.circular(8),
+            border: Border.all(color: AppColors.greyB6),
           ),
-          TeamSetProfileWidget(
-            image: AppAssets.images.jpegs.profileImage1.path,
-            name: 'Angel',
+          child: Wrap(
+            spacing: 39.sp,
+            children: [
+              TeamSetProfileWidget(
+                isTeamLeader: true,
+                image: AppAssets.images.jpegs.profileImage.path,
+                name: 'P4',
+              ),
+              TeamSetProfileWidget(
+                image: AppAssets.images.jpegs.profileImage1.path,
+                name: 'Angel',
+              ),
+              TeamSetProfileWidget(
+                image: AppAssets.images.jpegs.profileImage1.path,
+                name: 'Kiki',
+              ),
+              TeamSetProfileWidget(
+                image: AppAssets.images.jpegs.profileImage.path,
+                name: 'Kido',
+              ),
+            ],
           ),
-          TeamSetProfileWidget(
-            image: AppAssets.images.jpegs.profileImage1.path,
-            name: 'Kiki',
-          ),
-          TeamSetProfileWidget(
-            image: AppAssets.images.jpegs.profileImage.path,
-            name: 'Kido',
+        ),
+        if (teamNo != null) ...[
+          const SizedBox(height: 8),
+          Text(
+            'Team $teamNo',
+            style: context.textTheme.bodySmall!.copyWith(
+              fontWeight: FontWeight.w500,
+            ),
           ),
         ],
-      ),
+      ],
     );
   }
 }

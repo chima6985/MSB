@@ -43,5 +43,6 @@ class AppColors {
   static const green4C = Color(0xFF4CAF50);
   static const blue07 = Color(0xFF007AFF);
   static const green58 = Color(0xFF58BE77);
+  static const yellowFF = Color(0xFFFF9500);
   static const transparent = Colors.transparent;
 }

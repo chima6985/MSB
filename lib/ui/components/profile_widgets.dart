@@ -8,36 +8,45 @@ class GameRoomProfileWidget extends StatelessWidget {
     this.isGameMaster = false,
     required this.image,
     required this.name,
+    this.size = 1,
   });
 
   final bool isGameMaster;
   final String image;
   final String name;
+  final double? size;
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        if (isGameMaster) AppAssets.images.svgs.masterGameConsole.svg(),
-        const SizedBox(height: 2),
-        CircleAvatar(
-          backgroundColor: isGameMaster ? AppColors.whiteFB : AppColors.greyB6,
-          radius: 32,
-          child: Image.asset(
-            image,
-            width: 45.w,
-            height: 45.w,
+    return Transform.scale(
+      scale: size,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          if (isGameMaster)
+            AppAssets.images.svgs.masterGameConsole.svg()
+          else
+            const SizedBox(height: 21),
+          const SizedBox(height: 2),
+          CircleAvatar(
+            backgroundColor:
+                isGameMaster ? AppColors.whiteFB : AppColors.greyB6,
+            radius: 32,
+            child: Image.asset(
+              image,
+              width: 45.w,
+              height: 45.w,
+            ),
           ),
-        ),
-        const SizedBox(height: 10),
-        Text(
-          name,
-          style: context.textTheme.bodySmall!.copyWith(
-            fontWeight: FontWeight.w500,
+          const SizedBox(height: 10),
+          Text(
+            name,
+            style: context.textTheme.bodySmall!.copyWith(
+              fontWeight: FontWeight.w500,
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

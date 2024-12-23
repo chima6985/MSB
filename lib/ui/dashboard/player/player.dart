@@ -1,5 +1,6 @@
 export 'choose_multi_player_mode_modal.dart';
 export 'confirm_leave_action_modal.dart';
+export 'game_room_created_screen.dart';
 export 'game_room_screen.dart';
 export 'game_setup_modal.dart';
 export 'join_game_by_code_screen.dart';
@@ -9,5 +10,7 @@ export 'play_question_screen.dart';
 export 'player_intro_screen.dart';
 export 'player_screen.dart';
 export 'score_board_screen.dart';
+export 'set_team_modal.dart';
 export 'team_all_set_screen.dart';
 export 'team_leader_confirmation_modal.dart';
+export 'team_setup_screen.dart';

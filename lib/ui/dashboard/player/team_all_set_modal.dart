@@ -4,16 +4,24 @@ import 'package:masoyinbo_mobile/extension/extension.dart';
 import 'package:masoyinbo_mobile/gen/fonts.gen.dart';
 import 'package:masoyinbo_mobile/ui/ui.dart';
 
-class ConfirmLeaveActionModal extends StatelessWidget {
-  const ConfirmLeaveActionModal({
-    super.key,
-    this.onTapIntent,
-  });
-
-  final VoidCallback? onTapIntent;
+class TeamAllSetModal extends StatelessWidget {
+  const TeamAllSetModal({super.key});
 
   @override
   Widget build(BuildContext context) {
+    void navigateTo() {
+      Future.delayed(7.seconds).then((_) {
+        router.pushReplacementNamed(
+          PlayQuestionScreen.id,
+          extra: {
+            'isPractice': false,
+            'isTimed': true,
+            'isMultiPlayer': true,
+          },
+        );
+      });
+    }
+
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       decoration: const BoxDecoration(
@@ -36,39 +44,52 @@ class ConfirmLeaveActionModal extends StatelessWidget {
           ),
           const SizedBox(height: 5),
           Text(
-            confirmActionYr,
+            allThingsSetYr,
             textAlign: TextAlign.center,
             style: context.textTheme.bodyLarge!.copyWith(
               fontFamily: FontFamily.margarine,
             ),
           ),
           SizedBox(height: 32.h),
-          AppAssets.images.jpegs.exitDoor.image(scale: 4),
-          SizedBox(height: 16.h),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15),
             child: Text(
-              sureToLeaveGameYr,
+              eachPlayerGameInstructionYr,
               textAlign: TextAlign.center,
               style: context.textTheme.bodyMedium!.copyWith(
                 fontWeight: FontWeight.w300,
               ),
             ),
           ),
-          SizedBox(height: 62.h),
+          const SizedBox(height: 20),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15),
+            child: Text(
+              teamLeadersChoiceInstructionYr,
+              textAlign: TextAlign.center,
+              style: context.textTheme.bodyMedium!.copyWith(
+                fontWeight: FontWeight.w400,
+                fontStyle: FontStyle.italic,
+                color: AppColors.yellowFF,
+              ),
+            ),
+          ),
+          SizedBox(height: 40.h),
           Button(
-            label: leaveRoomYr,
-            onPressed: onTapIntent ??
-                () => context
-                  ..pop(context)
-                  ..pop(context),
+            label: startPlayingYr,
+            onPressed: () => context
+              ..pop()
+              ..pushNamed(
+                QuizLoaderScreen.id,
+                extra: {'navigateTo': navigateTo},
+              ),
           ),
           const SizedBox(height: 24),
           Button(
-            label: dontLeaveYr,
+            label: adjustTeamYr,
             isOutlined: true,
             labelColor: AppColors.black15,
-            onPressed: () => context..pop(context),
+            onPressed: () => context.pop(context),
           ),
           SizedBox(height: context.btmPadding),
         ],

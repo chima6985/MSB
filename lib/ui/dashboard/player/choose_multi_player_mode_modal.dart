@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:masoyinbo_mobile/app/app.dart';
 import 'package:masoyinbo_mobile/extension/extension.dart';
+import 'package:masoyinbo_mobile/gen/fonts.gen.dart';
 import 'package:masoyinbo_mobile/ui/ui.dart';
 
 class ChooseMutliPlayerModeModal extends StatelessWidget {
@@ -29,7 +30,19 @@ class ChooseMutliPlayerModeModal extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15),
             child: Text(
-              areYouSureYouWantToContinueEn,
+              multiPlayerYr,
+              textAlign: TextAlign.center,
+              style: context.textTheme.bodyLarge!.copyWith(
+                fontWeight: FontWeight.w500,
+                fontFamily: FontFamily.margarine,
+              ),
+            ),
+          ),
+          const SizedBox(height: 32),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15),
+            child: Text(
+              chooseAnExistingGameYr,
               textAlign: TextAlign.center,
               style: context.textTheme.bodyMedium!.copyWith(
                 fontWeight: FontWeight.w300,
@@ -43,7 +56,7 @@ class ChooseMutliPlayerModeModal extends StatelessWidget {
               ..pop(context)
               ..pushNamed(
                 PlayerScreen.id,
-                extra: {'isPractice': true},
+                extra: {'isMultiPlayer': true},
               ),
             child: RichText(
               text: TextSpan(
@@ -51,9 +64,9 @@ class ChooseMutliPlayerModeModal extends StatelessWidget {
                   color: AppColors.white,
                 ),
                 children: [
-                  const TextSpan(text: remindMeYr),
+                  const TextSpan(text: createGameYr),
                   TextSpan(
-                    text: ' ($remindMeEn)',
+                    text: ' ($createGameEn)',
                     style: context.textTheme.bodySmall!.copyWith(
                       color: AppColors.white,
                       fontWeight: FontWeight.w300,

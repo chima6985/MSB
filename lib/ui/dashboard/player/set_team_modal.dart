@@ -4,13 +4,13 @@ import 'package:masoyinbo_mobile/extension/extension.dart';
 import 'package:masoyinbo_mobile/gen/fonts.gen.dart';
 import 'package:masoyinbo_mobile/ui/ui.dart';
 
-class ConfirmLeaveActionModal extends StatelessWidget {
-  const ConfirmLeaveActionModal({
+class SetTeamModal extends StatelessWidget {
+  const SetTeamModal({
     super.key,
-    this.onTapIntent,
+    this.isTeamFormationAutomatic = false,
   });
 
-  final VoidCallback? onTapIntent;
+  final bool isTeamFormationAutomatic;
 
   @override
   Widget build(BuildContext context) {
@@ -36,39 +36,52 @@ class ConfirmLeaveActionModal extends StatelessWidget {
           ),
           const SizedBox(height: 5),
           Text(
-            confirmActionYr,
+            attentionYr,
             textAlign: TextAlign.center,
             style: context.textTheme.bodyLarge!.copyWith(
               fontFamily: FontFamily.margarine,
             ),
           ),
           SizedBox(height: 32.h),
-          AppAssets.images.jpegs.exitDoor.image(scale: 4),
-          SizedBox(height: 16.h),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15),
             child: Text(
-              sureToLeaveGameYr,
+              goingAheadToSetTeamYr,
               textAlign: TextAlign.center,
               style: context.textTheme.bodyMedium!.copyWith(
                 fontWeight: FontWeight.w300,
               ),
             ),
           ),
-          SizedBox(height: 62.h),
+          const SizedBox(height: 20),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15),
+            child: Text(
+              setTeamOnlyPlayersInYr,
+              textAlign: TextAlign.center,
+              style: context.textTheme.bodyMedium!.copyWith(
+                fontWeight: FontWeight.w400,
+                fontStyle: FontStyle.italic,
+                color: AppColors.yellowFF,
+              ),
+            ),
+          ),
+          SizedBox(height: 40.h),
           Button(
-            label: leaveRoomYr,
-            onPressed: onTapIntent ??
-                () => context
-                  ..pop(context)
-                  ..pop(context),
+            label: yesSetTeamYr,
+            onPressed: () => context
+              ..pop(context)
+              ..pushNamed(
+                TeamSetupScreen.id,
+                extra: {'isTeamFormationAutomatic': isTeamFormationAutomatic},
+              ),
           ),
           const SizedBox(height: 24),
           Button(
-            label: dontLeaveYr,
+            label: goBackToRoomYr,
             isOutlined: true,
             labelColor: AppColors.black15,
-            onPressed: () => context..pop(context),
+            onPressed: () => context.pop(context),
           ),
           SizedBox(height: context.btmPadding),
         ],

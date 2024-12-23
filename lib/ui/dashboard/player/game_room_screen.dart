@@ -3,22 +3,32 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:masoyinbo_mobile/app/app.dart';
 import 'package:masoyinbo_mobile/extension/extension.dart';
 import 'package:masoyinbo_mobile/gen/fonts.gen.dart';
+import 'package:masoyinbo_mobile/ui/dashboard/player/team_all_set_modal.dart';
 import 'package:masoyinbo_mobile/ui/ui.dart';
 
 class GameRoomScreen extends HookWidget {
   const GameRoomScreen({
     super.key,
+    this.isMultiplayer = false,
+    this.isTeamMode = false,
+    this.isTeamFormationAutomatic = false,
   });
   static const String id = 'gameRoomScreen';
+
+  final bool isMultiplayer;
+  final bool isTeamMode;
+  final bool isTeamFormationAutomatic;
 
   @override
   Widget build(BuildContext context) {
     useEffect(() {
-      Future.delayed(7.seconds).then((_) {
-        if (context.mounted) {
-          context.pushReplacementNamed(TeamAllSetScreen.id);
-        }
-      });
+      if (!isMultiplayer) {
+        Future.delayed(7.seconds).then((_) {
+          if (context.mounted) {
+            context.pushReplacementNamed(TeamAllSetScreen.id);
+          }
+        });
+      }
       return null;
     });
     return Scaffold(
@@ -32,7 +42,14 @@ class GameRoomScreen extends HookWidget {
                 CustomBackButton(
                   onTap: () => showModalBottomSheet(
                     context: context,
-                    builder: (context) => const ConfirmLeaveActionModal(),
+                    builder: (context) => !isMultiplayer
+                        ? const ConfirmLeaveActionModal()
+                        : ConfirmLeaveActionModal(
+                            onTapIntent: () => Navigator.popUntil(
+                              context,
+                              (route) => route.settings.name == PlayerScreen.id,
+                            ),
+                          ),
                     isScrollControlled: true,
                     shape: const RoundedRectangleBorder(
                       borderRadius: BorderRadius.only(
@@ -106,7 +123,7 @@ class GameRoomScreen extends HookWidget {
                         alignment: Alignment.topLeft,
                         child: Wrap(
                           spacing: 65.w,
-                          runSpacing: 21.w,
+                          runSpacing: 15.w,
                           children: [
                             GameRoomProfileWidget(
                               isGameMaster: true,
@@ -145,36 +162,80 @@ class GameRoomScreen extends HookWidget {
                         ),
                       ),
                     ),
-                    Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Flexible(
-                          child: Text(
-                            'Waiting for the game master to set up the team',
-                            style: context.textTheme.bodySmall!.copyWith(
-                              fontWeight: FontWeight.w500,
-                              fontSize: 13.sp,
+                    if (isMultiplayer) ...[
+                      Button(
+                        label: isTeamMode ? setTeamYr : startPlayingYr,
+                        onPressed: () => showModalBottomSheet(
+                          context: context,
+                          builder: (context) => isTeamMode
+                              ? SetTeamModal(
+                                  isTeamFormationAutomatic:
+                                      isTeamFormationAutomatic,
+                                )
+                              : const TeamAllSetModal(),
+                          isScrollControlled: true,
+                          shape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(24),
+                              topRight: Radius.circular(24),
                             ),
                           ),
                         ),
-                        const TypeWriterProgressTextIndicator(),
-                      ],
-                    ),
-                    const SizedBox(height: 40),
-                    Button(
-                      label: leaveGameRoomYr,
-                      onPressed: () => showModalBottomSheet(
-                        context: context,
-                        builder: (context) => const ConfirmLeaveActionModal(),
-                        isScrollControlled: true,
-                        shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(24),
-                            topRight: Radius.circular(24),
+                      ),
+                      const SizedBox(height: 24),
+                      Button(
+                        label: modifyGameSetupYr,
+                        isOutlined: true,
+                        labelColor: AppColors.black15,
+                        onPressed: () => showModalBottomSheet(
+                          context: context,
+                          builder: (context) => ConfirmLeaveActionModal(
+                            onTapIntent: () => Navigator.popUntil(
+                              context,
+                              (route) => route.settings.name == PlayerScreen.id,
+                            ),
+                          ),
+                          isScrollControlled: true,
+                          shape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(24),
+                              topRight: Radius.circular(24),
+                            ),
                           ),
                         ),
                       ),
-                    ),
+                    ] else ...[
+                      Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Flexible(
+                            child: Text(
+                              'Waiting for the game master to set up the team',
+                              style: context.textTheme.bodySmall!.copyWith(
+                                fontWeight: FontWeight.w500,
+                                fontSize: 13.sp,
+                              ),
+                            ),
+                          ),
+                          const TypeWriterProgressTextIndicator(),
+                        ],
+                      ),
+                      const SizedBox(height: 40),
+                      Button(
+                        label: leaveGameRoomYr,
+                        onPressed: () => showModalBottomSheet(
+                          context: context,
+                          builder: (context) => const ConfirmLeaveActionModal(),
+                          isScrollControlled: true,
+                          shape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(24),
+                              topRight: Radius.circular(24),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ],
                 ),
               ),

@@ -10,14 +10,18 @@ class PlayerScreen extends HookWidget {
   const PlayerScreen({
     super.key,
     this.isPractice = false,
+    this.isMultiPlayer = false,
   });
   static const String id = 'playerScreen';
 
   final bool isPractice;
+  final bool isMultiPlayer;
 
   @override
   Widget build(BuildContext context) {
     final selectedPracticeSection = useState('');
+    final isTeamMode = useState(true);
+    final isTeamFormationAutomatic = useState(true);
     final mqr = MediaQuery.of(context).size;
     final selectedDifficulty = useState<DifficultyLevel?>(null);
     return Scaffold(
@@ -191,37 +195,158 @@ class PlayerScreen extends HookWidget {
                 ],
               ),
             ),
+            if (isMultiPlayer) ...[
+              Padding(
+                padding: const EdgeInsets.only(left: 23, right: 10),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const SizedBox(height: 24),
+                    RichText(
+                      text: TextSpan(
+                        style: context.textTheme.bodyLarge!.copyWith(
+                          fontWeight: FontWeight.w500,
+                        ),
+                        children: [
+                          const TextSpan(text: teamModeYr),
+                          TextSpan(
+                            text: ' ($teamModeEn)',
+                            style: context.textTheme.bodySmall!.copyWith(
+                              fontSize: 13.5.sp,
+                              fontWeight: FontWeight.w300,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 2),
+                    RichText(
+                      text: TextSpan(
+                        style: context.textTheme.bodySmall!.copyWith(
+                          fontWeight: FontWeight.w500,
+                          fontStyle: FontStyle.italic,
+                        ),
+                        children: [
+                          const TextSpan(
+                            text: '(Optional: ',
+                          ),
+                          TextSpan(
+                            text: ' $invitingMoreThanFivePlayersEn)',
+                            style: context.textTheme.bodySmall!.copyWith(
+                              fontWeight: FontWeight.w300,
+                              fontStyle: FontStyle.italic,
+                              color: AppColors.black.withOpacity(0.7),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 12),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SelectFilledCategoryWidget(
+                            title: 'On',
+                            isSelected: isTeamMode.value == true,
+                            onTap: () => isTeamMode.value = true,
+                          ),
+                          SelectFilledCategoryWidget(
+                            title: 'Off',
+                            isSelected: isTeamMode.value == false,
+                            onTap: () => isTeamMode.value = false,
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: 35.h),
+                    RichText(
+                      text: TextSpan(
+                        style: context.textTheme.bodyLarge!.copyWith(
+                          fontWeight: FontWeight.w500,
+                        ),
+                        children: [
+                          const TextSpan(text: teamFormationYr),
+                          TextSpan(
+                            text: ' ($teamFormationEn)',
+                            style: context.textTheme.bodySmall!.copyWith(
+                              fontSize: 13.5.sp,
+                              fontWeight: FontWeight.w300,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 12),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SelectFilledCategoryWidget(
+                            title: automaticYr,
+                            isSelected: isTeamFormationAutomatic.value == true,
+                            onTap: () => isTeamFormationAutomatic.value = true,
+                          ),
+                          SelectFilledCategoryWidget(
+                            title: manualYr,
+                            isSelected: isTeamFormationAutomatic.value == false,
+                            onTap: () => isTeamFormationAutomatic.value = false,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
             const Spacer(),
             Center(
               child: Button(
-                label: '',
+                label: isMultiPlayer ? multiPlayerYr : '',
                 width: mqr.width * 0.85,
-                onPressed: () => context.pushNamed(
-                  PlayerIntroScreen.id,
-                  extra: {
-                    'isPractice': isPractice,
-                    'isTimed': isPractice
-                        ? selectedPracticeSection.value == 'timed'
-                        : true,
-                  },
-                ),
-                child: RichText(
-                  text: TextSpan(
-                    style: context.textTheme.bodyMedium!.copyWith(
-                      color: AppColors.white,
-                    ),
-                    children: [
-                      const TextSpan(text: continueYr),
-                      TextSpan(
-                        text: ' ($continueEn)',
-                        style: context.textTheme.bodySmall!.copyWith(
-                          color: AppColors.white,
-                          fontWeight: FontWeight.w300,
+                onPressed: () {
+                  if (isMultiPlayer) {
+                    context.pushNamed(
+                      GameRoomCreatedScreen.id,
+                      extra: {
+                        'isTeamMode': isTeamMode.value,
+                        'isTeamFormationAutomatic':
+                            isTeamFormationAutomatic.value,
+                      },
+                    );
+                  } else {
+                    context.pushNamed(
+                      PlayerIntroScreen.id,
+                      extra: {
+                        'isPractice': isPractice,
+                        'isTimed': isPractice
+                            ? selectedPracticeSection.value == 'timed'
+                            : true,
+                      },
+                    );
+                  }
+                },
+                child: !isMultiPlayer
+                    ? RichText(
+                        text: TextSpan(
+                          style: context.textTheme.bodyMedium!.copyWith(
+                            color: AppColors.white,
+                          ),
+                          children: [
+                            const TextSpan(text: continueYr),
+                            TextSpan(
+                              text: ' ($continueEn)',
+                              style: context.textTheme.bodySmall!.copyWith(
+                                color: AppColors.white,
+                                fontWeight: FontWeight.w300,
+                              ),
+                            ),
+                          ],
                         ),
-                      ),
-                    ],
-                  ),
-                ),
+                      )
+                    : null,
               ),
             ),
             SizedBox(height: context.btmPadding),
