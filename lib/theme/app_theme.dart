@@ -11,12 +11,13 @@ class AppTheme {
     textTheme: textTheme,
     primaryColor: AppColors.blue12,
     fontFamily: FontFamily.kanit,
-    highlightColor: AppColors.black15.withOpacity(0.1),
+    highlightColor: AppColors.black15.withValues(alpha: 0.1),
     scaffoldBackgroundColor: AppColors.backgroundColor,
     // dialogTheme: _dialogTheme,
     checkboxTheme: CheckboxThemeData(
       checkColor: WidgetStateProperty.all(AppColors.white),
-      fillColor: WidgetStateProperty.all(AppColors.black15.withOpacity(0.3)),
+      fillColor:
+          WidgetStateProperty.all(AppColors.black15.withValues(alpha: 0.3)),
       materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(4),
@@ -42,8 +43,9 @@ class AppTheme {
     ),
     datePickerTheme: DatePickerThemeData(
       headerBackgroundColor: AppColors.secondaryColor,
-      todayBackgroundColor:
-          WidgetStatePropertyAll(AppColors.secondaryColor.withOpacity(0.1)),
+      todayBackgroundColor: WidgetStatePropertyAll(
+        AppColors.secondaryColor.withValues(alpha: 0.1),
+      ),
       todayForegroundColor:
           const WidgetStatePropertyAll(AppColors.secondaryColor),
       dayBackgroundColor: WidgetStateProperty.resolveWith(

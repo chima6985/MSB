@@ -39,7 +39,7 @@ class PaymentScreen extends HookWidget {
                     borderRadius: BorderRadius.circular(8),
                     boxShadow: [
                       BoxShadow(
-                        color: AppColors.black.withOpacity(0.2),
+                        color: AppColors.black.withValues(alpha: 0.2),
                         blurRadius: 3,
                       ),
                     ],
@@ -54,7 +54,7 @@ class PaymentScreen extends HookWidget {
                   child: Padding(
                     padding: const EdgeInsets.only(right: 1),
                     child: RawScrollbar(
-                      thumbColor: AppColors.black15.withOpacity(0.6),
+                      thumbColor: AppColors.black15.withValues(alpha: 0.6),
                       radius: const Radius.circular(5),
                       thickness: 2,
                       thumbVisibility: true,
@@ -274,7 +274,7 @@ class _PaymentPlanWidget extends StatelessWidget {
                               text: ' /y',
                               style: context.textTheme.bodySmall!.copyWith(
                                 fontWeight: FontWeight.w300,
-                                color: AppColors.black15.withOpacity(0.8),
+                                color: AppColors.black15.withValues(alpha: 0.8),
                               ),
                             ),
                           ],

@@ -124,7 +124,7 @@ class _AlphabetModeuleListTileWidget extends StatelessWidget {
                 width: isSelected ? 1.5 : 0.6,
                 color: isSelected
                     ? AppColors.blue12
-                    : AppColors.blue12.withOpacity(0.6),
+                    : AppColors.blue12.withValues(alpha: 0.6),
               ),
             ),
             child: Row(

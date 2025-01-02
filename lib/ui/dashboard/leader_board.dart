@@ -146,7 +146,7 @@ class LeaderBoard extends HookWidget {
           ),
           SizedBox(height: 12.h),
           Divider(
-            color: AppColors.blackB6.withOpacity(0.2),
+            color: AppColors.blackB6.withValues(alpha: 0.2),
             thickness: 2,
           ),
           SizedBox(height: 24.h),
@@ -213,7 +213,7 @@ class _LeaderbordPlayerWidget extends StatelessWidget {
         elevation: isElevated ? 20 : 0,
         color: AppColors.transparent,
         borderRadius: BorderRadius.circular(12),
-        shadowColor: AppColors.black.withOpacity(0.4),
+        shadowColor: AppColors.black.withValues(alpha: 0.4),
         child: Container(
           padding: const EdgeInsets.fromLTRB(24, 15, 16, 15),
           margin: const EdgeInsets.only(bottom: 15),

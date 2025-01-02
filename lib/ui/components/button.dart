@@ -99,8 +99,8 @@ class CustomBackButton extends StatelessWidget {
           customBorder: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(4),
           ),
-          splashColor: AppColors.black15.withOpacity(0.1),
-          highlightColor: AppColors.black15.withOpacity(0.1),
+          splashColor: AppColors.black15.withValues(alpha: 0.1),
+          highlightColor: AppColors.black15.withValues(alpha: 0.1),
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 6),
             child: Icon(

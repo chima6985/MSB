@@ -97,12 +97,12 @@ class DeleteAccountSurveyScreen extends HookWidget {
                       //   color: kTextMainColor,
                       // ),
                       decoration: InputDecoration(
-                        fillColor: AppColors.blueE7.withOpacity(0.8),
+                        fillColor: AppColors.blueE7.withValues(alpha: 0.8),
                         filled: true,
                         hintText: saySomethingEn,
                         hintStyle: context.textTheme.bodySmall!.copyWith(
                           fontSize: 13.5.sp,
-                          color: AppColors.blue12.withOpacity(0.7),
+                          color: AppColors.blue12.withValues(alpha: 0.7),
                         ),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(8),
@@ -113,7 +113,7 @@ class DeleteAccountSurveyScreen extends HookWidget {
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(8),
                           borderSide: BorderSide(
-                            color: AppColors.blue12.withOpacity(0.4),
+                            color: AppColors.blue12.withValues(alpha: 0.4),
                           ),
                         ),
                       ),
@@ -183,7 +183,7 @@ class _SurveyOptionWidget extends StatelessWidget {
                       ),
                       side: BorderSide(
                         width: 1.4,
-                        color: AppColors.blue12.withOpacity(0.4),
+                        color: AppColors.blue12.withValues(alpha: 0.4),
                       ),
                     ),
                   ),

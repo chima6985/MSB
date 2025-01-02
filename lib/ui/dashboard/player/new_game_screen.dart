@@ -51,7 +51,7 @@ class NewGameScreen extends StatelessWidget {
                           onComplete: (controller) => controller.repeat(),
                         )
                         .shimmer(
-                          color: AppColors.white.withOpacity(0.45),
+                          color: AppColors.white.withValues(alpha: 0.45),
                           size: 0.9,
                           curve: Curves.slowMiddle,
                           duration: 1900.ms,

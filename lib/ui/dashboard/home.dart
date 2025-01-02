@@ -67,7 +67,7 @@ class Home extends HookWidget {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
                   decoration: BoxDecoration(
-                    color: AppColors.goldFC.withOpacity(0.1),
+                    color: AppColors.goldFC.withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(20),
                     border: Border.all(
                       color: AppColors.goldCE,
@@ -147,7 +147,8 @@ class Home extends HookWidget {
                                 height: 4.h,
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(12),
-                                  color: AppColors.blue12.withOpacity(0.12),
+                                  color:
+                                      AppColors.blue12.withValues(alpha: 0.12),
                                 ),
                               ),
                               Container(

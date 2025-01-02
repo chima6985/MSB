@@ -49,7 +49,7 @@ class PerformanceModal extends StatelessWidget {
         color: AppColors.white,
         boxShadow: [
           BoxShadow(
-            color: AppColors.black.withOpacity(0.15),
+            color: AppColors.black.withValues(alpha: 0.15),
             blurRadius: 11,
             spreadRadius: 1,
           ),

@@ -86,7 +86,7 @@ class _DecoratedContainerState extends State<DecoratedContainer>
                       shape: BoxShape.circle,
                       boxShadow: [
                         BoxShadow(
-                          color: AppColors.green62.withOpacity(0.3),
+                          color: AppColors.green62.withValues(alpha: 0.3),
                           blurRadius: 120,
                         ),
                       ],
@@ -103,7 +103,7 @@ class _DecoratedContainerState extends State<DecoratedContainer>
                       shape: BoxShape.circle,
                       boxShadow: [
                         BoxShadow(
-                          color: AppColors.lilacD2.withOpacity(0.8),
+                          color: AppColors.lilacD2.withValues(alpha: 0.8),
                           blurRadius: 120,
                         ),
                       ],

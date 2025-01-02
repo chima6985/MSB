@@ -77,7 +77,7 @@ class SignUpScreen extends HookWidget {
                     value: isAgreement.value,
                     fillColor: !isAgreement.value
                         ? WidgetStateProperty.all(
-                            AppColors.black15.withOpacity(0.1),
+                            AppColors.black15.withValues(alpha: 0.1),
                           )
                         : WidgetStateProperty.all(AppColors.black15),
                     onChanged: (value) =>

@@ -235,7 +235,7 @@ class PlayerScreen extends HookWidget {
                             style: context.textTheme.bodySmall!.copyWith(
                               fontWeight: FontWeight.w300,
                               fontStyle: FontStyle.italic,
-                              color: AppColors.black.withOpacity(0.7),
+                              color: AppColors.black.withValues(alpha: 0.7),
                             ),
                           ),
                         ],
@@ -386,7 +386,7 @@ class _SelectDifficultyWidget extends StatelessWidget {
             padding: const EdgeInsets.fromLTRB(13.18, 0, 13.18, 6.91),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(4.36),
-              color: color.withOpacity(0.21),
+              color: color.withValues(alpha: 0.21),
               border: Border.all(
                 width: isSelected ? 0.55 : 0,
                 color: color,

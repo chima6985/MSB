@@ -96,7 +96,7 @@ class _LessonsListTileWidget extends StatelessWidget {
                 border: Border.all(
                   width: isLocked ? 0.6 : 1.5,
                   color: isLocked
-                      ? AppColors.blue12.withOpacity(0.6)
+                      ? AppColors.blue12.withValues(alpha: 0.6)
                       : AppColors.blue12,
                 ),
               ),

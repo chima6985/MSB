@@ -19,8 +19,8 @@ class CustomSwitch extends StatelessWidget {
       child: CupertinoSwitch(
         onChanged: onTap,
         value: isEnabled,
-        trackColor: isEnabled ? AppColors.blue12 : AppColors.greyDB,
-        activeColor: AppColors.blue12,
+        inactiveTrackColor: isEnabled ? AppColors.blue12 : AppColors.greyDB,
+        activeTrackColor: AppColors.blue12,
         thumbColor: AppColors.greyB6,
       ),
     );

@@ -177,7 +177,7 @@ class ModuleScreen extends HookWidget {
                       child: Container(
                         height: 100.h,
                         decoration: BoxDecoration(
-                          color: AppColors.blackB6.withOpacity(0.5),
+                          color: AppColors.blackB6.withValues(alpha: 0.5),
                           borderRadius: BorderRadius.circular(
                             3.6,
                           ),

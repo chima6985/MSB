@@ -48,7 +48,7 @@ class _PlayQuestionScreenState extends State<PlayQuestionScreen> {
 
     final bgColor = {
       true: AppColors.greenCE,
-      false: AppColors.redFF.withOpacity(0.2),
+      false: AppColors.redFF.withValues(alpha: 0.2),
     };
 
     final brColor = {
@@ -64,7 +64,7 @@ class _PlayQuestionScreenState extends State<PlayQuestionScreen> {
             child: Padding(
               padding: const EdgeInsets.only(right: 1),
               child: RawScrollbar(
-                thumbColor: AppColors.black15.withOpacity(0.6),
+                thumbColor: AppColors.black15.withValues(alpha: 0.6),
                 radius: const Radius.circular(5),
                 thickness: 2,
                 thumbVisibility: true,
@@ -150,7 +150,8 @@ class _PlayQuestionScreenState extends State<PlayQuestionScreen> {
                                       vertical: 2,
                                     ),
                                     decoration: BoxDecoration(
-                                      color: AppColors.goldFC.withOpacity(0.1),
+                                      color: AppColors.goldFC
+                                          .withValues(alpha: 0.1),
                                       borderRadius: BorderRadius.circular(20),
                                       border: Border.all(
                                         color: AppColors.goldCE,
@@ -799,7 +800,7 @@ class _PlayQuestionScreenState extends State<PlayQuestionScreen> {
                 color: AppColors.white,
                 boxShadow: [
                   BoxShadow(
-                    color: AppColors.black.withOpacity(0.15),
+                    color: AppColors.black.withValues(alpha: 0.15),
                     blurRadius: 11,
                     spreadRadius: 1,
                   ),
@@ -921,13 +922,13 @@ class _ImagePickerOption extends StatelessWidget {
             color: AppColors.white,
             borderRadius: BorderRadius.circular(8),
             border: Border.all(
-              color: AppColors.black.withOpacity(
-                0.8,
+              color: AppColors.black.withValues(
+                alpha: 0.8,
               ),
             ),
             boxShadow: [
               BoxShadow(
-                color: AppColors.black.withOpacity(0.2),
+                color: AppColors.black.withValues(alpha: 0.2),
                 blurRadius: 10,
               ),
             ],
@@ -936,7 +937,7 @@ class _ImagePickerOption extends StatelessWidget {
             width: 100.w,
             height: 100.w,
             decoration: BoxDecoration(
-              color: AppColors.greyB6.withOpacity(0.4),
+              color: AppColors.greyB6.withValues(alpha: 0.4),
               borderRadius: BorderRadius.circular(4),
             ),
           ),

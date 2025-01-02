@@ -28,8 +28,8 @@ class ScoreBoardScreen extends StatelessWidget {
                       customBorder: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(4),
                       ),
-                      splashColor: AppColors.black15.withOpacity(0.1),
-                      highlightColor: AppColors.black15.withOpacity(0.1),
+                      splashColor: AppColors.black15.withValues(alpha: 0.1),
+                      highlightColor: AppColors.black15.withValues(alpha: 0.1),
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
                           vertical: 8,
@@ -72,7 +72,7 @@ class ScoreBoardScreen extends StatelessWidget {
                     _ScoreboardPositionWidget(
                       image: AppAssets.images.jpegs.scoreboardPositoin3.path,
                       color: AppColors.greenE7,
-                      borderColor: AppColors.green62.withOpacity(0.4),
+                      borderColor: AppColors.green62.withValues(alpha: 0.4),
                     ),
                     const Spacer(),
                     const SizedBox(height: 24),
@@ -181,7 +181,7 @@ class _ScoreboardPositionWidget extends StatelessWidget {
                             style: context.textTheme.bodySmall!.copyWith(
                               fontStyle: FontStyle.italic,
                               fontWeight: FontWeight.w300,
-                              color: AppColors.black15.withOpacity(0.7),
+                              color: AppColors.black15.withValues(alpha: 0.7),
                             ),
                           ),
                         ),

@@ -37,8 +37,8 @@ class DashboardIndexScreen extends HookWidget {
                   customBorder: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(4),
                   ),
-                  splashColor: AppColors.black15.withOpacity(0.1),
-                  highlightColor: AppColors.black15.withOpacity(0.1),
+                  splashColor: AppColors.black15.withValues(alpha: 0.1),
+                  highlightColor: AppColors.black15.withValues(alpha: 0.1),
                   child: const Padding(
                     padding: EdgeInsets.symmetric(vertical: 4, horizontal: 6),
                     child: Icon(
@@ -55,8 +55,8 @@ class DashboardIndexScreen extends HookWidget {
                     customBorder: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(4),
                     ),
-                    splashColor: AppColors.black15.withOpacity(0.1),
-                    highlightColor: AppColors.black15.withOpacity(0.1),
+                    splashColor: AppColors.black15.withValues(alpha: 0.1),
+                    highlightColor: AppColors.black15.withValues(alpha: 0.1),
                     child: const Padding(
                       padding: EdgeInsets.symmetric(vertical: 4, horizontal: 6),
                       child: Icon(
@@ -85,7 +85,7 @@ class DashboardIndexScreen extends HookWidget {
                     color: AppColors.white,
                     boxShadow: [
                       BoxShadow(
-                        color: AppColors.black.withOpacity(0.15),
+                        color: AppColors.black.withValues(alpha: 0.15),
                         blurRadius: 11,
                         spreadRadius: 1,
                       ),

@@ -113,7 +113,7 @@ class SurveyScreen extends StatelessWidget {
                                     }
                                   },
                                   color: selectedOptions.value.isEmpty
-                                      ? AppColors.blue12.withOpacity(0.3)
+                                      ? AppColors.blue12.withValues(alpha: 0.3)
                                       : null,
                                   child: RichText(
                                     text: TextSpan(
