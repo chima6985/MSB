@@ -10,13 +10,13 @@ class TeamAllSetModal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     void navigateTo() {
-      Future.delayed(7.seconds).then((_) {
+      Future.delayed(5.seconds).then((_) {
         router.pushReplacementNamed(
           PlayQuestionScreen.id,
           extra: {
-            'isPractice': false,
+            'isPractice': true,
             'isTimed': true,
-            'isMultiPlayer': true,
+            'isMultiPlayer': false,
           },
         );
       });

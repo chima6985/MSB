@@ -44,7 +44,7 @@ class _PlayQuestionScreenState extends State<PlayQuestionScreen> {
   @override
   Widget build(BuildContext context) {
     final isSingleOrPractice =
-        !widget.isGameMaster && !widget.isMultiPlayer && widget.isTeamLeader;
+        !widget.isPractice && !widget.isMultiPlayer && !widget.isTeamLeader;
 
     final bgColor = {
       true: AppColors.greenCE,
@@ -407,9 +407,13 @@ class _PlayQuestionScreenState extends State<PlayQuestionScreen> {
                                 brColor: brColor[isMultipleOption],
                                 onTap: () {
                                   setState(() {
-                                    selectedMultipleOption = 'Tiiro';
-                                    isMultiplayerAnswerSelected = false;
-                                    isMultipleOption = null;
+                                    if (selectedMultipleOption == 'Tiiro') {
+                                      selectedMultipleOption = null;
+                                    } else {
+                                      selectedMultipleOption = 'Tiiro';
+                                      isMultiplayerAnswerSelected = false;
+                                      isMultipleOption = null;
+                                    }
                                   });
                                 },
                               ),
@@ -425,9 +429,13 @@ class _PlayQuestionScreenState extends State<PlayQuestionScreen> {
                                 brColor: brColor[isMultipleOption],
                                 onTap: () {
                                   setState(() {
-                                    selectedMultipleOption = 'Asiiro';
-                                    isMultiplayerAnswerSelected = false;
-                                    isMultipleOption = null;
+                                    if (selectedMultipleOption == 'Asiiro') {
+                                      selectedMultipleOption = null;
+                                    } else {
+                                      selectedMultipleOption = 'Asiiro';
+                                      isMultiplayerAnswerSelected = false;
+                                      isMultipleOption = null;
+                                    }
                                   });
                                 },
                               ),
@@ -443,9 +451,13 @@ class _PlayQuestionScreenState extends State<PlayQuestionScreen> {
                                 brColor: brColor[isMultipleOption],
                                 onTap: () {
                                   setState(() {
-                                    selectedMultipleOption = 'Asiiroo';
-                                    isMultiplayerAnswerSelected = false;
-                                    isMultipleOption = null;
+                                    if (selectedMultipleOption == 'Asiiroo') {
+                                      selectedMultipleOption = null;
+                                    } else {
+                                      selectedMultipleOption = 'Asiiroo';
+                                      isMultiplayerAnswerSelected = false;
+                                      isMultipleOption = null;
+                                    }
                                   });
                                 },
                               ),

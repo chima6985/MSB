@@ -15,7 +15,7 @@ class NavObserver extends NavigatorObserver {
 }
 
 final router = GoRouter(
-  initialLocation: '/',
+  initialLocation: '/dashboardIndexScreen',
   observers: [
     // NavObserver(),
   ],

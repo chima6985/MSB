@@ -20,10 +20,12 @@ class PlayerScreen extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final selectedPracticeSection = useState('');
-    final isTeamMode = useState(true);
-    final isTeamFormationAutomatic = useState(true);
+    final isTeamMode = useState<bool?>(null);
+    final isTeamFormationAutomatic = useState<bool?>(null);
     final mqr = MediaQuery.of(context).size;
     final selectedDifficulty = useState<DifficultyLevel?>(null);
+    final categoryScrollController = useScrollController();
+    final difficultyLevelScrollController = useScrollController();
     return Scaffold(
       body: DecoratedContainer(
         child: Column(
@@ -83,6 +85,7 @@ class PlayerScreen extends HookWidget {
             SingleChildScrollView(
               padding: EdgeInsets.only(left: 29.w),
               scrollDirection: Axis.horizontal,
+              controller: categoryScrollController,
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: isPractice
@@ -105,25 +108,47 @@ class PlayerScreen extends HookWidget {
                           title: proverbYr,
                           isSelected:
                               selectedPracticeSection.value == 'proverb',
-                          onTap: () =>
-                              selectedPracticeSection.value = 'proverb',
+                          onTap: () {
+                            selectedPracticeSection.value = 'proverb';
+                            Functions.autoScroll(
+                              controller: categoryScrollController,
+                              position: 0,
+                            );
+                          },
                         ),
                         SelectCategoryWidget(
                           title: meaningYr,
                           isSelected:
                               selectedPracticeSection.value == 'meaning',
-                          onTap: () =>
-                              selectedPracticeSection.value = 'meaning',
+                          onTap: () {
+                            selectedPracticeSection.value = 'meaning';
+                            Functions.autoScroll(
+                              controller: categoryScrollController,
+                              position: mqr.width * 0.1,
+                            );
+                          },
                         ),
                         SelectCategoryWidget(
                           title: numbersYr,
                           isSelected: selectedPracticeSection.value == 'number',
-                          onTap: () => selectedPracticeSection.value = 'number',
+                          onTap: () {
+                            selectedPracticeSection.value = 'number';
+                            Functions.autoScroll(
+                              controller: categoryScrollController,
+                              position: mqr.width * 0.1,
+                            );
+                          },
                         ),
                         SelectCategoryWidget(
                           title: questionAndAnswerYr,
                           isSelected: selectedPracticeSection.value == 'qAndA',
-                          onTap: () => selectedPracticeSection.value = 'qAndA',
+                          onTap: () {
+                            selectedPracticeSection.value = 'qAndA';
+                            Functions.autoScroll(
+                              controller: categoryScrollController,
+                              position: mqr.width * 0.15,
+                            );
+                          },
                         ),
                       ],
               ),
@@ -153,6 +178,7 @@ class PlayerScreen extends HookWidget {
             SingleChildScrollView(
               padding: EdgeInsets.only(left: 40.w),
               scrollDirection: Axis.horizontal,
+              controller: difficultyLevelScrollController,
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -162,8 +188,13 @@ class PlayerScreen extends HookWidget {
                     color: AppColors.green4C,
                     isSelected:
                         selectedDifficulty.value == DifficultyLevel.easy,
-                    onTap: () =>
-                        selectedDifficulty.value = DifficultyLevel.easy,
+                    onTap: () {
+                      selectedDifficulty.value = DifficultyLevel.easy;
+                      Functions.autoScroll(
+                        controller: difficultyLevelScrollController,
+                        position: 0,
+                      );
+                    },
                   ),
                   _SelectDifficultyWidget(
                     title: DifficultyLevel.medium.name.titleCase(),
@@ -171,8 +202,13 @@ class PlayerScreen extends HookWidget {
                     color: AppColors.blue07,
                     isSelected:
                         selectedDifficulty.value == DifficultyLevel.medium,
-                    onTap: () =>
-                        selectedDifficulty.value = DifficultyLevel.medium,
+                    onTap: () {
+                      selectedDifficulty.value = DifficultyLevel.medium;
+                      Functions.autoScroll(
+                        controller: difficultyLevelScrollController,
+                        position: mqr.width * 0.1,
+                      );
+                    },
                   ),
                   _SelectDifficultyWidget(
                     title: DifficultyLevel.hard.name.titleCase(),
@@ -180,8 +216,13 @@ class PlayerScreen extends HookWidget {
                     color: AppColors.redFF,
                     isSelected:
                         selectedDifficulty.value == DifficultyLevel.hard,
-                    onTap: () =>
-                        selectedDifficulty.value = DifficultyLevel.hard,
+                    onTap: () {
+                      selectedDifficulty.value = DifficultyLevel.hard;
+                      Functions.autoScroll(
+                        controller: difficultyLevelScrollController,
+                        position: mqr.width * 0.1,
+                      );
+                    },
                   ),
                   _SelectDifficultyWidget(
                     title: DifficultyLevel.random.name.titleCase(),
@@ -189,8 +230,13 @@ class PlayerScreen extends HookWidget {
                     color: AppColors.black15,
                     isSelected:
                         selectedDifficulty.value == DifficultyLevel.random,
-                    onTap: () =>
-                        selectedDifficulty.value = DifficultyLevel.random,
+                    onTap: () {
+                      selectedDifficulty.value = DifficultyLevel.random;
+                      Functions.autoScroll(
+                        controller: difficultyLevelScrollController,
+                        position: mqr.width * 0.2,
+                      );
+                    },
                   ),
                 ],
               ),
@@ -382,27 +428,32 @@ class _SelectDifficultyWidget extends StatelessWidget {
           customBorder: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(4.36),
           ),
-          child: Container(
-            padding: const EdgeInsets.fromLTRB(13.18, 0, 13.18, 6.91),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(4.36),
-              color: color.withValues(alpha: 0.21),
-              border: Border.all(
-                width: isSelected ? 0.55 : 0,
-                color: color,
-              ),
-            ),
-            child: Column(
-              children: [
-                Image.asset(icon, scale: 2.25.sp),
-                Text(
-                  title,
-                  textScaler: TextScaler.noScaling,
-                  style: context.textTheme.bodyMedium!.copyWith(
-                    fontWeight: isSelected ? FontWeight.w400 : FontWeight.w300,
-                  ),
+          child: Material(
+            elevation: isSelected ? 10 : 0,
+            shadowColor: AppColors.black,
+            child: Container(
+              padding: const EdgeInsets.fromLTRB(13.18, 0, 13.18, 6.91),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(4.36),
+                color: color.withValues(alpha: 0.21),
+                border: Border.all(
+                  width: isSelected ? 0.9 : 0,
+                  color: color,
                 ),
-              ],
+              ),
+              child: Column(
+                children: [
+                  Image.asset(icon, scale: 2.25.sp),
+                  Text(
+                    title,
+                    textScaler: TextScaler.noScaling,
+                    style: context.textTheme.bodyMedium!.copyWith(
+                      fontWeight:
+                          isSelected ? FontWeight.w400 : FontWeight.w300,
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),

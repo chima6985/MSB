@@ -119,7 +119,7 @@ class Home extends HookWidget {
             ),
             const SizedBox(height: 10),
             GestureDetector(
-              onTap: () => context.pushNamed(LearnIntroScreen.id),
+              onTap: () => context.pushNamed(ModuleScreen.id),
               child: Container(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 16, vertical: 12),

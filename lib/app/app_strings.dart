@@ -420,6 +420,14 @@ const remindMeEn = 'Remind me';
 const remindMeLaterYr = 'Sètò ìránilétí tóbáyá';
 const remindMeLaterEn = 'Remind me later';
 
+const setReminderYr = 'Dúró sójú ìlà';
+const setReminderEn = 'Set Reminder';
+
+const getDailyReminderYr =
+    'Gba ìrántí ojojúmọ́ láti ṣeré tàbí fikọ́ra. O lè paá ni ibi àtúntò.';
+const getDailyReminderEn =
+    'Get a daily reminder to play or relax. It can be turned off at the reset point.';
+
 const welcomeToPracticeModeYr = 'Káàbọ̀ sí ìfikọ́ra';
 const welcomeToPracticeModeEn = 'Welcome to Practice mode';
 

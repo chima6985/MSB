@@ -60,8 +60,8 @@ class _DecoratedContainerState extends State<DecoratedContainer>
   @override
   Widget build(BuildContext context) {
     final mqr = MediaQuery.of(context).size;
-    return Scaffold(
-      body: AnimatedBuilder(
+    return Material(
+      child: AnimatedBuilder(
         animation: _randomTweenAnimation,
         builder: (context, child) {
           return Stack(

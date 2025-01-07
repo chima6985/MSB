@@ -14,6 +14,19 @@ class PlayScreen extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final mqr = MediaQuery.of(context).size;
+    void navigateTo() {
+      Future.delayed(5.seconds).then((_) {
+        router.pushReplacementNamed(
+          PlayQuestionScreen.id,
+          extra: {
+            'isPractice': true,
+            'isTimed': true,
+            'isMultiPlayer': false,
+          },
+        );
+      });
+    }
+
     return Scaffold(
       body: Container(
         width: mqr.width,
@@ -21,6 +34,7 @@ class PlayScreen extends HookWidget {
         decoration: BoxDecoration(
           image: DecorationImage(
             image: AppAssets.images.jpegs.darkDecoratedBg.provider(),
+            fit: BoxFit.cover,
           ),
         ),
         padding: const EdgeInsets.symmetric(horizontal: 23),
@@ -39,7 +53,12 @@ class PlayScreen extends HookWidget {
             SizedBox(height: 50.h),
             Button(
               label: takeQuizYr,
-              onPressed: () => context.pushNamed(QuizLoaderScreen.id),
+              onPressed: () => context
+                ..pop()
+                ..pushNamed(
+                  QuizLoaderScreen.id,
+                  extra: {'navigateTo': navigateTo},
+                ),
             ),
             SizedBox(height: 20.h),
             Button(

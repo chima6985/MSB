@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:masoyinbo_mobile/extension/extension.dart';
 import 'package:masoyinbo_mobile/ui/ui.dart';
 
 class CustomTextField extends StatelessWidget {
@@ -81,7 +82,6 @@ class CustomTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
     return Column(
       children: [
         Stack(
@@ -107,7 +107,7 @@ class CustomTextField extends StatelessWidget {
                 keyboardType: keyboardType,
                 obscuringCharacter: obscuringCharacter,
                 autocorrect: false,
-                style: textTheme.bodyMedium!.copyWith(
+                style: context.textTheme.bodyMedium!.copyWith(
                   fontSize: 16.sp,
                   color: AppColors.black15,
                 ),
@@ -115,20 +115,20 @@ class CustomTextField extends StatelessWidget {
                 inputFormatters: inputFormatters,
                 decoration: InputDecoration(
                   helperText: helperText,
-                  helperStyle: textTheme.bodySmall!.copyWith(
+                  helperStyle: context.textTheme.bodySmall!.copyWith(
                     color: AppColors.black15,
                   ),
                   suffixIcon: suffix,
                   // suffix: suffix,
                   prefixIcon: prefix,
                   hintText: hintText ?? '',
-                  hintStyle: textTheme.bodyMedium!.copyWith(
+                  hintStyle: context.textTheme.bodyMedium!.copyWith(
                     color: hintColor,
                     fontWeight: FontWeight.w500,
                   ),
                   labelText: labelText,
-                  labelStyle:
-                      textTheme.titleMedium!.copyWith(color: AppColors.black15),
+                  labelStyle: context.textTheme.titleMedium!
+                      .copyWith(color: AppColors.black15),
                   focusColor: AppColors.black15,
                   fillColor: fillColor ?? Colors.transparent,
                   filled: true,
@@ -181,13 +181,13 @@ class CustomTextField extends StatelessWidget {
                     children: [
                       Text(
                         textFieldText ?? '',
-                        style: textTheme.bodyMedium,
+                        style: context.textTheme.bodyMedium,
                         textScaler: const TextScaler.linear(0.9),
                       ),
                       const SizedBox(width: 4),
                       Text(
                         textFieldSubText != null ? '($textFieldSubText)' : '',
-                        style: textTheme.bodySmall!.copyWith(
+                        style: context.textTheme.bodySmall!.copyWith(
                           fontStyle: FontStyle.italic,
                           fontWeight: FontWeight.w300,
                         ),
@@ -247,6 +247,121 @@ class PasswordTextField extends HookWidget {
       ),
       inputFormatters: [
         FilteringTextInputFormatter.deny(RegExp(r'\s')),
+      ],
+    );
+  }
+}
+
+class CustomDropDownField extends StatelessWidget {
+  const CustomDropDownField({
+    super.key,
+    this.textFieldText,
+    this.textFieldSubText,
+    this.hintText,
+    required this.items,
+    required this.onChanged,
+    this.borderColor,
+    this.focusedBorderColor,
+    this.fillColor,
+    this.borderWidth = 0.4,
+  });
+
+  final String? textFieldText;
+  final String? textFieldSubText;
+  final String? hintText;
+  final List<DropdownMenuItem<Object?>>? items;
+  final ValueChanged<dynamic> onChanged;
+  final Color? borderColor;
+  final Color? focusedBorderColor;
+  final Color? fillColor;
+  final double borderWidth;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Stack(
+          children: [
+            DropdownButtonFormField(
+              icon: const Icon(
+                Iconsax.arrow_down_1,
+                color: AppColors.black,
+              ),
+              items: items,
+              onChanged: onChanged,
+              decoration: InputDecoration(
+                hintText: hintText,
+                helperStyle: context.textTheme.bodySmall!.copyWith(
+                  color: AppColors.black15,
+                ),
+                contentPadding: const EdgeInsets.fromLTRB(22, 18, 15, 14),
+                border: OutlineInputBorder(
+                  borderRadius: const BorderRadius.all(Radius.circular(12)),
+                  borderSide: BorderSide(
+                    color: borderColor ?? AppColors.black15,
+                    width: borderWidth,
+                  ),
+                ),
+                disabledBorder: OutlineInputBorder(
+                  borderRadius: const BorderRadius.all(Radius.circular(12)),
+                  borderSide: BorderSide(
+                    color: borderColor ?? AppColors.black15,
+                    width: borderWidth,
+                  ),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: const BorderRadius.all(
+                    Radius.circular(12),
+                  ),
+                  borderSide: BorderSide(
+                    color: borderColor ?? AppColors.black15,
+                    width: borderWidth,
+                  ),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: const BorderRadius.all(
+                    Radius.circular(12),
+                  ),
+                  borderSide: BorderSide(
+                    color: borderColor ?? AppColors.black15,
+                    width: 0.8,
+                  ),
+                ),
+              ),
+            ),
+            Visibility(
+              visible: textFieldText != null,
+              child: Transform.translate(
+                offset: const Offset(15, -16),
+                child: Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 6, vertical: 2.5),
+                  color: AppColors.whiteFF,
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        textFieldText ?? '',
+                        style: context.textTheme.bodyMedium,
+                        textScaler: const TextScaler.linear(0.9),
+                      ),
+                      const SizedBox(width: 4),
+                      Text(
+                        textFieldSubText != null ? '($textFieldSubText)' : '',
+                        style: context.textTheme.bodySmall!.copyWith(
+                          fontStyle: FontStyle.italic,
+                          fontWeight: FontWeight.w300,
+                        ),
+                        textScaler: const TextScaler.linear(0.9),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+        SizedBox(height: 34.h),
       ],
     );
   }

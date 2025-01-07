@@ -14,6 +14,8 @@ class ChangeAvatarScreen extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final mqr = MediaQuery.of(context).size;
+    final selectedProfileAvatar = useState<String?>(null);
+    final isSelected = useState<int?>(null);
     return Scaffold(
       body: DecoratedContainer(
         child: SingleChildScrollView(
@@ -47,7 +49,13 @@ class ChangeAvatarScreen extends HookWidget {
                     fit: BoxFit.cover,
                   ),
                 ),
-                child: AppAssets.images.jpegs.profileImage.image(scale: 2.sp),
+                child: selectedProfileAvatar.value != null
+                    ? Image.asset(
+                        selectedProfileAvatar.value ?? '',
+                        width: 150.sp,
+                        height: 150.sp,
+                      )
+                    : null,
               ),
               SizedBox(height: 32.h),
               Padding(
@@ -69,11 +77,45 @@ class ChangeAvatarScreen extends HookWidget {
                       child: Wrap(
                         spacing: 13.w,
                         runSpacing: 16.w,
-                        children: const [
-                          _AvatarWidget(),
-                          _AvatarWidget(),
-                          _AvatarWidget(),
-                          _AvatarWidget(),
+                        children: [
+                          _AvatarWidget(
+                            imagePath: AppAssets.images.jpegs.profileImage.path,
+                            onTap: () {
+                              selectedProfileAvatar.value =
+                                  AppAssets.images.jpegs.profileImage.path;
+                              isSelected.value = 0;
+                            },
+                            isSelected: isSelected.value == 0,
+                          ),
+                          _AvatarWidget(
+                            imagePath:
+                                AppAssets.images.jpegs.profileImage1.path,
+                            onTap: () {
+                              selectedProfileAvatar.value =
+                                  AppAssets.images.jpegs.profileImage1.path;
+                              isSelected.value = 1;
+                            },
+                            isSelected: isSelected.value == 1,
+                          ),
+                          _AvatarWidget(
+                            imagePath: AppAssets.images.jpegs.profileImage.path,
+                            onTap: () {
+                              selectedProfileAvatar.value =
+                                  AppAssets.images.jpegs.profileImage.path;
+                              isSelected.value = 2;
+                            },
+                            isSelected: isSelected.value == 2,
+                          ),
+                          _AvatarWidget(
+                            imagePath:
+                                AppAssets.images.jpegs.profileImage1.path,
+                            onTap: () {
+                              selectedProfileAvatar.value =
+                                  AppAssets.images.jpegs.profileImage1.path;
+                              isSelected.value = 3;
+                            },
+                            isSelected: isSelected.value == 3,
+                          ),
                         ],
                       ),
                     ),
@@ -96,32 +138,43 @@ class ChangeAvatarScreen extends HookWidget {
 }
 
 class _AvatarWidget extends StatelessWidget {
-  const _AvatarWidget();
+  const _AvatarWidget({
+    required this.imagePath,
+    required this.onTap,
+    this.isSelected = false,
+  });
+
+  final String imagePath;
+  final VoidCallback onTap;
+  final bool isSelected;
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      alignment: Alignment.center,
-      children: [
-        Container(
-          width: 72.w,
-          height: 72.w,
-          decoration: BoxDecoration(
-            color: AppColors.blueE7,
-            borderRadius: BorderRadius.circular(12),
-            border: Border.all(
-              color: AppColors.greyB6,
+    return GestureDetector(
+      onTap: onTap,
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          Container(
+            width: 72.w,
+            height: 72.w,
+            decoration: BoxDecoration(
+              color: AppColors.blueE7,
+              borderRadius: BorderRadius.circular(12),
+              border: Border.all(
+                color: isSelected
+                    ? AppColors.black15.withValues(alpha: 0.85)
+                    : AppColors.greyB6,
+              ),
             ),
           ),
-        ),
-        SizedBox(
-          width: 65.w,
-          height: 65.w,
-          child: FittedBox(
-            child: AppAssets.images.jpegs.profileImage.image(),
+          Image.asset(
+            imagePath,
+            width: 65.w,
+            height: 65.w,
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

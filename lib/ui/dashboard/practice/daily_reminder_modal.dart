@@ -23,14 +23,14 @@ class DailyReminderModal extends StatelessWidget {
             children: [
               SizedBox(height: 30.h),
               Text(
-                letsGetYouAnAvatarYr,
+                setReminderYr,
                 style: context.textTheme.bodyLarge!.copyWith(
                   fontFamily: FontFamily.margarine,
                 ),
               ),
               const SizedBox(height: 16),
               Text(
-                addSomeTouchOfPersonalityYr,
+                getDailyReminderYr,
                 textAlign: TextAlign.center,
                 style: context.textTheme.bodyMedium!.copyWith(
                   fontWeight: FontWeight.w300,

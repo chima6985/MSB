@@ -16,7 +16,7 @@ class TeamAllSetScreen extends HookWidget {
     final mqr = MediaQuery.of(context).size;
 
     void navigateTo() {
-      Future.delayed(7.seconds).then((_) {
+      Future.delayed(5.seconds).then((_) {
         router.pushReplacementNamed(
           PlayQuestionScreen.id,
           extra: {
@@ -29,7 +29,7 @@ class TeamAllSetScreen extends HookWidget {
     }
 
     void navigateToTeamLeader() {
-      Future.delayed(7.seconds).then((_) {
+      Future.delayed(5.seconds).then((_) {
         router.pushReplacementNamed(
           PlayQuestionScreen.id,
           extra: {

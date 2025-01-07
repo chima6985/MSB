@@ -17,78 +17,79 @@ class PasswordScreen extends HookWidget {
     final reEnterNewPasswordController = useTextEditingController();
     final currentPasswordController = useTextEditingController();
     final mqr = MediaQuery.of(context).size;
-    return Scaffold(
-      body: DecoratedContainer(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              SizedBox(height: context.topPadding),
-              Stack(
+    return DecoratedContainer(
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            SizedBox(height: context.topPadding),
+            Stack(
+              children: [
+                const CustomBackButton(),
+                Padding(
+                  padding: const EdgeInsets.only(top: 7),
+                  child: Center(
+                    child: Text(
+                      passwordEn2,
+                      style: context.textTheme.titleLarge!.copyWith(
+                        fontFamily: FontFamily.margarine,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(height: 40.h),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24),
+              child: Column(
                 children: [
-                  const CustomBackButton(),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 7),
-                    child: Center(
+                  PasswordTextField(
+                    textEditingController: currentPasswordController,
+                    textFieldText: passwordYr,
+                    textFieldSubText: currentPasswordEn,
+                  ),
+                  PasswordTextField(
+                    textEditingController: newPasswordController,
+                    textFieldText: passwordYr,
+                    textFieldSubText: newPasswordEn,
+                  ),
+                  PasswordTextField(
+                    textEditingController: reEnterNewPasswordController,
+                    textFieldText: passwordYr,
+                    textFieldSubText: reEnterNewPasswordEn,
+                    isBottomSpacing: false,
+                  ),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: TextButton(
+                      onPressed: () {
+                        // context.pushNamed(ResetPassword.id);
+                      },
+                      style: TextButton.styleFrom(
+                        foregroundColor: AppColors.blue12,
+                      ),
                       child: Text(
-                        passwordEn2,
-                        style: context.textTheme.titleLarge!.copyWith(
-                          fontFamily: FontFamily.margarine,
+                        forgotPasswordEn,
+                        textScaler: TextScaler.noScaling,
+                        style: context.textTheme.bodySmall!.copyWith(
+                          fontWeight: FontWeight.w500,
                         ),
                       ),
                     ),
                   ),
+                  SizedBox(height: mqr.height * 0.2),
+                  Button(
+                    label: updatePasswordEn,
+                    onPressed: () {},
+                  ),
                 ],
               ),
-              SizedBox(height: 40.h),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 24),
-                child: Column(
-                  children: [
-                    PasswordTextField(
-                      textEditingController: currentPasswordController,
-                      textFieldText: passwordYr,
-                      textFieldSubText: currentPasswordEn,
-                    ),
-                    PasswordTextField(
-                      textEditingController: newPasswordController,
-                      textFieldText: passwordYr,
-                      textFieldSubText: newPasswordEn,
-                    ),
-                    PasswordTextField(
-                      textEditingController: reEnterNewPasswordController,
-                      textFieldText: passwordYr,
-                      textFieldSubText: reEnterNewPasswordEn,
-                      isBottomSpacing: false,
-                    ),
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: TextButton(
-                        onPressed: () {
-                          // context.pushNamed(ResetPassword.id);
-                        },
-                        style: TextButton.styleFrom(
-                          foregroundColor: AppColors.blue12,
-                        ),
-                        child: Text(
-                          forgotPasswordEn,
-                          textScaler: TextScaler.noScaling,
-                          style: context.textTheme.bodySmall!.copyWith(
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: mqr.height * 0.2),
-                    Button(
-                      label: updatePasswordEn,
-                      onPressed: () {},
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(height: context.btmPadding),
-            ],
-          ),
+            ),
+            SizedBox(
+              height:
+                  context.btmPadding + MediaQuery.of(context).viewInsets.bottom,
+            ),
+          ],
         ),
       ),
     );

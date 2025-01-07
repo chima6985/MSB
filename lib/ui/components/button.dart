@@ -16,7 +16,7 @@ class Button extends StatelessWidget {
     this.isShowArrow = false,
     this.isBoldLabelText = false,
     this.isOutlined = false,
-    this.borderColor = AppColors.black15,
+    this.borderColor,
   });
   final String label;
   final void Function() onPressed;
@@ -44,11 +44,11 @@ class Button extends StatelessWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(24),
         ),
-        side: BorderSide(
-          color: isOutlined
-              ? (borderColor ?? AppColors.black15)
-              : borderColor ?? AppColors.blue12,
-        ),
+        side: isOutlined
+            ? BorderSide(
+                color: borderColor ?? AppColors.black15,
+              )
+            : null,
       ),
       onPressed: onPressed,
       onLongPress: onLongPress,

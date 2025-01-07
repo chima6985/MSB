@@ -1,9 +1,18 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:masoyinbo_mobile/app/app_route.dart';
 import 'package:masoyinbo_mobile/ui/ui.dart';
 
 void main() {
   runApp(const MyApp());
+  unawaited(
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]),
+  );
 }
 
 class MyApp extends StatelessWidget {

@@ -73,16 +73,21 @@ class SignUpScreen extends HookWidget {
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Checkbox(
-                    value: isAgreement.value,
-                    fillColor: !isAgreement.value
-                        ? WidgetStateProperty.all(
-                            AppColors.black15.withValues(alpha: 0.1),
-                          )
-                        : WidgetStateProperty.all(AppColors.black15),
-                    onChanged: (value) =>
-                        isAgreement.value = !isAgreement.value,
+                  SizedBox(
+                    width: 30.w,
+                    height: 30.w,
+                    child: Checkbox(
+                      value: isAgreement.value,
+                      fillColor: !isAgreement.value
+                          ? WidgetStateProperty.all(
+                              AppColors.black15.withValues(alpha: 0.1),
+                            )
+                          : WidgetStateProperty.all(AppColors.blue12),
+                      onChanged: (value) =>
+                          isAgreement.value = !isAgreement.value,
+                    ),
                   ),
+                  SizedBox(width: 3.w),
                   Expanded(
                     child: RichText(
                       text: TextSpan(
@@ -104,9 +109,16 @@ class SignUpScreen extends HookWidget {
                 ],
               ),
               const SizedBox(height: 15),
-              Button(
-                label: moveForwardYr,
-                onPressed: () => context.goNamed(PersonalizeSignUpScreen.id),
+              Opacity(
+                opacity: isAgreement.value ? 1 : 0.6,
+                child: Button(
+                  label: moveForwardYr,
+                  onPressed: () {
+                    if (isAgreement.value) {
+                      context.goNamed(PersonalizeSignUpScreen.id);
+                    }
+                  },
+                ),
               ),
               const SizedBox(height: 15),
               Center(
@@ -175,7 +187,10 @@ class SignUpScreen extends HookWidget {
                   ],
                 ),
               ),
-              SizedBox(height: context.btmPadding),
+              SizedBox(
+                height: context.btmPadding +
+                    MediaQuery.of(context).viewInsets.bottom,
+              ),
             ],
           ),
         ),

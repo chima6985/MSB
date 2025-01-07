@@ -23,7 +23,7 @@ class GameRoomScreen extends HookWidget {
   Widget build(BuildContext context) {
     useEffect(() {
       if (!isMultiplayer) {
-        Future.delayed(7.seconds).then((_) {
+        Future.delayed(5.seconds).then((_) {
           if (context.mounted) {
             context.pushReplacementNamed(TeamAllSetScreen.id);
           }
@@ -187,21 +187,9 @@ class GameRoomScreen extends HookWidget {
                         label: modifyGameSetupYr,
                         isOutlined: true,
                         labelColor: AppColors.black15,
-                        onPressed: () => showModalBottomSheet(
-                          context: context,
-                          builder: (context) => ConfirmLeaveActionModal(
-                            onTapIntent: () => Navigator.popUntil(
-                              context,
-                              (route) => route.settings.name == PlayerScreen.id,
-                            ),
-                          ),
-                          isScrollControlled: true,
-                          shape: const RoundedRectangleBorder(
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(24),
-                              topRight: Radius.circular(24),
-                            ),
-                          ),
+                        onPressed: () => Navigator.popUntil(
+                          context,
+                          (route) => route.settings.name == PlayerScreen.id,
                         ),
                       ),
                     ] else ...[

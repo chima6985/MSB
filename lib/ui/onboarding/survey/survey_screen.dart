@@ -98,44 +98,34 @@ class SurveyScreen extends StatelessWidget {
                               },
                             ),
                             const Spacer(),
-                            ValueListenableBuilder(
-                              valueListenable: selectedOptions,
-                              builder: (context, val, child) {
-                                return Button(
-                                  label: '',
-                                  onPressed: () {
-                                    if (selectedOptions.value.isNotEmpty &&
-                                        currentIndex.value < 3) {
-                                      currentIndex.value++;
-                                    }
-                                    if (currentIndex.value == 3) {
-                                      context.goNamed(DiveInScreen.id);
-                                    }
-                                  },
-                                  color: selectedOptions.value.isEmpty
-                                      ? AppColors.blue12.withValues(alpha: 0.3)
-                                      : null,
-                                  child: RichText(
-                                    text: TextSpan(
-                                      style: context.textTheme.bodyMedium!
-                                          .copyWith(
-                                        color: AppColors.white,
-                                      ),
-                                      children: [
-                                        const TextSpan(text: nextYr),
-                                        TextSpan(
-                                          text: ' ($nextEn)',
-                                          style: context.textTheme.bodySmall!
-                                              .copyWith(
-                                            color: AppColors.white,
-                                            fontWeight: FontWeight.w300,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                );
+                            Button(
+                              label: '',
+                              onPressed: () {
+                                if (currentIndex.value < 3) {
+                                  currentIndex.value++;
+                                }
+                                if (currentIndex.value == 3) {
+                                  context.goNamed(DiveInScreen.id);
+                                }
                               },
+                              child: RichText(
+                                text: TextSpan(
+                                  style: context.textTheme.bodyMedium!.copyWith(
+                                    color: AppColors.white,
+                                  ),
+                                  children: [
+                                    const TextSpan(text: nextYr),
+                                    TextSpan(
+                                      text: ' ($nextEn)',
+                                      style:
+                                          context.textTheme.bodySmall!.copyWith(
+                                        color: AppColors.white,
+                                        fontWeight: FontWeight.w300,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
                             ),
                             SizedBox(height: context.btmPadding),
                           ],
