@@ -20,8 +20,7 @@ class PlayScreen extends HookWidget {
           PlayQuestionScreen.id,
           extra: {
             'isPractice': true,
-            'isTimed': true,
-            'isMultiPlayer': false,
+            'isTimed': false,
           },
         );
       });

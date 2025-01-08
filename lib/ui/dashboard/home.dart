@@ -306,7 +306,10 @@ class Home extends HookWidget {
                     subText: singlePlayerEn,
                     color: AppColors.lemon9C,
                     image: AppAssets.images.jpegs.singlePlayer.path,
-                    onTap: () => context.pushNamed(PlayerScreen.id),
+                    onTap: () => context.pushNamed(
+                      PlayerScreen.id,
+                      extra: {'isSinglePlayer': true},
+                    ),
                   ),
                 ),
                 const SizedBox(width: 16),

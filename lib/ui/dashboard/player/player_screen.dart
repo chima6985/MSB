@@ -10,11 +10,13 @@ class PlayerScreen extends HookWidget {
   const PlayerScreen({
     super.key,
     this.isPractice = false,
+    this.isSinglePlayer = false,
     this.isMultiPlayer = false,
   });
   static const String id = 'playerScreen';
 
   final bool isPractice;
+  final bool isSinglePlayer;
   final bool isMultiPlayer;
 
   @override
@@ -362,14 +364,19 @@ class PlayerScreen extends HookWidget {
                             isTeamFormationAutomatic.value,
                       },
                     );
+                  } else if (isSinglePlayer) {
+                    context.pushNamed(
+                      PlayQuestionScreen.id,
+                      extra: {
+                        'isSinglePlayer': true,
+                      },
+                    );
                   } else {
                     context.pushNamed(
                       PlayerIntroScreen.id,
                       extra: {
                         'isPractice': isPractice,
-                        'isTimed': isPractice
-                            ? selectedPracticeSection.value == 'timed'
-                            : true,
+                        'isTimed': selectedPracticeSection.value == 'timed',
                       },
                     );
                   }

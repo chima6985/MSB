@@ -187,6 +187,7 @@ final router = GoRouter(
         final paramHandler = state.extra is Map ? state.extra as Map? : {};
         return PlayerScreen(
           isPractice: paramHandler?['isPractice'] ?? false,
+          isSinglePlayer: paramHandler?['isSinglePlayer'] ?? false,
           isMultiPlayer: paramHandler?['isMultiPlayer'] ?? false,
         );
       },
@@ -209,7 +210,8 @@ final router = GoRouter(
         final paramHandler = state.extra is Map ? state.extra as Map? : {};
         return PlayQuestionScreen(
           isPractice: paramHandler?['isPractice'] ?? false,
-          isTimed: paramHandler?['isTimed'] ?? true,
+          isTimed: paramHandler?['isTimed'] ?? false,
+          isSinglePlayer: paramHandler?['isSinglePlayer'] ?? false,
           isTeamLeader: paramHandler?['isTeamLeader'] ?? false,
           isMultiPlayer: paramHandler?['isMultiPlayer'] ?? false,
           isGameMaster: paramHandler?['isGameMaster'] ?? false,

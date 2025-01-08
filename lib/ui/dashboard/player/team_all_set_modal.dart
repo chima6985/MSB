@@ -14,9 +14,10 @@ class TeamAllSetModal extends StatelessWidget {
         router.pushReplacementNamed(
           PlayQuestionScreen.id,
           extra: {
-            'isPractice': true,
+            'isPractice': false,
             'isTimed': true,
-            'isMultiPlayer': false,
+            'isMultiPlayer': true,
+            'isGameMaster': true,
           },
         );
       });

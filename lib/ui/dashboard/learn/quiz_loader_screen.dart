@@ -30,6 +30,7 @@ class QuizLoaderScreen extends HookWidget {
         decoration: BoxDecoration(
           image: DecorationImage(
             image: AppAssets.images.jpegs.darkDecoratedBg.provider(),
+            fit: BoxFit.cover,
           ),
         ),
         padding: const EdgeInsets.symmetric(horizontal: 23),
