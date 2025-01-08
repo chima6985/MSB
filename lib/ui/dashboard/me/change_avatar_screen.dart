@@ -4,6 +4,7 @@ import 'package:masoyinbo_mobile/app/app.dart';
 import 'package:masoyinbo_mobile/extension/extension.dart';
 import 'package:masoyinbo_mobile/gen/fonts.gen.dart';
 import 'package:masoyinbo_mobile/ui/ui.dart';
+import 'package:masoyinbo_mobile/utils/utils.dart';
 
 class ChangeAvatarScreen extends HookWidget {
   const ChangeAvatarScreen({
@@ -123,7 +124,19 @@ class ChangeAvatarScreen extends HookWidget {
                     Button(
                       width: mqr.width * 0.8,
                       label: updateEn,
-                      onPressed: () {},
+                      onPressed: () {
+                        if (selectedProfileAvatar.value != null) {
+                          ToastMessage.showSuccess(
+                            context: context,
+                            text: 'Avatar has been updated',
+                          );
+                        } else {
+                          ToastMessage.showError(
+                            context: context,
+                            text: 'Pleae select an avatar',
+                          );
+                        }
+                      },
                     ),
                   ],
                 ),

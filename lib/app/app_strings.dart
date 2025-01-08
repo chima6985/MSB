@@ -512,8 +512,14 @@ const dontLeaveEn = 'Don’t leave';
 const leaveRoomYr = 'Bé̩è̩ni, kúrò ní iyàrá';
 const leaveRoomEn = 'Yes, leave room';
 
+const leavePracticeYr = 'Bé̩è̩ni, paati';
+const leavePracticeEn = 'Yes, leave';
+
 const sureToLeaveGameYr = 's̩é ó dá e̩ lójú pé o fé̩ fi iyàrá eré sílè̩?';
 const sureToLeaveGameEn = 'Are you sure you want to leave the game room?';
+
+const sureToLeavePractiveYr = 's̩é ó dá e̩ lójú pé o fé̩ pa idanwo ti?';
+const sureToLeavePracticeEn = 'Are you sure you want to leave the quiz?';
 
 const teamAllSetYr = 'Team All Set';
 const teamAllSetEn = 'Team All Set';

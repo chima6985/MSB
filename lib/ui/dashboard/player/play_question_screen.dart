@@ -40,6 +40,7 @@ class _PlayQuestionScreenState extends State<PlayQuestionScreen> {
   final _textEditingController = TextEditingController();
   String? selectedFillWordOption;
   bool isMultiplayerAnswerSelected = false;
+  String? imageSelector;
 
   @override
   void dispose() {
@@ -49,7 +50,6 @@ class _PlayQuestionScreenState extends State<PlayQuestionScreen> {
 
   @override
   Widget build(BuildContext context) {
-    print(widget.isPractice);
     final isPracticeMode = widget.isPractice;
 
     final isSinglePlayerMode =
@@ -95,8 +95,9 @@ class _PlayQuestionScreenState extends State<PlayQuestionScreen> {
                         CustomBackButton(
                           onTap: () => showModalBottomSheet(
                             context: context,
-                            builder: (context) =>
-                                const ConfirmLeaveActionModal(),
+                            builder: (context) => isPracticeMode
+                                ? const ConfirmPracticeLeaveActionModal()
+                                : const ConfirmLeaveActionModal(),
                             isScrollControlled: true,
                             shape: const RoundedRectangleBorder(
                               borderRadius: BorderRadius.only(
@@ -812,12 +813,24 @@ class _PlayQuestionScreenState extends State<PlayQuestionScreen> {
                               ],
                             ),
                             SizedBox(height: 32.h),
-                            const Row(
+                            Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                _ImagePickerOption(imageTitle: 'Drum'),
-                                SizedBox(width: 25),
-                                _ImagePickerOption(imageTitle: 'Village'),
+                                _ImagePickerOption(
+                                  imageTitle: 'Drum',
+                                  onTap: () {
+                                    setState(() => imageSelector = 'drum');
+                                  },
+                                  isSelected: imageSelector == 'drum',
+                                ),
+                                const SizedBox(width: 25),
+                                _ImagePickerOption(
+                                  imageTitle: 'Village',
+                                  onTap: () {
+                                    setState(() => imageSelector = 'village');
+                                  },
+                                  isSelected: imageSelector == 'village',
+                                ),
                               ],
                             ),
                             SizedBox(height: 40.h),
@@ -943,53 +956,60 @@ class _PlayQuestionScreenState extends State<PlayQuestionScreen> {
 class _ImagePickerOption extends StatelessWidget {
   const _ImagePickerOption({
     required this.imageTitle,
+    required this.onTap,
+    this.isSelected = false,
   });
 
   final String imageTitle;
+  final VoidCallback onTap;
+  final bool isSelected;
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 14,
-            vertical: 10,
-          ),
-          decoration: BoxDecoration(
-            color: AppColors.white,
-            borderRadius: BorderRadius.circular(8),
-            border: Border.all(
-              color: AppColors.black.withValues(
-                alpha: 0.8,
-              ),
+    return GestureDetector(
+      onTap: onTap,
+      child: Column(
+        children: [
+          Container(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 14,
+              vertical: 10,
             ),
-            boxShadow: [
-              BoxShadow(
-                color: AppColors.black.withValues(alpha: 0.2),
-                blurRadius: 10,
-              ),
-            ],
-          ),
-          child: Container(
-            width: 100.w,
-            height: 100.w,
             decoration: BoxDecoration(
-              color: AppColors.greyB6.withValues(alpha: 0.4),
-              borderRadius: BorderRadius.circular(4),
+              color: AppColors.white,
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(
+                color: isSelected ? AppColors.blue12 : AppColors.greyDB,
+              ),
+              boxShadow: isSelected
+                  ? [
+                      BoxShadow(
+                        color: AppColors.black.withValues(alpha: 0.2),
+                        blurRadius: 10,
+                      ),
+                    ]
+                  : null,
+            ),
+            child: Container(
+              width: 100.w,
+              height: 100.w,
+              decoration: BoxDecoration(
+                color: AppColors.greyB6.withValues(alpha: 0.4),
+                borderRadius: BorderRadius.circular(4),
+              ),
             ),
           ),
-        ),
-        const SizedBox(height: 6),
-        Text(
-          imageTitle,
-          textAlign: TextAlign.center,
-          style: context.textTheme.bodyMedium!.copyWith(
-            fontSize: 15.sp,
-            fontWeight: FontWeight.w500,
+          const SizedBox(height: 6),
+          Text(
+            imageTitle,
+            textAlign: TextAlign.center,
+            style: context.textTheme.bodyMedium!.copyWith(
+              fontSize: 15.sp,
+              fontWeight: isSelected ? FontWeight.w500 : FontWeight.w400,
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

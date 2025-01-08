@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:masoyinbo_mobile/extension/extension.dart';
 import 'package:masoyinbo_mobile/gen/fonts.gen.dart';
 import 'package:masoyinbo_mobile/ui/ui.dart';
+import 'package:masoyinbo_mobile/utils/utils.dart';
 
-class ModuleScreen extends HookWidget {
+class ModuleScreen extends StatelessWidget {
   const ModuleScreen({
     super.key,
     required this.title,
@@ -16,6 +16,7 @@ class ModuleScreen extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final mqr = MediaQuery.of(context).size;
+    final isBookmarked = ValueNotifier(false);
     return Scaffold(
       body: DecoratedContainer(
         child: SingleChildScrollView(
@@ -56,14 +57,31 @@ class ModuleScreen extends HookWidget {
                         Transform.translate(
                           offset: const Offset(15, 0),
                           child: TextButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              if (isBookmarked.value == true) {
+                                ToastMessage.showWarning(
+                                  context: context,
+                                  text: 'Lesson removed from bookmark',
+                                );
+                                isBookmarked.value = false;
+                              } else {
+                                ToastMessage.showSuccess(
+                                  context: context,
+                                  text: 'Lesson added to bookmark',
+                                );
+                                isBookmarked.value = true;
+                              }
+                            },
                             child: Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                Icon(
-                                  Iconsax.save_add,
-                                  size: 20.sp,
-                                  color: AppColors.black15,
+                                ValueListenableBuilder(
+                                  valueListenable: isBookmarked,
+                                  builder: (context, bookmarked, child) {
+                                    return bookmarked
+                                        ? AppAssets.images.svgs.bookmarked.svg()
+                                        : AppAssets.images.svgs.bookmark.svg();
+                                  },
                                 ),
                               ],
                             ),
@@ -207,24 +225,28 @@ class ModuleScreen extends HookWidget {
               Padding(
                 padding: const EdgeInsets.only(left: 15),
                 child: TextButton(
-                  onPressed: () {},
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Icon(
-                        Iconsax.save_add,
-                        size: 20.sp,
-                        color: AppColors.black15,
-                      ),
-                      const SizedBox(width: 8),
-                      Text(
-                        'Bookmark module',
-                        textScaler: TextScaler.noScaling,
-                        style: context.textTheme.bodySmall!.copyWith(
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ],
+                  onPressed: () => isBookmarked.value = !isBookmarked.value,
+                  child: ValueListenableBuilder(
+                    valueListenable: isBookmarked,
+                    builder: (context, bookmarked, child) {
+                      return Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          if (bookmarked)
+                            AppAssets.images.svgs.bookmarked.svg()
+                          else
+                            AppAssets.images.svgs.bookmark.svg(),
+                          const SizedBox(width: 8),
+                          Text(
+                            bookmarked ? 'Bookmarked' : 'Bookmark module',
+                            textScaler: TextScaler.noScaling,
+                            style: context.textTheme.bodySmall!.copyWith(
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ],
+                      );
+                    },
                   ),
                 ),
               ),

@@ -42,7 +42,7 @@ class DashboardIndexScreen extends HookWidget {
                   child: const Padding(
                     padding: EdgeInsets.symmetric(vertical: 4, horizontal: 6),
                     child: Icon(
-                      Iconsax.bookmark,
+                      Iconsax.save_2,
                       color: AppColors.black15,
                     ),
                   ),

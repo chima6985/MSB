@@ -308,43 +308,50 @@ class PlayerScreen extends HookWidget {
                         ],
                       ),
                     ),
-                    SizedBox(height: 35.h),
-                    RichText(
-                      text: TextSpan(
-                        style: context.textTheme.bodyLarge!.copyWith(
-                          fontWeight: FontWeight.w500,
-                        ),
-                        children: [
-                          const TextSpan(text: teamFormationYr),
-                          TextSpan(
-                            text: ' ($teamFormationEn)',
-                            style: context.textTheme.bodySmall!.copyWith(
-                              fontSize: 13.5.sp,
-                              fontWeight: FontWeight.w300,
+                    SizedBox(height: 25.h),
+                    if (isTeamMode.value != false) ...[
+                      const SizedBox(height: 24),
+                      RichText(
+                        text: TextSpan(
+                          style: context.textTheme.bodyLarge!.copyWith(
+                            fontWeight: FontWeight.w500,
+                          ),
+                          children: [
+                            const TextSpan(text: teamFormationYr),
+                            TextSpan(
+                              text: ' ($teamFormationEn)',
+                              style: context.textTheme.bodySmall!.copyWith(
+                                fontSize: 13.5.sp,
+                                fontWeight: FontWeight.w300,
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
-                    ),
-                    const SizedBox(height: 16),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 12),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SelectFilledCategoryWidget(
-                            title: automaticYr,
-                            isSelected: isTeamFormationAutomatic.value == true,
-                            onTap: () => isTeamFormationAutomatic.value = true,
-                          ),
-                          SelectFilledCategoryWidget(
-                            title: manualYr,
-                            isSelected: isTeamFormationAutomatic.value == false,
-                            onTap: () => isTeamFormationAutomatic.value = false,
-                          ),
-                        ],
+                      const SizedBox(height: 16),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 12),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SelectFilledCategoryWidget(
+                              title: automaticYr,
+                              isSelected:
+                                  isTeamFormationAutomatic.value == true,
+                              onTap: () =>
+                                  isTeamFormationAutomatic.value = true,
+                            ),
+                            SelectFilledCategoryWidget(
+                              title: manualYr,
+                              isSelected:
+                                  isTeamFormationAutomatic.value == false,
+                              onTap: () =>
+                                  isTeamFormationAutomatic.value = false,
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
+                    ],
                   ],
                 ),
               ),
@@ -361,7 +368,7 @@ class PlayerScreen extends HookWidget {
                       extra: {
                         'isTeamMode': isTeamMode.value,
                         'isTeamFormationAutomatic':
-                            isTeamFormationAutomatic.value,
+                            isTeamFormationAutomatic.value ?? false,
                       },
                     );
                   } else if (isSinglePlayer) {

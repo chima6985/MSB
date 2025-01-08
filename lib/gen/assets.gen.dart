@@ -231,6 +231,14 @@ class $AssetsImagesSvgsGen {
   /// File path: assets/images/svgs/bolt.svg
   SvgGenImage get bolt => const SvgGenImage('assets/images/svgs/bolt.svg');
 
+  /// File path: assets/images/svgs/bookmark.svg
+  SvgGenImage get bookmark =>
+      const SvgGenImage('assets/images/svgs/bookmark.svg');
+
+  /// File path: assets/images/svgs/bookmarked.svg
+  SvgGenImage get bookmarked =>
+      const SvgGenImage('assets/images/svgs/bookmarked.svg');
+
   /// File path: assets/images/svgs/cancel.svg
   SvgGenImage get cancel => const SvgGenImage('assets/images/svgs/cancel.svg');
 
@@ -240,6 +248,9 @@ class $AssetsImagesSvgsGen {
   /// File path: assets/images/svgs/diamond_shape.svg
   SvgGenImage get diamondShape =>
       const SvgGenImage('assets/images/svgs/diamond_shape.svg');
+
+  /// File path: assets/images/svgs/error.svg
+  SvgGenImage get error => const SvgGenImage('assets/images/svgs/error.svg');
 
   /// File path: assets/images/svgs/flip.svg
   SvgGenImage get flip => const SvgGenImage('assets/images/svgs/flip.svg');
@@ -282,21 +293,36 @@ class $AssetsImagesSvgsGen {
   /// File path: assets/images/svgs/me_bold.svg
   SvgGenImage get meBold => const SvgGenImage('assets/images/svgs/me_bold.svg');
 
+  /// File path: assets/images/svgs/message.svg
+  SvgGenImage get message =>
+      const SvgGenImage('assets/images/svgs/message.svg');
+
   /// File path: assets/images/svgs/share.svg
   SvgGenImage get share => const SvgGenImage('assets/images/svgs/share.svg');
 
   /// File path: assets/images/svgs/speak.svg
   SvgGenImage get speak => const SvgGenImage('assets/images/svgs/speak.svg');
 
+  /// File path: assets/images/svgs/success.svg
+  SvgGenImage get success =>
+      const SvgGenImage('assets/images/svgs/success.svg');
+
   /// File path: assets/images/svgs/thumbs.svg
   SvgGenImage get thumbs => const SvgGenImage('assets/images/svgs/thumbs.svg');
+
+  /// File path: assets/images/svgs/warning.svg
+  SvgGenImage get warning =>
+      const SvgGenImage('assets/images/svgs/warning.svg');
 
   /// List of all assets
   List<SvgGenImage> get values => [
         bolt,
+        bookmark,
+        bookmarked,
         cancel,
         crown,
         diamondShape,
+        error,
         flip,
         google,
         home,
@@ -309,9 +335,12 @@ class $AssetsImagesSvgsGen {
         masterGameConsole,
         me,
         meBold,
+        message,
         share,
         speak,
-        thumbs
+        success,
+        thumbs,
+        warning
       ];
 }
 
