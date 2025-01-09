@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:masoyinbo_mobile/app/app.dart';
 import 'package:masoyinbo_mobile/extension/extension.dart';
 import 'package:masoyinbo_mobile/gen/fonts.gen.dart';
 import 'package:masoyinbo_mobile/ui/dashboard/player/team_all_set_modal.dart';
 import 'package:masoyinbo_mobile/ui/ui.dart';
+import 'package:masoyinbo_mobile/utils/utils.dart';
 
-class TeamSetupScreen extends HookWidget {
+class TeamSetupScreen extends StatefulWidget {
   const TeamSetupScreen({
     super.key,
     this.isTeamFormationAutomatic = false,
@@ -16,10 +16,70 @@ class TeamSetupScreen extends HookWidget {
   final bool isTeamFormationAutomatic;
 
   @override
+  State<TeamSetupScreen> createState() => _TeamSetupScreenState();
+}
+
+class _TeamSetupScreenState extends State<TeamSetupScreen> {
+  bool isTeamSet = false;
+
+  int teamsGroup = 2;
+
+  final scrollController = ScrollController();
+
+  final groupedPlayers = <GameRoomProfileWidget>[];
+
+  final exampleBox = <TeamSetProfileWidget>[];
+
+  //todo : work on example box and teamsGroup to be dynamic for the addition of teams
+
+  final teamPlayers = [
+    GameRoomProfileWidget(
+      isGameMaster: true,
+      image: AppAssets.images.jpegs.profileImage1.path,
+      name: 'Master',
+      size: 0.7,
+    ),
+    GameRoomProfileWidget(
+      image: AppAssets.images.jpegs.profileImage.path,
+      name: 'You',
+      size: 0.73,
+    ),
+    GameRoomProfileWidget(
+      image: AppAssets.images.jpegs.profileImage1.path,
+      name: 'Tosin',
+      size: 0.73,
+    ),
+    GameRoomProfileWidget(
+      image: AppAssets.images.jpegs.profileImage.path,
+      name: 'P4',
+      size: 0.73,
+    ),
+    GameRoomProfileWidget(
+      image: AppAssets.images.jpegs.profileImage1.path,
+      name: 'Lateefah',
+      size: 0.73,
+    ),
+    GameRoomProfileWidget(
+      image: AppAssets.images.jpegs.profileImage.path,
+      name: 'Viko',
+      size: 0.73,
+    ),
+    GameRoomProfileWidget(
+      image: AppAssets.images.jpegs.profileImage1.path,
+      name: 'Angel',
+      size: 0.73,
+    ),
+    GameRoomProfileWidget(
+      image: AppAssets.images.jpegs.profileImage.path,
+      name: 'Kido',
+      size: 0.73,
+    ),
+  ];
+
+  @override
   Widget build(BuildContext context) {
     final mqr = MediaQuery.of(context).size;
-    final isTeamSet = useState(false);
-    final isManualReady = !isTeamFormationAutomatic && !isTeamSet.value;
+    final isManualReady = !widget.isTeamFormationAutomatic && !isTeamSet;
     return Scaffold(
       body: DecoratedContainer(
         isAnimate: true,
@@ -68,7 +128,9 @@ class TeamSetupScreen extends HookWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              isTeamFormationAutomatic ? 'Automatic' : 'Manual',
+                              widget.isTeamFormationAutomatic
+                                  ? 'Automatic'
+                                  : 'Manual',
                               style: context.textTheme.bodyLarge!.copyWith(
                                 fontWeight: FontWeight.w500,
                               ),
@@ -84,37 +146,53 @@ class TeamSetupScreen extends HookWidget {
                           ],
                         ),
                         const Spacer(),
-                        ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            elevation: 0,
-                            shadowColor: AppColors.transparent,
-                            padding: const EdgeInsets.symmetric(
-                              vertical: 8,
-                              horizontal: 12,
-                            ),
-                            backgroundColor: AppColors.blue12,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(24),
-                            ),
-                          ),
-                          onPressed: () {
-                            if (isManualReady) {}
-                          },
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Icon(
-                                Icons.add_rounded,
-                                size: 17.sp,
+                        Opacity(
+                          opacity: widget.isTeamFormationAutomatic ? 0.5 : 1,
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              elevation: 0,
+                              shadowColor: AppColors.transparent,
+                              padding: const EdgeInsets.symmetric(
+                                vertical: 8,
+                                horizontal: 12,
                               ),
-                              Text(
-                                'Add Team',
-                                textScaler: TextScaler.noScaling,
-                                style: context.textTheme.bodySmall!.copyWith(
-                                  color: AppColors.white,
+                              backgroundColor: AppColors.blue12,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(24),
+                              ),
+                            ),
+                            onPressed: () {
+                              if (!widget.isTeamFormationAutomatic) {
+                                WidgetsBinding.instance
+                                    .addPostFrameCallback((_) {
+                                  setState(() {
+                                    teamsGroup++;
+                                  });
+                                  scrollController.animateTo(
+                                    scrollController.position.maxScrollExtent +
+                                        mqr.width * 0.45,
+                                    duration: 300.ms,
+                                    curve: Curves.linear,
+                                  );
+                                });
+                              }
+                            },
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Icon(
+                                  Icons.add_rounded,
+                                  size: 17.sp,
                                 ),
-                              ),
-                            ],
+                                Text(
+                                  'Add Team',
+                                  textScaler: TextScaler.noScaling,
+                                  style: context.textTheme.bodySmall!.copyWith(
+                                    color: AppColors.white,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ],
@@ -150,63 +228,62 @@ class TeamSetupScreen extends HookWidget {
                     padding: const EdgeInsets.only(left: 20),
                     scrollDirection: Axis.horizontal,
                     child: Row(
-                      children: [
-                        GameRoomProfileWidget(
-                          isGameMaster: true,
-                          image: AppAssets.images.jpegs.profileImage1.path,
-                          name: 'Master',
-                          size: 0.7,
-                        ),
-                        GameRoomProfileWidget(
-                          image: AppAssets.images.jpegs.profileImage.path,
-                          name: 'You',
-                          size: 0.73,
-                        ),
-                        GameRoomProfileWidget(
-                          image: AppAssets.images.jpegs.profileImage1.path,
-                          name: 'Tosin',
-                          size: 0.73,
-                        ),
-                        GameRoomProfileWidget(
-                          image: AppAssets.images.jpegs.profileImage.path,
-                          name: 'P4',
-                          size: 0.73,
-                        ),
-                        GameRoomProfileWidget(
-                          image: AppAssets.images.jpegs.profileImage1.path,
-                          name: 'Lateefah',
-                          size: 0.73,
-                        ),
-                        GameRoomProfileWidget(
-                          image: AppAssets.images.jpegs.profileImage.path,
-                          name: 'Viko',
-                          size: 0.73,
-                        ),
-                        GameRoomProfileWidget(
-                          image: AppAssets.images.jpegs.profileImage1.path,
-                          name: 'Angel',
-                          size: 0.73,
-                        ),
-                        GameRoomProfileWidget(
-                          image: AppAssets.images.jpegs.profileImage.path,
-                          name: 'Kido',
-                          size: 0.73,
-                        ),
-                      ],
+                      children: teamPlayers.map((player) {
+                        return AbsorbPointer(
+                          absorbing: groupedPlayers.contains(player),
+                          child: Draggable<GameRoomProfileWidget>(
+                            data: player,
+                            feedback: player,
+                            child: Opacity(
+                              opacity:
+                                  groupedPlayers.contains(player) ? 0.7 : 1,
+                              child: player,
+                            ),
+                          ),
+                        );
+                      }).toList(),
                     ),
                   ),
                   SizedBox(height: mqr.height * 0.1),
                   SingleChildScrollView(
                     padding: const EdgeInsets.only(left: 23),
                     scrollDirection: Axis.horizontal,
+                    controller: scrollController,
                     child: Row(
                       children: [
-                        GestureDetector(
-                          onTap: () => isTeamSet.value = true,
-                          child: const TeamFormationWidget(teamNo: 1),
-                        ),
-                        const TeamFormationWidget(teamNo: 2),
-                        const TeamFormationWidget(teamNo: 3),
+                        for (int i = 0; i < teamsGroup; i++)
+                          DragTarget<GameRoomProfileWidget>(
+                            onWillAcceptWithDetails: (details) {
+                              if (exampleBox.length == 4) {
+                                ToastMessage.showError(
+                                  context: context,
+                                  text: 'Team is full',
+                                );
+                                return false;
+                              }
+                              return true;
+                            },
+                            onAcceptWithDetails: (data) {
+                              setState(() {
+                                groupedPlayers.add(data.data);
+                                exampleBox.add(
+                                  TeamSetProfileWidget(
+                                    image: data.data.image,
+                                    name: data.data.name,
+                                    // ignore: prefer_is_empty
+                                    isTeamLeader: exampleBox.length == 0,
+                                  ),
+                                );
+                              });
+                            },
+                            builder: (context, candidateData, rejectedData) {
+                              return _ManualTeamFormationWidget(
+                                teamNo: i + 1,
+                                children:
+                                    exampleBox.map((person) => person).toList(),
+                              );
+                            },
+                          ),
                       ],
                     ),
                   ),
@@ -242,6 +319,68 @@ class TeamSetupScreen extends HookWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+class _ManualTeamFormationWidget extends StatelessWidget {
+  const _ManualTeamFormationWidget({
+    required this.children,
+    required this.teamNo,
+  });
+
+  final List<TeamSetProfileWidget> children;
+  final int? teamNo;
+
+  @override
+  Widget build(BuildContext context) {
+    final mqr = MediaQuery.of(context).size;
+    // final children = [
+    //   TeamSetProfileWidget(
+    //     isTeamLeader: true,
+    //     image: AppAssets.images.jpegs.profileImage.path,
+    //     name: 'P4',
+    //   ),
+    //   TeamSetProfileWidget(
+    //     image: AppAssets.images.jpegs.profileImage1.path,
+    //     name: 'Angel',
+    //   ),
+    //   TeamSetProfileWidget(
+    //     image: AppAssets.images.jpegs.profileImage1.path,
+    //     name: 'Kiki',
+    //   ),
+    //   TeamSetProfileWidget(
+    //     image: AppAssets.images.jpegs.profileImage.path,
+    //     name: 'Kido',
+    //   ),
+    // ];
+    return Column(
+      children: [
+        Container(
+          width: mqr.width * 0.41,
+          height: mqr.width * 0.41,
+          padding: const EdgeInsets.fromLTRB(12, 8, 12, 16),
+          margin: const EdgeInsets.only(right: 18),
+          decoration: BoxDecoration(
+            color: AppColors.blueE7,
+            borderRadius: BorderRadius.circular(8),
+            border: Border.all(color: AppColors.greyB6),
+          ),
+          child: Wrap(
+            spacing: 39.sp,
+            children: children,
+          ),
+        ),
+        if (teamNo != null) ...[
+          const SizedBox(height: 8),
+          Text(
+            'Team $teamNo',
+            style: context.textTheme.bodySmall!.copyWith(
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+        ],
+      ],
     );
   }
 }

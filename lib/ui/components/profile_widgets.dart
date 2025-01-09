@@ -9,12 +9,14 @@ class GameRoomProfileWidget extends StatelessWidget {
     required this.image,
     required this.name,
     this.size = 1,
+    this.extent,
   });
 
   final bool isGameMaster;
   final String image;
   final String name;
   final double? size;
+  final double? extent;
 
   @override
   Widget build(BuildContext context) {
@@ -45,6 +47,7 @@ class GameRoomProfileWidget extends StatelessWidget {
               fontWeight: FontWeight.w500,
             ),
           ),
+          SizedBox(height: extent ?? 0),
         ],
       ),
     );
