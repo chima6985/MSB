@@ -19,6 +19,9 @@ pubget-leapv:
 codegen-root:
 	(flutter clean;flutter pub get;dart run build_runner build --delete-conflicting-outputs)
 
+codegen-build:
+	dart run build_runner build --delete-conflicting-outputs
+
 codegen-watch:
 	(dart run build_runner watch --delete-conflicting-outputs)
 
@@ -57,16 +60,12 @@ apk-dev: ## Builds apk
 ipa-dev: ## Builds ipa
 	flutter build ipa --flavor=dev --target=lib/app/flavors/main_dev.dart
 
-encode-dev-env: ## Encode dev .env file to base64 string
-	base64 -i assets/env/dev.env -o encodedDevEnvBase64.txt
-
-encode-qa-env: ## Encode qa .env file to base64 string
-	base64 -i assets/env/qa.env -o encodedQAEnvBase64.txt
+encode-stg-env: ## Encode qa .env file to base64 string
+	base64 -i assets/env/stg.env -o encodedStgEnvBase64.txt
 
 encode-prod-env: ## Encode prod .env file to base64 string
 	base64 -i assets/env/prod.env -o encodedProdEnvBase64.txt
 
 encode: ## Encode all .env files to base64 string
-	make encode-dev-env
-	make encode-qa-env
+	make encode-stg-env
 	make encode-prod-env
