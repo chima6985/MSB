@@ -16,6 +16,7 @@ class Button extends StatelessWidget {
     this.isShowArrow = false,
     this.isBoldLabelText = false,
     this.isOutlined = false,
+    this.isLoading = false,
     this.borderColor,
   });
   final String label;
@@ -29,6 +30,7 @@ class Button extends StatelessWidget {
   final bool isShowArrow;
   final bool isBoldLabelText;
   final bool isOutlined;
+  final bool isLoading;
   final Color? borderColor;
 
   @override
@@ -56,21 +58,24 @@ class Button extends StatelessWidget {
         child: SizedBox(
           width: width ?? mqr.width,
           child: Center(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: FittedBox(
-                child: child ??
-                    Text(
-                      label,
-                      textScaler: TextScaler.noScaling,
-                      style: context.textTheme.bodyMedium!.copyWith(
-                        color: labelColor ?? AppColors.white,
-                        fontWeight:
-                            isBoldLabelText ? FontWeight.w500 : FontWeight.w400,
-                      ),
+            child: isLoading
+                ? const CustomSpinner()
+                : Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: FittedBox(
+                      child: child ??
+                          Text(
+                            label,
+                            textScaler: TextScaler.noScaling,
+                            style: context.textTheme.bodyMedium!.copyWith(
+                              color: labelColor ?? AppColors.white,
+                              fontWeight: isBoldLabelText
+                                  ? FontWeight.w500
+                                  : FontWeight.w400,
+                            ),
+                          ),
                     ),
-              ),
-            ),
+                  ),
           ),
         ),
       ),

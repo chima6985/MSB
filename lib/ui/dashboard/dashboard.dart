@@ -1,3 +1,4 @@
+export 'auth_modal.dart';
 export 'dashboard_index_screen.dart';
 export 'home.dart';
 export 'leader_board.dart';

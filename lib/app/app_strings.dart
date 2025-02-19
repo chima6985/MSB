@@ -83,6 +83,8 @@ const confirmPasswordEn = 're-enter password';
 const moveForwardYr = 'Tẹ̀síwájú';
 const alreadyAUserEn = 'Already a user?';
 const logInYr = 'Wọlé';
+const loginEn = 'Log In';
+
 const bySigningUp = 'By signing up on Másòyìnbó, I agree to its';
 const termsAndConditions = 'Terms & Conditions';
 
@@ -696,3 +698,17 @@ const firstTeamMemberTeamLeaderYr =
     'The first member of each team will be the team leader';
 const firstTeamMemberTeamLeaderEn =
     'The first member of each team will be the team leader';
+
+const signUpYr = 'Forukọsilẹ';
+const signUpEn = 'Sign up';
+
+const unlockingFullExperienceYr =
+    'Ṣii iriri kikun!  Forukọsilẹ bayi lati ṣawari awọn ẹya diẹ sii ki o si gba iṣakoso pipe ti irin-ajo rẹ';
+const unlockingFullExperienceEn =
+    'Unlock the full experience! Sign up now to explore more features and take full control of your journey';
+
+const invalidEmailYr = 'Invalid Email';
+const invalidEmailEn = 'Invalid Email';
+
+const fieldIsRequiredYr = 'Field is required';
+const fieldIsRequiredEn = 'Field is required';

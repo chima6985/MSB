@@ -12,4 +12,18 @@ class Functions {
       curve: Curves.linear,
     );
   }
+
+  static void showModalAuth(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      builder: (context) => const AuthModal(),
+      isScrollControlled: true,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(24),
+          topRight: Radius.circular(24),
+        ),
+      ),
+    );
+  }
 }

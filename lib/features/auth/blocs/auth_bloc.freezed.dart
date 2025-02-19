@@ -687,7 +687,7 @@ abstract class _AuthSignOut implements AuthEvent {
 
 /// @nodoc
 mixin _$AuthState {
-  InvalidType get user => throw _privateConstructorUsedError;
+  User? get user => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(User? user, String? error) unauthenticated,
@@ -763,7 +763,9 @@ abstract class $AuthStateCopyWith<$Res> {
   factory $AuthStateCopyWith(AuthState value, $Res Function(AuthState) then) =
       _$AuthStateCopyWithImpl<$Res, AuthState>;
   @useResult
-  $Res call({InvalidType user});
+  $Res call({User user});
+
+  $UserCopyWith<$Res>? get user;
 }
 
 /// @nodoc
@@ -781,14 +783,28 @@ class _$AuthStateCopyWithImpl<$Res, $Val extends AuthState>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? user = freezed,
+    Object? user = null,
   }) {
     return _then(_value.copyWith(
-      user: freezed == user
-          ? _value.user
+      user: null == user
+          ? _value.user!
           : user // ignore: cast_nullable_to_non_nullable
-              as InvalidType,
+              as User,
     ) as $Val);
+  }
+
+  /// Create a copy of AuthState
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $UserCopyWith<$Res>? get user {
+    if (_value.user == null) {
+      return null;
+    }
+
+    return $UserCopyWith<$Res>(_value.user!, (value) {
+      return _then(_value.copyWith(user: value) as $Val);
+    });
   }
 }
 
@@ -801,6 +817,9 @@ abstract class _$$AuthUnauthenticatedImplCopyWith<$Res>
   @override
   @useResult
   $Res call({User? user, String? error});
+
+  @override
+  $UserCopyWith<$Res>? get user;
 }
 
 /// @nodoc
@@ -852,13 +871,12 @@ class _$AuthUnauthenticatedImpl implements _AuthUnauthenticated {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$AuthUnauthenticatedImpl &&
-            const DeepCollectionEquality().equals(other.user, user) &&
+            (identical(other.user, user) || other.user == user) &&
             (identical(other.error, error) || other.error == error));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(user), error);
+  int get hashCode => Object.hash(runtimeType, user, error);
 
   /// Create a copy of AuthState
   /// with the given fields replaced by the non-null parameter values.
@@ -981,6 +999,9 @@ abstract class _$$AuthAuthenticatingImplCopyWith<$Res>
   @override
   @useResult
   $Res call({User? user});
+
+  @override
+  $UserCopyWith<$Res>? get user;
 }
 
 /// @nodoc
@@ -1025,12 +1046,11 @@ class _$AuthAuthenticatingImpl implements _AuthAuthenticating {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$AuthAuthenticatingImpl &&
-            const DeepCollectionEquality().equals(other.user, user));
+            (identical(other.user, user) || other.user == user));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(user));
+  int get hashCode => Object.hash(runtimeType, user);
 
   /// Create a copy of AuthState
   /// with the given fields replaced by the non-null parameter values.
@@ -1152,6 +1172,9 @@ abstract class _$$AuthAuthenticatedImplCopyWith<$Res>
   @override
   @useResult
   $Res call({User user});
+
+  @override
+  $UserCopyWith<$Res> get user;
 }
 
 /// @nodoc
@@ -1167,14 +1190,24 @@ class __$$AuthAuthenticatedImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? user = freezed,
+    Object? user = null,
   }) {
     return _then(_$AuthAuthenticatedImpl(
-      user: freezed == user
+      user: null == user
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
               as User,
     ));
+  }
+
+  /// Create a copy of AuthState
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $UserCopyWith<$Res> get user {
+    return $UserCopyWith<$Res>(_value.user, (value) {
+      return _then(_value.copyWith(user: value));
+    });
   }
 }
 
@@ -1196,12 +1229,11 @@ class _$AuthAuthenticatedImpl implements _AuthAuthenticated {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$AuthAuthenticatedImpl &&
-            const DeepCollectionEquality().equals(other.user, user));
+            (identical(other.user, user) || other.user == user));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(user));
+  int get hashCode => Object.hash(runtimeType, user);
 
   /// Create a copy of AuthState
   /// with the given fields replaced by the non-null parameter values.
@@ -1323,6 +1355,9 @@ abstract class _$$LoginErrorImplCopyWith<$Res>
   @override
   @useResult
   $Res call({User? user, String? error});
+
+  @override
+  $UserCopyWith<$Res>? get user;
 }
 
 /// @nodoc
@@ -1374,13 +1409,12 @@ class _$LoginErrorImpl implements _LoginError {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$LoginErrorImpl &&
-            const DeepCollectionEquality().equals(other.user, user) &&
+            (identical(other.user, user) || other.user == user) &&
             (identical(other.error, error) || other.error == error));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(user), error);
+  int get hashCode => Object.hash(runtimeType, user, error);
 
   /// Create a copy of AuthState
   /// with the given fields replaced by the non-null parameter values.
@@ -1502,6 +1536,9 @@ abstract class _$$SignUpErrorImplCopyWith<$Res>
   @override
   @useResult
   $Res call({User? user, String? error});
+
+  @override
+  $UserCopyWith<$Res>? get user;
 }
 
 /// @nodoc
@@ -1553,13 +1590,12 @@ class _$SignUpErrorImpl implements _SignUpError {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$SignUpErrorImpl &&
-            const DeepCollectionEquality().equals(other.user, user) &&
+            (identical(other.user, user) || other.user == user) &&
             (identical(other.error, error) || other.error == error));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(user), error);
+  int get hashCode => Object.hash(runtimeType, user, error);
 
   /// Create a copy of AuthState
   /// with the given fields replaced by the non-null parameter values.
@@ -1681,6 +1717,9 @@ abstract class _$$AuthSignedOutImplCopyWith<$Res>
   @override
   @useResult
   $Res call({User? user, String? message});
+
+  @override
+  $UserCopyWith<$Res>? get user;
 }
 
 /// @nodoc
@@ -1732,13 +1771,12 @@ class _$AuthSignedOutImpl implements _AuthSignedOut {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$AuthSignedOutImpl &&
-            const DeepCollectionEquality().equals(other.user, user) &&
+            (identical(other.user, user) || other.user == user) &&
             (identical(other.message, message) || other.message == message));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(user), message);
+  int get hashCode => Object.hash(runtimeType, user, message);
 
   /// Create a copy of AuthState
   /// with the given fields replaced by the non-null parameter values.

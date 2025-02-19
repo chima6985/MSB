@@ -43,19 +43,19 @@ class UpdateUserCubit extends Cubit<UpdateUserState> {
       emit(const _Updating());
       final user = UserHelper.fetchUser(authBloc: _authBloc);
       if (user == null) return;
-      await _userRepository.completeOnboarding(
-        token: user.token,
-        firstName: firstName,
-        middleName: middleName,
-        lastName: lastName,
-        dob: dob,
-        address: address,
-        city: city,
-        postalCode: postalCode,
-        country: country,
-        verificationDocumentType: verificationDocumentType,
-        verificationDocument: verificationDocument,
-      );
+      // await _userRepository.completeOnboarding(
+      //   token: user.token,
+      //   firstName: firstName,
+      //   middleName: middleName,
+      //   lastName: lastName,
+      //   dob: dob,
+      //   address: address,
+      //   city: city,
+      //   postalCode: postalCode,
+      //   country: country,
+      //   verificationDocumentType: verificationDocumentType,
+      //   verificationDocument: verificationDocument,
+      // );
       emit(const _Updated());
       await _userCubit.getUser();
     } on UserException catch (e) {

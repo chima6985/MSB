@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:masoyinbo_mobile/app/app.dart';
+import 'package:masoyinbo_mobile/core/core.dart';
 import 'package:masoyinbo_mobile/extension/extension.dart';
 import 'package:masoyinbo_mobile/gen/fonts.gen.dart';
 import 'package:masoyinbo_mobile/ui/ui.dart';
@@ -13,6 +14,7 @@ class Home extends HookWidget {
   Widget build(BuildContext context) {
     final mqr = MediaQuery.of(context).size;
     final isShowEmailVerify = useState(true);
+    final user = AppStorage.getUser();
     return SingleChildScrollView(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 23),
@@ -119,7 +121,13 @@ class Home extends HookWidget {
             ),
             const SizedBox(height: 10),
             GestureDetector(
-              onTap: () => context.pushNamed(ModuleScreen.id),
+              onTap: () {
+                if (user == null) {
+                  Functions.showModalAuth(context);
+                } else {
+                  context.pushNamed(ModuleScreen.id);
+                }
+              },
               child: Container(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
@@ -306,10 +314,16 @@ class Home extends HookWidget {
                     subText: singlePlayerEn,
                     color: AppColors.lemon9C,
                     image: AppAssets.images.jpegs.singlePlayer.path,
-                    onTap: () => context.pushNamed(
-                      PlayerScreen.id,
-                      extra: {'isSinglePlayer': true},
-                    ),
+                    onTap: () {
+                      if (user == null) {
+                        Functions.showModalAuth(context);
+                      } else {
+                        context.pushNamed(
+                          PlayerScreen.id,
+                          extra: {'isSinglePlayer': true},
+                        );
+                      }
+                    },
                   ),
                 ),
                 const SizedBox(width: 16),
@@ -319,17 +333,24 @@ class Home extends HookWidget {
                     subText: multiPlayerEn,
                     color: AppColors.lilac9E,
                     image: AppAssets.images.jpegs.multiplePlayer.path,
-                    onTap: () => showModalBottomSheet(
-                      context: context,
-                      builder: (context) => const ChooseMutliPlayerModeModal(),
-                      isScrollControlled: true,
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(24),
-                          topRight: Radius.circular(24),
-                        ),
-                      ),
-                    ),
+                    onTap: () {
+                      if (user == null) {
+                        Functions.showModalAuth(context);
+                      } else {
+                        showModalBottomSheet(
+                          context: context,
+                          builder: (context) =>
+                              const ChooseMutliPlayerModeModal(),
+                          isScrollControlled: true,
+                          shape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(24),
+                              topRight: Radius.circular(24),
+                            ),
+                          ),
+                        );
+                      }
+                    },
                   ),
                 ),
               ],
@@ -355,6 +376,7 @@ class _QuickActionsPracticeWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final user = AppStorage.getUser();
     final mainText = {
       PracticeSection.proverb: proverbYr,
       PracticeSection.qAndA: questionAndAnswerYr,
@@ -377,24 +399,29 @@ class _QuickActionsPracticeWidget extends StatelessWidget {
     };
     return InkWell(
       onTap: () {
-        if (section == PracticeSection.proverb) {
-          showModalBottomSheet(
-            context: context,
-            builder: (context) => const SetAvatarModal(),
-            isScrollControlled: true,
-            shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(24),
-                topRight: Radius.circular(24),
-              ),
-            ),
-          );
+        if (user == null) {
+          Functions.showModalAuth(context);
         } else {
-          context.pushNamed(
-            PlayerScreen.id,
-            extra: {'isPractice': true},
-          );
+          context.pushNamed(ModuleScreen.id);
         }
+        // if (section == PracticeSection.proverb) {
+        //   showModalBottomSheet(
+        //     context: context,
+        //     builder: (context) => const SetAvatarModal(),
+        //     isScrollControlled: true,
+        //     shape: const RoundedRectangleBorder(
+        //       borderRadius: BorderRadius.only(
+        //         topLeft: Radius.circular(24),
+        //         topRight: Radius.circular(24),
+        //       ),
+        //     ),
+        //   );
+        // } else {
+        //   context.pushNamed(
+        //     PlayerScreen.id,
+        //     extra: {'isPractice': true},
+        //   );
+        // }
       },
       child: Container(
         width: width,

@@ -45,18 +45,10 @@ class UserRepository {
   ///
   /// Returns void on success.
   /// Throws [UserException] when operation fails.
-  Future<void> completeOnboarding({
+  Future<User> completeOnboarding({
     required String token,
-    String? firstName,
-    String? middleName,
-    String? lastName,
-    String? dob,
-    String? address,
-    String? city,
-    String? postalCode,
-    String? country,
-    String? verificationDocumentType,
-    String? verificationDocument,
+    required String gender,
+    required String username,
   }) async {
     try {
       final url = _completeOnboardingEndpoint();
@@ -65,34 +57,21 @@ class UserRepository {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer $token',
       };
-      final body = <String, String>{
-        if (firstName?.isNotEmpty ?? false) 'first_name': firstName!,
-        if (middleName?.isNotEmpty ?? false) 'middle_name': middleName!,
-        if (lastName?.isNotEmpty ?? false) 'last_name': lastName!,
-        if (dob?.isNotEmpty ?? false) 'dob': dob!,
-        if (address?.isNotEmpty ?? false) 'address': address!,
-        if (city?.isNotEmpty ?? false) 'city': city!,
-        if (postalCode?.isNotEmpty ?? false) 'postal_code': postalCode!,
-        if (country?.isNotEmpty ?? false) 'country': country!,
-        if (verificationDocumentType?.isNotEmpty ?? false)
-          'verification_document_type': verificationDocumentType!,
+      final body = {
+        'gender': gender,
+        'username': username,
       };
-      final request = http.MultipartRequest('POST', Uri.parse(url));
-      request.headers.addAll(headers);
-      request.fields.addAll(body);
-      if (verificationDocumentType?.isNotEmpty ?? false) {
-        final uploads = <http.MultipartFile>[
-          await http.MultipartFile.fromPath(
-            'verification_document',
-            verificationDocument!,
-            filename: verificationDocument,
-          ),
-        ];
-        request.files.addAll(uploads);
-      }
-      return await APIHelper.request<void>(
-        request: http.Response.fromStream(await request.send()),
-        onSuccessMap: (value) {},
+      return await APIHelper.request<User>(
+        request: _client.post(
+          Uri.parse(url),
+          headers: headers,
+          body: body,
+        ),
+        onSuccessMap: (value) {
+          final user = value['user'] as Map<String, dynamic>;
+          user['token'] = token;
+          return User.fromJson(user);
+        },
       );
     } on APIException catch (e) {
       throw UserException(message: e.message);

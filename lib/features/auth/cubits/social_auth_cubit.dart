@@ -21,11 +21,11 @@ class SocialAuthCubit extends Cubit<SocialAuthState> {
   }) async {
     try {
       emit(const _Verifying());
-      final user = await _authRepository.appleSignIn(
-        token: token,
-      );
-      AppStorage.saveUser(user);
-      emit(_Verified(user: user));
+      // final user = await _authRepository.appleSignIn(
+      //   token: token,
+      // );
+      // AppStorage.saveUser(user);
+      // emit(_Verified(user: user));
     } on AuthException catch (e) {
       emit(_Error(error: e.message));
     }
@@ -35,8 +35,8 @@ class SocialAuthCubit extends Cubit<SocialAuthState> {
   Future<void> initiateGoogleSignIn() async {
     try {
       emit(const _Initiating());
-      final url = await _authRepository.googleSignIn();
-      emit(_Initiated(url: url));
+      // final url = await _authRepository.googleSignIn();
+      // emit(_Initiated(url: url));
     } on AuthException catch (e) {
       emit(_Error(error: e.message));
     }
@@ -48,11 +48,11 @@ class SocialAuthCubit extends Cubit<SocialAuthState> {
   }) async {
     try {
       emit(const _Verifying());
-      final user = await _authRepository.googleSignInCallback(
-        code: code,
-      );
-      AppStorage.saveUser(user);
-      emit(_Verified(user: user));
+      // final user = await _authRepository.googleSignInCallback(
+      //   code: code,
+      // );
+      // AppStorage.saveUser(user);
+      // emit(_Verified(user: user));
     } on AuthException catch (e) {
       emit(_Error(error: e.message));
     }

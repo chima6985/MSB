@@ -132,40 +132,43 @@ class ToastWidget extends StatelessWidget {
       ToastType.error: AppAssets.images.svgs.error.svg(),
     };
 
-    return Container(
-      padding: const EdgeInsets.fromLTRB(18, 10, 12, 10),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: color[toastType]!),
-        color: toastBgColor[toastType],
-      ),
-      child: Row(
-        children: [
-          toastIcon[toastType] ?? const SizedBox(),
-          const SizedBox(width: 13),
-          Expanded(
-            child: Text(
-              text,
-              style: textTheme.bodyMedium!.copyWith(
-                fontWeight: FontWeight.w400,
-                letterSpacing: -0.28,
-                color: AppColors.grey3F,
+    return Transform.translate(
+      offset: Offset(0, -30),
+      child: Container(
+        padding: const EdgeInsets.fromLTRB(18, 10, 12, 10),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(8),
+          border: Border.all(color: color[toastType]!),
+          color: toastBgColor[toastType],
+        ),
+        child: Row(
+          children: [
+            toastIcon[toastType] ?? const SizedBox(),
+            const SizedBox(width: 13),
+            Expanded(
+              child: Text(
+                text,
+                style: textTheme.bodyMedium!.copyWith(
+                  fontWeight: FontWeight.w400,
+                  letterSpacing: -0.28,
+                  color: AppColors.grey3F,
+                ),
               ),
             ),
-          ),
-          const SizedBox(width: 3),
-          InkWell(
-            onTap: fToast.removeCustomToast,
-            child: Padding(
-              padding: const EdgeInsets.all(4),
-              child: Icon(
-                Icons.close_rounded,
-                color: color[toastType],
-                size: 24,
+            const SizedBox(width: 3),
+            InkWell(
+              onTap: fToast.removeCustomToast,
+              child: Padding(
+                padding: const EdgeInsets.all(4),
+                child: Icon(
+                  Icons.close_rounded,
+                  color: color[toastType],
+                  size: 24,
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

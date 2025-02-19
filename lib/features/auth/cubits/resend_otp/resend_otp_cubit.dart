@@ -3,32 +3,28 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:masoyinbo_mobile/app/app_locator.dart';
 import 'package:masoyinbo_mobile/core/core.dart';
 
-part 'verify_email_state.dart';
-part 'verify_email_cubit.freezed.dart';
+part 'resend_otp_state.dart';
+part 'resend_otp_cubit.freezed.dart';
 
-class VerifyEmailCubit extends Cubit<VerifyEmailState> {
-  VerifyEmailCubit({
+class ResendOtpCubit extends Cubit<ResendOtpState> {
+  ResendOtpCubit({
     AuthRepository? authRepository,
   })  : _authRepository = authRepository ?? locator<AuthRepository>(),
-        super(const VerifyEmailState.initial());
+        super(const ResendOtpState.initial());
 
   /// Auth repository.
   final AuthRepository _authRepository;
 
-  /// Validate email
-  Future<void> verifyEmail({
+  /// Resend otp
+  Future<void> resendOtp({
     required String email,
-    required String otp,
-    required String otpIdentifier,
   }) async {
     try {
-      emit(const _Verifying());
-      await _authRepository.verifyEmail(
+      emit(const _Loading());
+      await _authRepository.resendOtp(
         email: email,
-        otp: otp,
-        otpIdentifier: otpIdentifier,
       );
-      emit(const _Verified());
+      emit(const _Loaded());
     } on AuthException catch (e) {
       emit(_Error(error: e.message));
     }

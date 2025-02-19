@@ -32,25 +32,25 @@ class AuthRepository {
   final String _baseUrl;
 
   /// Sign up endpoint
-  String _signUpEndpoint() => '$_baseUrl/auth/signup';
+  String _signUpEndpoint() => '$_baseUrl/user/auth/signup';
+
+  /// Complete onboarding endpoint
+  String _completeOnboardingEndpoint() =>
+      '$_baseUrl/user/auth/complete-onboarding';
 
   /// Login endpoint
-  String _loginEndpoint() => '$_baseUrl/auth/signIn';
+  String _loginEndpoint() => '$_baseUrl/user/auth/login';
 
   /// Validate email endpoint
-  String _validateEmailEndpoint() => '$_baseUrl/auth/validate-email';
+  String _verifyOtpEndpoint() => '$_baseUrl/user/auth/verify-otp';
 
-  /// Verify email endpoint
-  String _verifyEmailEndpoint() => '$_baseUrl/auth/verify-email';
+  /// Resend Otp endpoint
+  String _resendOtpEndpoint() => '$_baseUrl/user/auth/resend-otp';
 
-  /// Google sign in endpoint
-  String _googleSignInEndpoint() => '$_baseUrl/auth/google';
+  /// Logout endpoint
+  String _logoutEndpoint() => '$_baseUrl/auth/verify-email';
 
-  /// Google auth callback endpoint
-  String _googleAuthCallbackEndpoint() => '$_baseUrl/auth/google/callback';
-
-  /// Google sign in endpoint
-  String _appleSignInEndpoint() => '$_baseUrl/auth/apple';
+  // #missce
 
   /// Forget password endpoint
   String _forgetPasswordEndpoint() => '$_baseUrl/auth/forgot-password';
@@ -99,11 +99,46 @@ class AuthRepository {
     }
   }
 
+  /// Complete Onboarding
+  ///
+  /// Returns void on success.
+  /// Throws [AuthException] when operation fails.
+  Future<void> completeOnboarding({
+    required String email,
+    required String otp,
+    required String otpIdentifier,
+  }) async {
+    try {
+      final url = _completeOnboardingEndpoint();
+      final headers = {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      };
+      final body = {
+        'email': email.toLowerCase().trim(),
+        'code': otp,
+        'otp_identifier': otpIdentifier,
+      };
+      return await APIHelper.request<void>(
+        request: _client.post(
+          Uri.parse(url),
+          headers: headers,
+          body: jsonEncode(body),
+        ),
+        onSuccessMap: (value) {},
+      );
+    } on APIException catch (e) {
+      throw AuthException(message: e.message);
+    } catch (e) {
+      throw const AuthException();
+    }
+  }
+
   /// Login a user
   ///
   /// Returns [User] on success.
   /// Throws [AuthException] when operation fails.
-  Future<User> signIn({
+  Future<User> login({
     required String email,
     required String password,
   }) async {
@@ -136,27 +171,31 @@ class AuthRepository {
     }
   }
 
-  /// Validate email
+  /// Verify email
   ///
-  /// Returns otp identifier [String] on success.
+  /// Returns void on success.
   /// Throws [AuthException] when operation fails.
-  Future<Map<String, dynamic>> validateEmail({
+  Future<void> verifyOtp({
     required String email,
+    required String otp,
   }) async {
     try {
-      final url = _validateEmailEndpoint();
+      final url = _verifyOtpEndpoint();
       final headers = {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
       };
-      final body = {'email': email.toLowerCase().trim()};
-      return await APIHelper.request<Map<String, dynamic>>(
+      final body = {
+        'email': email.toLowerCase().trim(),
+        'code': otp,
+      };
+      return await APIHelper.request<void>(
         request: _client.post(
           Uri.parse(url),
           headers: headers,
           body: jsonEncode(body),
         ),
-        onSuccessMap: (value) => value,
+        onSuccessMap: (value) {},
       );
     } on APIException catch (e) {
       throw AuthException(message: e.message);
@@ -165,17 +204,48 @@ class AuthRepository {
     }
   }
 
-  /// Verify email
+  /// Resend Otp
   ///
   /// Returns void on success.
   /// Throws [AuthException] when operation fails.
-  Future<void> verifyEmail({
+  Future<void> resendOtp({
+    required String email,
+  }) async {
+    try {
+      final url = _resendOtpEndpoint();
+      final headers = {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      };
+      final body = {
+        'email': email.toLowerCase().trim(),
+      };
+      return await APIHelper.request<void>(
+        request: _client.post(
+          Uri.parse(url),
+          headers: headers,
+          body: jsonEncode(body),
+        ),
+        onSuccessMap: (value) {},
+      );
+    } on APIException catch (e) {
+      throw AuthException(message: e.message);
+    } catch (e) {
+      throw const AuthException();
+    }
+  }
+
+  /// Logout
+  ///
+  /// Returns void on success.
+  /// Throws [AuthException] when operation fails.
+  Future<void> logout({
     required String email,
     required String otp,
     required String otpIdentifier,
   }) async {
     try {
-      final url = _verifyEmailEndpoint();
+      final url = _logoutEndpoint();
       final headers = {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
@@ -200,96 +270,7 @@ class AuthRepository {
     }
   }
 
-  /// Google sign in initiation
-  ///
-  /// Returns [String] on success.
-  /// Throws [AuthException] when operation fails.
-  Future<String> googleSignIn() async {
-    try {
-      final url = _googleSignInEndpoint();
-      final headers = {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      };
-      return await APIHelper.request<String>(
-        request: _client.post(
-          Uri.parse(url),
-          headers: headers,
-        ),
-        onSuccessMap: (value) => value['signin_url'],
-      );
-    } on APIException catch (e) {
-      throw AuthException(message: e.message);
-    } catch (e) {
-      throw const AuthException();
-    }
-  }
-
-  /// Apple sign in verification
-  ///
-  /// Returns [User] on success.
-  /// Throws [AuthException] when operation fails.
-  Future<User> googleSignInCallback({
-    required String code,
-  }) async {
-    try {
-      final url = _googleAuthCallbackEndpoint();
-      final headers = {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      };
-      final body = {'code': code};
-      return await APIHelper.request<User>(
-        request: _client.post(
-          Uri.parse(url),
-          headers: headers,
-          body: jsonEncode(body),
-        ),
-        onSuccessMap: (value) {
-          final user = value['user'] as Map<String, dynamic>;
-          user['token'] = value['token'];
-          return User.fromJson(user);
-        },
-      );
-    } on APIException catch (e) {
-      throw AuthException(message: e.message);
-    } catch (e) {
-      throw const AuthException();
-    }
-  }
-
-  /// Apple sign in verification
-  ///
-  /// Returns [User] on success.
-  /// Throws [AuthException] when operation fails.
-  Future<User> appleSignIn({
-    required String token,
-  }) async {
-    try {
-      final url = _appleSignInEndpoint();
-      final headers = {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      };
-      final body = {'token': token};
-      return await APIHelper.request<User>(
-        request: _client.post(
-          Uri.parse(url),
-          headers: headers,
-          body: jsonEncode(body),
-        ),
-        onSuccessMap: (value) {
-          final user = value['user'] as Map<String, dynamic>;
-          user['token'] = value['token'];
-          return User.fromJson(user);
-        },
-      );
-    } on APIException catch (e) {
-      throw AuthException(message: e.message);
-    } catch (e) {
-      throw const AuthException();
-    }
-  }
+  //#missce
 
   /// Forget password
   ///

@@ -208,18 +208,20 @@ class CustomTextField extends StatelessWidget {
 
 class PasswordTextField extends HookWidget {
   const PasswordTextField({
+    super.key,
     required this.textEditingController,
     this.textFieldText,
     this.textFieldSubText,
     this.hintText,
+    this.validator,
     this.isBottomSpacing = true,
-    super.key,
   });
 
   final TextEditingController textEditingController;
   final String? textFieldText;
   final String? textFieldSubText;
   final String? hintText;
+  final String? Function(String?)? validator;
   final bool isBottomSpacing;
 
   @override
@@ -230,6 +232,7 @@ class PasswordTextField extends HookWidget {
       textFieldText: textFieldText,
       textFieldSubText: textFieldSubText,
       obscureText: obscureText.value,
+      validator: validator,
       bottomSpacing: isBottomSpacing,
       hintText: hintText,
       suffix: InkWell(
@@ -260,6 +263,7 @@ class CustomDropDownField extends StatelessWidget {
     this.hintText,
     required this.items,
     required this.onChanged,
+    this.validator,
     this.borderColor,
     this.focusedBorderColor,
     this.fillColor,
@@ -271,6 +275,7 @@ class CustomDropDownField extends StatelessWidget {
   final String? hintText;
   final List<DropdownMenuItem<Object?>>? items;
   final ValueChanged<dynamic> onChanged;
+  final String? Function(dynamic)? validator;
   final Color? borderColor;
   final Color? focusedBorderColor;
   final Color? fillColor;
@@ -289,6 +294,8 @@ class CustomDropDownField extends StatelessWidget {
               ),
               items: items,
               onChanged: onChanged,
+              validator: validator,
+              autovalidateMode: AutovalidateMode.onUserInteraction,
               decoration: InputDecoration(
                 hintText: hintText,
                 helperStyle: context.textTheme.bodySmall!.copyWith(

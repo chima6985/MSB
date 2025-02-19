@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -62,7 +63,7 @@ class APIHelper {
       // If error exsists, code will be '06' or else code will be '00'
       final data = jsonDecode(response.body) as Map<String, dynamic>;
       if (data['error'] == true) {
-        debugPrint(
+        log(
           '''
             [APIHelper]: 
               method: ${response.request?.method}
@@ -88,7 +89,7 @@ class APIHelper {
         }
       }
 
-      debugPrint('[APIHelper](request)(body): ${response.body}');
+      log('[APIHelper](request)(body): ${response.body}');
       throw const APIException();
     } on APIException {
       rethrow;

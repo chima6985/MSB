@@ -50,6 +50,11 @@ final router = GoRouter(
       path: '/signUpScreen',
       builder: (context, state) => const SignUpScreen(),
     ),
+     GoRoute(
+      name: ConfirmEmailScreen.id,
+      path: '/confirmEmailScreen',
+      builder: (context, state) => const ConfirmEmailScreen(),
+    ),
     GoRoute(
       name: PersonalizeSignUpScreen.id,
       path: '/personalizeSignUpScreen',

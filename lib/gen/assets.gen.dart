@@ -176,6 +176,10 @@ class $AssetsImagesJpegsGen {
   AssetGenImage get trapeziumBlue =>
       const AssetGenImage('assets/images/jpegs/trapezium_blue.png');
 
+  /// File path: assets/images/jpegs/welcome.png
+  AssetGenImage get welcome =>
+      const AssetGenImage('assets/images/jpegs/welcome.png');
+
   /// File path: assets/images/jpegs/yoruba_group_avatar.png
   AssetGenImage get yorubaGroupAvatar =>
       const AssetGenImage('assets/images/jpegs/yoruba_group_avatar.png');
@@ -221,6 +225,7 @@ class $AssetsImagesJpegsGen {
         stars,
         successIcon,
         trapeziumBlue,
+        welcome,
         yorubaGroupAvatar
       ];
 }
@@ -345,7 +350,7 @@ class $AssetsImagesSvgsGen {
 }
 
 class AppAssets {
-  AppAssets._();
+  const AppAssets._();
 
   static const $AssetsImagesGen images = $AssetsImagesGen();
 }
@@ -383,7 +388,7 @@ class AssetGenImage {
     bool gaplessPlayback = true,
     bool isAntiAlias = false,
     String? package,
-    FilterQuality filterQuality = FilterQuality.low,
+    FilterQuality filterQuality = FilterQuality.medium,
     int? cacheWidth,
     int? cacheHeight,
   }) {

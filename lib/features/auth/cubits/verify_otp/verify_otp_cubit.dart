@@ -18,17 +18,15 @@ class VerifyOtpCubit extends Cubit<VerifyOtpState> {
   /// Verify otp
   Future<void> verifyOtp({
     required String email,
-    required String code,
-    required String otpIdentifier,
+    required String otp,
   }) async {
     try {
       emit(const _Verifying());
-      final token = await _authRepository.verifyForgetPassword(
+      await _authRepository.verifyOtp(
         email: email,
-        code: code,
-        otpIdentifier: otpIdentifier,
+        otp: otp,
       );
-      emit(_Verified(token: token));
+      emit(const _Verified());
     } on AuthException catch (e) {
       emit(_Error(error: e.message));
     }

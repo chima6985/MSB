@@ -659,6 +659,8 @@ abstract class _$$VerifiedImplCopyWith<$Res> {
       __$$VerifiedImplCopyWithImpl<$Res>;
   @useResult
   $Res call({User user});
+
+  $UserCopyWith<$Res> get user;
 }
 
 /// @nodoc
@@ -674,14 +676,24 @@ class __$$VerifiedImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? user = freezed,
+    Object? user = null,
   }) {
     return _then(_$VerifiedImpl(
-      user: freezed == user
+      user: null == user
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
               as User,
     ));
+  }
+
+  /// Create a copy of SocialAuthState
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $UserCopyWith<$Res> get user {
+    return $UserCopyWith<$Res>(_value.user, (value) {
+      return _then(_value.copyWith(user: value));
+    });
   }
 }
 
@@ -703,12 +715,11 @@ class _$VerifiedImpl implements _Verified {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$VerifiedImpl &&
-            const DeepCollectionEquality().equals(other.user, user));
+            (identical(other.user, user) || other.user == user));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(user));
+  int get hashCode => Object.hash(runtimeType, user);
 
   /// Create a copy of SocialAuthState
   /// with the given fields replaced by the non-null parameter values.

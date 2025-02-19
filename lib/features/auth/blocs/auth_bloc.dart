@@ -60,7 +60,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   ) async {
     try {
       emit(_AuthAuthenticating(user: state.user));
-      final user = await _authRepository.signIn(
+      final user = await _authRepository.login(
         email: event.email,
         password: event.password,
       );

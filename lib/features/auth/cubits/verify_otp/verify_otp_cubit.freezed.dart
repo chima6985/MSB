@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'verify_email_cubit.dart';
+part of 'verify_otp_cubit.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -15,7 +15,7 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
-mixin _$VerifyEmailState {
+mixin _$VerifyOtpState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
@@ -69,23 +69,23 @@ mixin _$VerifyEmailState {
 }
 
 /// @nodoc
-abstract class $VerifyEmailStateCopyWith<$Res> {
-  factory $VerifyEmailStateCopyWith(
-          VerifyEmailState value, $Res Function(VerifyEmailState) then) =
-      _$VerifyEmailStateCopyWithImpl<$Res, VerifyEmailState>;
+abstract class $VerifyOtpStateCopyWith<$Res> {
+  factory $VerifyOtpStateCopyWith(
+          VerifyOtpState value, $Res Function(VerifyOtpState) then) =
+      _$VerifyOtpStateCopyWithImpl<$Res, VerifyOtpState>;
 }
 
 /// @nodoc
-class _$VerifyEmailStateCopyWithImpl<$Res, $Val extends VerifyEmailState>
-    implements $VerifyEmailStateCopyWith<$Res> {
-  _$VerifyEmailStateCopyWithImpl(this._value, this._then);
+class _$VerifyOtpStateCopyWithImpl<$Res, $Val extends VerifyOtpState>
+    implements $VerifyOtpStateCopyWith<$Res> {
+  _$VerifyOtpStateCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of VerifyEmailState
+  /// Create a copy of VerifyOtpState
   /// with the given fields replaced by the non-null parameter values.
 }
 
@@ -98,13 +98,13 @@ abstract class _$$InitialImplCopyWith<$Res> {
 
 /// @nodoc
 class __$$InitialImplCopyWithImpl<$Res>
-    extends _$VerifyEmailStateCopyWithImpl<$Res, _$InitialImpl>
+    extends _$VerifyOtpStateCopyWithImpl<$Res, _$InitialImpl>
     implements _$$InitialImplCopyWith<$Res> {
   __$$InitialImplCopyWithImpl(
       _$InitialImpl _value, $Res Function(_$InitialImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of VerifyEmailState
+  /// Create a copy of VerifyOtpState
   /// with the given fields replaced by the non-null parameter values.
 }
 
@@ -115,7 +115,7 @@ class _$InitialImpl implements _Initial {
 
   @override
   String toString() {
-    return 'VerifyEmailState.initial()';
+    return 'VerifyOtpState.initial()';
   }
 
   @override
@@ -202,7 +202,7 @@ class _$InitialImpl implements _Initial {
   }
 }
 
-abstract class _Initial implements VerifyEmailState {
+abstract class _Initial implements VerifyOtpState {
   const factory _Initial() = _$InitialImpl;
 }
 
@@ -215,13 +215,13 @@ abstract class _$$VerifyingImplCopyWith<$Res> {
 
 /// @nodoc
 class __$$VerifyingImplCopyWithImpl<$Res>
-    extends _$VerifyEmailStateCopyWithImpl<$Res, _$VerifyingImpl>
+    extends _$VerifyOtpStateCopyWithImpl<$Res, _$VerifyingImpl>
     implements _$$VerifyingImplCopyWith<$Res> {
   __$$VerifyingImplCopyWithImpl(
       _$VerifyingImpl _value, $Res Function(_$VerifyingImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of VerifyEmailState
+  /// Create a copy of VerifyOtpState
   /// with the given fields replaced by the non-null parameter values.
 }
 
@@ -232,7 +232,7 @@ class _$VerifyingImpl implements _Verifying {
 
   @override
   String toString() {
-    return 'VerifyEmailState.verifying()';
+    return 'VerifyOtpState.verifying()';
   }
 
   @override
@@ -319,7 +319,7 @@ class _$VerifyingImpl implements _Verifying {
   }
 }
 
-abstract class _Verifying implements VerifyEmailState {
+abstract class _Verifying implements VerifyOtpState {
   const factory _Verifying() = _$VerifyingImpl;
 }
 
@@ -332,13 +332,13 @@ abstract class _$$VerifiedImplCopyWith<$Res> {
 
 /// @nodoc
 class __$$VerifiedImplCopyWithImpl<$Res>
-    extends _$VerifyEmailStateCopyWithImpl<$Res, _$VerifiedImpl>
+    extends _$VerifyOtpStateCopyWithImpl<$Res, _$VerifiedImpl>
     implements _$$VerifiedImplCopyWith<$Res> {
   __$$VerifiedImplCopyWithImpl(
       _$VerifiedImpl _value, $Res Function(_$VerifiedImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of VerifyEmailState
+  /// Create a copy of VerifyOtpState
   /// with the given fields replaced by the non-null parameter values.
 }
 
@@ -349,7 +349,7 @@ class _$VerifiedImpl implements _Verified {
 
   @override
   String toString() {
-    return 'VerifyEmailState.verified()';
+    return 'VerifyOtpState.verified()';
   }
 
   @override
@@ -436,7 +436,7 @@ class _$VerifiedImpl implements _Verified {
   }
 }
 
-abstract class _Verified implements VerifyEmailState {
+abstract class _Verified implements VerifyOtpState {
   const factory _Verified() = _$VerifiedImpl;
 }
 
@@ -451,13 +451,13 @@ abstract class _$$ErrorImplCopyWith<$Res> {
 
 /// @nodoc
 class __$$ErrorImplCopyWithImpl<$Res>
-    extends _$VerifyEmailStateCopyWithImpl<$Res, _$ErrorImpl>
+    extends _$VerifyOtpStateCopyWithImpl<$Res, _$ErrorImpl>
     implements _$$ErrorImplCopyWith<$Res> {
   __$$ErrorImplCopyWithImpl(
       _$ErrorImpl _value, $Res Function(_$ErrorImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of VerifyEmailState
+  /// Create a copy of VerifyOtpState
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
@@ -483,7 +483,7 @@ class _$ErrorImpl implements _Error {
 
   @override
   String toString() {
-    return 'VerifyEmailState.error(error: $error)';
+    return 'VerifyOtpState.error(error: $error)';
   }
 
   @override
@@ -497,7 +497,7 @@ class _$ErrorImpl implements _Error {
   @override
   int get hashCode => Object.hash(runtimeType, error);
 
-  /// Create a copy of VerifyEmailState
+  /// Create a copy of VerifyOtpState
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
@@ -580,12 +580,12 @@ class _$ErrorImpl implements _Error {
   }
 }
 
-abstract class _Error implements VerifyEmailState {
+abstract class _Error implements VerifyOtpState {
   const factory _Error({final String? error}) = _$ErrorImpl;
 
   String? get error;
 
-  /// Create a copy of VerifyEmailState
+  /// Create a copy of VerifyOtpState
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ErrorImplCopyWith<_$ErrorImpl> get copyWith =>

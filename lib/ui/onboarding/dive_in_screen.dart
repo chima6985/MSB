@@ -46,7 +46,8 @@ class DiveInScreen extends StatelessWidget {
             SizedBox(height: mqr.height * 0.07),
             Button(
               label: '',
-              onPressed: () => context.pushReplacementNamed(SignUpScreen.id),
+              onPressed: () =>
+                  context.pushReplacementNamed(DashboardIndexScreen.id),
               child: RichText(
                 text: TextSpan(
                   style: context.textTheme.bodyMedium!.copyWith(
