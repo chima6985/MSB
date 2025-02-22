@@ -330,7 +330,7 @@ class __$$UserImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$UserImpl implements _User {
   const _$UserImpl(
-      {@JsonKey(name: '_id') required this.id,
+      {@JsonKey(name: '_id') this.id = '',
       this.token = '',
       @JsonKey(
           toJson: ModelHelper.localDateTimeToUtcIsoStr,
@@ -492,7 +492,7 @@ class _$UserImpl implements _User {
 
 abstract class _User implements User {
   const factory _User(
-      {@JsonKey(name: '_id') required final String id,
+      {@JsonKey(name: '_id') final String id,
       final String token,
       @JsonKey(
           toJson: ModelHelper.localDateTimeToUtcIsoStr,

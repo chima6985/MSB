@@ -1,9 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 
-import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:masoyinbo_mobile/core/core.dart';
 
 /// {@template api_exception}
 /// General exception for [APIHelper] methods.
@@ -57,12 +55,23 @@ class APIHelper {
           final list = (map['data'] as List).cast<Map<String, dynamic>>();
           return onSuccessList(list);
         }
+
+        log(
+          '''
+            [APIHelper]: 
+              method: ${response.request?.method}
+              url: ${response.request?.url}
+              headers: ${response.request?.headers}
+              statusCode: ${response.statusCode}
+              body: ${response.body}
+            ''',
+        );
       }
 
       // Check if error message exists.
       // If error exsists, code will be '06' or else code will be '00'
       final data = jsonDecode(response.body) as Map<String, dynamic>;
-      if (data['error'] == true) {
+      if (data['error'] != null) {
         log(
           '''
             [APIHelper]: 
@@ -74,18 +83,12 @@ class APIHelper {
               body: ${response.body}
             ''',
         );
-        if (response.statusCode == 401) {
-          if (data['dev_msg'] != null) {
-            throw AuthException(message: data['dev_msg'] as String);
-          } else {
-            throw AuthException(message: data['msg'] as String);
-          }
+        if (data['message'] != null) {
+          throw APIException(message: data['message'] as String);
         } else {
-          if (data['dev_msg'] != null) {
-            throw APIException(message: data['dev_msg'] as String);
-          } else {
-            throw APIException(message: data['msg'] as String);
-          }
+          throw APIException(
+            message: data['An unknown error occurred'] as String,
+          );
         }
       }
 

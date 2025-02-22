@@ -45,8 +45,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       final user = await _authRepository.signUp(
         email: event.email,
         password: event.password,
+        reenterPassword: event.reenterPassword,
       );
-      AppStorage.saveUser(user);
       emit(_AuthAuthenticated(user: user));
     } on AuthException catch (e) {
       emit(_SignUpError(error: e.message));

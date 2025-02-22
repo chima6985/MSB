@@ -712,3 +712,9 @@ const invalidEmailEn = 'Invalid Email';
 
 const fieldIsRequiredYr = 'Field is required';
 const fieldIsRequiredEn = 'Field is required';
+
+const anOtpSentToEmailYr = 'OTP has been sent to your email';
+const anOtpSentToEmailEn = 'OTP has been sent to your email';
+
+const otpVerifiedSuccessfullyYr = 'OTP verified successfully';
+const otpVerifiedSuccessfullyEn = 'OTP verified successfully';

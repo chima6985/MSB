@@ -19,7 +19,9 @@ mixin _$AuthEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() authAppStarted,
-    required TResult Function(String email, String password) authSignUp,
+    required TResult Function(
+            String email, String password, String reenterPassword)
+        authSignUp,
     required TResult Function(String email, String password) authSignIn,
     required TResult Function(String? message) authSignOut,
   }) =>
@@ -27,7 +29,8 @@ mixin _$AuthEvent {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? authAppStarted,
-    TResult? Function(String email, String password)? authSignUp,
+    TResult? Function(String email, String password, String reenterPassword)?
+        authSignUp,
     TResult? Function(String email, String password)? authSignIn,
     TResult? Function(String? message)? authSignOut,
   }) =>
@@ -35,7 +38,8 @@ mixin _$AuthEvent {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? authAppStarted,
-    TResult Function(String email, String password)? authSignUp,
+    TResult Function(String email, String password, String reenterPassword)?
+        authSignUp,
     TResult Function(String email, String password)? authSignIn,
     TResult Function(String? message)? authSignOut,
     required TResult orElse(),
@@ -130,7 +134,9 @@ class _$AuthAppStartedImpl implements _AuthAppStarted {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() authAppStarted,
-    required TResult Function(String email, String password) authSignUp,
+    required TResult Function(
+            String email, String password, String reenterPassword)
+        authSignUp,
     required TResult Function(String email, String password) authSignIn,
     required TResult Function(String? message) authSignOut,
   }) {
@@ -141,7 +147,8 @@ class _$AuthAppStartedImpl implements _AuthAppStarted {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? authAppStarted,
-    TResult? Function(String email, String password)? authSignUp,
+    TResult? Function(String email, String password, String reenterPassword)?
+        authSignUp,
     TResult? Function(String email, String password)? authSignIn,
     TResult? Function(String? message)? authSignOut,
   }) {
@@ -152,7 +159,8 @@ class _$AuthAppStartedImpl implements _AuthAppStarted {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? authAppStarted,
-    TResult Function(String email, String password)? authSignUp,
+    TResult Function(String email, String password, String reenterPassword)?
+        authSignUp,
     TResult Function(String email, String password)? authSignIn,
     TResult Function(String? message)? authSignOut,
     required TResult orElse(),
@@ -211,7 +219,7 @@ abstract class _$$AuthSignUpImplCopyWith<$Res> {
           _$AuthSignUpImpl value, $Res Function(_$AuthSignUpImpl) then) =
       __$$AuthSignUpImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({String email, String password});
+  $Res call({String email, String password, String reenterPassword});
 }
 
 /// @nodoc
@@ -229,6 +237,7 @@ class __$$AuthSignUpImplCopyWithImpl<$Res>
   $Res call({
     Object? email = null,
     Object? password = null,
+    Object? reenterPassword = null,
   }) {
     return _then(_$AuthSignUpImpl(
       email: null == email
@@ -239,6 +248,10 @@ class __$$AuthSignUpImplCopyWithImpl<$Res>
           ? _value.password
           : password // ignore: cast_nullable_to_non_nullable
               as String,
+      reenterPassword: null == reenterPassword
+          ? _value.reenterPassword
+          : reenterPassword // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -246,16 +259,21 @@ class __$$AuthSignUpImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$AuthSignUpImpl implements _AuthSignUp {
-  const _$AuthSignUpImpl({required this.email, required this.password});
+  const _$AuthSignUpImpl(
+      {required this.email,
+      required this.password,
+      required this.reenterPassword});
 
   @override
   final String email;
   @override
   final String password;
+  @override
+  final String reenterPassword;
 
   @override
   String toString() {
-    return 'AuthEvent.authSignUp(email: $email, password: $password)';
+    return 'AuthEvent.authSignUp(email: $email, password: $password, reenterPassword: $reenterPassword)';
   }
 
   @override
@@ -265,11 +283,14 @@ class _$AuthSignUpImpl implements _AuthSignUp {
             other is _$AuthSignUpImpl &&
             (identical(other.email, email) || other.email == email) &&
             (identical(other.password, password) ||
-                other.password == password));
+                other.password == password) &&
+            (identical(other.reenterPassword, reenterPassword) ||
+                other.reenterPassword == reenterPassword));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, email, password);
+  int get hashCode =>
+      Object.hash(runtimeType, email, password, reenterPassword);
 
   /// Create a copy of AuthEvent
   /// with the given fields replaced by the non-null parameter values.
@@ -283,35 +304,39 @@ class _$AuthSignUpImpl implements _AuthSignUp {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() authAppStarted,
-    required TResult Function(String email, String password) authSignUp,
+    required TResult Function(
+            String email, String password, String reenterPassword)
+        authSignUp,
     required TResult Function(String email, String password) authSignIn,
     required TResult Function(String? message) authSignOut,
   }) {
-    return authSignUp(email, password);
+    return authSignUp(email, password, reenterPassword);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? authAppStarted,
-    TResult? Function(String email, String password)? authSignUp,
+    TResult? Function(String email, String password, String reenterPassword)?
+        authSignUp,
     TResult? Function(String email, String password)? authSignIn,
     TResult? Function(String? message)? authSignOut,
   }) {
-    return authSignUp?.call(email, password);
+    return authSignUp?.call(email, password, reenterPassword);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? authAppStarted,
-    TResult Function(String email, String password)? authSignUp,
+    TResult Function(String email, String password, String reenterPassword)?
+        authSignUp,
     TResult Function(String email, String password)? authSignIn,
     TResult Function(String? message)? authSignOut,
     required TResult orElse(),
   }) {
     if (authSignUp != null) {
-      return authSignUp(email, password);
+      return authSignUp(email, password, reenterPassword);
     }
     return orElse();
   }
@@ -357,10 +382,12 @@ class _$AuthSignUpImpl implements _AuthSignUp {
 abstract class _AuthSignUp implements AuthEvent {
   const factory _AuthSignUp(
       {required final String email,
-      required final String password}) = _$AuthSignUpImpl;
+      required final String password,
+      required final String reenterPassword}) = _$AuthSignUpImpl;
 
   String get email;
   String get password;
+  String get reenterPassword;
 
   /// Create a copy of AuthEvent
   /// with the given fields replaced by the non-null parameter values.
@@ -447,7 +474,9 @@ class _$AuthSignInImpl implements _AuthSignIn {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() authAppStarted,
-    required TResult Function(String email, String password) authSignUp,
+    required TResult Function(
+            String email, String password, String reenterPassword)
+        authSignUp,
     required TResult Function(String email, String password) authSignIn,
     required TResult Function(String? message) authSignOut,
   }) {
@@ -458,7 +487,8 @@ class _$AuthSignInImpl implements _AuthSignIn {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? authAppStarted,
-    TResult? Function(String email, String password)? authSignUp,
+    TResult? Function(String email, String password, String reenterPassword)?
+        authSignUp,
     TResult? Function(String email, String password)? authSignIn,
     TResult? Function(String? message)? authSignOut,
   }) {
@@ -469,7 +499,8 @@ class _$AuthSignInImpl implements _AuthSignIn {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? authAppStarted,
-    TResult Function(String email, String password)? authSignUp,
+    TResult Function(String email, String password, String reenterPassword)?
+        authSignUp,
     TResult Function(String email, String password)? authSignIn,
     TResult Function(String? message)? authSignOut,
     required TResult orElse(),
@@ -602,7 +633,9 @@ class _$AuthSignOutImpl implements _AuthSignOut {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() authAppStarted,
-    required TResult Function(String email, String password) authSignUp,
+    required TResult Function(
+            String email, String password, String reenterPassword)
+        authSignUp,
     required TResult Function(String email, String password) authSignIn,
     required TResult Function(String? message) authSignOut,
   }) {
@@ -613,7 +646,8 @@ class _$AuthSignOutImpl implements _AuthSignOut {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? authAppStarted,
-    TResult? Function(String email, String password)? authSignUp,
+    TResult? Function(String email, String password, String reenterPassword)?
+        authSignUp,
     TResult? Function(String email, String password)? authSignIn,
     TResult? Function(String? message)? authSignOut,
   }) {
@@ -624,7 +658,8 @@ class _$AuthSignOutImpl implements _AuthSignOut {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? authAppStarted,
-    TResult Function(String email, String password)? authSignUp,
+    TResult Function(String email, String password, String reenterPassword)?
+        authSignUp,
     TResult Function(String email, String password)? authSignIn,
     TResult Function(String? message)? authSignOut,
     required TResult orElse(),

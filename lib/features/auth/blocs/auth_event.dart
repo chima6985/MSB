@@ -6,6 +6,7 @@ class AuthEvent with _$AuthEvent {
   const factory AuthEvent.authSignUp({
     required String email,
     required String password,
+    required String reenterPassword,
   }) = _AuthSignUp;
   const factory AuthEvent.authSignIn({
     required String email,

@@ -15,7 +15,7 @@ class NavObserver extends NavigatorObserver {
 }
 
 final router = GoRouter(
-  initialLocation: '/dashboardIndexScreen',
+  initialLocation: '/',
   observers: [
     // NavObserver(),
   ],
@@ -50,10 +50,13 @@ final router = GoRouter(
       path: '/signUpScreen',
       builder: (context, state) => const SignUpScreen(),
     ),
-     GoRoute(
+    GoRoute(
       name: ConfirmEmailScreen.id,
       path: '/confirmEmailScreen',
-      builder: (context, state) => const ConfirmEmailScreen(),
+      builder: (context, state) {
+        final paramHandler = state.extra is Map ? state.extra as Map? : {};
+        return ConfirmEmailScreen(email: paramHandler?['email']);
+      },
     ),
     GoRoute(
       name: PersonalizeSignUpScreen.id,

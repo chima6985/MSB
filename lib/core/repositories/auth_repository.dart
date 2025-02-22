@@ -69,6 +69,7 @@ class AuthRepository {
   Future<User> signUp({
     required String email,
     required String password,
+    required String reenterPassword,
   }) async {
     try {
       final url = _signUpEndpoint();
@@ -77,8 +78,9 @@ class AuthRepository {
         'content-type': 'application/json',
       };
       final body = {
-        'email': email.toLowerCase().trim(),
+        'email': email.toLowerCase(),
         'password': password,
+        'reenterPassword': reenterPassword,
       };
       return await APIHelper.request<User>(
         request: _client.post(
@@ -87,15 +89,13 @@ class AuthRepository {
           body: jsonEncode(body),
         ),
         onSuccessMap: (value) {
-          final user = value['user'] as Map<String, dynamic>;
-          user['token'] = value['token'];
-          return User.fromJson(user);
+          return const User();
         },
       );
     } on APIException catch (e) {
       throw AuthException(message: e.message);
-    } catch (_) {
-      throw const AuthException();
+    } catch (e) {
+      throw AuthException(message: e.toString());
     }
   }
 
@@ -186,7 +186,7 @@ class AuthRepository {
         'Content-Type': 'application/json',
       };
       final body = {
-        'email': email.toLowerCase().trim(),
+        'email': email,
         'code': otp,
       };
       return await APIHelper.request<void>(
@@ -211,6 +211,7 @@ class AuthRepository {
   Future<void> resendOtp({
     required String email,
   }) async {
+    
     try {
       final url = _resendOtpEndpoint();
       final headers = {
@@ -218,7 +219,7 @@ class AuthRepository {
         'Content-Type': 'application/json',
       };
       final body = {
-        'email': email.toLowerCase().trim(),
+        'email': email,
       };
       return await APIHelper.request<void>(
         request: _client.post(

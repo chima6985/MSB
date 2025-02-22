@@ -133,7 +133,7 @@ class ToastWidget extends StatelessWidget {
     };
 
     return Transform.translate(
-      offset: Offset(0, -30),
+      offset: const Offset(0, -30),
       child: Container(
         padding: const EdgeInsets.fromLTRB(18, 10, 12, 10),
         decoration: BoxDecoration(

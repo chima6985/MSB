@@ -26,7 +26,19 @@ class SignUpScreen extends HookWidget {
       listener: (context, state) {
         state.maybeWhen(
           authenticating: (user) => isLoading.value = true,
-          authenticated: (user) => context.pushNamed(ConfirmEmailScreen.id),
+          authenticated: (user) {
+            isLoading.value = false;
+            ToastMessage.showSuccess(
+              context: context,
+              text: anOtpSentToEmailYr,
+            );
+            context.pushNamed(
+              ConfirmEmailScreen.id,
+              extra: {
+                'email': emailAddressController.text.trim(),
+              },
+            );
+          },
           signUpError: (user, error) {
             isLoading.value = false;
             ToastMessage.showError(
@@ -172,6 +184,8 @@ class SignUpScreen extends HookWidget {
                                 AuthEvent.authSignUp(
                                   email: emailAddressController.text.trim(),
                                   password: passwordController.text.trim(),
+                                  reenterPassword:
+                                      confirmPasswordController.text.trim(),
                                 ),
                               );
                         }

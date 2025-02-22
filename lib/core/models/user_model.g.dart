@@ -7,7 +7,7 @@ part of 'user_model.dart';
 // **************************************************************************
 
 _$UserImpl _$$UserImplFromJson(Map<String, dynamic> json) => _$UserImpl(
-      id: json['_id'] as String,
+      id: json['_id'] as String? ?? '',
       token: json['token'] as String? ?? '',
       updatedAt: ModelHelper.strToLocalDateTime(json['updated_at'] as String?),
       createdAt: ModelHelper.strToLocalDateTime(json['created_at'] as String?),

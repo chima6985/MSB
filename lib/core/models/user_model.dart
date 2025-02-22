@@ -7,7 +7,7 @@ part 'user_model.g.dart';
 @freezed
 class User with _$User {
   const factory User({
-    @JsonKey(name: '_id') required String id,
+    @JsonKey(name: '_id') @Default('') String id,
     @Default('') String token,
     @JsonKey(
       toJson: ModelHelper.localDateTimeToUtcIsoStr,

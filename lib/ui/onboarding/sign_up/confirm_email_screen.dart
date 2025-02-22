@@ -9,7 +9,12 @@ import 'package:masoyinbo_mobile/ui/ui.dart';
 import 'package:masoyinbo_mobile/utils/utils.dart';
 
 class ConfirmEmailScreen extends StatelessWidget {
-  const ConfirmEmailScreen({super.key});
+  const ConfirmEmailScreen({
+    super.key,
+    required this.email,
+  });
+
+  final String email;
 
   static const String id = 'confirmEmailScreen';
 
@@ -24,13 +29,17 @@ class ConfirmEmailScreen extends StatelessWidget {
           create: (context) => ResendOtpCubit(),
         ),
       ],
-      child: const _ConfirmEmailScreen(),
+      child: _ConfirmEmailScreen(email: email),
     );
   }
 }
 
 class _ConfirmEmailScreen extends StatefulWidget {
-  const _ConfirmEmailScreen();
+  const _ConfirmEmailScreen({
+    required this.email,
+  });
+
+  final String email;
 
   @override
   State<_ConfirmEmailScreen> createState() => _ConfirmEmailScreenState();
@@ -70,7 +79,13 @@ class _ConfirmEmailScreenState extends State<_ConfirmEmailScreen>
               verifying: () => setState(() {
                 isLoading = true;
               }),
-              verified: () => context.goNamed(PersonalizeSignUpScreen.id),
+              verified: () {
+                ToastMessage.showSuccess(
+                  context: context,
+                  text: otpVerifiedSuccessfullyYr,
+                );
+                context.goNamed(PersonalizeSignUpScreen.id);
+              },
               error: (error) {
                 setState(() {
                   isLoading = false;
@@ -98,6 +113,7 @@ class _ConfirmEmailScreenState extends State<_ConfirmEmailScreen>
                   context: context,
                   text: 'Otp resent',
                 );
+                pinController.clear();
               },
               error: (error) {
                 otpCountDownController?.finish();
@@ -115,142 +131,145 @@ class _ConfirmEmailScreenState extends State<_ConfirmEmailScreen>
       ],
       child: AbsorbPointer(
         absorbing: isLoading,
-        child: Scaffold(
-          body: DecoratedContainer(
-            child: SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 24),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(height: context.topPadding),
-                    Hero(
-                      tag: 'masoyinbo_logo',
-                      child: AppAssets.images.jpegs.masoyinboLogo.image(
-                        width: 70.w,
-                        height: 70.w,
-                      ),
+        child: DecoratedContainer(
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(height: context.topPadding),
+                  Hero(
+                    tag: 'masoyinbo_logo',
+                    child: AppAssets.images.jpegs.masoyinboLogo.image(
+                      width: 70.w,
+                      height: 70.w,
                     ),
-                    const SizedBox(height: 24),
-                    Text(
-                      confirmYourOtpYr,
-                      textScaler: TextScaler.noScaling,
-                      style: context.textTheme.titleLarge!.copyWith(
-                        fontFamily: FontFamily.margarine,
-                        height: 1.8,
-                      ),
+                  ),
+                  const SizedBox(height: 24),
+                  Text(
+                    confirmYourOtpYr,
+                    textScaler: TextScaler.noScaling,
+                    style: context.textTheme.titleLarge!.copyWith(
+                      fontFamily: FontFamily.margarine,
+                      height: 1.8,
                     ),
-                    const SizedBox(height: 8),
-                    RichText(
+                  ),
+                  const SizedBox(height: 8),
+                  RichText(
+                    text: TextSpan(
+                      style: context.textTheme.bodyMedium!.copyWith(
+                        fontWeight: FontWeight.w300,
+                      ),
+                      children: [
+                        const TextSpan(text: enterTheOtpYr),
+                        TextSpan(
+                          text: ' ${widget.email} ',
+                          style: context.textTheme.bodyMedium!.copyWith(
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                        const TextSpan(text: toResetYourPasswordYr),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 32),
+                  Form(
+                    key: formKey,
+                    child: CustomPinField(
+                      controller: pinController,
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return fieldIsRequiredYr;
+                        }
+                        if (value.length != 6) {
+                          return fieldIsRequiredYr;
+                        }
+                        return null;
+                      },
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: CustomTimer(
+                      controller: otpCountDownController!,
+                      builder: (state, time) {
+                        return state == CustomTimerState.finished
+                            ? InkWell(
+                                onTap: () {
+                                  context.read<ResendOtpCubit>().resendOtp(
+                                        email: 'daudu.victor173@gmail.com',
+                                      );
+                                },
+                                child: Text(
+                                  'Resend',
+                                  style: context.textTheme.bodyMedium!.copyWith(
+                                    fontWeight: FontWeight.w400,
+                                    decoration: TextDecoration.underline,
+                                  ),
+                                ),
+                              )
+                            : RichText(
+                                text: TextSpan(
+                                  style: context.textTheme.bodyMedium!.copyWith(
+                                    color: AppColors.blue12,
+                                  ),
+                                  children: [
+                                    const TextSpan(text: 'Tun kóòdù rán '),
+                                    TextSpan(
+                                      text: ' ${time.minutes}:${time.seconds}',
+                                      style: context.textTheme.bodyMedium!
+                                          .copyWith(
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              );
+                      },
+                    ),
+                  ),
+                  const SizedBox(height: 49),
+                  Button(
+                    label: '',
+                    isLoading: isLoading,
+                    onPressed: () {
+                      if (formKey.currentState!.validate()) {
+                        FocusManager.instance.primaryFocus?.unfocus();
+                        context.read<VerifyOtpCubit>().verifyOtp(
+                              email: 'daudu.victor173@gmail.com',
+                              otp: pinController.text,
+                            );
+                      }
+                    },
+                    child: RichText(
                       text: TextSpan(
                         style: context.textTheme.bodyMedium!.copyWith(
-                          fontWeight: FontWeight.w300,
+                          color: AppColors.white,
                         ),
                         children: [
-                          const TextSpan(text: enterTheOtpYr),
+                          const TextSpan(text: confirmYr),
                           TextSpan(
-                            text: ' oladimejiu@gmail.com ',
-                            style: context.textTheme.bodyMedium!.copyWith(
-                              fontWeight: FontWeight.w400,
+                            text: ' ($confirmEn)',
+                            style: context.textTheme.bodySmall!.copyWith(
+                              color: AppColors.white,
+                              fontWeight: FontWeight.w300,
                             ),
                           ),
-                          const TextSpan(text: toResetYourPasswordYr),
                         ],
                       ),
                     ),
-                    const SizedBox(height: 32),
-                    Form(
-                      key: formKey,
-                      child: CustomPinField(
-                        controller: pinController,
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return fieldIsRequiredYr;
-                          }
-                          if (value.length != 6) {
-                            return fieldIsRequiredYr;
-                          }
-                          return null;
-                        },
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                    Align(
-                      alignment: Alignment.centerRight,
-                      child: CustomTimer(
-                        controller: otpCountDownController!,
-                        builder: (state, time) {
-                          return state == CustomTimerState.finished
-                              ? InkWell(
-                                  onTap: () {
-                                    context.read<ResendOtpCubit>().resendOtp(
-                                          email: 'daudu.victor173@gmail.com',
-                                        );
-                                  },
-                                  child: Text(
-                                    'Resend',
-                                    style:
-                                        context.textTheme.bodyMedium!.copyWith(
-                                      fontWeight: FontWeight.w400,
-                                      decoration: TextDecoration.underline,
-                                    ),
-                                  ),
-                                )
-                              : RichText(
-                                  text: TextSpan(
-                                    style:
-                                        context.textTheme.bodyMedium!.copyWith(
-                                      color: AppColors.blue12,
-                                    ),
-                                    children: [
-                                      const TextSpan(text: 'Tun kóòdù rán '),
-                                      TextSpan(
-                                        text:
-                                            ' ${time.minutes}:${time.seconds}',
-                                        style: context.textTheme.bodyMedium!
-                                            .copyWith(
-                                          fontWeight: FontWeight.w400,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                );
-                        },
-                      ),
-                    ),
-                    const SizedBox(height: 49),
-                    Button(
-                      label: '',
-                      isLoading: isLoading,
-                      onPressed: () {
-                        if (formKey.currentState!.validate()) {
-                          context.read<VerifyOtpCubit>().verifyOtp(
-                                email: 'daudu.victor173@gmail.com',
-                                otp: pinController.text,
-                              );
-                        }
-                      },
-                      child: RichText(
-                        text: TextSpan(
-                          style: context.textTheme.bodyMedium!.copyWith(
-                            color: AppColors.white,
-                          ),
-                          children: [
-                            const TextSpan(text: confirmYr),
-                            TextSpan(
-                              text: ' ($confirmEn)',
-                              style: context.textTheme.bodySmall!.copyWith(
-                                color: AppColors.white,
-                                fontWeight: FontWeight.w300,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: context.btmPadding),
-                  ],
-                ),
+                  ),
+                  const SizedBox(height: 10),
+                  Button(
+                    label: backYr,
+                    isOutlined: true,
+                    labelColor: AppColors.black15,
+                    onPressed: () => context.pop(context),
+                  ),
+                  SizedBox(height: context.btmPadding),
+                ],
               ),
             ),
           ),
