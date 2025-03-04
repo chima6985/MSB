@@ -43,7 +43,7 @@ class PlayerScreen extends HookWidget {
                     child: Column(
                       children: [
                         Text(
-                          singlePlayerYr,
+                          context.appLocale.singlePlayer,
                           style: context.textTheme.titleLarge!.copyWith(
                             fontFamily: FontFamily.margarine,
                           ),
@@ -107,7 +107,7 @@ class PlayerScreen extends HookWidget {
                       ]
                     : [
                         SelectCategoryWidget(
-                          title: proverbYr,
+                          title: context.appLocale.proverb,
                           isSelected:
                               selectedPracticeSection.value == 'proverb',
                           onTap: () {
@@ -119,7 +119,7 @@ class PlayerScreen extends HookWidget {
                           },
                         ),
                         SelectCategoryWidget(
-                          title: meaningYr,
+                          title: context.appLocale.meaning,
                           isSelected:
                               selectedPracticeSection.value == 'meaning',
                           onTap: () {
@@ -131,7 +131,7 @@ class PlayerScreen extends HookWidget {
                           },
                         ),
                         SelectCategoryWidget(
-                          title: numbersYr,
+                          title: context.appLocale.numbers,
                           isSelected: selectedPracticeSection.value == 'number',
                           onTap: () {
                             selectedPracticeSection.value = 'number';
@@ -142,7 +142,7 @@ class PlayerScreen extends HookWidget {
                           },
                         ),
                         SelectCategoryWidget(
-                          title: questionAndAnswerYr,
+                          title: context.appLocale.questionAndAnswer,
                           isSelected: selectedPracticeSection.value == 'qAndA',
                           onTap: () {
                             selectedPracticeSection.value = 'qAndA';
@@ -359,7 +359,7 @@ class PlayerScreen extends HookWidget {
             const Spacer(),
             Center(
               child: Button(
-                label: isMultiPlayer ? multiPlayerYr : '',
+                label: isMultiPlayer ? context.appLocale.multiPlayer : '',
                 width: mqr.width * 0.85,
                 onPressed: () {
                   if (isMultiPlayer) {
@@ -395,9 +395,9 @@ class PlayerScreen extends HookWidget {
                             color: AppColors.white,
                           ),
                           children: [
-                            const TextSpan(text: continueYr),
+                            TextSpan(text: context.appLocale.continueTx),
                             TextSpan(
-                              text: ' ($continueEn)',
+                              text: ' (${context.appLocale.continueTx})',
                               style: context.textTheme.bodySmall!.copyWith(
                                 color: AppColors.white,
                                 fontWeight: FontWeight.w300,

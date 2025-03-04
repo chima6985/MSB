@@ -47,7 +47,7 @@ class PasswordResetSuccessModal extends StatelessWidget {
           ),
           const SizedBox(height: 35),
           Button(
-            label: logInYr,
+            label: context.appLocale.logIn,
             onPressed: () => Navigator.popUntil(
               context,
               ModalRoute.withName('loginScreen'),

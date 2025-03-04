@@ -110,7 +110,7 @@ class PlayerIntroScreen extends HookWidget {
             ),
             const SizedBox(height: 16),
             Button(
-              label: backYr,
+              label: context.appLocale.back,
               isOutlined: true,
               labelColor: AppColors.black15,
               onPressed: () => context.pop(context),

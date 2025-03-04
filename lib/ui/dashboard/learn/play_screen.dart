@@ -43,7 +43,7 @@ class PlayScreen extends HookWidget {
             AppAssets.images.jpegs.lightBulb.image(scale: 1.6.sp),
             SizedBox(height: 20.h),
             Text(
-              timeForKnowledgeReviewYr,
+              context.appLocale.timeForKnowledgeReview,
               style: context.textTheme.titleLarge!.copyWith(
                 color: AppColors.white,
                 fontFamily: FontFamily.margarine,
@@ -51,7 +51,7 @@ class PlayScreen extends HookWidget {
             ),
             SizedBox(height: 50.h),
             Button(
-              label: takeQuizYr,
+              label: context.appLocale.takeQuiz,
               onPressed: () => context
                 ..pop()
                 ..pushNamed(
@@ -61,7 +61,7 @@ class PlayScreen extends HookWidget {
             ),
             SizedBox(height: 20.h),
             Button(
-              label: backToLessonsYr,
+              label: context.appLocale.backToLessons,
               borderColor: AppColors.white,
               isOutlined: true,
               onPressed: () => context.pop(context),

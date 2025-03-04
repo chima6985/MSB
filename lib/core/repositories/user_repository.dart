@@ -33,7 +33,11 @@ class UserRepository {
   final String _baseUrl;
 
   /// Complete onboarding endpoint
-  String _completeOnboardingEndpoint() => '$_baseUrl/user/complete-onboarding';
+  String _completeOnboardingEndpoint() =>
+      '$_baseUrl/user/auth/complete-onboarding';
+
+  /// Complete onboarding endpoint
+  String _answerUserSurveyEndpoint() => '$_baseUrl/user/auth/user-survey';
 
   /// Get user endpoint
   String _getUserEndpoint() => '$_baseUrl/user/profile';
@@ -45,38 +49,73 @@ class UserRepository {
   ///
   /// Returns void on success.
   /// Throws [UserException] when operation fails.
-  Future<User> completeOnboarding({
-    required String token,
-    required String gender,
+  Future<void> completeOnboarding({
+    required String email,
     required String username,
+    required String gender,
   }) async {
     try {
       final url = _completeOnboardingEndpoint();
       final headers = {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer $token',
       };
+
       final body = {
-        'gender': gender,
+        'email': email,
         'username': username,
+        'gender': gender,
       };
-      return await APIHelper.request<User>(
+      return await APIHelper.request<void>(
         request: _client.post(
           Uri.parse(url),
           headers: headers,
-          body: body,
+          body: jsonEncode(body),
         ),
-        onSuccessMap: (value) {
-          final user = value['user'] as Map<String, dynamic>;
-          user['token'] = token;
-          return User.fromJson(user);
-        },
+        onSuccessMap: (value) {},
       );
     } on APIException catch (e) {
       throw UserException(message: e.message);
-    } on AuthException catch (e) {
-      throw AuthException(message: e.message);
+    } catch (e) {
+      throw const UserException();
+    }
+  }
+
+  /// Answer user survey
+  ///
+  /// Returns void on success.
+  /// Throws [UserException] when operation fails.
+  Future<void> answerUserSurvey({
+    required String email,
+    required List<String> surveyReason,
+    required List<String> surveyUsage,
+    required String surveyCommitment,
+    required String surveyAge,
+  }) async {
+    try {
+      final url = _answerUserSurveyEndpoint();
+      final headers = {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      };
+
+      final body = {
+        'email': email,
+        'survey_reason': surveyReason,
+        'survey_usage': surveyUsage,
+        'survey_commitment': surveyCommitment,
+        'survey_age': surveyAge,
+      };
+      return await APIHelper.request<void>(
+        request: _client.post(
+          Uri.parse(url),
+          headers: headers,
+          body: jsonEncode(body),
+        ),
+        onSuccessMap: (value) {},
+      );
+    } on APIException catch (e) {
+      throw UserException(message: e.message);
     } catch (e) {
       throw const UserException();
     }

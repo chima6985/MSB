@@ -61,7 +61,10 @@ final router = GoRouter(
     GoRoute(
       name: PersonalizeSignUpScreen.id,
       path: '/personalizeSignUpScreen',
-      builder: (context, state) => const PersonalizeSignUpScreen(),
+      builder: (context, state) {
+        final paramHandler = state.extra is Map ? state.extra as Map? : {};
+        return PersonalizeSignUpScreen(email: paramHandler?['email']);
+      },
     ),
     GoRoute(
       name: AllSetScreen.id,

@@ -48,7 +48,7 @@ class ModuleIntroScreen extends StatelessWidget {
               const SizedBox(height: 16),
               SizedBox(height: 60.h),
               Button(
-                label: startLessonsYr,
+                label: context.appLocale.startLessons,
                 onPressed: () => context.pushNamed(
                   ModuleScreen.id,
                   extra: {'title': title},
@@ -56,7 +56,7 @@ class ModuleIntroScreen extends StatelessWidget {
               ),
               const SizedBox(height: 16),
               Button(
-                label: backToLessonsYr,
+                label: context.appLocale.backToLessons,
                 isOutlined: true,
                 labelColor: AppColors.black15,
                 onPressed: () => context.pop(context),

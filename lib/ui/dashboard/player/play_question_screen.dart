@@ -109,7 +109,7 @@ class _PlayQuestionScreenState extends State<PlayQuestionScreen> {
                         ),
                         Center(
                           child: Text(
-                            practiceYr,
+                            context.appLocale.practice,
                             textAlign: TextAlign.center,
                             style: context.textTheme.titleLarge!.copyWith(
                               fontFamily: FontFamily.margarine,
@@ -137,7 +137,7 @@ class _PlayQuestionScreenState extends State<PlayQuestionScreen> {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          '${proverbEr}s',
+                                          '${context.appLocale.proverb}s',
                                           textAlign: TextAlign.center,
                                           style: context.textTheme.bodyMedium!
                                               .copyWith(
@@ -147,7 +147,7 @@ class _PlayQuestionScreenState extends State<PlayQuestionScreen> {
                                         ),
                                         const SizedBox(height: 4),
                                         Text(
-                                          proverbYr,
+                                          context.appLocale.proverb,
                                           textAlign: TextAlign.start,
                                           style: context.textTheme.bodySmall!
                                               .copyWith(
@@ -633,7 +633,7 @@ class _PlayQuestionScreenState extends State<PlayQuestionScreen> {
                               child: Opacity(
                                 opacity: isActivateNextButton ? 1 : 0.7,
                                 child: Button(
-                                  label: nextYr,
+                                  label: context.appLocale.next,
                                   onPressed: () {
                                     var isWordCorrect = false;
                                     for (var i = 0; i < wordTile.length; i++) {

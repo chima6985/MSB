@@ -34,7 +34,6 @@ class AppStorage {
   static Future<void> clear() async {
     await _box?.delete(userKey);
     await _box?.delete(biometricsRequestKey);
-    await _box?.clear();
   }
 
   /// Get user from the box
@@ -61,6 +60,42 @@ class AppStorage {
       );
     } catch (e) {
       log(e.toString());
+    }
+  }
+
+  /// Save user email
+  static void saveEmail(String email) {
+    try {
+      _box?.put(emailKey, email);
+    } catch (e) {
+      log(e.toString());
+    }
+  }
+
+  /// Get user email
+  static String? getEmail() {
+    try {
+      return _box?.get(emailKey);
+    } catch (e) {
+      return null;
+    }
+  }
+
+  /// Save locale
+  static void saveLocale(String locale) {
+    try {
+      _box?.put(localKey, locale);
+    } catch (e) {
+      log(e.toString());
+    }
+  }
+
+  /// Get user locale
+  static String? getLocale() {
+    try {
+      return _box?.get(localKey);
+    } catch (e) {
+      return null;
     }
   }
 

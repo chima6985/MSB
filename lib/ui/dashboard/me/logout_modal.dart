@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:masoyinbo_mobile/app/app_strings.dart';
+import 'package:masoyinbo_mobile/core/core.dart';
 import 'package:masoyinbo_mobile/extension/extension.dart';
 import 'package:masoyinbo_mobile/gen/fonts.gen.dart';
 import 'package:masoyinbo_mobile/ui/ui.dart';
@@ -42,8 +43,11 @@ class LogoutModal extends StatelessWidget {
           ),
           const SizedBox(height: 35),
           Button(
-            label: continueYr,
-            onPressed: () => context.goNamed(SplashScreen.id),
+            label: context.appLocale.continueTx,
+            onPressed: () {
+              AppStorage.clear();
+              context.goNamed(SplashScreen.id);
+            },
           ),
           SizedBox(height: context.btmPadding),
         ],

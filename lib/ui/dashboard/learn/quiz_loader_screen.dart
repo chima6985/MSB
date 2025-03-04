@@ -57,7 +57,7 @@ class QuizLoaderScreen extends HookWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  questionIsComingYr,
+                  context.appLocale.questionIsComing,
                   style: context.textTheme.titleLarge!.copyWith(
                     color: AppColors.white,
                     fontFamily: FontFamily.margarine,

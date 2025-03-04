@@ -55,8 +55,8 @@ class EnterYourPasswordModal extends HookWidget {
             padding: const EdgeInsets.symmetric(horizontal: 12),
             child: PasswordTextField(
               textEditingController: passwordController,
-              textFieldText: passwordYr,
-              textFieldSubText: passwordEn,
+              textFieldText: context.appLocale.yoruba,
+              textFieldSubText: context.appLocale.yoruba,
               isBottomSpacing: false,
             ),
           ),

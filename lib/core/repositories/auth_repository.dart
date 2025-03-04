@@ -80,7 +80,7 @@ class AuthRepository {
       final body = {
         'email': email.toLowerCase(),
         'password': password,
-        'reenterPassword': reenterPassword,
+        'reenter_password': reenterPassword,
       };
       return await APIHelper.request<User>(
         request: _client.post(
@@ -149,7 +149,7 @@ class AuthRepository {
         'Content-Type': 'application/json',
       };
       final body = {
-        'email': email.toLowerCase().trim(),
+        'email': email.toLowerCase(),
         'password': password,
       };
       return await APIHelper.request<User>(
@@ -159,9 +159,9 @@ class AuthRepository {
           body: jsonEncode(body),
         ),
         onSuccessMap: (value) {
-          final user = value['user'] as Map<String, dynamic>;
-          user['token'] = value['token'];
-          return User.fromJson(user);
+          // final user = value['user'] as Map<String, dynamic>;
+          // user['token'] = value['token'];
+          return User();
         },
       );
     } on APIException catch (e) {
@@ -187,7 +187,7 @@ class AuthRepository {
       };
       final body = {
         'email': email,
-        'code': otp,
+        'otp': otp,
       };
       return await APIHelper.request<void>(
         request: _client.post(
@@ -211,7 +211,6 @@ class AuthRepository {
   Future<void> resendOtp({
     required String email,
   }) async {
-    
     try {
       final url = _resendOtpEndpoint();
       final headers = {

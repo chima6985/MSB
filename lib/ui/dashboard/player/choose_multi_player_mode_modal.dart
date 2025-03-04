@@ -30,7 +30,7 @@ class ChooseMutliPlayerModeModal extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15),
             child: Text(
-              multiPlayerYr,
+              context.appLocale.multiPlayer,
               textAlign: TextAlign.center,
               style: context.textTheme.bodyLarge!.copyWith(
                 fontWeight: FontWeight.w500,

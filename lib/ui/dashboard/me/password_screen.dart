@@ -45,17 +45,17 @@ class PasswordScreen extends HookWidget {
                 children: [
                   PasswordTextField(
                     textEditingController: currentPasswordController,
-                    textFieldText: passwordYr,
+                    textFieldText: context.appLocale.yoruba,
                     textFieldSubText: currentPasswordEn,
                   ),
                   PasswordTextField(
                     textEditingController: newPasswordController,
-                    textFieldText: passwordYr,
+                    textFieldText: context.appLocale.yoruba,
                     textFieldSubText: newPasswordEn,
                   ),
                   PasswordTextField(
                     textEditingController: reEnterNewPasswordController,
-                    textFieldText: passwordYr,
+                    textFieldText: context.appLocale.yoruba,
                     textFieldSubText: reEnterNewPasswordEn,
                     isBottomSpacing: false,
                   ),

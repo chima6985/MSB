@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:masoyinbo_mobile/app/app.dart';
 import 'package:masoyinbo_mobile/extension/context_extension.dart';
 import 'package:masoyinbo_mobile/gen/fonts.gen.dart';
 import 'package:masoyinbo_mobile/ui/ui.dart';
@@ -27,7 +26,7 @@ class AllSetScreen extends StatelessWidget {
             ),
             SizedBox(height: mqr.height * 0.03),
             Text(
-              allSetEn,
+              context.appLocale.letsGo,
               textAlign: TextAlign.center,
               style: context.textTheme.titleLarge!.copyWith(
                 fontFamily: FontFamily.margarine,
@@ -38,7 +37,7 @@ class AllSetScreen extends StatelessWidget {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 5.w),
               child: Text(
-                allSetYr,
+                context.appLocale.allSetExplanation,
                 textAlign: TextAlign.center,
                 style: context.textTheme.bodySmall!.copyWith(
                   height: 1.8,
@@ -49,21 +48,21 @@ class AllSetScreen extends StatelessWidget {
             SizedBox(height: 60.h),
             Button(
               label: '',
-              onPressed: () => context.goNamed(DashboardIndexScreen.id),
+              onPressed: () => context.goNamed(SurveyScreen.id),
               child: RichText(
                 text: TextSpan(
                   style: context.textTheme.bodyMedium!.copyWith(
                     color: AppColors.white,
                   ),
-                  children: const [
-                    TextSpan(text: letsGoYr),
-                    // TextSpan(
-                    //   text: ' ($continueEn)',
-                    //   style: context.textTheme.bodySmall!.copyWith(
-                    //     color: AppColors.white,
-                    //     fontWeight: FontWeight.w300,
-                    //   ),
-                    // ),
+                  children: [
+                    TextSpan(text: context.appLocale.continueTx),
+                    TextSpan(
+                      text: ' (${context.appLocale.continueTx})',
+                      style: context.textTheme.bodySmall!.copyWith(
+                        color: AppColors.white,
+                        fontWeight: FontWeight.w300,
+                      ),
+                    ),
                   ],
                 ),
               ),

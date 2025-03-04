@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:masoyinbo_mobile/app/app.dart';
 import 'package:masoyinbo_mobile/core/core.dart';
 import 'package:masoyinbo_mobile/extension/extension.dart';
 import 'package:masoyinbo_mobile/gen/fonts.gen.dart';
@@ -13,7 +12,8 @@ class Home extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final mqr = MediaQuery.of(context).size;
-    final isShowEmailVerify = useState(true);
+    final isShowEmailVerify = useState(false);
+    final isShowLessonsWidget = useState(false);
     final user = AppStorage.getUser();
     return SingleChildScrollView(
       child: Padding(
@@ -43,7 +43,7 @@ class Home extends HookWidget {
                       ),
                       const SizedBox(width: 8),
                       Text(
-                        verifyEmailEr,
+                        context.appLocale.verifyEmail,
                         textScaler: TextScaler.noScaling,
                         style: context.textTheme.bodyMedium!.copyWith(
                           fontWeight: FontWeight.w300,
@@ -54,11 +54,11 @@ class Home extends HookWidget {
                   ),
                 ),
               ),
-            const SizedBox(height: 16),
+            SizedBox(height: 16.h),
             Row(
               children: [
                 Text(
-                  goodAfternoonYr,
+                  context.appLocale.goodAfternoon,
                   textScaler: TextScaler.noScaling,
                   style: context.textTheme.titleLarge!.copyWith(
                     fontFamily: FontFamily.margarine,
@@ -98,142 +98,145 @@ class Home extends HookWidget {
             ),
             const SizedBox(height: 4),
             Text(
-              goodAfternoonEn,
+              context.appLocale.goodAfternoon,
               textScaler: TextScaler.noScaling,
               style: context.textTheme.bodyMedium,
             ),
-            const SizedBox(height: 26),
-            RichText(
-              text: TextSpan(
-                style: context.textTheme.bodyLarge!.copyWith(
-                  fontFamily: FontFamily.margarine,
-                ),
-                children: [
-                  const TextSpan(text: lessonYr),
-                  TextSpan(
-                    text: ' ($lessonEr)',
-                    style: context.textTheme.bodySmall!.copyWith(
-                      fontFamily: FontFamily.margarine,
-                    ),
+            if (isShowLessonsWidget.value) ...[
+              SizedBox(height: 26.h),
+              RichText(
+                text: TextSpan(
+                  style: context.textTheme.bodyLarge!.copyWith(
+                    fontFamily: FontFamily.margarine,
                   ),
-                ],
-              ),
-            ),
-            const SizedBox(height: 10),
-            GestureDetector(
-              onTap: () {
-                if (user == null) {
-                  Functions.showModalAuth(context);
-                } else {
-                  context.pushNamed(ModuleScreen.id);
-                }
-              },
-              child: Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                decoration: BoxDecoration(
-                  color: AppColors.purpleF1,
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      lesson1Of4,
-                      textScaler: TextScaler.noScaling,
+                    TextSpan(text: context.appLocale.lesson),
+                    TextSpan(
+                      text: ' (${context.appLocale.lesson})',
                       style: context.textTheme.bodySmall!.copyWith(
-                        fontWeight: FontWeight.w400,
+                        fontFamily: FontFamily.margarine,
                       ),
-                    ),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Stack(
-                            children: [
-                              Container(
-                                clipBehavior: Clip.hardEdge,
-                                height: 4.h,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(12),
-                                  color:
-                                      AppColors.blue12.withValues(alpha: 0.12),
-                                ),
-                              ),
-                              Container(
-                                width: 120,
-                                height: 4.h,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(12),
-                                  color: AppColors.blue12,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        const SizedBox(width: 16),
-                        Padding(
-                          padding: const EdgeInsets.only(bottom: 5),
-                          child: Text(
-                            '12%',
-                            textScaler: TextScaler.noScaling,
-                            style: context.textTheme.bodyMedium,
-                          ),
-                        ),
-                      ],
-                    ),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        AppAssets.images.jpegs.alphabet.image(
-                          width: 40.w,
-                          height: 40.w,
-                        ),
-                        const SizedBox(width: 12),
-                        Column(
-                          mainAxisSize: MainAxisSize.min,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              alphabetsEr,
-                              textScaler: TextScaler.noScaling,
-                              style: context.textTheme.bodyLarge!.copyWith(
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                            Text(
-                              alphabetsYr,
-                              textScaler: TextScaler.noScaling,
-                              style: context.textTheme.bodySmall!.copyWith(
-                                fontStyle: FontStyle.italic,
-                                fontWeight: FontWeight.w300,
-                              ),
-                            ),
-                          ],
-                        ),
-                        const Spacer(),
-                        Text(
-                          continueEn,
-                          textScaler: TextScaler.noScaling,
-                          style: context.textTheme.bodySmall!.copyWith(
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ],
                     ),
                   ],
                 ),
               ),
-            ),
-            const SizedBox(height: 32),
+              SizedBox(height: 10.h),
+              GestureDetector(
+                onTap: () {
+                  if (user == null) {
+                    Functions.showModalAuth(context);
+                  } else {
+                    context.pushNamed(ModuleScreen.id);
+                  }
+                },
+                child: Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                  decoration: BoxDecoration(
+                    color: AppColors.purpleF1,
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        context.appLocale.lesson1Of4,
+                        textScaler: TextScaler.noScaling,
+                        style: context.textTheme.bodySmall!.copyWith(
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Stack(
+                              children: [
+                                Container(
+                                  clipBehavior: Clip.hardEdge,
+                                  height: 4.h,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(12),
+                                    color: AppColors.blue12
+                                        .withValues(alpha: 0.12),
+                                  ),
+                                ),
+                                Container(
+                                  width: 120,
+                                  height: 4.h,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(12),
+                                    color: AppColors.blue12,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          const SizedBox(width: 16),
+                          Padding(
+                            padding: const EdgeInsets.only(bottom: 5),
+                            child: Text(
+                              '12%',
+                              textScaler: TextScaler.noScaling,
+                              style: context.textTheme.bodyMedium,
+                            ),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          AppAssets.images.jpegs.alphabet.image(
+                            width: 40.w,
+                            height: 40.w,
+                          ),
+                          const SizedBox(width: 12),
+                          Column(
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                context.appLocale.alphabets,
+                                textScaler: TextScaler.noScaling,
+                                style: context.textTheme.bodyLarge!.copyWith(
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                              Text(
+                                context.appLocale.alphabets,
+                                textScaler: TextScaler.noScaling,
+                                style: context.textTheme.bodySmall!.copyWith(
+                                  fontStyle: FontStyle.italic,
+                                  fontWeight: FontWeight.w300,
+                                ),
+                              ),
+                            ],
+                          ),
+                          const Spacer(),
+                          Text(
+                            context.appLocale.continueTx,
+                            textScaler: TextScaler.noScaling,
+                            style: context.textTheme.bodySmall!.copyWith(
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              SizedBox(height: 15.h),
+            ],
+            SizedBox(height: 15.h),
             RichText(
               text: TextSpan(
                 style: context.textTheme.bodyLarge!.copyWith(
                   fontFamily: FontFamily.margarine,
                 ),
                 children: [
-                  const TextSpan(text: practiceYr),
+                  TextSpan(text: context.appLocale.practice),
                   TextSpan(
-                    text: ' ($practiceEr)',
+                    text: ' (${context.appLocale.practice})',
                     style: context.textTheme.bodySmall!.copyWith(
                       fontFamily: FontFamily.margarine,
                     ),
@@ -241,7 +244,7 @@ class Home extends HookWidget {
                 ],
               ),
             ),
-            const SizedBox(height: 16),
+            SizedBox(height: 16.h),
             Row(
               children: [
                 _QuickActionsPracticeWidget(
@@ -295,9 +298,9 @@ class Home extends HookWidget {
                   fontFamily: FontFamily.margarine,
                 ),
                 children: [
-                  const TextSpan(text: playYr),
+                  TextSpan(text: context.appLocale.play),
                   TextSpan(
-                    text: ' ($playEn)',
+                    text: ' (${context.appLocale.play})',
                     style: context.textTheme.bodySmall!.copyWith(
                       fontFamily: FontFamily.margarine,
                     ),
@@ -310,8 +313,8 @@ class Home extends HookWidget {
               children: [
                 Expanded(
                   child: _QuickActionPlayWidget(
-                    mainText: singlePlayerYr,
-                    subText: singlePlayerEn,
+                    mainText: context.appLocale.singlePlayer,
+                    subText: context.appLocale.singlePlayer,
                     color: AppColors.lemon9C,
                     image: AppAssets.images.jpegs.singlePlayer.path,
                     onTap: () {
@@ -329,8 +332,8 @@ class Home extends HookWidget {
                 const SizedBox(width: 16),
                 Expanded(
                   child: _QuickActionPlayWidget(
-                    mainText: multiPlayerYr,
-                    subText: multiPlayerEn,
+                    mainText: context.appLocale.multiPlayer,
+                    subText: context.appLocale.multiPlayer,
                     color: AppColors.lilac9E,
                     image: AppAssets.images.jpegs.multiplePlayer.path,
                     onTap: () {
@@ -377,18 +380,19 @@ class _QuickActionsPracticeWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final user = AppStorage.getUser();
+    // final localeEn = AppLocalizationsEn;
     final mainText = {
-      PracticeSection.proverb: proverbYr,
-      PracticeSection.qAndA: questionAndAnswerYr,
-      PracticeSection.meaning: meaningYr,
-      PracticeSection.numbers: numbersYr,
+      PracticeSection.proverb: context.appLocale.proverb,
+      PracticeSection.qAndA: context.appLocale.questionAndAnswer,
+      PracticeSection.meaning: context.appLocale.meaning,
+      PracticeSection.numbers: context.appLocale.numbers,
     };
 
     final subText = {
-      PracticeSection.proverb: proverbEr,
-      PracticeSection.qAndA: questionAndAnswerEr,
-      PracticeSection.meaning: meaningEn,
-      PracticeSection.numbers: numbersEn,
+      PracticeSection.proverb: context.appLocale.proverb,
+      PracticeSection.qAndA: context.appLocale.questionAndAnswer,
+      PracticeSection.meaning: context.appLocale.meaning,
+      PracticeSection.numbers: context.appLocale.numbers,
     };
 
     final color = {

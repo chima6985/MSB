@@ -66,7 +66,8 @@ class MultiGroupedSelector extends StatelessWidget {
 }
 
 class CheckBoxIndicator extends StatelessWidget {
-  const CheckBoxIndicator({super.key, 
+  const CheckBoxIndicator({
+    super.key,
     required this.isSelected,
   });
 

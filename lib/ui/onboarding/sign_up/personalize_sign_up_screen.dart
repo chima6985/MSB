@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:masoyinbo_mobile/app/app.dart';
 import 'package:masoyinbo_mobile/extension/context_extension.dart';
 import 'package:masoyinbo_mobile/features/features.dart';
 import 'package:masoyinbo_mobile/gen/fonts.gen.dart';
@@ -9,21 +8,30 @@ import 'package:masoyinbo_mobile/ui/ui.dart';
 import 'package:masoyinbo_mobile/utils/utils.dart';
 
 class PersonalizeSignUpScreen extends StatelessWidget {
-  const PersonalizeSignUpScreen({super.key});
+  const PersonalizeSignUpScreen({
+    super.key,
+    required this.email,
+  });
+
+  final String email;
 
   static const String id = 'personalizeSignUpScreen';
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => CompleteOnboardingCubit(authBloc: context.read()),
-      child: const _PersonalizeSignUpScreen(),
+      create: (context) => CompleteOnboardingCubit(),
+      child: _PersonalizeSignUpScreen(email: email),
     );
   }
 }
 
 class _PersonalizeSignUpScreen extends HookWidget {
-  const _PersonalizeSignUpScreen();
+  const _PersonalizeSignUpScreen({
+    required this.email,
+  });
+
+  final String email;
 
   @override
   Widget build(BuildContext context) {
@@ -68,9 +76,9 @@ class _PersonalizeSignUpScreen extends HookWidget {
                       height: 70.w,
                     ),
                   ),
-                  const SizedBox(height: 24),
+                  SizedBox(height: 24.h),
                   Text(
-                    createAccountYr,
+                    context.appLocale.createAccount,
                     style: context.textTheme.titleLarge!.copyWith(
                       fontFamily: FontFamily.margarine,
                       height: 1.8,
@@ -78,21 +86,21 @@ class _PersonalizeSignUpScreen extends HookWidget {
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    personalizeYourAccountFurther,
+                    context.appLocale.personalizeYourAccountFurther,
                     style: context.textTheme.bodyMedium!.copyWith(
                       fontStyle: FontStyle.italic,
                       height: 1.4,
                       letterSpacing: 0.3,
                     ),
                   ),
-                  const SizedBox(height: 40),
+                  SizedBox(height: 40.h),
                   Form(
                     key: formKey.value,
                     child: Column(
                       children: [
                         CustomDropDownField(
-                          textFieldText: genderYr,
-                          textFieldSubText: genderEn,
+                          textFieldText: context.appLocale.gender,
+                          textFieldSubText: context.appLocale.gender,
                           hintText: 'Select Gender',
                           items: genderOptions
                               .map(
@@ -114,8 +122,8 @@ class _PersonalizeSignUpScreen extends HookWidget {
                         ),
                         CustomTextField(
                           textEditingController: usernameController,
-                          textFieldText: usernameYr,
-                          textFieldSubText: usernameEn,
+                          textFieldText: context.appLocale.username,
+                          textFieldSubText: context.appLocale.username,
                           textInputAction: TextInputAction.done,
                           validator: (value) =>
                               FormValidation.validateFieldNotEmpty(
@@ -126,17 +134,18 @@ class _PersonalizeSignUpScreen extends HookWidget {
                       ],
                     ),
                   ),
-                  const SizedBox(height: 17),
+                  SizedBox(height: 17.h),
                   Button(
-                    label: fipamoYr,
+                    label: context.appLocale.save,
                     isLoading: isLoading.value,
                     onPressed: () {
                       if (formKey.value.currentState!.validate()) {
                         context
                             .read<CompleteOnboardingCubit>()
                             .completeOnboarding(
-                              gender: gender.value ?? '',
+                              email: email,
                               username: usernameController.text.trim(),
+                              gender: gender.value ?? '',
                             );
                       }
                     },

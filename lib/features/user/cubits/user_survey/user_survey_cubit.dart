@@ -3,11 +3,11 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:masoyinbo_mobile/app/app_locator.dart';
 import 'package:masoyinbo_mobile/core/core.dart';
 
-part 'complete_onboarding_state.dart';
-part 'complete_onboarding_cubit.freezed.dart';
+part 'user_survey_state.dart';
+part 'user_survey_cubit.freezed.dart';
 
-class CompleteOnboardingCubit extends Cubit<CompleteOnboardingState> {
-  CompleteOnboardingCubit({
+class UserSurveyCubit extends Cubit<UserSurveyState> {
+  UserSurveyCubit({
     UserRepository? userRepository,
   })  : _userRepository = userRepository ?? locator<UserRepository>(),
         super(const _Initial());
@@ -15,20 +15,22 @@ class CompleteOnboardingCubit extends Cubit<CompleteOnboardingState> {
   /// User repository.
   final UserRepository _userRepository;
 
-  /// Auth Bloc.
-
   /// Update password
-  Future<void> completeOnboarding({
+  Future<void> answerUserSurvey({
     required String email,
-    required String username,
-    required String gender,
+    required List<String> surveyReason,
+    required List<String> surveyUsage,
+    required String surveyCommitment,
+    required String surveyAge,
   }) async {
     try {
       emit(const _Loading());
-      await _userRepository.completeOnboarding(
+      await _userRepository.answerUserSurvey(
         email: email,
-        gender: gender,
-        username: username,
+        surveyReason: surveyReason,
+        surveyUsage: surveyUsage,
+        surveyCommitment: surveyCommitment,
+        surveyAge: surveyAge,
       );
       emit(const _Loaded());
     } on UserException catch (e) {

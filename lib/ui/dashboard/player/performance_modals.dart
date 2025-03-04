@@ -29,8 +29,8 @@ class PerformanceModal extends StatelessWidget {
     };
 
     final buttonLabel = {
-      'success': nextYr,
-      'failure': '$notedYr!',
+      'success': context.appLocale.next,
+      'failure': '${context.appLocale.next}!',
     };
 
     final buttonLabelColor = {

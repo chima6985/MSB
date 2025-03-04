@@ -103,7 +103,7 @@ class TeamNameModal extends HookWidget {
           ),
           const SizedBox(height: 35),
           Button(
-            label: continueYr,
+            label: context.appLocale.continueTx,
             onPressed: () => context
               ..pop(context)
               ..pop(context),

@@ -1,4 +1,5 @@
 export 'package:flutter_animate/flutter_animate.dart';
+export 'package:flutter_gen/gen_l10n/app_localizations.dart';
 export 'package:flutter_screenutil/flutter_screenutil.dart';
 export 'package:go_router/go_router.dart';
 export 'package:iconsax/iconsax.dart';

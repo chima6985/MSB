@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:masoyinbo_mobile/app/app.dart';
+import 'package:masoyinbo_mobile/core/core.dart';
 import 'package:masoyinbo_mobile/extension/context_extension.dart';
 import 'package:masoyinbo_mobile/features/features.dart';
 import 'package:masoyinbo_mobile/gen/fonts.gen.dart';
@@ -15,15 +16,20 @@ class LoginScreen extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final emailAddressController = useTextEditingController();
+    final emailAddressController = useTextEditingController(
+      text: AppStorage.getEmail(),
+    );
     final passwordController = useTextEditingController();
     final isLoading = useState(false);
     final formKey = useState(GlobalKey<FormState>());
+    print(Localizations.localeOf(context).languageCode);
     return BlocListener<AuthBloc, AuthState>(
       listener: (context, state) {
         state.maybeWhen(
           authenticating: (user) => isLoading.value = true,
-          authenticated: (user) => context.goNamed(AllSetScreen.id),
+          authenticated: (user) {
+            context.goNamed(DashboardIndexScreen.id);
+          },
           loginError: (user, error) {
             isLoading.value = false;
             ToastMessage.showError(
@@ -53,7 +59,7 @@ class LoginScreen extends HookWidget {
                   ),
                   const SizedBox(height: 24),
                   Text(
-                    enterDetailsYr,
+                    context.appLocale.enterDetails,
                     textScaler: TextScaler.noScaling,
                     style: context.textTheme.titleLarge!.copyWith(
                       fontFamily: FontFamily.margarine,
@@ -62,7 +68,7 @@ class LoginScreen extends HookWidget {
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    enterDetailsEn,
+                    context.appLocale.enterDetails,
                     textScaler: TextScaler.noScaling,
                     style: context.textTheme.bodyMedium!.copyWith(
                       fontStyle: FontStyle.italic,
@@ -77,8 +83,8 @@ class LoginScreen extends HookWidget {
                       children: [
                         CustomTextField(
                           textEditingController: emailAddressController,
-                          textFieldText: emailAddressYr,
-                          textFieldSubText: emailAddressEn,
+                          textFieldText: context.appLocale.emailAddress,
+                          textFieldSubText: context.appLocale.emailAddress,
                           validator: (val) {
                             if (val!.isEmpty) {
                               return fieldIsRequiredYr;
@@ -91,8 +97,8 @@ class LoginScreen extends HookWidget {
                         ),
                         PasswordTextField(
                           textEditingController: passwordController,
-                          textFieldText: passwordYr,
-                          textFieldSubText: passwordEn,
+                          textFieldText: context.appLocale.password,
+                          textFieldSubText: context.appLocale.password,
                           validator: (value) =>
                               FormValidation.validateFieldNotEmpty(
                             value,
@@ -122,7 +128,7 @@ class LoginScreen extends HookWidget {
                   ),
                   const SizedBox(height: 17),
                   Button(
-                    label: logInYr,
+                    label: context.appLocale.logIn,
                     isLoading: isLoading.value,
                     onPressed: () {
                       if (formKey.value.currentState!.validate()) {
@@ -144,9 +150,9 @@ class LoginScreen extends HookWidget {
                           fontWeight: FontWeight.w300,
                         ),
                         children: [
-                          const TextSpan(text: dontHaveAnAccount),
+                          TextSpan(text: context.appLocale.dontHaveAnAccount),
                           TextSpan(
-                            text: ' $signUp',
+                            text: ' ${context.appLocale.signUp}',
                             style: context.textTheme.bodyMedium!.copyWith(
                               fontWeight: FontWeight.w500,
                             ),
@@ -195,7 +201,7 @@ class LoginScreen extends HookWidget {
                         AppAssets.images.svgs.google.svg(),
                         const SizedBox(width: 8),
                         Text(
-                          signUpWithGoogleYr,
+                          context.appLocale.signUpWithGoogle,
                           textScaler: TextScaler.noScaling,
                           style: context.textTheme.bodyMedium!.copyWith(
                             fontWeight: FontWeight.w500,

@@ -19,7 +19,7 @@ class LearnIntroScreen extends StatelessWidget {
             children: [
               SizedBox(height: context.topPadding),
               Text(
-                alphabetsEr,
+                context.appLocale.alphabets,
                 textAlign: TextAlign.center,
                 style: context.textTheme.titleLarge!.copyWith(
                   fontFamily: FontFamily.margarine,
@@ -43,12 +43,12 @@ class LearnIntroScreen extends StatelessWidget {
               const SizedBox(height: 16),
               SizedBox(height: 60.h),
               Button(
-                label: goToModulesEr,
+                label: context.appLocale.goToModules,
                 onPressed: () => context.pushNamed(ModulesScreen.id),
               ),
               const SizedBox(height: 16),
               Button(
-                label: backToLessonsYr,
+                label: context.appLocale.backToLessons,
                 isOutlined: true,
                 labelColor: AppColors.black15,
                 onPressed: () => context.pop(context),

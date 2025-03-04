@@ -85,9 +85,9 @@ class AuthModal extends StatelessWidget {
               text: TextSpan(
                 style: context.textTheme.bodyMedium,
                 children: [
-                  const TextSpan(text: logInYr),
+                  TextSpan(text: context.appLocale.logIn),
                   TextSpan(
-                    text: ' ($loginEn)',
+                    text: ' (${context.appLocale.logIn})',
                     style: context.textTheme.bodySmall!.copyWith(
                       fontWeight: FontWeight.w300,
                     ),

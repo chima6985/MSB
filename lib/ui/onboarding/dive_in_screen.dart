@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:masoyinbo_mobile/app/app.dart';
 import 'package:masoyinbo_mobile/extension/context_extension.dart';
 import 'package:masoyinbo_mobile/gen/fonts.gen.dart';
 import 'package:masoyinbo_mobile/ui/ui.dart';
@@ -27,7 +26,7 @@ class DiveInScreen extends StatelessWidget {
             ),
             SizedBox(height: mqr.height * 0.03),
             Text(
-              driveRightInYr,
+              context.appLocale.driveRightIn,
               textAlign: TextAlign.center,
               style: context.textTheme.titleLarge!.copyWith(
                 fontFamily: FontFamily.margarine,
@@ -36,7 +35,7 @@ class DiveInScreen extends StatelessWidget {
             ),
             const SizedBox(height: 16),
             Text(
-              saveProvidedDetailsYr,
+              context.appLocale.saveProvidedDetails,
               textAlign: TextAlign.center,
               style: context.textTheme.bodySmall!.copyWith(
                 height: 1.4,
@@ -46,17 +45,20 @@ class DiveInScreen extends StatelessWidget {
             SizedBox(height: mqr.height * 0.07),
             Button(
               label: '',
-              onPressed: () =>
-                  context.pushReplacementNamed(DashboardIndexScreen.id),
+              onPressed: () {
+                context
+                  ..goNamed(DashboardIndexScreen.id)
+                  ..pushNamed(LoginScreen.id);
+              },
               child: RichText(
                 text: TextSpan(
                   style: context.textTheme.bodyMedium!.copyWith(
                     color: AppColors.white,
                   ),
                   children: [
-                    const TextSpan(text: continueYr),
+                    TextSpan(text: context.appLocale.continueTx),
                     TextSpan(
-                      text: ' ($continueEn)',
+                      text: ' (${context.appLocale.continueTx})',
                       style: context.textTheme.bodySmall!.copyWith(
                         color: AppColors.white,
                         fontWeight: FontWeight.w300,

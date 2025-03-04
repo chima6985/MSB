@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:masoyinbo_mobile/app/app.dart';
 import 'package:masoyinbo_mobile/extension/extension.dart';
 import 'package:masoyinbo_mobile/gen/fonts.gen.dart';
 import 'package:masoyinbo_mobile/ui/ui.dart';
@@ -30,7 +29,7 @@ class LeaderBoard extends HookWidget {
                 child: Row(
                   children: [
                     Text(
-                      leaderboardYr,
+                      context.appLocale.leaderboard,
                       textScaler: TextScaler.noScaling,
                       style: context.textTheme.titleLarge!.copyWith(
                         fontFamily: FontFamily.margarine,
@@ -114,7 +113,7 @@ class LeaderBoard extends HookWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Text(
-                        top10Advance,
+                        context.appLocale.top10Advance,
                         textScaler: TextScaler.noScaling,
                         style: context.textTheme.bodySmall!.copyWith(
                           color: AppColors.blackB6,
@@ -342,13 +341,13 @@ class _EmptyLeaderboardWidget extends StatelessWidget {
       children: [
         SizedBox(height: 30.h),
         Text(
-          completeLessonToJoinWeekDashboardYr,
+          context.appLocale.completeLessonToJoinWeekDashboard,
           textScaler: TextScaler.noScaling,
           style: context.textTheme.bodyMedium,
         ),
         SizedBox(height: 30.h),
         Button(
-          label: startLearningEn,
+          label: context.appLocale.startLearning,
           width: mqr.width * 0.38,
           onPressed: () => currentPosition?.value = 1,
         ),

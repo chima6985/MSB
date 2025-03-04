@@ -1,17 +1,4 @@
-const getAwayYr = 'Ẹ̀bùn Rẹ Ní Èdè àti Àṣà Yorùbá, Nígbàkígbà, Níbi kìbi';
-const getAwayEn =
-    'Your Gateway to Yoruba Language and Culture, Anytime, Anywhere';
-
-const onboardingStartYr = 'Je ka bẹ̀rẹ̀';
-
-const languagePreferenceEn = 'Language Preference';
-const selectPreferredLanguageEn =
-    'Select your preferred primary language for navigation in the app. You can update your selection anytime in the settings. ';
-
-const yoruba = 'Yoruba';
-const english = 'English';
-
-const saveEr = 'Save';
+//*Questions here *//
 
 const increaseKnowledgeYr = 'Èé ṣe tí o fẹ́ láti pọ̀ sí ìmọ̀ rẹ ní èdè Yorùbá?';
 const increaseKnowledgeEr =
@@ -41,12 +28,6 @@ const friendsYr = 'Àwọn òré (Friends)';
 const schoolOrExamYr = 'Ile-eko tabi Ìdánwò (School or exam)';
 const funYr = 'Ayò (Fun)';
 
-const nextYr = 'Èyí tókàn';
-const nextEn = 'Next';
-
-const notedYr = 'Noted';
-const notedEn = 'Noted';
-
 const sendTextYr = 'Fi ìwé ránṣẹ́ (Send texts and emails)';
 const haveConversationsYr = 'Ní ìjíròrò (Have conversations)';
 const culturalValuesYr = 'Fun Ìlànà àṣà (Adapt to cultural values)';
@@ -59,132 +40,15 @@ const fifteenMinsYr = 'Ìṣẹ́jú marundínlógun (15 mins / day)';
 const twentyMinsYr = 'Ógun Ìṣẹ́jú (20 mins / day)';
 const thirtyMinsYr = 'Ógbon Ìṣẹ́jú (30 mins / day)';
 
-const continueYr = 'Tèsíwájú';
-const continueEn = 'Continue';
-
-const driveRightInYr = 'Nísìyín jẹ́ ká wọlé kanlẹ̀';
-const driveRightInEn = 'Now let’s dive right in';
-
-const saveProvidedDetailsYr =
-    'Fi àwọn èsì ìdánimọ̀ tí e ti fisilẹ pamọ́ kí ẹ sì gbádùn àwọn àbá àkànṣe tó jẹ́ tìrẹ nìkan.';
-const saveProvidedDetailsEn =
-    'Save the details you have provided and enjoy recommendations personalized just for you';
-
-const createAccountYr =
-    'Ṣẹda àkọọlẹ̀ kan kí o sì bẹ̀rẹ̀ ẹ̀kọ́ nígbà tí o bá ń ṣeré.';
-const createAccountEn = 'Create an account and start learning while playing';
-
-const emailAddressYr = 'Ìkọ̀nì ìfìwéránsẹ́ sí rẹ';
-const emailAddressEn = 'Email address';
-const passwordYr = 'ọ̀rọ̀ àbáwọlé';
-const passwordEn = 'password';
-const confirmPasswordEn = 're-enter password';
-
-const moveForwardYr = 'Tẹ̀síwájú';
-const alreadyAUserEn = 'Already a user?';
-const logInYr = 'Wọlé';
-const loginEn = 'Log In';
-
-const bySigningUp = 'By signing up on Másòyìnbó, I agree to its';
-const termsAndConditions = 'Terms & Conditions';
-
-const personalizeYourAccountFurther = 'Personalize your account further';
-const genderYr = 'Akọ/abo';
-const genderEn = 'Gender';
-const usernameYr = 'Orúkọ aṣàmúlò';
-const usernameEn = 'Username';
-const fipamoYr = 'Fipamọ́';
-
-const allSetEn = 'You are all set!';
-const allSetYr =
-    'Bẹ̀rẹ̀ ìrìn-àjò re sí níní ìmọ̀ ìjìnlẹ̀ nípa Yorùbá pẹ̀lú Másọ̀yìnbó-- níbi tí ẹ̀kọ́ ti Dàpọ̀ mọ́ ìdárayá! Wọlé kanlẹ̀ sínú eré alájoṣe tí yò mú lílọ èdè lárinrin kí ó tún ní ìwúlò.';
-const letsGoYr = 'Je ka lo';
-
-const enterDetailsYr =
-    'Tẹ ìméèlì àti ọ̀rọ̀ àṣínà rẹ láti wọlé kí o bẹ̀rẹ̀ ẹ̀kọ́.';
-const enterDetailsEn = 'Enter your details to log in and start learning';
-const dontHaveAnAccount = 'Ṣe o ko ni àkọọlẹ sibẹ?';
-const signUp = ' Ṣe àkọọlẹ tuntun';
-
-const signUpWithGoogleYr = 'Darapọ̀ pẹ̀lú Google';
-
-const homeEn = 'Home';
-const leaderboardEn = 'Leaderboard';
-const learnEn = 'Learn';
-const meEn = 'Me';
-
-const goodAfternoonYr = 'Ẹ káàsán';
-const goodAfternoonEn = 'Good afternoon';
-const lessonYr = 'Ẹ̀kọ́';
-const lessonEr = 'Lesson';
-
-const lesson1Of4 = 'Lesson 1 of 4';
-const alphabetsYr = 'Álífábẹ́ẹ̀tì';
-const alphabetsEr = 'Alphabets';
-
-const practiceYr = 'Ìfikọ́ra';
-const practiceEr = 'Practice';
-
-const proverbYr = 'Òwe';
-const proverbEr = 'Proverb';
-
-const questionAndAnswerYr = 'Ìbéèrè ati Ìdáhùn';
-const questionAndAnswerEr = 'Question & Answer';
-
-const meaningYr = 'Ìtumọ̀';
-const meaningEn = 'Meaning';
-
-const numbersYr = 'Ọ̀nka';
-const numbersEn = 'Numbers';
-
-const playYr = 'Eré';
-const playEn = 'Play';
-
-const backYr = 'Padà';
-const backEn = 'Back';
-
-const singlePlayerYr = 'Eré aládáṣe';
-const singlePlayerEn = 'Single player';
-
-const multiPlayerYr = 'Eré alájùmọ̀ṣe';
-const multiPlayerEn = 'Multi-player';
-
-const verifyEmailEr = 'Check your mail to verify email address';
-
-const leaderboardYr = 'Ààyè olórí';
-
-const top10Advance = 'Top 10 advances to the next league';
-
-const completeLessonToJoinWeekDashboardYr =
-    'Pari è̩kó̩ kan láti darapò̩ mó̩ ààyè olórí ò̩sè̩ yí';
-const completeLessonToJoinWeekDashboardEn =
-    'Complete a lesson to join this week’s leaderboard';
-
-const startLearningEn = 'Start Learning';
 const alphabetLesson =
     "In this module, you'll embark on an exciting journey to learn the alphabets of the Yoruba language. We'll guide you through each letter, helping you understand how to pronounce and write them, as well as recognize their unique sounds. By the end of this lesson, you'll have a strong foundation to build upon as you continue your language learning journey.\n\nTo ensure you’ve mastered the content, there will be a knowledge review at the end of the module. This review will help reinforce what you've learned and prepare you for the next steps.\n\nLet’s get started!";
 
-const goToModulesEr = 'Go to Modules';
-const backToLessonsYr = 'Padà sí ẹ̀kọ́';
-const backToLessonsEn = 'Back to Lessons';
-
-const welcomeToYourYrLearningClass =
-    'Welcome to Your Yoruba Alphabet Learning Class!';
 const inThisModuleScreenEn =
     "In this lesson, you'll embark on an exciting journey to learn the alphabets of the Yoruba language. We'll guide you through each letter, helping you understand how to pronounce and write them, as well as recognize their unique sounds. By the end of this lesson, you'll have a strong foundation to build upon as you continue your language learning journey.\n\nTo ensure you’ve mastered the content, there will be a knowledge review at the end of the module. This review will help reinforce what you've learned and prepare you for the next steps.\n\nLet’s get started!";
-const startLessonsYr = 'Bẹ̀rẹ̀ ipele';
-const startLessonsEn = 'Start Lessons';
 
-const takeQuizYr = 'Dán ìmọ̀ mi wò';
-const takeQuizEn = 'Take Quiz';
+//*Questions *//
 
-const timeForKnowledgeReviewYr = 'Asìkò fún àtúnyẹ̀wò ìmọ̀';
-const timeForKnowledgeReviewEn = 'It’s time for a knowledge review';
-
-const questionIsComingYr = 'ìbéèrè re̩ ń bò̩';
-const questionIsComingEn = 'Loading your quiz';
-
-const pleaseWaitForQuestionsYr = 'Dúró  bí a s̩e ń s̩ètò àwo̩n ìbéèrè  e';
+const pleaseWaitForQuestionsYr = 'Dúró  bí a s̩e ń s̩ètò àwo̩n ìbéèrè e';
 const pleaseWaitForQuestionsEn =
     'Please, wait while we prepare your set of questions.';
 

@@ -67,8 +67,8 @@ class AccountScreen extends HookWidget {
               child: Column(
                 children: [
                   CustomDropDownField(
-                    textFieldText: genderYr,
-                    textFieldSubText: genderEn,
+                    textFieldText: context.appLocale.gender,
+                    textFieldSubText: context.appLocale.gender,
                     hintText: 'Select Gender',
                     items: genderOptions
                         .map(
@@ -85,21 +85,21 @@ class AccountScreen extends HookWidget {
                   ),
                   CustomTextField(
                     textEditingController: usernameController,
-                    textFieldText: usernameYr,
-                    textFieldSubText: usernameEn,
+                    textFieldText: context.appLocale.username,
+                    textFieldSubText: context.appLocale.username,
                   ),
                   CustomTextField(
                     textEditingController: emailAddressController,
-                    textFieldText: emailAddressYr,
-                    textFieldSubText: emailAddressEn,
+                    textFieldText: context.appLocale.emailAddress,
+                    textFieldSubText: context.appLocale.emailAddress,
                   ),
                   GestureDetector(
                     onTap: () => context.pushNamed(PasswordScreen.id),
                     child: AbsorbPointer(
                       child: PasswordTextField(
                         textEditingController: passwordController,
-                        textFieldText: passwordYr,
-                        textFieldSubText: passwordEn,
+                        textFieldText: context.appLocale.yoruba,
+                        textFieldSubText: context.appLocale.yoruba,
                       ),
                     ),
                   ),

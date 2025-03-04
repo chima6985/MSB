@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:masoyinbo_mobile/app/app.dart';
 import 'package:masoyinbo_mobile/extension/extension.dart';
 import 'package:masoyinbo_mobile/gen/fonts.gen.dart';
 import 'package:masoyinbo_mobile/ui/ui.dart';
@@ -106,7 +105,7 @@ class DashboardIndexScreen extends HookWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         BottomNavButton(
-                          buttonName: homeEn,
+                          buttonName: context.appLocale.home,
                           buttonIcon: AppAssets.images.svgs.home.path,
                           buttonIconBold: AppAssets.images.svgs.homeBold.path,
                           currentPosition: currentPosition.value,
@@ -118,7 +117,7 @@ class DashboardIndexScreen extends HookWidget {
                           },
                         ),
                         BottomNavButton(
-                          buttonName: learnEn,
+                          buttonName: context.appLocale.learn,
                           buttonIcon: AppAssets.images.svgs.learn.path,
                           buttonIconBold: AppAssets.images.svgs.learnBold.path,
                           position: 1,
@@ -131,7 +130,7 @@ class DashboardIndexScreen extends HookWidget {
                           },
                         ),
                         BottomNavButton(
-                          buttonName: leaderboardEn,
+                          buttonName: context.appLocale.leaderboard,
                           buttonIcon: AppAssets.images.svgs.leaderBoard.path,
                           buttonIconBold:
                               AppAssets.images.svgs.leaderBoardBold.path,
@@ -145,7 +144,7 @@ class DashboardIndexScreen extends HookWidget {
                           },
                         ),
                         BottomNavButton(
-                          buttonName: meEn,
+                          buttonName: context.appLocale.me,
                           buttonIcon: AppAssets.images.svgs.me.path,
                           buttonIconBold: AppAssets.images.svgs.meBold.path,
                           position: 3,

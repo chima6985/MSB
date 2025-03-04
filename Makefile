@@ -69,3 +69,6 @@ encode-prod-env: ## Encode prod .env file to base64 string
 encode: ## Encode all .env files to base64 string
 	make encode-stg-env
 	make encode-prod-env
+
+gen-arb: ## generate translation files for arb
+	flutter gen-l10n

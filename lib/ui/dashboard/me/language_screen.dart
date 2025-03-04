@@ -51,7 +51,7 @@ class LanguageScreen extends HookWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        yoruba,
+                        context.appLocale.yoruba,
                         textAlign: TextAlign.center,
                         style: context.textTheme.bodyMedium!.copyWith(
                           fontWeight: FontWeight.w300,
@@ -73,7 +73,7 @@ class LanguageScreen extends HookWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        english,
+                        context.appLocale.english,
                         textAlign: TextAlign.center,
                         style: context.textTheme.bodyMedium!.copyWith(
                           fontWeight: FontWeight.w300,

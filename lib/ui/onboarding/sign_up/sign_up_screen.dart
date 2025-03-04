@@ -35,7 +35,7 @@ class SignUpScreen extends HookWidget {
             context.pushNamed(
               ConfirmEmailScreen.id,
               extra: {
-                'email': emailAddressController.text.trim(),
+                'email': emailAddressController.text.toLowerCase().trim(),
               },
             );
           },
@@ -70,7 +70,7 @@ class SignUpScreen extends HookWidget {
                   ),
                   const SizedBox(height: 18),
                   Text(
-                    createAccountYr,
+                    context.appLocale.createAccount,
                     textScaler: TextScaler.noScaling,
                     style: context.textTheme.titleLarge!.copyWith(
                       fontFamily: FontFamily.margarine,
@@ -79,7 +79,7 @@ class SignUpScreen extends HookWidget {
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    createAccountEn,
+                    context.appLocale.createAccount,
                     textScaler: TextScaler.noScaling,
                     style: context.textTheme.bodyMedium!.copyWith(
                       fontStyle: FontStyle.italic,
@@ -94,8 +94,8 @@ class SignUpScreen extends HookWidget {
                       children: [
                         CustomTextField(
                           textEditingController: emailAddressController,
-                          textFieldText: emailAddressYr,
-                          textFieldSubText: emailAddressEn,
+                          textFieldText: context.appLocale.emailAddress,
+                          textFieldSubText: context.appLocale.emailAddress,
                           validator: (val) {
                             if (val!.isEmpty) {
                               return fieldIsRequiredYr;
@@ -108,14 +108,14 @@ class SignUpScreen extends HookWidget {
                         ),
                         PasswordTextField(
                           textEditingController: passwordController,
-                          textFieldText: passwordYr,
-                          textFieldSubText: passwordEn,
+                          textFieldText: context.appLocale.password,
+                          textFieldSubText: context.appLocale.password,
                           validator: FormValidation.validatePassword,
                         ),
                         PasswordTextField(
                           textEditingController: confirmPasswordController,
-                          textFieldText: passwordYr,
-                          textFieldSubText: confirmPasswordEn,
+                          textFieldText: context.appLocale.confirmPassword,
+                          textFieldSubText: context.appLocale.confirmPasswordLw,
                           validator: (val) {
                             if (val!.isEmpty) {
                               return fieldIsRequiredYr;
@@ -157,9 +157,10 @@ class SignUpScreen extends HookWidget {
                               fontWeight: FontWeight.w300,
                             ),
                             children: [
-                              const TextSpan(text: bySigningUp),
+                              TextSpan(text: context.appLocale.bySigningUp),
                               TextSpan(
-                                text: ' $termsAndConditions',
+                                text:
+                                    ' ${context.appLocale.termsAndConditions}',
                                 style: context.textTheme.bodyMedium!.copyWith(
                                   fontWeight: FontWeight.w500,
                                 ),
@@ -174,7 +175,7 @@ class SignUpScreen extends HookWidget {
                   Opacity(
                     opacity: isAgreement.value ? 1 : 0.6,
                     child: Button(
-                      label: moveForwardYr,
+                      label: context.appLocale.continueTx,
                       isLoading: isLoading.value,
                       onPressed: () {
                         if (isAgreement.value &&
@@ -200,9 +201,9 @@ class SignUpScreen extends HookWidget {
                           fontWeight: FontWeight.w300,
                         ),
                         children: [
-                          const TextSpan(text: alreadyAUserEn),
+                          TextSpan(text: context.appLocale.alreadyAUser),
                           TextSpan(
-                            text: ' $logInYr',
+                            text: ' ${context.appLocale.logIn}',
                             style: context.textTheme.bodyMedium!.copyWith(
                               fontWeight: FontWeight.w500,
                             ),
@@ -243,7 +244,7 @@ class SignUpScreen extends HookWidget {
                   ),
                   const SizedBox(height: 22),
                   Button(
-                    label: logInYr,
+                    label: context.appLocale.logIn,
                     isOutlined: true,
                     onPressed: () {},
                     child: Row(
@@ -251,7 +252,7 @@ class SignUpScreen extends HookWidget {
                         AppAssets.images.svgs.google.svg(),
                         const SizedBox(width: 8),
                         Text(
-                          signUpWithGoogleYr,
+                          context.appLocale.signUpWithGoogle,
                           textScaler: TextScaler.noScaling,
                           style: context.textTheme.bodyMedium!.copyWith(
                             fontWeight: FontWeight.w500,

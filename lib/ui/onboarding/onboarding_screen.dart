@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:masoyinbo_mobile/app/app.dart';
 import 'package:masoyinbo_mobile/extension/context_extension.dart';
 import 'package:masoyinbo_mobile/gen/fonts.gen.dart';
 import 'package:masoyinbo_mobile/ui/ui.dart';
@@ -10,6 +9,7 @@ class OnboardingScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final currentLocale = context.currentLocale;
     return Scaffold(
       body: DecoratedContainer(
         child: Stack(
@@ -29,7 +29,9 @@ class OnboardingScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 6),
                   Text(
-                    getAwayYr,
+                    currentLocale == 'yo'
+                        ? context.yoLocale.yourGetAwayToYouruba
+                        : context.enLocale.yourGetAwayToYouruba,
                     style: context.textTheme.titleLarge!.copyWith(
                       fontFamily: FontFamily.margarine,
                       height: 1.8,
@@ -39,7 +41,9 @@ class OnboardingScreen extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(right: 15),
                     child: Text(
-                      getAwayEn,
+                      currentLocale == 'yo'
+                          ? context.enLocale.yourGetAwayToYouruba
+                          : context.yoLocale.yourGetAwayToYouruba,
                       style: context.textTheme.bodySmall!.copyWith(
                         fontStyle: FontStyle.italic,
                         height: 1.4,
@@ -63,7 +67,7 @@ class OnboardingScreen extends StatelessWidget {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Text(
-                            onboardingStartYr,
+                            context.appLocale.letsGetStarted,
                             style: context.textTheme.bodyMedium!.copyWith(
                               color: AppColors.white,
                               fontWeight: FontWeight.w500,

@@ -9,3 +9,9 @@ const biometricsRequestKey = 'biometric-request';
 
 /// Biometrics key
 const biometricsKey = 'biometric';
+
+/// Email key
+const emailKey = 'email';
+
+/// Local key
+const localKey = 'preferred-language';

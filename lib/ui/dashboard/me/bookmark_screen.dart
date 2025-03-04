@@ -44,7 +44,7 @@ class BookmarkScreen extends HookWidget {
                     CustomTextField(
                       textEditingController: searchController,
                       labelText: searchBookMarksEn,
-                      textFieldSubText: genderEn,
+                      textFieldSubText: context.appLocale.gender,
                       prefix: const Icon(
                         Iconsax.search_normal_14,
                       ),

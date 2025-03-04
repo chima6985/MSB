@@ -84,7 +84,10 @@ class _ConfirmEmailScreenState extends State<_ConfirmEmailScreen>
                   context: context,
                   text: otpVerifiedSuccessfullyYr,
                 );
-                context.goNamed(PersonalizeSignUpScreen.id);
+                context.goNamed(
+                  PersonalizeSignUpScreen.id,
+                  extra: {'email': widget.email},
+                );
               },
               error: (error) {
                 setState(() {
@@ -238,7 +241,7 @@ class _ConfirmEmailScreenState extends State<_ConfirmEmailScreen>
                       if (formKey.currentState!.validate()) {
                         FocusManager.instance.primaryFocus?.unfocus();
                         context.read<VerifyOtpCubit>().verifyOtp(
-                              email: 'daudu.victor173@gmail.com',
+                              email: widget.email,
                               otp: pinController.text,
                             );
                       }
@@ -263,7 +266,7 @@ class _ConfirmEmailScreenState extends State<_ConfirmEmailScreen>
                   ),
                   const SizedBox(height: 10),
                   Button(
-                    label: backYr,
+                    label: context.appLocale.back,
                     isOutlined: true,
                     labelColor: AppColors.black15,
                     onPressed: () => context.pop(context),

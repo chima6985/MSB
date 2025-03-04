@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:masoyinbo_mobile/core/core.dart';
+import 'package:masoyinbo_mobile/features/features.dart';
 import 'package:masoyinbo_mobile/ui/ui.dart';
 
 class SplashScreen extends StatelessWidget {
@@ -7,22 +10,19 @@ class SplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final _dbProvider = DBProvider();
-
     /// Function to navigate to the next screen after the splash screen is completed
     void navigate() {
-      context.goNamed(OnboardingScreen.id);
-      // _dbProvider.storeBoolInSharedPreference(isLoggedIn, false);
-      // bool isPartiallyOnboarded =
-      //     _dbProvider.getBoolInSharedPreference(onboardedUserKey);
-      // if (isPartiallyOnboarded) {
-      //   if (!mounted) return;
-      //   context.goNamed(Login.id);
-      // } else {
-      //   if (!mounted) return;
-      //   context.goNamed(Onboarding.id);
-      // }
+      final email = AppStorage.getEmail();
+      if (email != null) {
+        context.goNamed(LoginScreen.id);
+      } else {
+        context.goNamed(OnboardingScreen.id);
+      }
     }
+
+    context.read<LocaleBloc>().add(
+          const LocaleEvent.initialLocale(),
+        );
 
     return Scaffold(
       body: DecoratedContainer(
