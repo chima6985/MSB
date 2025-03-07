@@ -9,7 +9,7 @@ class CustomPinField extends StatelessWidget {
     this.controller,
     this.length = 6,
     this.onTap,
-    this.obscureText = false,
+    this.obscureText = true,
     this.readOnly = false,
     this.validator,
   });

@@ -88,8 +88,9 @@
   "pleaseWaitForQuestions":"Please, wait while we prepare your set of questions.",
   "completedLessons":"Completed Lessons",
   "coinEarned":"COIN EARNED",
-
-
+  "resetPassword":"Reset the password",
+  "enterEmailAddressToReceiveOtp":"Enter your email address to receive an OTP to reset your password",
+  "confirm":"Confirm",
 
 
 

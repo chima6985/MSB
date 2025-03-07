@@ -11,6 +11,9 @@ class ForgotPasswordOtpScreen extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final currentLocale = context.currentLocale;
+    final yo = context.yoLocale;
+    final en = context.enLocale;
     return Scaffold(
       body: DecoratedContainer(
         child: SingleChildScrollView(
@@ -78,7 +81,7 @@ class ForgotPasswordOtpScreen extends HookWidget {
                 ),
                 const SizedBox(height: 49),
                 Button(
-                  label: confirmYr,
+                  label: currentLocale == 'yr' ? yo.confirm : en.confirm,
                   onPressed: () => context.pushNamed(ChangePasswordScreen.id),
                 ),
                 const SizedBox(height: 24),

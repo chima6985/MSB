@@ -15,10 +15,11 @@ class DeleteAccountSurveyScreen extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final otherReasonController = useTextEditingController();
-
     final selectedReason = useState<Set<String>>({});
-
     final mqr = MediaQuery.of(context).size;
+    final currentLocale = context.currentLocale;
+    final yo = context.yoLocale;
+    final en = context.enLocale;
     return Scaffold(
       body: DecoratedContainer(
         child: SingleChildScrollView(
@@ -123,7 +124,7 @@ class DeleteAccountSurveyScreen extends HookWidget {
               ),
               SizedBox(height: 100.h),
               Button(
-                label: confirmEn,
+                label: currentLocale == 'yr' ? yo.confirm : en.confirm,
                 width: mqr.width * 0.83,
                 onPressed: () => showModalBottomSheet(
                   context: context,

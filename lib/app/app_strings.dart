@@ -180,8 +180,6 @@ const actionCannotBeUndoneEn =
 const ifYouAreCertainEn =
     "If you're certain you want to delete your account, tap Confirm below. Otherwise, feel free to reach out to us at";
 const ifYouHaveQuestionsEn = 'if you have questions!';
-const confirmEn = 'Confirm';
-const confirmYr = 'Ṣe ìdánilójú';
 
 const quickSurveyEn = 'Quick Survey';
 const weHateToSeeYouGoEn =
@@ -201,9 +199,6 @@ const thankYouForUsingOurProductEn =
 const closeTheApp = 'Close the App';
 const areYouSureYouWantToContinueEn =
     'Are you sure you want to continue with this action?';
-
-const resetPasswordYr = 'Tun ọrọ aṣínà ṣe';
-const resetPasswordEn = 'Reset the password';
 
 const enterEmailAddressToReceiveOtpYr =
     'Tẹ adirẹsi imeeli rẹ silẹ lati gba OTP lati tun ọrọ aṣínà rẹ ṣe';

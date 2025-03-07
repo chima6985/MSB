@@ -37,6 +37,16 @@ class APIHelper {
     );
     try {
       final response = await request;
+      log(
+        '''
+            [APIHelper]: 
+              method: ${response.request?.method}
+              url: ${response.request?.url}
+              headers: ${response.request?.headers}
+              statusCode: ${response.statusCode}
+              body: ${response.body}
+            ''',
+      );
       if (response.statusCode == 200 || response.statusCode == 201) {
         if (onSuccessMap != null) {
           final utf8Response = utf8.decode(response.bodyBytes);
@@ -55,17 +65,6 @@ class APIHelper {
           final list = (map['data'] as List).cast<Map<String, dynamic>>();
           return onSuccessList(list);
         }
-
-        log(
-          '''
-            [APIHelper]: 
-              method: ${response.request?.method}
-              url: ${response.request?.url}
-              headers: ${response.request?.headers}
-              statusCode: ${response.statusCode}
-              body: ${response.body}
-            ''',
-        );
       }
 
       // Check if error message exists.

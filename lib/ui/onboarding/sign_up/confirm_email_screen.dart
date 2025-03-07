@@ -71,6 +71,9 @@ class _ConfirmEmailScreenState extends State<_ConfirmEmailScreen>
 
   @override
   Widget build(BuildContext context) {
+    final currentLocale = context.currentLocale;
+    final yo = context.yoLocale;
+    final en = context.enLocale;
     return MultiBlocListener(
       listeners: [
         BlocListener<VerifyOtpCubit, VerifyOtpState>(
@@ -252,9 +255,13 @@ class _ConfirmEmailScreenState extends State<_ConfirmEmailScreen>
                           color: AppColors.white,
                         ),
                         children: [
-                          const TextSpan(text: confirmYr),
                           TextSpan(
-                            text: ' ($confirmEn)',
+                            text:
+                                currentLocale == 'yr' ? yo.confirm : en.confirm,
+                          ),
+                          TextSpan(
+                            text:
+                                ' (${currentLocale == 'yr' ? en.confirm : yo.confirm})',
                             style: context.textTheme.bodySmall!.copyWith(
                               color: AppColors.white,
                               fontWeight: FontWeight.w300,

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:masoyinbo_mobile/app/app.dart';
+import 'package:masoyinbo_mobile/core/core.dart';
 import 'package:masoyinbo_mobile/extension/context_extension.dart';
 import 'package:masoyinbo_mobile/gen/fonts.gen.dart';
 import 'package:masoyinbo_mobile/ui/ui.dart';
@@ -11,7 +11,12 @@ class ForgotPasswordScreen extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final emailAddressController = useTextEditingController();
+    final emailAddressController = useTextEditingController(
+      text: AppStorage.getEmail(),
+    );
+    final currentLocale = context.currentLocale;
+    final yo = context.yoLocale;
+    final en = context.enLocale;
     return Scaffold(
       body: DecoratedContainer(
         child: SingleChildScrollView(
@@ -30,7 +35,7 @@ class ForgotPasswordScreen extends HookWidget {
                 ),
                 const SizedBox(height: 24),
                 Text(
-                  resetPasswordYr,
+                  currentLocale == 'yr' ? yo.resetPassword : en.resetPassword,
                   textScaler: TextScaler.noScaling,
                   style: context.textTheme.titleLarge!.copyWith(
                     fontFamily: FontFamily.margarine,
@@ -39,7 +44,9 @@ class ForgotPasswordScreen extends HookWidget {
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  enterEmailAddressToReceiveOtpYr,
+                  currentLocale == 'yr'
+                      ? en.enterEmailAddressToReceiveOtp
+                      : yo.enterEmailAddressToReceiveOtp,
                   textScaler: TextScaler.noScaling,
                   style: context.textTheme.bodyMedium!.copyWith(
                     fontStyle: FontStyle.italic,
@@ -50,18 +57,20 @@ class ForgotPasswordScreen extends HookWidget {
                 const SizedBox(height: 40),
                 CustomTextField(
                   textEditingController: emailAddressController,
-                  textFieldText: context.appLocale.emailAddress,
-                  textFieldSubText: context.appLocale.emailAddress,
+                  textFieldText:
+                      currentLocale == 'yr' ? yo.emailAddress : en.emailAddress,
+                  textFieldSubText:
+                      currentLocale == 'yr' ? en.emailAddress : yo.emailAddress,
                 ),
                 const SizedBox(height: 17),
                 Button(
-                  label: confirmYr,
+                  label: currentLocale == 'yr' ? yo.confirm : en.confirm,
                   onPressed: () =>
                       context.pushNamed(ForgotPasswordOtpScreen.id),
                 ),
                 const SizedBox(height: 24),
                 Button(
-                  label: context.appLocale.back,
+                  label: currentLocale == 'yr' ? yo.back : en.back,
                   isOutlined: true,
                   labelColor: AppColors.black15,
                   onPressed: () => context.pop(context),

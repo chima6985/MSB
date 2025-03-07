@@ -14,6 +14,9 @@ class DeleteAccountScreen extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final mqr = MediaQuery.of(context).size;
+    final currentLocale = context.currentLocale;
+    final yo = context.yoLocale;
+    final en = context.enLocale;
     return Scaffold(
       body: DecoratedContainer(
         child: Column(
@@ -95,7 +98,7 @@ class DeleteAccountScreen extends HookWidget {
             ),
             const Spacer(),
             Button(
-              label: confirmEn,
+              label: currentLocale == 'yr' ? yo.confirm : en.confirm,
               width: mqr.width * 0.83,
               onPressed: () => context.pushNamed(DeleteAccountSurveyScreen.id),
             ),

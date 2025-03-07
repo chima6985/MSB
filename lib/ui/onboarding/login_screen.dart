@@ -22,7 +22,6 @@ class LoginScreen extends HookWidget {
     final passwordController = useTextEditingController();
     final isLoading = useState(false);
     final formKey = useState(GlobalKey<FormState>());
-    print(Localizations.localeOf(context).languageCode);
     return BlocListener<AuthBloc, AuthState>(
       listener: (context, state) {
         state.maybeWhen(
