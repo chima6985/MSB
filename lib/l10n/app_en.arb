@@ -91,10 +91,44 @@
   "resetPassword":"Reset the password",
   "enterEmailAddressToReceiveOtp":"Enter your email address to receive an OTP to reset your password",
   "confirm":"Confirm",
-
-
-
   "pleaseSelectAtleastOneOption":"Please select atleast one option",
   "pleaseSelectAnOption":"Please select an option",
+  "fieldIsRequired":"Field is required",
+  "invalidEmail":"Invalid Email",
+  "forgotPassword":"Forgot Password?",
+  "updatePassword":"Update Password",
+  "confirmYourOtp":"Confirm your OTP",
+  "enterTheOtp":"Enter the OTP sent t",
+  "toResetYourPassword":"to reset your password",
+  "resendCodeIn":"Resend code in ",
+  "createANewPassword":"Create a new password",
+  "createANewPasswordForYourAccount":"Create a new password for your account",
+  "yourPasswordHasBeenSet":"A password has been set",
+  "successfullyCreatedNewPassword":"You have successfully created a new password. Continue to enter",    
+  "or":"OR",
+  "passwordMismatch":"Password mismatch",
+  "resend":"Resend",
+  "selectGender":"Select Gender",
+  "male":"Male",
+  "female":"Female",
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
   "example":"example"
 }

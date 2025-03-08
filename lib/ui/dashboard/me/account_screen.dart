@@ -4,7 +4,6 @@ import 'package:masoyinbo_mobile/app/app.dart';
 import 'package:masoyinbo_mobile/extension/extension.dart';
 import 'package:masoyinbo_mobile/gen/fonts.gen.dart';
 import 'package:masoyinbo_mobile/ui/ui.dart';
-import 'package:masoyinbo_mobile/utils/utils.dart';
 
 class AccountScreen extends HookWidget {
   const AccountScreen({
@@ -18,6 +17,12 @@ class AccountScreen extends HookWidget {
     final emailAddressController = useTextEditingController();
     final passwordController = useTextEditingController();
     final gender = useState<String?>(null);
+
+    final genderOptions = [
+      'Male',
+      'Female',
+    ];
+
     return DecoratedContainer(
       child: SingleChildScrollView(
         child: Column(

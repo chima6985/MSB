@@ -106,7 +106,6 @@ class UserRepository {
         'survey_commitment': surveyCommitment,
         'survey_age': surveyAge,
       };
-      print(body);
       return await APIHelper.request<void>(
         request: _client.post(
           Uri.parse(url),

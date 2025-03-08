@@ -6,11 +6,9 @@ final surveyDeleteOptions = [
   yourubaIsDifficultToLearnEn,
 ];
 
-final genderOptions = [
-  'Male',
-  'Female',
-];
-
 enum DifficultyLevel { easy, medium, hard, random }
 
 enum PracticeSection { proverb, qAndA, meaning, numbers }
+
+const yo = 'yo';
+const en = 'en';

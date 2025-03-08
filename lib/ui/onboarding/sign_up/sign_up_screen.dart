@@ -22,6 +22,7 @@ class SignUpScreen extends HookWidget {
     final isLoading = useState(false);
     final formKey = useState(GlobalKey<FormState>());
     final isAgreement = useState(false);
+    final currentLocale = context.currentLocale;
     return BlocListener<AuthBloc, AuthState>(
       listener: (context, state) {
         state.maybeWhen(
@@ -79,7 +80,9 @@ class SignUpScreen extends HookWidget {
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    context.appLocale.createAccount,
+                    currentLocale == yo
+                        ? context.enLocale.createAccount
+                        : context.yoLocale.createAccount,
                     textScaler: TextScaler.noScaling,
                     style: context.textTheme.bodyMedium!.copyWith(
                       fontStyle: FontStyle.italic,
@@ -98,10 +101,10 @@ class SignUpScreen extends HookWidget {
                           textFieldSubText: context.appLocale.emailAddress,
                           validator: (val) {
                             if (val!.isEmpty) {
-                              return fieldIsRequiredYr;
+                              return context.appLocale.fieldIsRequired;
                             }
                             if (!EmailValidator.validate(val)) {
-                              return invalidEmailYr;
+                              return context.appLocale.invalidEmail;
                             }
                             return null;
                           },
@@ -109,20 +112,24 @@ class SignUpScreen extends HookWidget {
                         PasswordTextField(
                           textEditingController: passwordController,
                           textFieldText: context.appLocale.password,
-                          textFieldSubText: context.appLocale.password,
+                          textFieldSubText: currentLocale == yo
+                              ? context.enLocale.password
+                              : context.yoLocale.password,
                           validator: FormValidation.validatePassword,
                         ),
                         PasswordTextField(
                           textEditingController: confirmPasswordController,
                           textFieldText: context.appLocale.confirmPassword,
-                          textFieldSubText: context.appLocale.confirmPasswordLw,
+                          textFieldSubText: currentLocale == yo
+                              ? context.enLocale.confirmPasswordLw
+                              : context.yoLocale.confirmPasswordLw,
                           validator: (val) {
                             if (val!.isEmpty) {
-                              return fieldIsRequiredYr;
+                              return context.appLocale.fieldIsRequired;
                             }
                             if (passwordController.text !=
                                 confirmPasswordController.text) {
-                              return 'Password mismatch';
+                              return context.appLocale.passwordMismatch;
                             }
                             return null;
                           },

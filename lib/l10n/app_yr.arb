@@ -91,9 +91,40 @@
     "resetPassword":"Tun ọrọ aṣínà ṣe",
     "enterEmailAddressToReceiveOtp":"Tẹ adirẹsi imeeli rẹ silẹ lati gba OTP lati tun ọrọ aṣínà rẹ ṣe",
     "confirm":"Ṣe ìdánilójú",
-
-
     "pleaseSelectAtleastOneOption":"Jọwọ yan o kere ju ọkan aṣayan",
     "pleaseSelectAnOption":"Jọwọ yan aṣayan kan",
+    "fieldIsRequired":"Aaye ti wa ni ti beere",
+    "invalidEmail":"Imeeli ti ko tọ",
+    "forgotPassword":"Gbagbe ọrọ aṣina bi?",
+    "updatePassword":"Tun ọrọ aṣínà ṣe",
+    "confirmYourOtp":"Ṣe ìfọwọ́sí OTP rẹ",
+    "enterTheOtp":"Tẹ OTP ti a rán sí",
+    "toResetYourPassword":"lati tun ọrọ aṣínà rẹ ṣe",
+    "resendCodeIn":"Tun koodu ranṣẹ sinu ",
+    "createANewPassword":"Ṣẹda ọrọ aṣínà tuntun",
+    "createANewPasswordForYourAccount":"Ṣẹda ọrọ aṣínà tuntun fun àkọọlẹ rẹ",
+    "yourPasswordHasBeenSet":"A ti ṣeto ọrọ aṣínà",
+    "successfullyCreatedNewPassword":"O ti ṣẹda ọrọ aṣínà tuntun pẹlu aṣeyọri. Tẹsiwaju lati wọlé",    
+    "or":"TABI",
+    "passwordMismatch":"Aṣiṣe ọrọ igbaniwọle",
+    "resend":"Tun firanṣẹ",
+    "selectGender":"Yan akọ-abo",
+    "male":"Okunrin",
+    "female":"Obirin",
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     "example":"example"
   }

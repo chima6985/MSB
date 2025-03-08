@@ -35,10 +35,22 @@ class _PersonalizeSignUpScreen extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final gender = useState<String?>(null);
+    final selectedGender = useState<String?>(null);
     final usernameController = useTextEditingController();
     final isLoading = useState(false);
     final formKey = useState(GlobalKey<FormState>());
+    final currentLocale = context.currentLocale;
+
+    final genderOptionsMap = {
+      'Male': context.appLocale.male,
+      'Female': context.appLocale.female,
+    };
+
+    final genderOptions = [
+      context.appLocale.male,
+      context.appLocale.female,
+    ];
+
     return BlocListener<CompleteOnboardingCubit, CompleteOnboardingState>(
       listener: (context, state) {
         state.maybeWhen(
@@ -100,8 +112,10 @@ class _PersonalizeSignUpScreen extends HookWidget {
                       children: [
                         CustomDropDownField(
                           textFieldText: context.appLocale.gender,
-                          textFieldSubText: context.appLocale.gender,
-                          hintText: 'Select Gender',
+                          textFieldSubText: currentLocale == yo
+                              ? context.enLocale.gender
+                              : context.yoLocale.gender,
+                          hintText: context.appLocale.selectGender,
                           items: genderOptions
                               .map(
                                 (gender) => DropdownMenuItem(
@@ -113,10 +127,10 @@ class _PersonalizeSignUpScreen extends HookWidget {
                                 ),
                               )
                               .toList(),
-                          onChanged: (val) => gender.value = val,
+                          onChanged: (val) => selectedGender.value = val,
                           validator: (value) =>
                               FormValidation.validateFieldNotEmpty(
-                            gender.value,
+                            selectedGender.value,
                             'Gender',
                           ),
                         ),
@@ -140,12 +154,17 @@ class _PersonalizeSignUpScreen extends HookWidget {
                     isLoading: isLoading.value,
                     onPressed: () {
                       if (formKey.value.currentState!.validate()) {
+                        final gender = genderOptionsMap.entries
+                            .firstWhere(
+                              (g) => g.value == selectedGender.value,
+                            )
+                            .key;
                         context
                             .read<CompleteOnboardingCubit>()
                             .completeOnboarding(
                               email: email,
                               username: usernameController.text.trim(),
-                              gender: gender.value ?? '',
+                              gender: gender,
                             );
                       }
                     },

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:masoyinbo_mobile/app/app.dart';
 import 'package:masoyinbo_mobile/extension/context_extension.dart';
 import 'package:masoyinbo_mobile/gen/fonts.gen.dart';
 import 'package:masoyinbo_mobile/ui/ui.dart';
@@ -11,9 +10,6 @@ class ForgotPasswordOtpScreen extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final currentLocale = context.currentLocale;
-    final yo = context.yoLocale;
-    final en = context.enLocale;
     return Scaffold(
       body: DecoratedContainer(
         child: SingleChildScrollView(
@@ -32,7 +28,7 @@ class ForgotPasswordOtpScreen extends HookWidget {
                 ),
                 const SizedBox(height: 24),
                 Text(
-                  confirmYourOtpYr,
+                  context.appLocale.confirmYourOtp,
                   textScaler: TextScaler.noScaling,
                   style: context.textTheme.titleLarge!.copyWith(
                     fontFamily: FontFamily.margarine,
@@ -46,14 +42,14 @@ class ForgotPasswordOtpScreen extends HookWidget {
                       fontWeight: FontWeight.w300,
                     ),
                     children: [
-                      const TextSpan(text: enterTheOtpYr),
+                      TextSpan(text: context.appLocale.enterTheOtp),
                       TextSpan(
                         text: ' oladimejiu@gmail.com ',
                         style: context.textTheme.bodyMedium!.copyWith(
                           fontWeight: FontWeight.w400,
                         ),
                       ),
-                      const TextSpan(text: toResetYourPasswordYr),
+                      TextSpan(text: context.appLocale.toResetYourPassword),
                     ],
                   ),
                 ),
@@ -68,7 +64,7 @@ class ForgotPasswordOtpScreen extends HookWidget {
                         color: AppColors.blue12,
                       ),
                       children: [
-                        const TextSpan(text: 'Tun kóòdù rán '),
+                        TextSpan(text: context.appLocale.resendCodeIn),
                         TextSpan(
                           text: ' 00:59',
                           style: context.textTheme.bodyMedium!.copyWith(
@@ -81,7 +77,7 @@ class ForgotPasswordOtpScreen extends HookWidget {
                 ),
                 const SizedBox(height: 49),
                 Button(
-                  label: currentLocale == 'yr' ? yo.confirm : en.confirm,
+                  label: context.appLocale.confirm,
                   onPressed: () => context.pushNamed(ChangePasswordScreen.id),
                 ),
                 const SizedBox(height: 24),

@@ -31,7 +31,7 @@ class ChangePasswordScreen extends HookWidget {
                 ),
                 const SizedBox(height: 24),
                 Text(
-                  createANewPasswordYr,
+                  context.appLocale.createANewPassword,
                   textScaler: TextScaler.noScaling,
                   style: context.textTheme.titleLarge!.copyWith(
                     fontFamily: FontFamily.margarine,
@@ -40,7 +40,7 @@ class ChangePasswordScreen extends HookWidget {
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  createANewPasswordForYourAccountYr,
+                  context.appLocale.createANewPasswordForYourAccount,
                   textScaler: TextScaler.noScaling,
                   style: context.textTheme.bodyMedium!.copyWith(
                     fontStyle: FontStyle.italic,

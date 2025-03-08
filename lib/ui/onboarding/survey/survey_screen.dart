@@ -34,85 +34,62 @@ class _SurveyScreen extends HookWidget {
     final isLoading = useState(false);
     final currentIndex = useState(0);
     final currentLocale = context.currentLocale;
-    final yo = context.yoLocale;
-    final en = context.enLocale;
     final surveyReasonAnswer = useState(<String>[]);
     final surveyUsageAnswer = useState(<String>[]);
     final surveyCommitmentAnswer = useState('');
     final surveyAgeAnswer = useState('');
 
     final surveyMainText = [
-      currentLocale == 'yo' ? yo.increaseKnowledge : en.increaseKnowledge,
-      currentLocale == 'yo' ? yo.likeToDo : en.likeToDo,
-      currentLocale == 'yo' ? yo.timeToCommit : en.timeToCommit,
-      currentLocale == 'yo' ? yo.howOld : en.howOld,
+      context.appLocale.increaseKnowledge,
+      context.appLocale.likeToDo,
+      context.appLocale.timeToCommit,
+      context.appLocale.howOld,
     ];
 
     final surveySubText = [
-      currentLocale == 'yo' ? en.increaseKnowledge : yo.increaseKnowledge,
-      currentLocale == 'yo' ? en.likeToDo : yo.likeToDo,
-      currentLocale == 'yo' ? en.timeToCommit : yo.timeToCommit,
-      currentLocale == 'yo' ? en.howOld : yo.howOld,
+      currentLocale == yo
+          ? context.enLocale.increaseKnowledge
+          : context.yoLocale.increaseKnowledge,
+      currentLocale == yo
+          ? context.enLocale.likeToDo
+          : context.yoLocale.likeToDo,
+      currentLocale == yo
+          ? context.enLocale.timeToCommit
+          : context.yoLocale.timeToCommit,
+      currentLocale == yo ? context.enLocale.howOld : context.yoLocale.howOld,
     ];
 
-    final surveyReason = currentLocale == 'yo'
-        ? [
-            '${yo.businessOrCareer} (${en.businessOrCareer})',
-            '${yo.travel} (${en.travel})',
-            '${yo.friends} (${en.friends})',
-            '${yo.schoolOrExam} (${en.schoolOrExam})',
-            '${yo.fun} (${en.fun})',
-          ]
-        : [
-            '${en.businessOrCareer} (${yo.businessOrCareer})',
-            '${en.travel} (${yo.travel})',
-            '${en.friends} (${yo.friends})',
-            '${en.schoolOrExam} (${yo.schoolOrExam})',
-            '${en.fun} (${yo.fun})',
-          ];
+    final surveyReason = [
+      '${context.appLocale.businessOrCareer} (${currentLocale == yo ? context.enLocale.businessOrCareer : context.yoLocale.businessOrCareer})',
+      '${context.appLocale.travel} (${currentLocale == yo ? context.enLocale.travel : context.yoLocale.travel})',
+      '${context.appLocale.friends} (${currentLocale == yo ? context.enLocale.friends : context.yoLocale.friends})',
+      '${context.appLocale.schoolOrExam} (${currentLocale == yo ? context.enLocale.schoolOrExam : context.yoLocale.schoolOrExam})',
+      '${context.appLocale.fun} (${currentLocale == yo ? context.enLocale.fun : surveySubText})',
+    ];
 
-    final surveyUsage = currentLocale == 'yo'
-        ? [
-            '${yo.sendText} (${en.sendText})',
-            '${yo.haveConversations} (${en.haveConversations})',
-            '${yo.culturalValues} (${en.culturalValues})',
-            '${yo.interactWithLocals} (${en.interactWithLocals})',
-            '${yo.artsMove} (${en.artsMove})',
-          ]
-        : [
-            '${en.sendText} (${yo.sendText})',
-            '${en.haveConversations} (${yo.haveConversations})',
-            '${en.culturalValues} (${yo.culturalValues})',
-            '${en.interactWithLocals} (${yo.interactWithLocals})',
-            '${en.artsMove} (${yo.artsMove})',
-          ];
+    final surveyUsage = [
+      '${context.appLocale.sendText} (${currentLocale == yo ? context.enLocale.sendText : context.yoLocale.sendText})',
+      '${context.appLocale.haveConversations} (${currentLocale == yo ? context.enLocale.haveConversations : context.yoLocale.haveConversations})',
+      '${context.appLocale.culturalValues} (${currentLocale == yo ? context.enLocale.culturalValues : context.yoLocale.culturalValues})',
+      '${context.appLocale.interactWithLocals} (${currentLocale == yo ? context.enLocale.interactWithLocals : context.yoLocale.interactWithLocals})',
+      '${context.appLocale.artsMove} (${currentLocale == yo ? context.enLocale.artsMove : context.yoLocale.artsMove})',
+    ];
 
-    final surveyCommitment = currentLocale == 'yo'
-        ? [
-            '${yo.tenMins} (${en.tenMins})',
-            '${yo.fifteenMins} (${en.fifteenMins})',
-            '${yo.twentyMins} (${en.twentyMins})',
-            '${yo.thirtyMins} (${en.thirtyMins})',
-          ]
-        : [
-            '${en.tenMins} (${yo.tenMins})',
-            '${en.fifteenMins} (${yo.fifteenMins})',
-            '${en.twentyMins} (${yo.twentyMins})',
-            '${en.thirtyMins} (${yo.thirtyMins})',
-          ];
+    final surveyCommitment = [
+      '${context.appLocale.tenMins} (${currentLocale == yo ? context.enLocale.tenMins : context.yoLocale.tenMins})',
+      '${context.appLocale.fifteenMins} (${currentLocale == yo ? context.enLocale.fifteenMins : context.yoLocale.fifteenMins})',
+      '${context.appLocale.twentyMins} (${currentLocale == yo ? context.enLocale.twentyMins : context.yoLocale.twentyMins})',
+      '${context.appLocale.thirtyMins} (${currentLocale == yo ? context.enLocale.thirtyMins : context.yoLocale.thirtyMins})',
+    ];
 
     final surveyAge = [
-      currentLocale == 'yo'
-          ? '${yo.under18} (${en.under18})'
-          : '${en.under18} (${yo.under18})',
+      '${context.appLocale.under18} (${currentLocale == yo ? context.enLocale.under18 : context.yoLocale.under18})',
       context.appLocale.eighteenToTwentyFour,
       context.appLocale.twentyFiveToThirtyFour,
       context.appLocale.thirtyFiveToFourtyFour,
       context.appLocale.fourtyFiveToFiftyFour,
       context.appLocale.fiftyFiveToSixtyFour,
-      currentLocale == 'yo'
-          ? '${yo.sixtyFiveAndAbove} (${en.sixtyFiveAndAbove})'
-          : '${en.sixtyFiveAndAbove} (${yo.sixtyFiveAndAbove})',
+      '${context.appLocale.sixtyFiveAndAbove} (${currentLocale == yo ? context.enLocale.sixtyFiveAndAbove : context.yoLocale.sixtyFiveAndAbove})',
     ];
 
     return BlocListener<UserSurveyCubit, UserSurveyState>(
@@ -310,12 +287,13 @@ class _SurveyScreen extends HookWidget {
                               ),
                               children: [
                                 TextSpan(
-                                  text:
-                                      currentLocale == 'yo' ? yo.next : en.next,
+                                  text: currentLocale == yo
+                                      ? context.yoLocale.next
+                                      : context.enLocale.next,
                                 ),
                                 TextSpan(
                                   text:
-                                      ' (${currentLocale == 'yo' ? en.next : yo.next})',
+                                      ' (${currentLocale == yo ? context.enLocale.next : context.yoLocale.next})',
                                   style: context.textTheme.bodySmall!.copyWith(
                                     color: AppColors.white,
                                     fontWeight: FontWeight.w300,

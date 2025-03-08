@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:masoyinbo_mobile/app/app_strings.dart';
 import 'package:masoyinbo_mobile/extension/extension.dart';
 import 'package:masoyinbo_mobile/gen/fonts.gen.dart';
 import 'package:masoyinbo_mobile/ui/ui.dart';
@@ -24,7 +23,7 @@ class PasswordResetSuccessModal extends StatelessWidget {
           ),
           const SizedBox(height: 5),
           Text(
-            yourPasswordHasBeenSetYr,
+            context.appLocale.yourPasswordHasBeenSet,
             style: context.textTheme.bodyLarge!.copyWith(
               fontFamily: FontFamily.margarine,
             ),
@@ -38,7 +37,7 @@ class PasswordResetSuccessModal extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15),
             child: Text(
-              successfullyCreatedNewPasswordYr,
+              context.appLocale.successfullyCreatedNewPassword,
               textAlign: TextAlign.center,
               style: context.textTheme.bodyMedium!.copyWith(
                 fontWeight: FontWeight.w300,

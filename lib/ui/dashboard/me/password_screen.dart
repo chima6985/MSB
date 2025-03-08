@@ -69,7 +69,7 @@ class PasswordScreen extends HookWidget {
                         foregroundColor: AppColors.blue12,
                       ),
                       child: Text(
-                        forgotPasswordEn,
+                        context.appLocale.forgotPassword,
                         textScaler: TextScaler.noScaling,
                         style: context.textTheme.bodySmall!.copyWith(
                           fontWeight: FontWeight.w500,
@@ -79,7 +79,7 @@ class PasswordScreen extends HookWidget {
                   ),
                   SizedBox(height: mqr.height * 0.2),
                   Button(
-                    label: updatePasswordEn,
+                    label: context.appLocale.updatePassword,
                     onPressed: () {},
                   ),
                 ],

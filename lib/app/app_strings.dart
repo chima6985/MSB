@@ -1,45 +1,3 @@
-//*Questions here *//
-
-const increaseKnowledgeYr = 'Èé ṣe tí o fẹ́ láti pọ̀ sí ìmọ̀ rẹ ní èdè Yorùbá?';
-const increaseKnowledgeEr =
-    'Why do you want to increase your knowledge of the Yoruba language?';
-
-const likeToDoYr = 'Kí ni onìfẹ́̀ láti ṣe pẹ̀lú èdè Yorùbá?';
-const likeToDoEn = 'What would you like to do with the Yoruba language?';
-
-const timeToCommitYr = 'Ìṣẹ́jú mélò ni o fẹ́ fi ṣe ìdánilẹ́kọ̀ọ́ èdè Yorùbá?';
-const timeToCommitEn =
-    'How much time do you want to commit to learning Yoruba?';
-
-const howOldYr = 'Ọmọ ọdún mélòó ni ìwọ? ';
-const howOldEn = 'How old are you?';
-
-const under18En = 'Under 18';
-const eighteenToTwentyFourEn = '18 - 24';
-const twentyFiveToThirtyFour = '25 - 34';
-const thirtyFiveToFourtyFour = '35 - 44';
-const fourtyFiveToFiftyFour = '45 - 54';
-const fiftyFiveToSixtyFour = '55 - 64';
-const sixtyFiveAndAbove = '65 and above';
-
-const businessOrCareerYr = 'Owó tàbí ìṣẹ́ (Business or career)';
-const travelYr = 'Irìn-àjò (Travel)';
-const friendsYr = 'Àwọn òré (Friends)';
-const schoolOrExamYr = 'Ile-eko tabi Ìdánwò (School or exam)';
-const funYr = 'Ayò (Fun)';
-
-const sendTextYr = 'Fi ìwé ránṣẹ́ (Send texts and emails)';
-const haveConversationsYr = 'Ní ìjíròrò (Have conversations)';
-const culturalValuesYr = 'Fun Ìlànà àṣà (Adapt to cultural values)';
-const interactWithLocalsYr =
-    'Bá àra agbègbè ṣe ìbáṣepọ (̀Interact with locals)';
-const artsMoveYr = 'Ṣèdèdá ohun èlò (Appreciate the arts more)';
-
-const tenMinsYr = 'Ìṣẹ́jú mẹ́wàá (10 mins / day)';
-const fifteenMinsYr = 'Ìṣẹ́jú marundínlógun (15 mins / day)';
-const twentyMinsYr = 'Ógun Ìṣẹ́jú (20 mins / day)';
-const thirtyMinsYr = 'Ógbon Ìṣẹ́jú (30 mins / day)';
-
 const alphabetLesson =
     "In this module, you'll embark on an exciting journey to learn the alphabets of the Yoruba language. We'll guide you through each letter, helping you understand how to pronounce and write them, as well as recognize their unique sounds. By the end of this lesson, you'll have a strong foundation to build upon as you continue your language learning journey.\n\nTo ensure you’ve mastered the content, there will be a knowledge review at the end of the module. This review will help reinforce what you've learned and prepare you for the next steps.\n\nLet’s get started!";
 
@@ -123,7 +81,6 @@ const updateChangesEn = 'Update Changes';
 const updateEn = 'Update';
 
 const forgotPasswordEn = 'Forgot Password?';
-const updatePasswordEn = 'Update Password';
 
 const selectAnAvatarOfYourChoiceEn = 'Select an avatar of your choice';
 const premiumPlanEn = 'Premium Plan';
@@ -208,11 +165,6 @@ const enterEmailAddressToReceiveOtpEn =
 const createANewPasswordYr = 'Ṣẹda ọrọ aṣínà tuntun';
 const createANewPasswordEn = 'Create a new password';
 
-const createANewPasswordForYourAccountYr =
-    'Ṣẹda ọrọ aṣínà tuntun fun àkọọlẹ rẹ';
-const createANewPasswordForYourAccountEn =
-    'Create a new password for your account';
-
 const newPasswordYr = 'Ọrọ aṣínà tuntun';
 const newPasswrodEn = 'New password';
 
@@ -221,23 +173,6 @@ const cofirmPasswordEn = 'Confirm password';
 
 const savePasswordYr = 'Fipamọ ọrọ aṣínà';
 const savePasswordEn = 'Save password';
-
-const yourPasswordHasBeenSetYr = 'A ti ṣeto ọrọ aṣínà';
-const yourPasswordHasBeenSetEn = 'A password has been set';
-
-const successfullyCreatedNewPasswordYr =
-    'O ti ṣẹda ọrọ aṣínà tuntun pẹlu aṣeyọri. Tẹsiwaju lati wọlé';
-const successfullyCreatedNewPasswordEn =
-    'You have successfully created a new password. Continue to enter';
-
-const confirmYourOtpYr = 'Ṣe ìfọwọ́sí OTP rẹ';
-const confirmYourOtpEn = 'Confirm your OTP';
-
-const enterTheOtpYr = 'Tẹ OTP ti a rán sí';
-const enterTheOtpEn = 'Enter the OTP sent to ';
-
-const toResetYourPasswordYr = 'lati tun ọrọ aṣínà rẹ ṣe';
-const toResetYourPasswordEn = 'to reset your password';
 
 const modifyPlayModeYr = 'Àtúnṣe ipò ere';
 
@@ -565,12 +500,6 @@ const unlockingFullExperienceYr =
     'Ṣii iriri kikun!  Forukọsilẹ bayi lati ṣawari awọn ẹya diẹ sii ki o si gba iṣakoso pipe ti irin-ajo rẹ';
 const unlockingFullExperienceEn =
     'Unlock the full experience! Sign up now to explore more features and take full control of your journey';
-
-const invalidEmailYr = 'Invalid Email';
-const invalidEmailEn = 'Invalid Email';
-
-const fieldIsRequiredYr = 'Field is required';
-const fieldIsRequiredEn = 'Field is required';
 
 const anOtpSentToEmailYr = 'OTP has been sent to your email';
 const anOtpSentToEmailEn = 'OTP has been sent to your email';

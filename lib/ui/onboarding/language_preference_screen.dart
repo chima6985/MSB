@@ -4,6 +4,7 @@ import 'package:masoyinbo_mobile/extension/context_extension.dart';
 import 'package:masoyinbo_mobile/features/features.dart';
 import 'package:masoyinbo_mobile/gen/fonts.gen.dart';
 import 'package:masoyinbo_mobile/ui/ui.dart';
+import 'package:masoyinbo_mobile/utils/utils.dart';
 
 class LanguagePreferenceScreen extends StatelessWidget {
   const LanguagePreferenceScreen({super.key});
@@ -32,9 +33,7 @@ class LanguagePreferenceScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 20),
                   Text(
-                    currentLocale == 'yo'
-                        ? context.yoLocale.languagePreference
-                        : context.enLocale.languagePreference,
+                    context.appLocale.languagePreference,
                     style: context.textTheme.bodyLarge!.copyWith(
                       fontFamily: FontFamily.margarine,
                       fontWeight: FontWeight.w500,
@@ -44,7 +43,7 @@ class LanguagePreferenceScreen extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 12),
                     child: Text(
-                      currentLocale == 'yo'
+                      currentLocale == yo
                           ? context.enLocale.languagePreference
                           : context.yoLocale.languagePreference,
                       textAlign: TextAlign.center,
@@ -67,7 +66,7 @@ class LanguagePreferenceScreen extends StatelessWidget {
                       CustomSwitch(
                         onTap: (v) =>
                             localeBloc.add(const LocaleEvent.yoLocale()),
-                        isEnabled: locale == const Locale('yo'),
+                        isEnabled: locale == const Locale(yo),
                       ),
                     ],
                   ),
@@ -85,7 +84,7 @@ class LanguagePreferenceScreen extends StatelessWidget {
                       CustomSwitch(
                         onTap: (v) =>
                             localeBloc.add(const LocaleEvent.enLocale()),
-                        isEnabled: locale == const Locale('en'),
+                        isEnabled: locale == const Locale(en),
                       ),
                     ],
                   ),
@@ -100,13 +99,11 @@ class LanguagePreferenceScreen extends StatelessWidget {
                         ),
                         children: [
                           TextSpan(
-                            text: currentLocale == 'yo'
-                                ? context.yoLocale.save
-                                : context.enLocale.save,
+                            text: context.appLocale.save,
                           ),
                           TextSpan(
                             text:
-                                ' (${currentLocale == 'yo' ? context.enLocale.save : context.yoLocale.save})',
+                                ' (${currentLocale == yo ? context.enLocale.save : context.yoLocale.save})',
                             style: context.textTheme.bodySmall!.copyWith(
                               color: AppColors.white,
                               fontWeight: FontWeight.w300,

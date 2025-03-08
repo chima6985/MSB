@@ -71,7 +71,6 @@ class MyApp extends StatelessWidget {
                   locale: (locale) => locale,
                   orElse: () => const Locale('en'),
                 );
-
                 return MaterialApp.router(
                   debugShowCheckedModeBanner: false,
                   title: 'Masoyinbo',
@@ -80,6 +79,7 @@ class MyApp extends StatelessWidget {
                   supportedLocales: AppLocalizations.supportedLocales,
                   locale: locale,
                   localizationsDelegates: const [
+                    AppLocalizations.delegate,
                     GlobalWidgetsLocalizations.delegate,
                     GlobalMaterialLocalizations.delegate,
                     YoMaterialLocalizations.delegate,

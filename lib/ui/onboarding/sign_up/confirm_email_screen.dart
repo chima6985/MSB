@@ -72,8 +72,6 @@ class _ConfirmEmailScreenState extends State<_ConfirmEmailScreen>
   @override
   Widget build(BuildContext context) {
     final currentLocale = context.currentLocale;
-    final yo = context.yoLocale;
-    final en = context.enLocale;
     return MultiBlocListener(
       listeners: [
         BlocListener<VerifyOtpCubit, VerifyOtpState>(
@@ -154,7 +152,7 @@ class _ConfirmEmailScreenState extends State<_ConfirmEmailScreen>
                   ),
                   const SizedBox(height: 24),
                   Text(
-                    confirmYourOtpYr,
+                    context.appLocale.confirmYourOtp,
                     textScaler: TextScaler.noScaling,
                     style: context.textTheme.titleLarge!.copyWith(
                       fontFamily: FontFamily.margarine,
@@ -168,14 +166,14 @@ class _ConfirmEmailScreenState extends State<_ConfirmEmailScreen>
                         fontWeight: FontWeight.w300,
                       ),
                       children: [
-                        const TextSpan(text: enterTheOtpYr),
+                        TextSpan(text: context.appLocale.enterTheOtp),
                         TextSpan(
                           text: ' ${widget.email} ',
                           style: context.textTheme.bodyMedium!.copyWith(
                             fontWeight: FontWeight.w400,
                           ),
                         ),
-                        const TextSpan(text: toResetYourPasswordYr),
+                        TextSpan(text: context.appLocale.toResetYourPassword),
                       ],
                     ),
                   ),
@@ -186,10 +184,10 @@ class _ConfirmEmailScreenState extends State<_ConfirmEmailScreen>
                       controller: pinController,
                       validator: (value) {
                         if (value!.isEmpty) {
-                          return fieldIsRequiredYr;
+                          return context.appLocale.fieldIsRequired;
                         }
                         if (value.length != 6) {
-                          return fieldIsRequiredYr;
+                          return context.appLocale.fieldIsRequired;
                         }
                         return null;
                       },
@@ -209,7 +207,7 @@ class _ConfirmEmailScreenState extends State<_ConfirmEmailScreen>
                                       );
                                 },
                                 child: Text(
-                                  'Resend',
+                                  context.appLocale.resend,
                                   style: context.textTheme.bodyMedium!.copyWith(
                                     fontWeight: FontWeight.w400,
                                     decoration: TextDecoration.underline,
@@ -222,7 +220,9 @@ class _ConfirmEmailScreenState extends State<_ConfirmEmailScreen>
                                     color: AppColors.blue12,
                                   ),
                                   children: [
-                                    const TextSpan(text: 'Tun kóòdù rán '),
+                                    TextSpan(
+                                      text: context.appLocale.resendCodeIn,
+                                    ),
                                     TextSpan(
                                       text: ' ${time.minutes}:${time.seconds}',
                                       style: context.textTheme.bodyMedium!
@@ -256,12 +256,11 @@ class _ConfirmEmailScreenState extends State<_ConfirmEmailScreen>
                         ),
                         children: [
                           TextSpan(
-                            text:
-                                currentLocale == 'yr' ? yo.confirm : en.confirm,
+                            text: context.appLocale.confirm,
                           ),
                           TextSpan(
                             text:
-                                ' (${currentLocale == 'yr' ? en.confirm : yo.confirm})',
+                                ' (${currentLocale == yo ? context.enLocale.confirm : context.yoLocale.confirm})',
                             style: context.textTheme.bodySmall!.copyWith(
                               color: AppColors.white,
                               fontWeight: FontWeight.w300,

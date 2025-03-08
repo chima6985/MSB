@@ -1,8 +1,8 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:masoyinbo_mobile/app/app.dart';
 import 'package:masoyinbo_mobile/core/core.dart';
 import 'package:masoyinbo_mobile/extension/context_extension.dart';
 import 'package:masoyinbo_mobile/features/features.dart';
@@ -19,6 +19,7 @@ class LoginScreen extends HookWidget {
     final emailAddressController = useTextEditingController(
       text: AppStorage.getEmail(),
     );
+    final currentLocale = context.currentLocale;
     final passwordController = useTextEditingController();
     final isLoading = useState(false);
     final formKey = useState(GlobalKey<FormState>());
@@ -57,17 +58,28 @@ class LoginScreen extends HookWidget {
                     ),
                   ),
                   const SizedBox(height: 24),
-                  Text(
-                    context.appLocale.enterDetails,
-                    textScaler: TextScaler.noScaling,
-                    style: context.textTheme.titleLarge!.copyWith(
-                      fontFamily: FontFamily.margarine,
-                      height: 1.8,
+                  GestureDetector(
+                    onTap: () {
+                      if (kDebugMode) {
+                        emailAddressController.text =
+                            'daudu.victor173+101@gmail.com';
+                        passwordController.text = 'Qwert1234!';
+                      }
+                    },
+                    child: Text(
+                      context.appLocale.enterDetails,
+                      textScaler: TextScaler.noScaling,
+                      style: context.textTheme.titleLarge!.copyWith(
+                        fontFamily: FontFamily.margarine,
+                        height: 1.8,
+                      ),
                     ),
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    context.appLocale.enterDetails,
+                    currentLocale == yo
+                        ? context.enLocale.enterDetails
+                        : context.yoLocale.enterDetails,
                     textScaler: TextScaler.noScaling,
                     style: context.textTheme.bodyMedium!.copyWith(
                       fontStyle: FontStyle.italic,
@@ -83,13 +95,15 @@ class LoginScreen extends HookWidget {
                         CustomTextField(
                           textEditingController: emailAddressController,
                           textFieldText: context.appLocale.emailAddress,
-                          textFieldSubText: context.appLocale.emailAddress,
+                          textFieldSubText: currentLocale == yo
+                              ? context.enLocale.emailAddress
+                              : context.yoLocale.emailAddress,
                           validator: (val) {
                             if (val!.isEmpty) {
-                              return fieldIsRequiredYr;
+                              return context.appLocale.fieldIsRequired;
                             }
                             if (!EmailValidator.validate(val)) {
-                              return invalidEmailYr;
+                              return context.appLocale.invalidEmail;
                             }
                             return null;
                           },
@@ -97,11 +111,13 @@ class LoginScreen extends HookWidget {
                         PasswordTextField(
                           textEditingController: passwordController,
                           textFieldText: context.appLocale.password,
-                          textFieldSubText: context.appLocale.password,
+                          textFieldSubText: currentLocale == yo
+                              ? context.enLocale.password
+                              : context.yoLocale.password,
                           validator: (value) =>
                               FormValidation.validateFieldNotEmpty(
                             value,
-                            'Password',
+                            context.appLocale.password,
                           ),
                           isBottomSpacing: false,
                         ),
@@ -117,7 +133,7 @@ class LoginScreen extends HookWidget {
                         foregroundColor: AppColors.blue12,
                       ),
                       child: Text(
-                        forgotPasswordEn,
+                        context.appLocale.forgotPassword,
                         textScaler: TextScaler.noScaling,
                         style: context.textTheme.bodySmall!.copyWith(
                           fontWeight: FontWeight.w500,
@@ -175,7 +191,7 @@ class LoginScreen extends HookWidget {
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 21),
                         child: Text(
-                          'OR',
+                          context.appLocale.or,
                           textScaler: TextScaler.noScaling,
                           style: context.textTheme.bodyMedium!.copyWith(
                             fontWeight: FontWeight.w500,

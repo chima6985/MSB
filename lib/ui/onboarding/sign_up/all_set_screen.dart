@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:masoyinbo_mobile/extension/context_extension.dart';
 import 'package:masoyinbo_mobile/gen/fonts.gen.dart';
 import 'package:masoyinbo_mobile/ui/ui.dart';
+import 'package:masoyinbo_mobile/utils/utils.dart';
 
 class AllSetScreen extends StatelessWidget {
   const AllSetScreen({super.key});
@@ -10,6 +11,7 @@ class AllSetScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final mqr = MediaQuery.of(context).size;
+    final currentLocale = context.currentLocale;
     return Scaffold(
       body: DecoratedContainer(
         enablePadding: true,
@@ -57,7 +59,8 @@ class AllSetScreen extends StatelessWidget {
                   children: [
                     TextSpan(text: context.appLocale.continueTx),
                     TextSpan(
-                      text: ' (${context.appLocale.continueTx})',
+                      text:
+                          ' (${currentLocale == yo ? context.enLocale.continueTx : context.yoLocale.continueTx})',
                       style: context.textTheme.bodySmall!.copyWith(
                         color: AppColors.white,
                         fontWeight: FontWeight.w300,
