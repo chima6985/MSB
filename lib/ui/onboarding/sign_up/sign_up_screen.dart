@@ -98,7 +98,9 @@ class SignUpScreen extends HookWidget {
                         CustomTextField(
                           textEditingController: emailAddressController,
                           textFieldText: context.appLocale.emailAddress,
-                          textFieldSubText: context.appLocale.emailAddress,
+                          textFieldSubText: currentLocale == yo
+                              ? context.enLocale.emailAddress
+                              : context.yoLocale.emailAddress,
                           validator: (val) {
                             if (val!.isEmpty) {
                               return context.appLocale.fieldIsRequired;
@@ -192,8 +194,6 @@ class SignUpScreen extends HookWidget {
                                 AuthEvent.authSignUp(
                                   email: emailAddressController.text.trim(),
                                   password: passwordController.text.trim(),
-                                  reenterPassword:
-                                      confirmPasswordController.text.trim(),
                                 ),
                               );
                         }
@@ -234,7 +234,7 @@ class SignUpScreen extends HookWidget {
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 21),
                         child: Text(
-                          'OR',
+                          context.appLocale.or,
                           textScaler: TextScaler.noScaling,
                           style: context.textTheme.bodyMedium!.copyWith(
                             fontWeight: FontWeight.w500,

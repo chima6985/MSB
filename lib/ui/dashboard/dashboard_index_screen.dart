@@ -102,7 +102,9 @@ class DashboardIndexScreen extends HookWidget {
                       borderRadius: BorderRadius.circular(24),
                     ),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisAlignment: context.isTablet
+                          ? MainAxisAlignment.center
+                          : MainAxisAlignment.spaceBetween,
                       children: [
                         BottomNavButton(
                           buttonName: context.appLocale.home,
@@ -116,6 +118,7 @@ class DashboardIndexScreen extends HookWidget {
                             }
                           },
                         ),
+                        if (context.isTablet) SizedBox(width: 80.w),
                         BottomNavButton(
                           buttonName: context.appLocale.learn,
                           buttonIcon: AppAssets.images.svgs.learn.path,
@@ -129,6 +132,7 @@ class DashboardIndexScreen extends HookWidget {
                             }
                           },
                         ),
+                        if (context.isTablet) SizedBox(width: 80.w),
                         BottomNavButton(
                           buttonName: context.appLocale.leaderboard,
                           buttonIcon: AppAssets.images.svgs.leaderBoard.path,
@@ -143,6 +147,7 @@ class DashboardIndexScreen extends HookWidget {
                             }
                           },
                         ),
+                        if (context.isTablet) SizedBox(width: 80.w),
                         BottomNavButton(
                           buttonName: context.appLocale.me,
                           buttonIcon: AppAssets.images.svgs.me.path,

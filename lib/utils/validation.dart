@@ -34,6 +34,14 @@ class FormValidation {
       return 'Password must contain one uppercase letter';
     }
 
+    if (!RegExp('[a-z]').hasMatch(value)) {
+      return 'Password must contain one lower letter';
+    }
+
+    if (!RegExp('[0-9]').hasMatch(value)) {
+      return 'Password must contain a number';
+    }
+
     if (!RegExp(r'[+=!@#""$%^&*(),.?":{}|<>]').hasMatch(value)) {
       return 'Password must contain one special character';
     }

@@ -184,12 +184,22 @@ final router = GoRouter(
     GoRoute(
       name: ForgotPasswordOtpScreen.id,
       path: '/forgotPasswordOtpScreen',
-      builder: (context, state) => const ForgotPasswordOtpScreen(),
+      builder: (context, state) {
+        final paramHandler = state.extra is Map ? state.extra as Map? : {};
+        return ForgotPasswordOtpScreen(
+          email: paramHandler?['email'] ?? '',
+        );
+      },
     ),
     GoRoute(
       name: ChangePasswordScreen.id,
       path: '/changePasswordScreen',
-      builder: (context, state) => const ChangePasswordScreen(),
+      builder: (context, state) {
+        final paramHandler = state.extra is Map ? state.extra as Map? : {};
+        return ChangePasswordScreen(
+          email: paramHandler?['email'] ?? '',
+        );
+      },
     ),
     GoRoute(
       name: PlayerScreen.id,

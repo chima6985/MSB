@@ -34,6 +34,7 @@ class LanguagePreferenceScreen extends StatelessWidget {
                   const SizedBox(height: 20),
                   Text(
                     context.appLocale.languagePreference,
+                    textScaler: TextScaler.noScaling,
                     style: context.textTheme.bodyLarge!.copyWith(
                       fontFamily: FontFamily.margarine,
                       fontWeight: FontWeight.w500,
@@ -46,6 +47,7 @@ class LanguagePreferenceScreen extends StatelessWidget {
                       currentLocale == yo
                           ? context.enLocale.languagePreference
                           : context.yoLocale.languagePreference,
+                      textScaler: TextScaler.noScaling,
                       textAlign: TextAlign.center,
                       style: context.textTheme.bodyMedium!.copyWith(
                         fontWeight: FontWeight.w300,
@@ -59,6 +61,7 @@ class LanguagePreferenceScreen extends StatelessWidget {
                       Text(
                         context.appLocale.yoruba,
                         textAlign: TextAlign.center,
+                        textScaler: TextScaler.noScaling,
                         style: context.textTheme.bodyMedium!.copyWith(
                           fontWeight: FontWeight.w300,
                         ),
@@ -77,6 +80,7 @@ class LanguagePreferenceScreen extends StatelessWidget {
                       Text(
                         context.appLocale.english,
                         textAlign: TextAlign.center,
+                        textScaler: TextScaler.noScaling,
                         style: context.textTheme.bodyMedium!.copyWith(
                           fontWeight: FontWeight.w300,
                         ),
@@ -98,9 +102,7 @@ class LanguagePreferenceScreen extends StatelessWidget {
                           color: AppColors.white,
                         ),
                         children: [
-                          TextSpan(
-                            text: context.appLocale.save,
-                          ),
+                          TextSpan(text: context.appLocale.save),
                           TextSpan(
                             text:
                                 ' (${currentLocale == yo ? context.enLocale.save : context.yoLocale.save})',

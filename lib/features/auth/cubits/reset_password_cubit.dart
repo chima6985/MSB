@@ -19,14 +19,12 @@ class ResetPasswordCubit extends Cubit<ResetPasswordState> {
   Future<void> resetPassword({
     required String email,
     required String password,
-    required String resetToken,
   }) async {
     try {
       emit(const _Loading());
       await _authRepository.resetPassword(
         email: email,
         password: password,
-        resetToken: resetToken,
       );
       emit(const _Loaded());
     } on AuthException catch (e) {

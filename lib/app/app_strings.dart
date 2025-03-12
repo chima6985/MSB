@@ -171,9 +171,6 @@ const newPasswrodEn = 'New password';
 const confirmPasswordYr = 'Ṣe ìdánilójú ọrọ aṣínà';
 const cofirmPasswordEn = 'Confirm password';
 
-const savePasswordYr = 'Fipamọ ọrọ aṣínà';
-const savePasswordEn = 'Save password';
-
 const modifyPlayModeYr = 'Àtúnṣe ipò ere';
 
 const selectCategoryYr = 'Yan ìsò̩rí';

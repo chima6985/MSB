@@ -159,6 +159,7 @@ class _PersonalizeSignUpScreen extends HookWidget {
                               (g) => g.value == selectedGender.value,
                             )
                             .key;
+                        FocusManager.instance.primaryFocus?.unfocus();
                         context
                             .read<CompleteOnboardingCubit>()
                             .completeOnboarding(

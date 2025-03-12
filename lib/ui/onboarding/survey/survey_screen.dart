@@ -64,7 +64,7 @@ class _SurveyScreen extends HookWidget {
       '${context.appLocale.travel} (${currentLocale == yo ? context.enLocale.travel : context.yoLocale.travel})',
       '${context.appLocale.friends} (${currentLocale == yo ? context.enLocale.friends : context.yoLocale.friends})',
       '${context.appLocale.schoolOrExam} (${currentLocale == yo ? context.enLocale.schoolOrExam : context.yoLocale.schoolOrExam})',
-      '${context.appLocale.fun} (${currentLocale == yo ? context.enLocale.fun : surveySubText})',
+      '${context.appLocale.fun} (${currentLocale == yo ? context.enLocale.fun : context.yoLocale.fun})',
     ];
 
     final surveyUsage = [

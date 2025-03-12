@@ -12,4 +12,5 @@ extension AppExtensions on BuildContext {
   AppLocalizations get enLocale => AppLocalizationsEn();
   AppLocalizations get yoLocale => AppLocalizationsYo();
   String get currentLocale => Localizations.localeOf(this).languageCode;
+  bool get isTablet => MediaQuery.of(this).size.shortestSide > 550;
 }

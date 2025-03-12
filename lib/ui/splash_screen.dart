@@ -13,10 +13,15 @@ class SplashScreen extends StatelessWidget {
     /// Function to navigate to the next screen after the splash screen is completed
     void navigate() {
       final email = AppStorage.getEmail();
-      if (email != null) {
-        context.goNamed(LoginScreen.id);
+      final user = AppStorage.getUser();
+      if (user != null) {
+        context.goNamed(DashboardIndexScreen.id);
       } else {
-        context.goNamed(OnboardingScreen.id);
+        if (email != null) {
+          context.goNamed(LoginScreen.id);
+        } else {
+          context.goNamed(OnboardingScreen.id);
+        }
       }
     }
 

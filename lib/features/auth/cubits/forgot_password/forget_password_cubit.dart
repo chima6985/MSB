@@ -3,7 +3,6 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:masoyinbo_mobile/app/app_locator.dart';
 import 'package:masoyinbo_mobile/core/core.dart';
 
-
 part 'forget_password_state.dart';
 part 'forget_password_cubit.freezed.dart';
 
@@ -22,10 +21,10 @@ class ForgetPasswordCubit extends Cubit<ForgetPasswordState> {
   }) async {
     try {
       emit(const _Loading());
-      final value = await _authRepository.forgetPassword(
+      await _authRepository.forgetPassword(
         email: email,
       );
-      emit(_Loaded(data: value));
+      emit(const _Loaded());
     } on AuthException catch (e) {
       emit(_Error(error: e.message));
     }

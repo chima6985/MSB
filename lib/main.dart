@@ -9,6 +9,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:masoyinbo_mobile/app/app.dart';
 import 'package:masoyinbo_mobile/app/app_locator.dart';
 import 'package:masoyinbo_mobile/core/core.dart';
+import 'package:masoyinbo_mobile/extension/extension.dart';
 import 'package:masoyinbo_mobile/features/features.dart';
 import 'package:masoyinbo_mobile/ui/ui.dart';
 import 'package:masoyinbo_mobile/utils/utils.dart';
@@ -42,7 +43,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-      designSize: const Size(375, 812),
+      designSize:
+          context.isTablet ? const Size(768, 1280) : const Size(375, 812),
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (context, _) {

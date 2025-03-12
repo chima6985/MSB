@@ -61,7 +61,9 @@
     "leaderboard":"Ààyè olórí",
     "learn":"Kọ ẹkọ",
     "me":"Emi",
+    "goodMorning":"Ẹ káàrọ̀",
     "goodAfternoon":"Ẹ káàsán",
+    "goodEvening":"Ẹ káalẹ́",
     "lesson":"Ẹ̀kọ́",
     "lesson1Of4":"Ẹkọ 1 ti 4",
     "alphabets":"Álífábẹ́ẹ̀tì",
@@ -111,6 +113,7 @@
     "selectGender":"Yan akọ-abo",
     "male":"Okunrin",
     "female":"Obirin",
+    "resetPassword_":"Fipamọ ọrọ aṣínà",
 
 
 

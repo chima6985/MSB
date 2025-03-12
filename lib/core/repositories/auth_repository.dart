@@ -53,14 +53,14 @@ class AuthRepository {
   // #missce
 
   /// Forget password endpoint
-  String _forgetPasswordEndpoint() => '$_baseUrl/auth/forgot-password';
+  String _forgetPasswordEndpoint() => '$_baseUrl/user/auth/forget-password';
 
   /// Verify Forget password otp endpoint
   String _verifyForgetPasswordOtpEndpoint() =>
       '$_baseUrl/auth/verify-forgot-password-otp';
 
   /// Reset password endpoint
-  String _resetPasswordEndpoint() => '$_baseUrl/auth/reset-password';
+  String _resetPasswordEndpoint() => '$_baseUrl/user/auth/reset-password';
 
   /// Registers a new user
   ///
@@ -69,7 +69,6 @@ class AuthRepository {
   Future<User> signUp({
     required String email,
     required String password,
-    required String reenterPassword,
   }) async {
     try {
       final url = _signUpEndpoint();
@@ -80,7 +79,7 @@ class AuthRepository {
       final body = {
         'email': email.toLowerCase(),
         'password': password,
-        'reenter_password': reenterPassword,
+        'reenter_password': password,
       };
       return await APIHelper.request<User>(
         request: _client.post(
@@ -270,13 +269,11 @@ class AuthRepository {
     }
   }
 
-  //#missce
-
   /// Forget password
   ///
   /// Returns void on success.
   /// Throws [AuthException] when operation fails.
-  Future<Map<String, dynamic>> forgetPassword({
+  Future<void> forgetPassword({
     required String email,
   }) async {
     try {
@@ -285,14 +282,14 @@ class AuthRepository {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
       };
-      final body = {'email': email.toLowerCase().trim()};
-      return await APIHelper.request<Map<String, dynamic>>(
+      final body = {'email': email};
+      return await APIHelper.request<void>(
         request: _client.post(
           Uri.parse(url),
           headers: headers,
           body: jsonEncode(body),
         ),
-        onSuccessMap: (value) => value,
+        onSuccessMap: (value) {},
       );
     } on APIException catch (e) {
       throw AuthException(message: e.message);
@@ -343,7 +340,6 @@ class AuthRepository {
   Future<void> resetPassword({
     required String email,
     required String password,
-    required String resetToken,
   }) async {
     try {
       final url = _resetPasswordEndpoint();
@@ -354,7 +350,7 @@ class AuthRepository {
       final body = {
         'email': email.toLowerCase().trim(),
         'password': password,
-        'reset_token': resetToken,
+        'reenter_password': password,
       };
       return await APIHelper.request<void>(
         request: _client.post(

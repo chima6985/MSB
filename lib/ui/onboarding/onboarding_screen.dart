@@ -10,6 +10,7 @@ class OnboardingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final currentLocale = context.currentLocale;
+    final mqr = MediaQuery.of(context).size;
     return Scaffold(
       body: DecoratedContainer(
         child: Stack(
@@ -88,7 +89,10 @@ class OnboardingScreen extends StatelessWidget {
             ),
             Align(
               alignment: Alignment.bottomCenter,
-              child: AppAssets.images.jpegs.onboardingCircles.image(),
+              child: AppAssets.images.jpegs.onboardingCircles.image(
+                width: mqr.width,
+                fit: BoxFit.cover,
+              ),
             ),
           ],
         ),

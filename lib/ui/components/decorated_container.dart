@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:masoyinbo_mobile/extension/extension.dart';
 import 'package:masoyinbo_mobile/ui/ui.dart';
 
 class DecoratedContainer extends StatefulWidget {
@@ -66,12 +67,16 @@ class _DecoratedContainerState extends State<DecoratedContainer>
         builder: (context, child) {
           return Stack(
             children: [
-              Container(
-                width: mqr.width,
-                height: mqr.height,
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: AppAssets.images.jpegs.bgPattern.provider(),
+              Opacity(
+                opacity: context.isTablet ? 0.4 : 1,
+                child: Container(
+                  width: mqr.width,
+                  height: mqr.height,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: AppAssets.images.jpegs.bgPattern.provider(),
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
               ),
@@ -130,7 +135,7 @@ class _DecoratedContainerState extends State<DecoratedContainer>
               ],
               Padding(
                 padding: widget.enablePadding
-                    ? const EdgeInsets.symmetric(horizontal: 23)
+                    ? EdgeInsets.symmetric(horizontal: 23.w)
                     : EdgeInsets.zero,
                 child: widget.child,
               ),
