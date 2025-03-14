@@ -36,7 +36,7 @@ class SignUpScreen extends HookWidget {
             context.pushNamed(
               ConfirmEmailScreen.id,
               extra: {
-                'email': emailAddressController.text.toLowerCase().trim(),
+                'email': emailAddressController.text,
               },
             );
           },

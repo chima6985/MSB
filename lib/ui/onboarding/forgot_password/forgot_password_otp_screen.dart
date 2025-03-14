@@ -211,7 +211,7 @@ class _ForgotPasswordOtpScreenState extends State<_ForgotPasswordOtpScreen>
                                               .read<ResendOtpCubit>()
                                               .resendOtp(
                                                 email:
-                                                    'daudu.victor173@gmail.com',
+                                                    widget.email.toLowerCase(),
                                               );
                                         },
                                         child: Text(

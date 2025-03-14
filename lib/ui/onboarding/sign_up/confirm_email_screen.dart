@@ -203,7 +203,7 @@ class _ConfirmEmailScreenState extends State<_ConfirmEmailScreen>
                             ? InkWell(
                                 onTap: () {
                                   context.read<ResendOtpCubit>().resendOtp(
-                                        email: 'daudu.victor173@gmail.com',
+                                        email: widget.email.toLowerCase(),
                                       );
                                 },
                                 child: Text(
@@ -244,7 +244,7 @@ class _ConfirmEmailScreenState extends State<_ConfirmEmailScreen>
                       if (formKey.currentState!.validate()) {
                         FocusManager.instance.primaryFocus?.unfocus();
                         context.read<VerifyOtpCubit>().verifyOtp(
-                              email: widget.email,
+                              email: widget.email.toLowerCase().trim(),
                               otp: pinController.text,
                             );
                       }

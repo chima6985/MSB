@@ -163,7 +163,7 @@ class _PersonalizeSignUpScreen extends HookWidget {
                         context
                             .read<CompleteOnboardingCubit>()
                             .completeOnboarding(
-                              email: email,
+                              email: email.toLowerCase(),
                               username: usernameController.text.trim(),
                               gender: gender,
                             );
