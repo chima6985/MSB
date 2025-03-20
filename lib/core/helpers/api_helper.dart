@@ -58,11 +58,8 @@ class APIHelper {
           return onSuccessMap(data);
         } else if (onSuccessList != null) {
           final utf8Response = utf8.decode(response.bodyBytes);
-          final map = jsonDecode(utf8Response) as Map<String, dynamic>;
-          if (map['data'] == null) {
-            return onSuccessList([]);
-          }
-          final list = (map['data'] as List).cast<Map<String, dynamic>>();
+          final list =
+              (jsonDecode(utf8Response) as List).cast<Map<String, dynamic>>();
           return onSuccessList(list);
         }
       }

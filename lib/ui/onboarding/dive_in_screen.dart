@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:masoyinbo_mobile/extension/context_extension.dart';
 import 'package:masoyinbo_mobile/gen/fonts.gen.dart';
 import 'package:masoyinbo_mobile/ui/ui.dart';
+import 'package:masoyinbo_mobile/utils/utils.dart';
 
 class DiveInScreen extends StatelessWidget {
   const DiveInScreen({super.key});
@@ -10,6 +11,7 @@ class DiveInScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final mqr = MediaQuery.of(context).size;
+    final currentLocale = context.currentLocale;
     return Scaffold(
       body: DecoratedContainer(
         enablePadding: true,
@@ -46,9 +48,7 @@ class DiveInScreen extends StatelessWidget {
             Button(
               label: '',
               onPressed: () {
-                context
-                  ..goNamed(DashboardIndexScreen.id)
-                  ..pushNamed(LoginScreen.id);
+                context.goNamed(LoginScreen.id);
               },
               child: RichText(
                 text: TextSpan(
@@ -58,7 +58,8 @@ class DiveInScreen extends StatelessWidget {
                   children: [
                     TextSpan(text: context.appLocale.continueTx),
                     TextSpan(
-                      text: ' (${context.appLocale.continueTx})',
+                      text:
+                          ' (${currentLocale == yo ? context.enLocale.continueTx : context.yoLocale.continueTx})',
                       style: context.textTheme.bodySmall!.copyWith(
                         color: AppColors.white,
                         fontWeight: FontWeight.w300,

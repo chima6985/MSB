@@ -19,8 +19,15 @@ class SurveyScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => UserSurveyCubit(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => UserSurveyCubit(),
+        ),
+        BlocProvider(
+          create: (context) => GetSurveyAgeRangesCubit(),
+        ),
+      ],
       child: const _SurveyScreen(),
     );
   }
@@ -37,7 +44,20 @@ class _SurveyScreen extends HookWidget {
     final surveyReasonAnswer = useState(<String>[]);
     final surveyUsageAnswer = useState(<String>[]);
     final surveyCommitmentAnswer = useState('');
-    final surveyAgeAnswer = useState('');
+    final selectedSurveyAge = useState('');
+
+    useEffect(
+      () {
+        context.read<GetSurveyAgeRangesCubit>().getSurveyAgeRange();
+        return null;
+      },
+      [],
+    );
+
+    final surveyAgeRanges =
+        context.watch<GetSurveyAgeRangesCubit>().state.whenOrNull(
+              loaded: (surveyAgeRanges) => surveyAgeRanges,
+            );
 
     final surveyMainText = [
       context.appLocale.increaseKnowledge,
@@ -80,16 +100,6 @@ class _SurveyScreen extends HookWidget {
       '${context.appLocale.fifteenMins} (${currentLocale == yo ? context.enLocale.fifteenMins : context.yoLocale.fifteenMins})',
       '${context.appLocale.twentyMins} (${currentLocale == yo ? context.enLocale.twentyMins : context.yoLocale.twentyMins})',
       '${context.appLocale.thirtyMins} (${currentLocale == yo ? context.enLocale.thirtyMins : context.yoLocale.thirtyMins})',
-    ];
-
-    final surveyAge = [
-      '${context.appLocale.under18} (${currentLocale == yo ? context.enLocale.under18 : context.yoLocale.under18})',
-      context.appLocale.eighteenToTwentyFour,
-      context.appLocale.twentyFiveToThirtyFour,
-      context.appLocale.thirtyFiveToFourtyFour,
-      context.appLocale.fourtyFiveToFiftyFour,
-      context.appLocale.fiftyFiveToSixtyFour,
-      '${context.appLocale.sixtyFiveAndAbove} (${currentLocale == yo ? context.enLocale.sixtyFiveAndAbove : context.yoLocale.sixtyFiveAndAbove})',
     ];
 
     return BlocListener<UserSurveyCubit, UserSurveyState>(
@@ -147,7 +157,7 @@ class _SurveyScreen extends HookWidget {
                   ],
                 ),
                 Expanded(
-                  child: Padding(
+                  child: SingleChildScrollView(
                     padding: const EdgeInsets.symmetric(horizontal: 28),
                     child: Column(
                       children: [
@@ -209,14 +219,68 @@ class _SurveyScreen extends HookWidget {
                                 surveyCommitmentAnswer.value = option,
                           )
                         else if (currentIndex.value == 3)
-                          MultiGroupedSelector(
-                            options: surveyAge,
-                            selectedOptions: [surveyAgeAnswer.value],
-                            isMultipleSelection: false,
-                            onChanged: (option) =>
-                                surveyAgeAnswer.value = option,
-                          ),
-                        const Spacer(),
+                          if (surveyAgeRanges == null ||
+                              surveyAgeRanges.isEmpty) ...[
+                            SizedBox(height: 90.h),
+                            const CustomSpinner(
+                              color: AppColors.blue12,
+                            ),
+                          ] else
+                            Column(
+                              children: surveyAgeRanges
+                                  .map(
+                                    (surveyAgeRange) => Container(
+                                      margin: const EdgeInsets.only(bottom: 16),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(12),
+                                        color: selectedSurveyAge.value ==
+                                                surveyAgeRange.label
+                                            ? AppColors.blueE7
+                                            : null,
+                                        border: Border.all(
+                                          color: AppColors.blue12,
+                                        ),
+                                      ),
+                                      child: InkWell(
+                                        onTap: () {
+                                          selectedSurveyAge.value =
+                                              surveyAgeRange.label;
+                                        },
+                                        child: Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                            horizontal: 16,
+                                            vertical: 13,
+                                          ),
+                                          child: Row(
+                                            children: [
+                                              CheckBoxIndicator(
+                                                isSelected:
+                                                    selectedSurveyAge.value ==
+                                                        surveyAgeRange.label,
+                                              ),
+                                              const SizedBox(width: 8),
+                                              Expanded(
+                                                child: Transform.translate(
+                                                  offset: const Offset(0, -1),
+                                                  child: Text(
+                                                    surveyAgeRange.label,
+                                                    style: context
+                                                        .textTheme.bodySmall!
+                                                        .copyWith(
+                                                      fontSize: 13.sp,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  )
+                                  .toList(),
+                            ),
+                        SizedBox(height: 35.h),
                         Button(
                           label: '',
                           isLoading: isLoading.value,
@@ -260,7 +324,7 @@ class _SurveyScreen extends HookWidget {
                               }
                             }
                             if (currentIndex.value == 3) {
-                              if (surveyAgeAnswer.value.isEmpty) {
+                              if (selectedSurveyAge.value.isEmpty) {
                                 ToastMessage.showWarning(
                                   context: context,
                                   text: context.appLocale.pleaseSelectAnOption,
@@ -275,7 +339,7 @@ class _SurveyScreen extends HookWidget {
                                       surveyUsage: surveyUsageAnswer.value,
                                       surveyCommitment:
                                           surveyCommitmentAnswer.value,
-                                      surveyAge: surveyAgeAnswer.value,
+                                      surveyAge: selectedSurveyAge.value,
                                     );
                               }
                             }

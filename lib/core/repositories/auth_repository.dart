@@ -62,6 +62,9 @@ class AuthRepository {
   /// Reset password endpoint
   String _resetPasswordEndpoint() => '$_baseUrl/user/auth/reset-password';
 
+  /// Get survey age range endpoint
+  String _getSurveyAgeRange() => '$_baseUrl/user/auth/age-ranges';
+
   /// Registers a new user
   ///
   /// Returns [User] on success.
@@ -359,6 +362,33 @@ class AuthRepository {
           body: jsonEncode(body),
         ),
         onSuccessMap: (value) {},
+      );
+    } on APIException catch (e) {
+      throw AuthException(message: e.message);
+    } catch (e) {
+      throw const AuthException();
+    }
+  }
+
+  /// Get survey age range
+  ///
+  /// Returns [SurveyAgeRange] on success.
+  /// Throws [AuthException] when operation fails.
+  Future<List<SurveyAgeRange>> getSurveyAgeRange() async {
+    try {
+      final url = _getSurveyAgeRange();
+      final headers = {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      };
+      return await APIHelper.request<List<SurveyAgeRange>>(
+        request: _client.get(
+          Uri.parse(url),
+          headers: headers,
+        ),
+        onSuccessList: (value) {
+          return List<SurveyAgeRange>.from(value.map(SurveyAgeRange.fromJson));
+        },
       );
     } on APIException catch (e) {
       throw AuthException(message: e.message);

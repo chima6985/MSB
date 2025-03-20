@@ -3,11 +3,11 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:masoyinbo_mobile/app/app_locator.dart';
 import 'package:masoyinbo_mobile/core/core.dart';
 
-part 'forget_password_state.dart';
-part 'forget_password_cubit.freezed.dart';
+part 'get_survey_age_ranges_state.dart';
+part 'get_survey_age_ranges_cubit.freezed.dart';
 
-class ForgetPasswordCubit extends Cubit<ForgetPasswordState> {
-  ForgetPasswordCubit({
+class GetSurveyAgeRangesCubit extends Cubit<GetSurveyAgeRangesState> {
+  GetSurveyAgeRangesCubit({
     AuthRepository? authRepository,
   })  : _authRepository = authRepository ?? locator<AuthRepository>(),
         super(const _Initial());
@@ -15,16 +15,12 @@ class ForgetPasswordCubit extends Cubit<ForgetPasswordState> {
   /// Auth repository.
   final AuthRepository _authRepository;
 
-  /// Forget password
-  Future<void> forgetPassword({
-    required String email,
-  }) async {
+  /// Get survey age range
+  Future<void> getSurveyAgeRange() async {
     try {
       emit(const _Loading());
-      await _authRepository.forgetPassword(
-        email: email,
-      );
-      emit(const _Loaded());
+      final surveyAgeRanges = await _authRepository.getSurveyAgeRange();
+      emit(_Loaded(surveyAgeRanges: surveyAgeRanges));
     } on AuthException catch (e) {
       emit(_Error(error: e.message));
     }
