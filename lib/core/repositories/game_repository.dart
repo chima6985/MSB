@@ -32,119 +32,77 @@ class GameRepository {
   final http.Client _client;
   final String _baseUrl;
 
-  /// Complete onboarding endpoint
-  String _completeOnboardingEndpoint() =>
-      '$_baseUrl/user/auth/complete-onboarding';
+  /// Get questions endpoint
+  String _getQuestions(String difficulty, String section) =>
+      '$_baseUrl/game/single-player/get-question/$difficulty/$section';
 
-  /// Complete onboarding endpoint
-  String _answerUserSurveyEndpoint() => '$_baseUrl/user/auth/user-survey';
+  /// Submit answer endpoint
+  String _submitAnswerEndpoint() =>
+      '$_baseUrl/game/single-player/submit-answer';
 
-  /// Get user endpoint
-  String _getUserEndpoint() => '$_baseUrl/user/profile';
+  /// Back to home endpoint
+  String _backToHomeEndpoint() => '$_baseUrl/game/single-player/back-to-home';
 
-  /// Update password endpoint
-  String _updatePasswordEndpoint() => '$_baseUrl/user/update-password';
+  /// Get player rewards endpoint
+  String _getPlayerRewards() => '$_baseUrl/game/single-player/rewards';
 
-  /// Complete onboarding
+  /// Get questions
   ///
   /// Returns void on success.
   /// Throws [GameException] when operation fails.
-  Future<void> completeOnboarding({
-    required String email,
-    required String username,
-    required String gender,
-  }) async {
-    try {
-      final url = _completeOnboardingEndpoint();
-      final headers = {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      };
-
-      final body = {
-        'email': email,
-        'username': username,
-        'gender': gender,
-      };
-      return await APIHelper.request<void>(
-        request: _client.post(
-          Uri.parse(url),
-          headers: headers,
-          body: jsonEncode(body),
-        ),
-        onSuccessMap: (value) {},
-      );
-    } on APIException catch (e) {
-      throw GameException(message: e.message);
-    } catch (e) {
-      throw const GameException();
-    }
-  }
-
-  /// Answer user survey
-  ///
-  /// Returns void on success.
-  /// Throws [GameException] when operation fails.
-  Future<void> answerUserSurvey({
-    required String email,
-    required List<String> surveyReason,
-    required List<String> surveyUsage,
-    required String surveyCommitment,
-    required String surveyAge,
-  }) async {
-    try {
-      final url = _answerUserSurveyEndpoint();
-      final headers = {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      };
-
-      final body = {
-        'email': email,
-        'survey_reason': surveyReason,
-        'survey_usage': surveyUsage,
-        'survey_commitment': surveyCommitment,
-        'survey_age': surveyAge,
-      };
-      return await APIHelper.request<void>(
-        request: _client.post(
-          Uri.parse(url),
-          headers: headers,
-          body: jsonEncode(body),
-        ),
-        onSuccessMap: (value) {},
-      );
-    } on APIException catch (e) {
-      throw GameException(message: e.message);
-    } catch (e) {
-      throw const GameException();
-    }
-  }
-
-  /// Get user
-  ///
-  /// Returns [User] on success.
-  /// Throws [GameException] when operation fails.
-  Future<User> getUser({
+  Future<void> getQuestions({
+    required String difficulty,
+    required String section,
     required String token,
   }) async {
     try {
-      final url = _getUserEndpoint();
+      final url = _getQuestions(difficulty, section);
       final headers = {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
         'Authorization': 'Bearer $token',
       };
-      return await APIHelper.request<User>(
+      return await APIHelper.request<void>(
         request: _client.get(
           Uri.parse(url),
           headers: headers,
         ),
-        onSuccessMap: (value) {
-          final user = value['user'] as Map<String, dynamic>;
-          user['token'] = token;
-          return User.fromJson(user);
-        },
+        onSuccessMap: (value) {},
+      );
+    } on APIException catch (e) {
+      throw GameException(message: e.message);
+    } catch (e) {
+      throw const GameException();
+    }
+  }
+
+  /// Submit answer
+  ///
+  /// Returns [User] on success.
+  /// Throws [GameException] when operation fails.
+  Future<void> submitAnswer({
+    required String questionId,
+    required String answer,
+    required String token,
+  }) async {
+    try {
+      final url = _submitAnswerEndpoint();
+      final headers = {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      };
+      final body = {
+        'question_Id': questionId,
+        'answer': answer,
+      };
+      return await APIHelper.request<void>(
+        request: _client.post(
+          Uri.parse(url),
+          headers: headers,
+          body: jsonEncode(body),
+        ),
+        onSuccessMap: (value) {},
       );
     } on APIException catch (e) {
       throw GameException(message: e.message);
@@ -155,31 +113,54 @@ class GameRepository {
     }
   }
 
-  /// Update password
+  /// Back to home
   ///
-  /// Returns void on success.
+  /// Returns [void] on success.
   /// Throws [GameException] when operation fails.
-  Future<void> updatePassword({
+  Future<void> backToHome({
     required String token,
-    required String currentPassword,
-    required String newPassword,
   }) async {
     try {
-      final url = _updatePasswordEndpoint();
+      final url = _backToHomeEndpoint();
       final headers = {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
         'Authorization': 'Bearer $token',
       };
-      final body = {
-        'current_password': currentPassword,
-        'new_password': newPassword,
-      };
       return await APIHelper.request<void>(
         request: _client.post(
           Uri.parse(url),
           headers: headers,
-          body: jsonEncode(body),
+        ),
+        onSuccessMap: (value) {},
+      );
+    } on APIException catch (e) {
+      throw GameException(message: e.message);
+    } on AuthException catch (e) {
+      throw AuthException(message: e.message);
+    } catch (e) {
+      throw const GameException();
+    }
+  }
+
+  /// Get player rewards
+  ///
+  /// Returns void on success.
+  /// Throws [GameException] when operation fails.
+  Future<void> getPlayerRewards({
+    required String token,
+  }) async {
+    try {
+      final url = _getPlayerRewards();
+      final headers = {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      };
+      return await APIHelper.request<void>(
+        request: _client.get(
+          Uri.parse(url),
+          headers: headers,
         ),
         onSuccessMap: (value) {},
       );

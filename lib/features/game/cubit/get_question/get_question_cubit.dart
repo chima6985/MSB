@@ -9,15 +9,14 @@ part 'get_question_cubit.freezed.dart';
 
 class GetQuestionCubit extends Cubit<GetQuestionState> {
   GetQuestionCubit({
-    PracticeRepository? practiceRepository,
+    GameRepository? gameRepository,
     required AuthBloc authBloc,
-  })  : _practiceRepository =
-            practiceRepository ?? locator<PracticeRepository>(),
+  })  : _practiceRepository = gameRepository ?? locator<GameRepository>(),
         _authBloc = authBloc,
         super(const _Initial());
 
-  /// PracticeRepository repository.
-  final PracticeRepository _practiceRepository;
+  /// GameRepository repository.
+  final GameRepository _practiceRepository;
 
   /// Auth Bloc.
   final AuthBloc _authBloc;
@@ -37,7 +36,7 @@ class GetQuestionCubit extends Cubit<GetQuestionState> {
         token: user.token,
       );
       emit(const _Loaded());
-    } on PracticeException catch (e) {
+    } on GameException catch (e) {
       emit(_Error(error: e.message));
     } on AuthException catch (e) {
       _authBloc.add(AuthEvent.authSignOut(message: e.message));
