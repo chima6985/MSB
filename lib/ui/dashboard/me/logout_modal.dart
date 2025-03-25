@@ -25,7 +25,7 @@ class LogoutModal extends StatelessWidget {
           ),
           const SizedBox(height: 5),
           Text(
-            logoutYr,
+            context.appLocale.logout,
             style: context.textTheme.bodyLarge!.copyWith(
               fontFamily: FontFamily.margarine,
             ),

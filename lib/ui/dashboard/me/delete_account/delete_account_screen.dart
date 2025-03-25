@@ -29,7 +29,7 @@ class DeleteAccountScreen extends HookWidget {
                   padding: const EdgeInsets.only(top: 7),
                   child: Center(
                     child: Text(
-                      deleteAccountEn,
+                       context.appLocale.deleteAccount,
                       style: context.textTheme.titleLarge!.copyWith(
                         fontFamily: FontFamily.margarine,
                       ),

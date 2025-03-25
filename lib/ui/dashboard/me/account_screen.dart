@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:masoyinbo_mobile/app/app.dart';
 import 'package:masoyinbo_mobile/extension/extension.dart';
+import 'package:masoyinbo_mobile/features/features.dart';
 import 'package:masoyinbo_mobile/gen/fonts.gen.dart';
 import 'package:masoyinbo_mobile/ui/ui.dart';
+import 'package:masoyinbo_mobile/utils/utils.dart';
 
 class AccountScreen extends HookWidget {
   const AccountScreen({
@@ -13,15 +16,24 @@ class AccountScreen extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final usernameController = useTextEditingController();
-    final emailAddressController = useTextEditingController();
-    final passwordController = useTextEditingController();
-    final gender = useState<String?>(null);
+    final genderOptionsMap = {
+      'Male': context.appLocale.male,
+      'Female': context.appLocale.female,
+    };
 
     final genderOptions = [
-      'Male',
-      'Female',
+      context.appLocale.male,
+      context.appLocale.female,
     ];
+
+    final currentLocale = context.currentLocale;
+    final user = context.watch<UserCubit>().state.user;
+    final usernameController =
+        useTextEditingController(text: user?.username ?? '');
+    final emailAddressController =
+        useTextEditingController(text: user?.email.titleCase() ?? '');
+    final passwordController = useTextEditingController(text: 'password');
+    final selectedGender = useState<String?>(genderOptionsMap[user?.gender]);
 
     return DecoratedContainer(
       child: SingleChildScrollView(
@@ -35,7 +47,7 @@ class AccountScreen extends HookWidget {
                   padding: const EdgeInsets.only(top: 7),
                   child: Center(
                     child: Text(
-                      accountYr,
+                      context.appLocale.account,
                       style: context.textTheme.titleLarge!.copyWith(
                         fontFamily: FontFamily.margarine,
                       ),
@@ -73,8 +85,11 @@ class AccountScreen extends HookWidget {
                 children: [
                   CustomDropDownField(
                     textFieldText: context.appLocale.gender,
-                    textFieldSubText: context.appLocale.gender,
-                    hintText: 'Select Gender',
+                    textFieldSubText: currentLocale == yo
+                        ? context.enLocale.gender
+                        : context.yoLocale.gender,
+                    hintText: context.appLocale.selectGender,
+                    selectedValue: selectedGender.value,
                     items: genderOptions
                         .map(
                           (gender) => DropdownMenuItem(
@@ -86,25 +101,31 @@ class AccountScreen extends HookWidget {
                           ),
                         )
                         .toList(),
-                    onChanged: (val) => gender.value = val,
+                    onChanged: (val) => selectedGender.value = val,
                   ),
                   CustomTextField(
                     textEditingController: usernameController,
                     textFieldText: context.appLocale.username,
-                    textFieldSubText: context.appLocale.username,
+                    textFieldSubText: currentLocale == yo
+                        ? context.enLocale.username
+                        : context.yoLocale.username,
                   ),
                   CustomTextField(
                     textEditingController: emailAddressController,
                     textFieldText: context.appLocale.emailAddress,
-                    textFieldSubText: context.appLocale.emailAddress,
+                    textFieldSubText: currentLocale == yo
+                        ? context.enLocale.emailAddress
+                        : context.yoLocale.emailAddress,
                   ),
                   GestureDetector(
                     onTap: () => context.pushNamed(PasswordScreen.id),
                     child: AbsorbPointer(
                       child: PasswordTextField(
                         textEditingController: passwordController,
-                        textFieldText: context.appLocale.yoruba,
-                        textFieldSubText: context.appLocale.yoruba,
+                        textFieldText: context.appLocale.password,
+                        textFieldSubText: currentLocale == yo
+                            ? context.enLocale.password
+                            : context.yoLocale.password,
                       ),
                     ),
                   ),

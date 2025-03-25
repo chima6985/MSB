@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:masoyinbo_mobile/core/core.dart';
 import 'package:masoyinbo_mobile/extension/context_extension.dart';
 import 'package:masoyinbo_mobile/gen/fonts.gen.dart';
 import 'package:masoyinbo_mobile/ui/ui.dart';
@@ -12,6 +13,7 @@ class DiveInScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final mqr = MediaQuery.of(context).size;
     final currentLocale = context.currentLocale;
+    final user = AppStorage.getUser();
     return Scaffold(
       body: DecoratedContainer(
         enablePadding: true,
@@ -48,7 +50,11 @@ class DiveInScreen extends StatelessWidget {
             Button(
               label: '',
               onPressed: () {
-                context.goNamed(LoginScreen.id);
+                if (user == null) {
+                  context.goNamed(LoginScreen.id);
+                } else {
+                  context.goNamed(DashboardIndexScreen.id);
+                }
               },
               child: RichText(
                 text: TextSpan(

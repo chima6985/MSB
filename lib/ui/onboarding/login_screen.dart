@@ -28,7 +28,14 @@ class LoginScreen extends HookWidget {
         state.maybeWhen(
           authenticating: (user) => isLoading.value = true,
           authenticated: (user) {
-            context.goNamed(DashboardIndexScreen.id);
+            if (!user.isCompleted) {
+              context.pushNamed(PersonalizeSignUpScreen.id);
+            } else if (!user.isSurveyCompleted) {
+              context.goNamed(SurveyScreen.id);
+            } else {
+              context.read<UserCubit>().init();
+              context.goNamed(DashboardIndexScreen.id);
+            }
           },
           loginError: (user, error) {
             isLoading.value = false;
@@ -62,8 +69,8 @@ class LoginScreen extends HookWidget {
                     onTap: () {
                       if (kDebugMode) {
                         emailAddressController.text =
-                            'daudu.victor173+101@gmail.com';
-                        passwordController.text = 'Qwert1234!';
+                            'Daudu.victor173+29@gmail.com';
+                        passwordController.text = 'Daudu123.';
                       }
                     },
                     child: Text(

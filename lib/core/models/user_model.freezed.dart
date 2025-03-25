@@ -20,41 +20,15 @@ User _$UserFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$User {
-  @JsonKey(name: '_id')
   String get id => throw _privateConstructorUsedError;
   String get token => throw _privateConstructorUsedError;
-  @JsonKey(
-      toJson: ModelHelper.localDateTimeToUtcIsoStr,
-      fromJson: ModelHelper.strToLocalDateTime,
-      name: 'updated_at')
-  DateTime? get updatedAt => throw _privateConstructorUsedError;
-  @JsonKey(
-      toJson: ModelHelper.localDateTimeToUtcIsoStr,
-      fromJson: ModelHelper.strToLocalDateTime,
-      name: 'created_at')
-  DateTime? get createdAt => throw _privateConstructorUsedError;
-  @JsonKey(name: 'first_name')
-  String get firstName => throw _privateConstructorUsedError;
-  @JsonKey(name: 'last_name')
-  String get lastName => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
-  String get phone => throw _privateConstructorUsedError;
   String get username => throw _privateConstructorUsedError;
-  @JsonKey(name: 'username_slug')
-  String get usernameSlug => throw _privateConstructorUsedError;
-  @JsonKey(name: 'blockradar_address')
-  String get blockradarAddress => throw _privateConstructorUsedError;
-  @JsonKey(name: 'profile_photo')
-  String get profilePhoto => throw _privateConstructorUsedError;
-  @JsonKey(name: 'is_deleted')
-  bool get isDeleted => throw _privateConstructorUsedError;
-  @JsonKey(
-      toJson: ModelHelper.localDateTimeToUtcIsoStr,
-      fromJson: ModelHelper.strToLocalDateTime,
-      name: 'reset_token_expiry')
-  DateTime? get resetTokenExpiry => throw _privateConstructorUsedError;
-  @JsonKey(name: 'auth_provider')
-  String get authProvider => throw _privateConstructorUsedError;
+  String get gender => throw _privateConstructorUsedError;
+  @JsonKey(name: 'is_completed')
+  bool get isCompleted => throw _privateConstructorUsedError;
+  @JsonKey(name: 'is_survey_completed')
+  bool get isSurveyCompleted => throw _privateConstructorUsedError;
 
   /// Serializes this User to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -71,33 +45,13 @@ abstract class $UserCopyWith<$Res> {
       _$UserCopyWithImpl<$Res, User>;
   @useResult
   $Res call(
-      {@JsonKey(name: '_id') String id,
+      {String id,
       String token,
-      @JsonKey(
-          toJson: ModelHelper.localDateTimeToUtcIsoStr,
-          fromJson: ModelHelper.strToLocalDateTime,
-          name: 'updated_at')
-      DateTime? updatedAt,
-      @JsonKey(
-          toJson: ModelHelper.localDateTimeToUtcIsoStr,
-          fromJson: ModelHelper.strToLocalDateTime,
-          name: 'created_at')
-      DateTime? createdAt,
-      @JsonKey(name: 'first_name') String firstName,
-      @JsonKey(name: 'last_name') String lastName,
       String email,
-      String phone,
       String username,
-      @JsonKey(name: 'username_slug') String usernameSlug,
-      @JsonKey(name: 'blockradar_address') String blockradarAddress,
-      @JsonKey(name: 'profile_photo') String profilePhoto,
-      @JsonKey(name: 'is_deleted') bool isDeleted,
-      @JsonKey(
-          toJson: ModelHelper.localDateTimeToUtcIsoStr,
-          fromJson: ModelHelper.strToLocalDateTime,
-          name: 'reset_token_expiry')
-      DateTime? resetTokenExpiry,
-      @JsonKey(name: 'auth_provider') String authProvider});
+      String gender,
+      @JsonKey(name: 'is_completed') bool isCompleted,
+      @JsonKey(name: 'is_survey_completed') bool isSurveyCompleted});
 }
 
 /// @nodoc
@@ -117,19 +71,11 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
   $Res call({
     Object? id = null,
     Object? token = null,
-    Object? updatedAt = freezed,
-    Object? createdAt = freezed,
-    Object? firstName = null,
-    Object? lastName = null,
     Object? email = null,
-    Object? phone = null,
     Object? username = null,
-    Object? usernameSlug = null,
-    Object? blockradarAddress = null,
-    Object? profilePhoto = null,
-    Object? isDeleted = null,
-    Object? resetTokenExpiry = freezed,
-    Object? authProvider = null,
+    Object? gender = null,
+    Object? isCompleted = null,
+    Object? isSurveyCompleted = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -140,58 +86,26 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
           ? _value.token
           : token // ignore: cast_nullable_to_non_nullable
               as String,
-      updatedAt: freezed == updatedAt
-          ? _value.updatedAt
-          : updatedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
-      createdAt: freezed == createdAt
-          ? _value.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
-      firstName: null == firstName
-          ? _value.firstName
-          : firstName // ignore: cast_nullable_to_non_nullable
-              as String,
-      lastName: null == lastName
-          ? _value.lastName
-          : lastName // ignore: cast_nullable_to_non_nullable
-              as String,
       email: null == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
-              as String,
-      phone: null == phone
-          ? _value.phone
-          : phone // ignore: cast_nullable_to_non_nullable
               as String,
       username: null == username
           ? _value.username
           : username // ignore: cast_nullable_to_non_nullable
               as String,
-      usernameSlug: null == usernameSlug
-          ? _value.usernameSlug
-          : usernameSlug // ignore: cast_nullable_to_non_nullable
+      gender: null == gender
+          ? _value.gender
+          : gender // ignore: cast_nullable_to_non_nullable
               as String,
-      blockradarAddress: null == blockradarAddress
-          ? _value.blockradarAddress
-          : blockradarAddress // ignore: cast_nullable_to_non_nullable
-              as String,
-      profilePhoto: null == profilePhoto
-          ? _value.profilePhoto
-          : profilePhoto // ignore: cast_nullable_to_non_nullable
-              as String,
-      isDeleted: null == isDeleted
-          ? _value.isDeleted
-          : isDeleted // ignore: cast_nullable_to_non_nullable
+      isCompleted: null == isCompleted
+          ? _value.isCompleted
+          : isCompleted // ignore: cast_nullable_to_non_nullable
               as bool,
-      resetTokenExpiry: freezed == resetTokenExpiry
-          ? _value.resetTokenExpiry
-          : resetTokenExpiry // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
-      authProvider: null == authProvider
-          ? _value.authProvider
-          : authProvider // ignore: cast_nullable_to_non_nullable
-              as String,
+      isSurveyCompleted: null == isSurveyCompleted
+          ? _value.isSurveyCompleted
+          : isSurveyCompleted // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 }
@@ -204,33 +118,13 @@ abstract class _$$UserImplCopyWith<$Res> implements $UserCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {@JsonKey(name: '_id') String id,
+      {String id,
       String token,
-      @JsonKey(
-          toJson: ModelHelper.localDateTimeToUtcIsoStr,
-          fromJson: ModelHelper.strToLocalDateTime,
-          name: 'updated_at')
-      DateTime? updatedAt,
-      @JsonKey(
-          toJson: ModelHelper.localDateTimeToUtcIsoStr,
-          fromJson: ModelHelper.strToLocalDateTime,
-          name: 'created_at')
-      DateTime? createdAt,
-      @JsonKey(name: 'first_name') String firstName,
-      @JsonKey(name: 'last_name') String lastName,
       String email,
-      String phone,
       String username,
-      @JsonKey(name: 'username_slug') String usernameSlug,
-      @JsonKey(name: 'blockradar_address') String blockradarAddress,
-      @JsonKey(name: 'profile_photo') String profilePhoto,
-      @JsonKey(name: 'is_deleted') bool isDeleted,
-      @JsonKey(
-          toJson: ModelHelper.localDateTimeToUtcIsoStr,
-          fromJson: ModelHelper.strToLocalDateTime,
-          name: 'reset_token_expiry')
-      DateTime? resetTokenExpiry,
-      @JsonKey(name: 'auth_provider') String authProvider});
+      String gender,
+      @JsonKey(name: 'is_completed') bool isCompleted,
+      @JsonKey(name: 'is_survey_completed') bool isSurveyCompleted});
 }
 
 /// @nodoc
@@ -247,19 +141,11 @@ class __$$UserImplCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
     Object? token = null,
-    Object? updatedAt = freezed,
-    Object? createdAt = freezed,
-    Object? firstName = null,
-    Object? lastName = null,
     Object? email = null,
-    Object? phone = null,
     Object? username = null,
-    Object? usernameSlug = null,
-    Object? blockradarAddress = null,
-    Object? profilePhoto = null,
-    Object? isDeleted = null,
-    Object? resetTokenExpiry = freezed,
-    Object? authProvider = null,
+    Object? gender = null,
+    Object? isCompleted = null,
+    Object? isSurveyCompleted = null,
   }) {
     return _then(_$UserImpl(
       id: null == id
@@ -270,58 +156,26 @@ class __$$UserImplCopyWithImpl<$Res>
           ? _value.token
           : token // ignore: cast_nullable_to_non_nullable
               as String,
-      updatedAt: freezed == updatedAt
-          ? _value.updatedAt
-          : updatedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
-      createdAt: freezed == createdAt
-          ? _value.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
-      firstName: null == firstName
-          ? _value.firstName
-          : firstName // ignore: cast_nullable_to_non_nullable
-              as String,
-      lastName: null == lastName
-          ? _value.lastName
-          : lastName // ignore: cast_nullable_to_non_nullable
-              as String,
       email: null == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
-              as String,
-      phone: null == phone
-          ? _value.phone
-          : phone // ignore: cast_nullable_to_non_nullable
               as String,
       username: null == username
           ? _value.username
           : username // ignore: cast_nullable_to_non_nullable
               as String,
-      usernameSlug: null == usernameSlug
-          ? _value.usernameSlug
-          : usernameSlug // ignore: cast_nullable_to_non_nullable
+      gender: null == gender
+          ? _value.gender
+          : gender // ignore: cast_nullable_to_non_nullable
               as String,
-      blockradarAddress: null == blockradarAddress
-          ? _value.blockradarAddress
-          : blockradarAddress // ignore: cast_nullable_to_non_nullable
-              as String,
-      profilePhoto: null == profilePhoto
-          ? _value.profilePhoto
-          : profilePhoto // ignore: cast_nullable_to_non_nullable
-              as String,
-      isDeleted: null == isDeleted
-          ? _value.isDeleted
-          : isDeleted // ignore: cast_nullable_to_non_nullable
+      isCompleted: null == isCompleted
+          ? _value.isCompleted
+          : isCompleted // ignore: cast_nullable_to_non_nullable
               as bool,
-      resetTokenExpiry: freezed == resetTokenExpiry
-          ? _value.resetTokenExpiry
-          : resetTokenExpiry // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
-      authProvider: null == authProvider
-          ? _value.authProvider
-          : authProvider // ignore: cast_nullable_to_non_nullable
-              as String,
+      isSurveyCompleted: null == isSurveyCompleted
+          ? _value.isSurveyCompleted
+          : isSurveyCompleted // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -330,95 +184,42 @@ class __$$UserImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$UserImpl implements _User {
   const _$UserImpl(
-      {@JsonKey(name: '_id') this.id = '',
+      {this.id = '',
       this.token = '',
-      @JsonKey(
-          toJson: ModelHelper.localDateTimeToUtcIsoStr,
-          fromJson: ModelHelper.strToLocalDateTime,
-          name: 'updated_at')
-      this.updatedAt,
-      @JsonKey(
-          toJson: ModelHelper.localDateTimeToUtcIsoStr,
-          fromJson: ModelHelper.strToLocalDateTime,
-          name: 'created_at')
-      this.createdAt,
-      @JsonKey(name: 'first_name') this.firstName = '',
-      @JsonKey(name: 'last_name') this.lastName = '',
       this.email = '',
-      this.phone = '',
       this.username = '',
-      @JsonKey(name: 'username_slug') this.usernameSlug = '',
-      @JsonKey(name: 'blockradar_address') this.blockradarAddress = '',
-      @JsonKey(name: 'profile_photo') this.profilePhoto = '',
-      @JsonKey(name: 'is_deleted') this.isDeleted = false,
-      @JsonKey(
-          toJson: ModelHelper.localDateTimeToUtcIsoStr,
-          fromJson: ModelHelper.strToLocalDateTime,
-          name: 'reset_token_expiry')
-      this.resetTokenExpiry,
-      @JsonKey(name: 'auth_provider') this.authProvider = ''});
+      this.gender = '',
+      @JsonKey(name: 'is_completed') this.isCompleted = false,
+      @JsonKey(name: 'is_survey_completed') this.isSurveyCompleted = false});
 
   factory _$UserImpl.fromJson(Map<String, dynamic> json) =>
       _$$UserImplFromJson(json);
 
   @override
-  @JsonKey(name: '_id')
+  @JsonKey()
   final String id;
   @override
   @JsonKey()
   final String token;
   @override
-  @JsonKey(
-      toJson: ModelHelper.localDateTimeToUtcIsoStr,
-      fromJson: ModelHelper.strToLocalDateTime,
-      name: 'updated_at')
-  final DateTime? updatedAt;
-  @override
-  @JsonKey(
-      toJson: ModelHelper.localDateTimeToUtcIsoStr,
-      fromJson: ModelHelper.strToLocalDateTime,
-      name: 'created_at')
-  final DateTime? createdAt;
-  @override
-  @JsonKey(name: 'first_name')
-  final String firstName;
-  @override
-  @JsonKey(name: 'last_name')
-  final String lastName;
-  @override
   @JsonKey()
   final String email;
   @override
   @JsonKey()
-  final String phone;
-  @override
-  @JsonKey()
   final String username;
   @override
-  @JsonKey(name: 'username_slug')
-  final String usernameSlug;
+  @JsonKey()
+  final String gender;
   @override
-  @JsonKey(name: 'blockradar_address')
-  final String blockradarAddress;
+  @JsonKey(name: 'is_completed')
+  final bool isCompleted;
   @override
-  @JsonKey(name: 'profile_photo')
-  final String profilePhoto;
-  @override
-  @JsonKey(name: 'is_deleted')
-  final bool isDeleted;
-  @override
-  @JsonKey(
-      toJson: ModelHelper.localDateTimeToUtcIsoStr,
-      fromJson: ModelHelper.strToLocalDateTime,
-      name: 'reset_token_expiry')
-  final DateTime? resetTokenExpiry;
-  @override
-  @JsonKey(name: 'auth_provider')
-  final String authProvider;
+  @JsonKey(name: 'is_survey_completed')
+  final bool isSurveyCompleted;
 
   @override
   String toString() {
-    return 'User(id: $id, token: $token, updatedAt: $updatedAt, createdAt: $createdAt, firstName: $firstName, lastName: $lastName, email: $email, phone: $phone, username: $username, usernameSlug: $usernameSlug, blockradarAddress: $blockradarAddress, profilePhoto: $profilePhoto, isDeleted: $isDeleted, resetTokenExpiry: $resetTokenExpiry, authProvider: $authProvider)';
+    return 'User(id: $id, token: $token, email: $email, username: $username, gender: $gender, isCompleted: $isCompleted, isSurveyCompleted: $isSurveyCompleted)';
   }
 
   @override
@@ -428,51 +229,20 @@ class _$UserImpl implements _User {
             other is _$UserImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.token, token) || other.token == token) &&
-            (identical(other.updatedAt, updatedAt) ||
-                other.updatedAt == updatedAt) &&
-            (identical(other.createdAt, createdAt) ||
-                other.createdAt == createdAt) &&
-            (identical(other.firstName, firstName) ||
-                other.firstName == firstName) &&
-            (identical(other.lastName, lastName) ||
-                other.lastName == lastName) &&
             (identical(other.email, email) || other.email == email) &&
-            (identical(other.phone, phone) || other.phone == phone) &&
             (identical(other.username, username) ||
                 other.username == username) &&
-            (identical(other.usernameSlug, usernameSlug) ||
-                other.usernameSlug == usernameSlug) &&
-            (identical(other.blockradarAddress, blockradarAddress) ||
-                other.blockradarAddress == blockradarAddress) &&
-            (identical(other.profilePhoto, profilePhoto) ||
-                other.profilePhoto == profilePhoto) &&
-            (identical(other.isDeleted, isDeleted) ||
-                other.isDeleted == isDeleted) &&
-            (identical(other.resetTokenExpiry, resetTokenExpiry) ||
-                other.resetTokenExpiry == resetTokenExpiry) &&
-            (identical(other.authProvider, authProvider) ||
-                other.authProvider == authProvider));
+            (identical(other.gender, gender) || other.gender == gender) &&
+            (identical(other.isCompleted, isCompleted) ||
+                other.isCompleted == isCompleted) &&
+            (identical(other.isSurveyCompleted, isSurveyCompleted) ||
+                other.isSurveyCompleted == isSurveyCompleted));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      id,
-      token,
-      updatedAt,
-      createdAt,
-      firstName,
-      lastName,
-      email,
-      phone,
-      username,
-      usernameSlug,
-      blockradarAddress,
-      profilePhoto,
-      isDeleted,
-      resetTokenExpiry,
-      authProvider);
+  int get hashCode => Object.hash(runtimeType, id, token, email, username,
+      gender, isCompleted, isSurveyCompleted);
 
   /// Create a copy of User
   /// with the given fields replaced by the non-null parameter values.
@@ -492,86 +262,33 @@ class _$UserImpl implements _User {
 
 abstract class _User implements User {
   const factory _User(
-      {@JsonKey(name: '_id') final String id,
-      final String token,
-      @JsonKey(
-          toJson: ModelHelper.localDateTimeToUtcIsoStr,
-          fromJson: ModelHelper.strToLocalDateTime,
-          name: 'updated_at')
-      final DateTime? updatedAt,
-      @JsonKey(
-          toJson: ModelHelper.localDateTimeToUtcIsoStr,
-          fromJson: ModelHelper.strToLocalDateTime,
-          name: 'created_at')
-      final DateTime? createdAt,
-      @JsonKey(name: 'first_name') final String firstName,
-      @JsonKey(name: 'last_name') final String lastName,
-      final String email,
-      final String phone,
-      final String username,
-      @JsonKey(name: 'username_slug') final String usernameSlug,
-      @JsonKey(name: 'blockradar_address') final String blockradarAddress,
-      @JsonKey(name: 'profile_photo') final String profilePhoto,
-      @JsonKey(name: 'is_deleted') final bool isDeleted,
-      @JsonKey(
-          toJson: ModelHelper.localDateTimeToUtcIsoStr,
-          fromJson: ModelHelper.strToLocalDateTime,
-          name: 'reset_token_expiry')
-      final DateTime? resetTokenExpiry,
-      @JsonKey(name: 'auth_provider') final String authProvider}) = _$UserImpl;
+          {final String id,
+          final String token,
+          final String email,
+          final String username,
+          final String gender,
+          @JsonKey(name: 'is_completed') final bool isCompleted,
+          @JsonKey(name: 'is_survey_completed') final bool isSurveyCompleted}) =
+      _$UserImpl;
 
   factory _User.fromJson(Map<String, dynamic> json) = _$UserImpl.fromJson;
 
   @override
-  @JsonKey(name: '_id')
   String get id;
   @override
   String get token;
   @override
-  @JsonKey(
-      toJson: ModelHelper.localDateTimeToUtcIsoStr,
-      fromJson: ModelHelper.strToLocalDateTime,
-      name: 'updated_at')
-  DateTime? get updatedAt;
-  @override
-  @JsonKey(
-      toJson: ModelHelper.localDateTimeToUtcIsoStr,
-      fromJson: ModelHelper.strToLocalDateTime,
-      name: 'created_at')
-  DateTime? get createdAt;
-  @override
-  @JsonKey(name: 'first_name')
-  String get firstName;
-  @override
-  @JsonKey(name: 'last_name')
-  String get lastName;
-  @override
   String get email;
-  @override
-  String get phone;
   @override
   String get username;
   @override
-  @JsonKey(name: 'username_slug')
-  String get usernameSlug;
+  String get gender;
   @override
-  @JsonKey(name: 'blockradar_address')
-  String get blockradarAddress;
+  @JsonKey(name: 'is_completed')
+  bool get isCompleted;
   @override
-  @JsonKey(name: 'profile_photo')
-  String get profilePhoto;
-  @override
-  @JsonKey(name: 'is_deleted')
-  bool get isDeleted;
-  @override
-  @JsonKey(
-      toJson: ModelHelper.localDateTimeToUtcIsoStr,
-      fromJson: ModelHelper.strToLocalDateTime,
-      name: 'reset_token_expiry')
-  DateTime? get resetTokenExpiry;
-  @override
-  @JsonKey(name: 'auth_provider')
-  String get authProvider;
+  @JsonKey(name: 'is_survey_completed')
+  bool get isSurveyCompleted;
 
   /// Create a copy of User
   /// with the given fields replaced by the non-null parameter values.

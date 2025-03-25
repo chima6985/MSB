@@ -114,7 +114,17 @@
   "male":"Male",
   "female":"Female",
   "resetPassword_":"Reset password",
-
+  "settings":"Settings",
+  "general":"GENERAL",
+  "account":"Account",
+  "notifications":"Notifications",
+  "paymentPlan":"Payment plan",
+  "language":"Language",
+  "soundEffect":"Sound effects",
+  "others":"OTHERS",
+  "help":"Help",
+  "logout":"Log out",
+  "deleteAccount":"Delete account",
 
 
 

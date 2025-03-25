@@ -25,7 +25,7 @@ class DashboardIndexScreen extends HookWidget {
       appBar: currentPosition.value == 3
           ? AppBar(
               title: Text(
-                'Me',
+                context.appLocale.me,
                 style: context.textTheme.titleLarge!.copyWith(
                   fontFamily: FontFamily.margarine,
                 ),

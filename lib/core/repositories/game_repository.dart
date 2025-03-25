@@ -4,11 +4,11 @@ import 'package:http/http.dart' as http;
 import 'package:masoyinbo_mobile/core/core.dart';
 
 /// {@template user_repository_exception}
-/// General exception for [UserRepository] methods.
+/// General exception for [GameRepository] methods.
 /// {@endtemplate}
-class UserException implements Exception {
+class GameException implements Exception {
   /// {@macro user_repository_exception}
-  const UserException({String? message})
+  const GameException({String? message})
       : message = message ?? 'Something went wrong';
 
   /// Error message.
@@ -21,9 +21,9 @@ class UserException implements Exception {
 /// {@template user_repository}
 /// User repository interacts with the user API.
 /// {@endtemplate}
-class UserRepository {
+class GameRepository {
   /// {@macro user_repository}
-  UserRepository({
+  GameRepository({
     required String baseUrl,
     http.Client? client,
   })  : _baseUrl = baseUrl,
@@ -48,7 +48,7 @@ class UserRepository {
   /// Complete onboarding
   ///
   /// Returns void on success.
-  /// Throws [UserException] when operation fails.
+  /// Throws [GameException] when operation fails.
   Future<void> completeOnboarding({
     required String email,
     required String username,
@@ -75,16 +75,16 @@ class UserRepository {
         onSuccessMap: (value) {},
       );
     } on APIException catch (e) {
-      throw UserException(message: e.message);
+      throw GameException(message: e.message);
     } catch (e) {
-      throw const UserException();
+      throw const GameException();
     }
   }
 
   /// Answer user survey
   ///
   /// Returns void on success.
-  /// Throws [UserException] when operation fails.
+  /// Throws [GameException] when operation fails.
   Future<void> answerUserSurvey({
     required String email,
     required List<String> surveyReason,
@@ -115,16 +115,16 @@ class UserRepository {
         onSuccessMap: (value) {},
       );
     } on APIException catch (e) {
-      throw UserException(message: e.message);
+      throw GameException(message: e.message);
     } catch (e) {
-      throw const UserException();
+      throw const GameException();
     }
   }
 
   /// Get user
   ///
   /// Returns [User] on success.
-  /// Throws [UserException] when operation fails.
+  /// Throws [GameException] when operation fails.
   Future<User> getUser({
     required String token,
   }) async {
@@ -147,18 +147,18 @@ class UserRepository {
         },
       );
     } on APIException catch (e) {
-      throw UserException(message: e.message);
+      throw GameException(message: e.message);
     } on AuthException catch (e) {
       throw AuthException(message: e.message);
     } catch (e) {
-      throw const UserException();
+      throw const GameException();
     }
   }
 
   /// Update password
   ///
   /// Returns void on success.
-  /// Throws [UserException] when operation fails.
+  /// Throws [GameException] when operation fails.
   Future<void> updatePassword({
     required String token,
     required String currentPassword,
@@ -184,11 +184,11 @@ class UserRepository {
         onSuccessMap: (value) {},
       );
     } on APIException catch (e) {
-      throw UserException(message: e.message);
+      throw GameException(message: e.message);
     } on AuthException catch (e) {
       throw AuthException(message: e.message);
     } catch (e) {
-      throw const UserException();
+      throw const GameException();
     }
   }
 }

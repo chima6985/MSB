@@ -161,9 +161,9 @@ class AuthRepository {
           body: jsonEncode(body),
         ),
         onSuccessMap: (value) {
-          // final user = value['user'] as Map<String, dynamic>;
-          // user['token'] = value['token'];
-          return User();
+          final user = value;
+          user['token'] = value['access_token'];
+          return User.fromJson(user);
         },
       );
     } on APIException catch (e) {

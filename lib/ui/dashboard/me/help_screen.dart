@@ -25,7 +25,7 @@ class HelpScreen extends HookWidget {
                   padding: const EdgeInsets.only(top: 7),
                   child: Center(
                     child: Text(
-                      helpYr,
+                       context.appLocale.help,
                       style: context.textTheme.titleLarge!.copyWith(
                         fontFamily: FontFamily.margarine,
                       ),

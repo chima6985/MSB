@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:masoyinbo_mobile/app/app.dart';
 import 'package:masoyinbo_mobile/extension/extension.dart';
 import 'package:masoyinbo_mobile/gen/fonts.gen.dart';
 import 'package:masoyinbo_mobile/ui/ui.dart';
@@ -27,7 +26,7 @@ class SettingsScreen extends HookWidget {
                     padding: const EdgeInsets.only(top: 7),
                     child: Center(
                       child: Text(
-                        settingsEn,
+                        context.appLocale.settings,
                         style: context.textTheme.titleLarge!.copyWith(
                           fontFamily: FontFamily.margarine,
                         ),
@@ -42,7 +41,7 @@ class SettingsScreen extends HookWidget {
                 child: Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    generalEn,
+                    context.appLocale.general,
                     textScaler: TextScaler.noScaling,
                     style: context.textTheme.bodySmall!.copyWith(
                       fontWeight: FontWeight.w500,
@@ -56,27 +55,27 @@ class SettingsScreen extends HookWidget {
                 child: Column(
                   children: [
                     _SettingsWidget(
-                      title: accountYr,
+                      title: context.appLocale.account,
                       iconData: Iconsax.user,
                       onTap: () => context.pushNamed(AccountScreen.id),
                     ),
                     _SettingsWidget(
-                      title: notificationsYr,
+                      title: context.appLocale.notifications,
                       iconData: Iconsax.notification,
                       onTap: () => context.pushNamed(NotificationsScreen.id),
                     ),
                     _SettingsWidget(
-                      title: paymentPlanYr,
+                      title: context.appLocale.paymentPlan,
                       iconData: Iconsax.moneys,
                       onTap: () => context.pushNamed(PaymentScreen.id),
                     ),
                     _SettingsWidget(
-                      title: languageYr,
+                      title: context.appLocale.language,
                       iconData: Iconsax.global,
                       onTap: () => context.pushNamed(LanguageScreen.id),
                     ),
                     _SettingsWidget(
-                      title: soundEffectYr,
+                      title: context.appLocale.soundEffect,
                       iconData: Iconsax.volume_high,
                       trailingIcon: ValueListenableBuilder(
                         valueListenable: isSoundEnabled,
@@ -99,7 +98,7 @@ class SettingsScreen extends HookWidget {
                 child: Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    othersEn,
+                    context.appLocale.others,
                     textScaler: TextScaler.noScaling,
                     style: context.textTheme.bodySmall!.copyWith(
                       fontWeight: FontWeight.w500,
@@ -113,12 +112,12 @@ class SettingsScreen extends HookWidget {
                 child: Column(
                   children: [
                     _SettingsWidget(
-                      title: helpYr,
+                      title: context.appLocale.help,
                       iconData: Iconsax.support,
                       onTap: () => context.pushNamed(HelpScreen.id),
                     ),
                     _SettingsWidget(
-                      title: logoutYr,
+                      title: context.appLocale.logout,
                       iconData: Iconsax.logout,
                       onTap: () => showModalBottomSheet(
                         context: context,
@@ -133,7 +132,7 @@ class SettingsScreen extends HookWidget {
                       ),
                     ),
                     _SettingsWidget(
-                      title: deleteAccountYr,
+                      title: context.appLocale.deleteAccount,
                       iconData: Iconsax.trash,
                       foregroundColor: AppColors.redFF,
                       onTap: () => context.pushNamed(DeleteAccountScreen.id),

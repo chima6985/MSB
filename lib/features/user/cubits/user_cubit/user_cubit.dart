@@ -21,6 +21,11 @@ class UserCubit extends Cubit<UserState> {
   /// Auth Bloc.
   final AuthBloc _authBloc;
 
+  void init() {
+    final user = _authBloc.state.user;
+    emit(_Loaded(user: user!));
+  }
+
   /// Get user
   Future<void> getUser() async {
     emit(_Loading(user: state.user));

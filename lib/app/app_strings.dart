@@ -23,39 +23,6 @@ const currentStreakEn = 'CURRENT STREAK';
 const bestStreakYr = 'Èyí tó dára jùlo̩';
 const bestStreakEn = 'BEST STREAK';
 
-const settingsYr = '';
-const settingsEn = 'Settings';
-
-const generalYr = '';
-const generalEn = 'GENERAL';
-
-const accountYr = 'Àko̩sílè̩';
-const accountEn = 'Account';
-
-const notificationsYr = 'Ìpàkíyèsí';
-const notificationsEn = 'Notifications';
-
-const paymentPlanYr = 'ìsò̩rí owó sísan';
-const paymentPlanEn = 'Payment plan';
-
-const languageYr = 'Èdè';
-const languageEn = 'Language';
-
-const soundEffectYr = 'Ìró ohùn';
-const soundEffectEn = 'Sound effects';
-
-const othersYr = 'OTHERS';
-const othersEn = 'OTHERS';
-
-const helpYr = 'Ìrànló̩wó̩';
-const helpEn = 'Ìrànló̩wó̩';
-
-const logoutYr = 'Kúrò lórí ìkànì yí';
-const logoutEn = 'Log out';
-
-const deleteAccountYr = 'Pa àko̩sílè̩ ré̩';
-const deleteAccountEn = 'Delete account';
-
 const remindersEn = 'Reminders';
 const streakRemindersEn = 'Streak reminders';
 const inAppNotificationEn = 'In-app notification';

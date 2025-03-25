@@ -31,7 +31,7 @@ class NotificationsScreen extends HookWidget {
                     padding: const EdgeInsets.only(top: 7),
                     child: Center(
                       child: Text(
-                        notificationsYr,
+                         context.appLocale.notifications,
                         style: context.textTheme.titleLarge!.copyWith(
                           fontFamily: FontFamily.margarine,
                         ),

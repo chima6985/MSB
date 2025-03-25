@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:masoyinbo_mobile/core/core.dart';
 import 'package:masoyinbo_mobile/extension/extension.dart';
+import 'package:masoyinbo_mobile/features/features.dart';
 import 'package:masoyinbo_mobile/gen/fonts.gen.dart';
 import 'package:masoyinbo_mobile/ui/ui.dart';
 import 'package:masoyinbo_mobile/utils/utils.dart';
@@ -14,10 +16,9 @@ class Home extends HookWidget {
     final mqr = MediaQuery.of(context).size;
     final isShowEmailVerify = useState(false);
     final isShowLessonsWidget = useState(false);
-    final user = AppStorage.getUser();
     final greetings = Functions.greetingMessage(context);
     final currentLocale = context.currentLocale;
-
+    final user = context.watch<UserCubit>().state.user;
     return SingleChildScrollView(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 23),

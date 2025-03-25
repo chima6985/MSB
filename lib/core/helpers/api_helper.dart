@@ -54,7 +54,9 @@ class APIHelper {
           if (map['data'] == null) {
             return onSuccessMap(<String, dynamic>{});
           }
-          final data = map['data'] as Map<String, dynamic>;
+          final data = map.keys.contains('user')
+              ? map['user'] as Map<String, dynamic>
+              : map['data'] as Map<String, dynamic>;
           return onSuccessMap(data);
         } else if (onSuccessList != null) {
           final utf8Response = utf8.decode(response.bodyBytes);

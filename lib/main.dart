@@ -65,6 +65,11 @@ class MyApp extends StatelessWidget {
               create: (context) =>
                   AuthBloc()..add(const AuthEvent.authAppStarted()),
             ),
+            BlocProvider(
+              create: (context) => UserCubit(
+                authBloc: context.read(),
+              ),
+            ),
           ],
           child: Unfocus(
             child: BlocBuilder<LocaleBloc, LocaleState>(

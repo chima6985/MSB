@@ -34,7 +34,7 @@ class LanguageScreen extends HookWidget {
                       padding: const EdgeInsets.only(top: 7),
                       child: Center(
                         child: Text(
-                          languageYr,
+                           context.appLocale.language,
                           style: context.textTheme.titleLarge!.copyWith(
                             fontFamily: FontFamily.margarine,
                           ),

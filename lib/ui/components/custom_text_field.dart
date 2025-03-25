@@ -263,6 +263,7 @@ class CustomDropDownField extends StatelessWidget {
     this.hintText,
     required this.items,
     required this.onChanged,
+    this.selectedValue,
     this.validator,
     this.borderColor,
     this.focusedBorderColor,
@@ -276,6 +277,7 @@ class CustomDropDownField extends StatelessWidget {
   final List<DropdownMenuItem<Object?>>? items;
   final ValueChanged<dynamic> onChanged;
   final String? Function(dynamic)? validator;
+  final dynamic selectedValue;
   final Color? borderColor;
   final Color? focusedBorderColor;
   final Color? fillColor;
@@ -295,6 +297,7 @@ class CustomDropDownField extends StatelessWidget {
               items: items,
               onChanged: onChanged,
               validator: validator,
+              value: selectedValue,
               autovalidateMode: AutovalidateMode.onUserInteraction,
               decoration: InputDecoration(
                 hintText: hintText,

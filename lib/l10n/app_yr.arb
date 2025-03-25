@@ -114,9 +114,18 @@
     "male":"Okunrin",
     "female":"Obirin",
     "resetPassword_":"Fipamọ ọrọ aṣínà",
-
-
-
+    "settings":"Eto",
+    "general":"GBOGBO",
+    "account":"Àko̩sílè̩",
+    "notifications":"Ìpàkíyèsí",
+    "paymentPlan":"ìsò̩rí owó sísan",
+    "language":"Èdè",
+    "soundEffect":"Ìró ohùn",
+    "others":"OMIRAN",
+    "help":"Ìrànló̩wó̩",
+    "logout":"Kúrò lórí ìkànì yí",
+    "deleteAccount":"Pa àko̩sílè̩ ré̩",
+    
 
 
 

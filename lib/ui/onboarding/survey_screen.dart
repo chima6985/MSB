@@ -38,6 +38,7 @@ class _SurveyScreen extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final user = AppStorage.getUser();
     final isLoading = useState(false);
     final currentIndex = useState(0);
     final currentLocale = context.currentLocale;
@@ -144,7 +145,13 @@ class _SurveyScreen extends HookWidget {
                     Transform.translate(
                       offset: const Offset(-5, 0),
                       child: TextButton(
-                        onPressed: () => context.goNamed(DiveInScreen.id),
+                        onPressed: () {
+                          if (user != null) {
+                            context.goNamed(DashboardIndexScreen.id);
+                          } else {
+                            context.goNamed(DiveInScreen.id);
+                          }
+                        },
                         child: Text(
                           'SKIP',
                           textScaler: TextScaler.noScaling,

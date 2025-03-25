@@ -15,6 +15,7 @@ class SplashScreen extends StatelessWidget {
       final email = AppStorage.getEmail();
       final user = AppStorage.getUser();
       if (user != null) {
+        context.read<UserCubit>().init();
         context.goNamed(DashboardIndexScreen.id);
       } else {
         if (email != null) {

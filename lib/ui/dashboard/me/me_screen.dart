@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:masoyinbo_mobile/app/app.dart';
 import 'package:masoyinbo_mobile/extension/extension.dart';
+import 'package:masoyinbo_mobile/features/features.dart';
 import 'package:masoyinbo_mobile/gen/fonts.gen.dart';
 import 'package:masoyinbo_mobile/ui/ui.dart';
 
@@ -13,6 +15,7 @@ class MeScreen extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final mqr = MediaQuery.of(context).size;
+    final user = context.watch<UserCubit>().state.user;
     return SingleChildScrollView(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 23),
@@ -42,22 +45,25 @@ class MeScreen extends HookWidget {
               ),
             ),
             const SizedBox(height: 16),
-            Text(
-              'Olawale Adetokunbo',
-              textScaler: TextScaler.noScaling,
-              style: context.textTheme.bodyLarge!.copyWith(
-                fontFamily: FontFamily.margarine,
+            if (user?.username != null && (user?.username.isNotEmpty ?? false))
+              Text(
+                user?.username.titleCase() ?? '',
+                textScaler: TextScaler.noScaling,
+                style: context.textTheme.bodyLarge!.copyWith(
+                  fontFamily: FontFamily.margarine,
+                ),
               ),
-            ),
-            const SizedBox(height: 4),
-            Text(
-              'tokunbobeardy@gmail.com',
-              textScaler: TextScaler.noScaling,
-              style: context.textTheme.bodySmall!.copyWith(
-                fontSize: 12.7.sp,
-                fontWeight: FontWeight.w300,
+            if (user?.email != null && (user?.email.isNotEmpty ?? false)) ...[
+              const SizedBox(height: 4),
+              Text(
+                user?.email.titleCase() ?? '',
+                textScaler: TextScaler.noScaling,
+                style: context.textTheme.bodySmall!.copyWith(
+                  fontSize: 12.7.sp,
+                  fontWeight: FontWeight.w300,
+                ),
               ),
-            ),
+            ],
             SizedBox(height: 32.h),
             Row(
               children: [
@@ -117,7 +123,7 @@ class MeScreen extends HookWidget {
             Align(
               alignment: Alignment.centerLeft,
               child: Text(
-                completedLessonsEn,
+                context.appLocale.completedLessons,
                 textScaler: TextScaler.noScaling,
                 style: context.textTheme.bodyLarge!.copyWith(
                   fontFamily: FontFamily.margarine,

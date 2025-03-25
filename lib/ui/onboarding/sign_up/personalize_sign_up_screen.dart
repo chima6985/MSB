@@ -121,7 +121,7 @@ class _PersonalizeSignUpScreen extends HookWidget {
                                 (gender) => DropdownMenuItem(
                                   value: gender,
                                   child: Text(
-                                    gender.toString(),
+                                    gender,
                                     style: context.textTheme.bodyLarge,
                                   ),
                                 ),
