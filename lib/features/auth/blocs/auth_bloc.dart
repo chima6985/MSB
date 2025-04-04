@@ -60,10 +60,13 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   ) async {
     try {
       emit(_AuthAuthenticating(user: state.user));
-      final user = await _authRepository.login(
+      final data = await _authRepository.login(
         email: event.email,
         password: event.password,
       );
+      final userData = data;
+      userData['token'] = data['access_token'];
+      final user = User.fromJson(userData);
       AppStorage.saveEmail(event.email);
       AppStorage.saveUser(user);
       emit(_AuthAuthenticated(user: user));
