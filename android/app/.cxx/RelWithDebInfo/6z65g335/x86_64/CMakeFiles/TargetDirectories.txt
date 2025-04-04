@@ -1,0 +1,2 @@
+C:/Users/chima/Downloads/msb-main/android/app/.cxx/RelWithDebInfo/6z65g335/x86_64/CMakeFiles/edit_cache.dir
+C:/Users/chima/Downloads/msb-main/android/app/.cxx/RelWithDebInfo/6z65g335/x86_64/CMakeFiles/rebuild_cache.dir
