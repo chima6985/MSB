@@ -32,9 +32,9 @@ class GameRepository {
   final http.Client _client;
   final String _baseUrl;
 
-  /// Get modules and difficulty endpoint
-  String _getModulesAndDifficulty(String languageId) =>
-      '$_baseUrl/game/single-player/get-all-modules-and-difficulty/$languageId';
+  /// Get sections and difficulty endpoint
+  String _getSectionsAndDifficulty(String languageId) =>
+      '$_baseUrl/game/single-player/get-all-sections-and-difficulty';
 
   /// Get questions endpoint
   String _getQuestions(String difficulty, String section) =>
@@ -50,27 +50,27 @@ class GameRepository {
   /// Get player rewards endpoint
   String _getPlayerRewards() => '$_baseUrl/game/single-player/rewards';
 
-  /// Get modules and difficulty
+  /// Get sections and difficulty
   ///
   /// Returns void on success.
   /// Throws [GameException] when operation fails.
-  Future<ModuleDifficulty> getModulesAndDifficulty({
+  Future<SectionDifficulty> getSectionsAndDifficulty({
     required String languageId,
     required String token,
   }) async {
     try {
-      final url = _getModulesAndDifficulty(languageId);
+      final url = _getSectionsAndDifficulty(languageId);
       final headers = {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
         'Authorization': 'Bearer $token',
       };
-      return await APIHelper.request<ModuleDifficulty>(
+      return await APIHelper.request<SectionDifficulty>(
         request: _client.get(
           Uri.parse(url),
           headers: headers,
         ),
-        onSuccessMap: ModuleDifficulty.fromJson,
+        onSuccessMap: SectionDifficulty.fromJson,
       );
     } on APIException catch (e) {
       throw GameException(message: e.message);

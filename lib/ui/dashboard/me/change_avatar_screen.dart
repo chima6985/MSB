@@ -117,6 +117,66 @@ class ChangeAvatarScreen extends HookWidget {
                             },
                             isSelected: isSelected.value == 3,
                           ),
+                          _AvatarWidget(
+                            imagePath:
+                                AppAssets.images.jpegs.profileImage1.path,
+                            onTap: () {
+                              selectedProfileAvatar.value =
+                                  AppAssets.images.jpegs.profileImage1.path;
+                              isSelected.value = 3;
+                            },
+                            isSelected: isSelected.value == 3,
+                          ),
+                          _AvatarWidget(
+                            imagePath:
+                                AppAssets.images.jpegs.profileImage1.path,
+                            onTap: () {
+                              selectedProfileAvatar.value =
+                                  AppAssets.images.jpegs.profileImage1.path;
+                              isSelected.value = 3;
+                            },
+                            isSelected: isSelected.value == 3,
+                          ),
+                          _AvatarWidget(
+                            imagePath:
+                                AppAssets.images.jpegs.profileImage1.path,
+                            onTap: () {
+                              selectedProfileAvatar.value =
+                                  AppAssets.images.jpegs.profileImage1.path;
+                              isSelected.value = 3;
+                            },
+                            isSelected: isSelected.value == 3,
+                          ),
+                          _AvatarWidget(
+                            imagePath:
+                                AppAssets.images.jpegs.profileImage1.path,
+                            onTap: () {
+                              selectedProfileAvatar.value =
+                                  AppAssets.images.jpegs.profileImage1.path;
+                              isSelected.value = 3;
+                            },
+                            isSelected: isSelected.value == 3,
+                          ),
+                          _AvatarWidget(
+                            imagePath:
+                                AppAssets.images.jpegs.profileImage1.path,
+                            onTap: () {
+                              selectedProfileAvatar.value =
+                                  AppAssets.images.jpegs.profileImage1.path;
+                              isSelected.value = 3;
+                            },
+                            isSelected: isSelected.value == 3,
+                          ),
+                          _AvatarWidget(
+                            imagePath:
+                                AppAssets.images.jpegs.profileImage1.path,
+                            onTap: () {
+                              selectedProfileAvatar.value =
+                                  AppAssets.images.jpegs.profileImage1.path;
+                              isSelected.value = 3;
+                            },
+                            isSelected: isSelected.value == 3,
+                          ),
                         ],
                       ),
                     ),

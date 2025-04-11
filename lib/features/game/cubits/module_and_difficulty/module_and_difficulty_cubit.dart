@@ -22,13 +22,13 @@ class ModuleAndDifficultyCubit extends Cubit<ModuleAndDifficultyState> {
   /// Auth Bloc.
   final AuthBloc _authBloc;
 
-  /// Get question
-  Future<void> getModulesAndDifficulty() async {
+  /// Get sections and difficulty
+  Future<void> getSectionsAndDifficulty() async {
     try {
       emit(const _Loading());
       final user = UserHelper.fetchUser(authBloc: _authBloc);
       if (user == null) return;
-      final apiResponse = await _gameRepository.getModulesAndDifficulty(
+      final apiResponse = await _gameRepository.getSectionsAndDifficulty(
         languageId: yorubaLanguageId,
         token: user.token,
       );

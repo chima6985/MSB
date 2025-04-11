@@ -66,7 +66,7 @@ class _PlayerScreen extends HookWidget {
     final isTeamFormationAutomatic = useState<bool?>(null);
     final mqr = MediaQuery.of(context).size;
     final selectedDifficulty = useState<Difficulty?>(null);
-    final selectedModule = useState<Module?>(null);
+    final selectedSection = useState<Section?>(null);
     final categoryScrollController = useScrollController();
     final difficultyLevelScrollController = useScrollController();
     final isLoading = useState(false);
@@ -78,7 +78,7 @@ class _PlayerScreen extends HookWidget {
 
     useEffect(
       () {
-        context.read<ModuleAndDifficultyCubit>().getModulesAndDifficulty();
+        context.read<ModuleAndDifficultyCubit>().getSectionsAndDifficulty();
         return null;
       },
       [],
@@ -175,10 +175,14 @@ class _PlayerScreen extends HookWidget {
                       error: (error) => Column(
                         children: [
                           SizedBox(height: mqr.height * 0.2),
-                          Text(
-                            error ?? '',
-                            textScaler: TextScaler.noScaling,
-                            style: context.textTheme.bodyLarge!.copyWith(),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 15),
+                            child: Text(
+                              error ?? '',
+                              textScaler: TextScaler.noScaling,
+                              textAlign: TextAlign.center,
+                              style: context.textTheme.bodyLarge,
+                            ),
                           ),
                           const SizedBox(height: 20),
                           Button(
@@ -186,7 +190,7 @@ class _PlayerScreen extends HookWidget {
                             label: context.appLocale.retry,
                             onPressed: () => context
                                 .read<ModuleAndDifficultyCubit>()
-                                .getModulesAndDifficulty(),
+                                .getSectionsAndDifficulty(),
                           ),
                         ],
                       ),
@@ -196,7 +200,7 @@ class _PlayerScreen extends HookWidget {
                           const CustomSpinner(color: AppColors.black),
                         ],
                       ),
-                      loaded: (moduleDifficulty) => Column(
+                      loaded: (sectionDifficulty) => Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Padding(
@@ -247,13 +251,15 @@ class _PlayerScreen extends HookWidget {
                                         'not_timed',
                                   ),
                                 ] else
-                                  ...moduleDifficulty.modules.map(
-                                    (module) => CategoryWidget(
-                                      title: module.moduleTitle,
+                                  ...sectionDifficulty.sections.map(
+                                    (section) => CategoryWidget(
+                                      title: currentLocale == yo
+                                          ? section.yorubaSectionName
+                                          : section.sectionName,
                                       isSelected:
-                                          selectedModule.value == module,
+                                          selectedSection.value == section,
                                       onTap: () {
-                                        selectedModule.value = module;
+                                        selectedSection.value = section;
                                       },
                                     ),
                                   ),
@@ -293,7 +299,7 @@ class _PlayerScreen extends HookWidget {
                             child: Row(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                ...moduleDifficulty.difficulty.map(
+                                ...sectionDifficulty.difficulties.map(
                                   (difficulty) => _SelectDifficultyWidget(
                                     difficulty: difficulty,
                                     isSelected:
@@ -477,7 +483,7 @@ class _PlayerScreen extends HookWidget {
                                     );
                                     return;
                                   }
-                                  if (selectedModule.value == null) {
+                                  if (selectedSection.value == null) {
                                     ToastMessage.showWarning(
                                       context: context,
                                       text: context
@@ -490,7 +496,8 @@ class _PlayerScreen extends HookWidget {
                                       .getSinglePlayerQuestions(
                                         difficulty:
                                             selectedDifficulty.value?.id ?? '',
-                                        section: selectedModule.value?.id ?? '',
+                                        section:
+                                            selectedSection.value?.id ?? '',
                                       );
                                 }
                                 if (isPractice) {

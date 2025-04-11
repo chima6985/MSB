@@ -20,7 +20,7 @@ mixin _$ModuleAndDifficultyState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(ModuleDifficulty moduleDifficulty) loaded,
+    required TResult Function(SectionDifficulty moduleDifficulty) loaded,
     required TResult Function(String? error) error,
   }) =>
       throw _privateConstructorUsedError;
@@ -28,7 +28,7 @@ mixin _$ModuleAndDifficultyState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(ModuleDifficulty moduleDifficulty)? loaded,
+    TResult? Function(SectionDifficulty moduleDifficulty)? loaded,
     TResult? Function(String? error)? error,
   }) =>
       throw _privateConstructorUsedError;
@@ -36,7 +36,7 @@ mixin _$ModuleAndDifficultyState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(ModuleDifficulty moduleDifficulty)? loaded,
+    TResult Function(SectionDifficulty moduleDifficulty)? loaded,
     TResult Function(String? error)? error,
     required TResult orElse(),
   }) =>
@@ -133,7 +133,7 @@ class _$InitialImpl implements _Initial {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(ModuleDifficulty moduleDifficulty) loaded,
+    required TResult Function(SectionDifficulty moduleDifficulty) loaded,
     required TResult Function(String? error) error,
   }) {
     return initial();
@@ -144,7 +144,7 @@ class _$InitialImpl implements _Initial {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(ModuleDifficulty moduleDifficulty)? loaded,
+    TResult? Function(SectionDifficulty moduleDifficulty)? loaded,
     TResult? Function(String? error)? error,
   }) {
     return initial?.call();
@@ -155,7 +155,7 @@ class _$InitialImpl implements _Initial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(ModuleDifficulty moduleDifficulty)? loaded,
+    TResult Function(SectionDifficulty moduleDifficulty)? loaded,
     TResult Function(String? error)? error,
     required TResult orElse(),
   }) {
@@ -250,7 +250,7 @@ class _$LoadingImpl implements _Loading {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(ModuleDifficulty moduleDifficulty) loaded,
+    required TResult Function(SectionDifficulty moduleDifficulty) loaded,
     required TResult Function(String? error) error,
   }) {
     return loading();
@@ -261,7 +261,7 @@ class _$LoadingImpl implements _Loading {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(ModuleDifficulty moduleDifficulty)? loaded,
+    TResult? Function(SectionDifficulty moduleDifficulty)? loaded,
     TResult? Function(String? error)? error,
   }) {
     return loading?.call();
@@ -272,7 +272,7 @@ class _$LoadingImpl implements _Loading {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(ModuleDifficulty moduleDifficulty)? loaded,
+    TResult Function(SectionDifficulty moduleDifficulty)? loaded,
     TResult Function(String? error)? error,
     required TResult orElse(),
   }) {
@@ -330,9 +330,9 @@ abstract class _$$LoadedImplCopyWith<$Res> {
           _$LoadedImpl value, $Res Function(_$LoadedImpl) then) =
       __$$LoadedImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({ModuleDifficulty moduleDifficulty});
+  $Res call({SectionDifficulty moduleDifficulty});
 
-  $ModuleDifficultyCopyWith<$Res> get moduleDifficulty;
+  $SectionDifficultyCopyWith<$Res> get moduleDifficulty;
 }
 
 /// @nodoc
@@ -354,7 +354,7 @@ class __$$LoadedImplCopyWithImpl<$Res>
       moduleDifficulty: null == moduleDifficulty
           ? _value.moduleDifficulty
           : moduleDifficulty // ignore: cast_nullable_to_non_nullable
-              as ModuleDifficulty,
+              as SectionDifficulty,
     ));
   }
 
@@ -362,8 +362,8 @@ class __$$LoadedImplCopyWithImpl<$Res>
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
-  $ModuleDifficultyCopyWith<$Res> get moduleDifficulty {
-    return $ModuleDifficultyCopyWith<$Res>(_value.moduleDifficulty, (value) {
+  $SectionDifficultyCopyWith<$Res> get moduleDifficulty {
+    return $SectionDifficultyCopyWith<$Res>(_value.moduleDifficulty, (value) {
       return _then(_value.copyWith(moduleDifficulty: value));
     });
   }
@@ -375,7 +375,7 @@ class _$LoadedImpl implements _Loaded {
   const _$LoadedImpl({required this.moduleDifficulty});
 
   @override
-  final ModuleDifficulty moduleDifficulty;
+  final SectionDifficulty moduleDifficulty;
 
   @override
   String toString() {
@@ -407,7 +407,7 @@ class _$LoadedImpl implements _Loaded {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(ModuleDifficulty moduleDifficulty) loaded,
+    required TResult Function(SectionDifficulty moduleDifficulty) loaded,
     required TResult Function(String? error) error,
   }) {
     return loaded(moduleDifficulty);
@@ -418,7 +418,7 @@ class _$LoadedImpl implements _Loaded {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(ModuleDifficulty moduleDifficulty)? loaded,
+    TResult? Function(SectionDifficulty moduleDifficulty)? loaded,
     TResult? Function(String? error)? error,
   }) {
     return loaded?.call(moduleDifficulty);
@@ -429,7 +429,7 @@ class _$LoadedImpl implements _Loaded {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(ModuleDifficulty moduleDifficulty)? loaded,
+    TResult Function(SectionDifficulty moduleDifficulty)? loaded,
     TResult Function(String? error)? error,
     required TResult orElse(),
   }) {
@@ -478,10 +478,10 @@ class _$LoadedImpl implements _Loaded {
 }
 
 abstract class _Loaded implements ModuleAndDifficultyState {
-  const factory _Loaded({required final ModuleDifficulty moduleDifficulty}) =
+  const factory _Loaded({required final SectionDifficulty moduleDifficulty}) =
       _$LoadedImpl;
 
-  ModuleDifficulty get moduleDifficulty;
+  SectionDifficulty get moduleDifficulty;
 
   /// Create a copy of ModuleAndDifficultyState
   /// with the given fields replaced by the non-null parameter values.
@@ -560,7 +560,7 @@ class _$ErrorImpl implements _Error {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(ModuleDifficulty moduleDifficulty) loaded,
+    required TResult Function(SectionDifficulty moduleDifficulty) loaded,
     required TResult Function(String? error) error,
   }) {
     return error(this.error);
@@ -571,7 +571,7 @@ class _$ErrorImpl implements _Error {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(ModuleDifficulty moduleDifficulty)? loaded,
+    TResult? Function(SectionDifficulty moduleDifficulty)? loaded,
     TResult? Function(String? error)? error,
   }) {
     return error?.call(this.error);
@@ -582,7 +582,7 @@ class _$ErrorImpl implements _Error {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(ModuleDifficulty moduleDifficulty)? loaded,
+    TResult Function(SectionDifficulty moduleDifficulty)? loaded,
     TResult Function(String? error)? error,
     required TResult orElse(),
   }) {
