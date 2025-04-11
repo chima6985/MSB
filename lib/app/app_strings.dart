@@ -138,14 +138,6 @@ const newPasswrodEn = 'New password';
 const confirmPasswordYr = 'Ṣe ìdánilójú ọrọ aṣínà';
 const cofirmPasswordEn = 'Confirm password';
 
-const modifyPlayModeYr = 'Àtúnṣe ipò ere';
-
-const selectCategoryYr = 'Yan ìsò̩rí';
-const selectCategoryEn = 'Select category';
-
-const selectDifficultyYr = 'Yan ipele tó le';
-const selectDifficultyEn = 'Choose difficulty level';
-
 const introductionToPlayerYr = 'Káàbọ̀ sí eré aládáṣe';
 const introductionToPlayerEn = 'Introduction to single player';
 

@@ -125,11 +125,12 @@
   "help":"Help",
   "logout":"Log out",
   "deleteAccount":"Delete account",
-
-
-
-
-
+  "retry":"Retry",
+  "modifyPlayMode":"Modify play mode",
+  "selectCategory":"Select category",
+  "selectDifficulty":"Choose difficulty level",
+  "pleaseChooseDifficultyLevel":"Please choose a difficulty level",
+  "pleaseChooseCategory":"Please choose a question category",
 
 
 

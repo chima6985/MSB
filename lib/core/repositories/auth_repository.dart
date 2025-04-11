@@ -140,7 +140,7 @@ class AuthRepository {
   ///
   /// Returns [User] on success.
   /// Throws [AuthException] when operation fails.
-  Future<Map<String, dynamic>> login({
+  Future<User> login({
     required String email,
     required String password,
   }) async {
@@ -154,13 +154,13 @@ class AuthRepository {
         'email': email.toLowerCase(),
         'password': password,
       };
-      return await APIHelper.request<Map<String, dynamic>>(
+      return await APIHelper.request<User>(
         request: _client.post(
           Uri.parse(url),
           headers: headers,
           body: jsonEncode(body),
         ),
-        onSuccessMap: (value) => value,
+        onSuccessMap: User.fromJson,
       );
     } on APIException catch (e) {
       throw AuthException(message: e.message);

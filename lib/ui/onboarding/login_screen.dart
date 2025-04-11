@@ -28,12 +28,12 @@ class LoginScreen extends HookWidget {
         state.maybeWhen(
           authenticating: (user) => isLoading.value = true,
           authenticated: (user) {
+            context.read<UserCubit>().init();
             if (!user.isCompleted) {
               context.pushNamed(PersonalizeSignUpScreen.id);
             } else if (!user.isSurveyCompleted) {
               context.goNamed(SurveyScreen.id);
             } else {
-              context.read<UserCubit>().init();
               context.goNamed(DashboardIndexScreen.id);
             }
           },
@@ -143,6 +143,7 @@ class LoginScreen extends HookWidget {
                         context.appLocale.forgotPassword,
                         textScaler: TextScaler.noScaling,
                         style: context.textTheme.bodySmall!.copyWith(
+                          fontSize: 13.5.sp,
                           fontWeight: FontWeight.w500,
                         ),
                       ),

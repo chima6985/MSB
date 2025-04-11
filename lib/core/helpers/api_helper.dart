@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:http/http.dart' as http;
+import 'package:masoyinbo_mobile/core/core.dart';
 
 /// {@template api_exception}
 /// General exception for [APIHelper] methods.
@@ -69,6 +70,9 @@ class APIHelper {
       // Check if error message exists.
       // If error exsists, code will be '06' or else code will be '00'
       final data = jsonDecode(response.body) as Map<String, dynamic>;
+      if (data['message'] == 'Unauthorized') {
+        throw const AuthException();
+      }
       if (data['error'] != null) {
         log(
           '''

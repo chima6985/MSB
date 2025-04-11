@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:masoyinbo_mobile/extension/extension.dart';
+import 'package:masoyinbo_mobile/features/features.dart';
 import 'package:masoyinbo_mobile/gen/fonts.gen.dart';
 import 'package:masoyinbo_mobile/ui/ui.dart';
+import 'package:masoyinbo_mobile/utils/utils.dart';
 
 class DashboardIndexScreen extends HookWidget {
   const DashboardIndexScreen({
@@ -19,38 +22,33 @@ class DashboardIndexScreen extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final currentPosition = useState(initialIndex);
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      extendBodyBehindAppBar: true,
-      appBar: currentPosition.value == 3
-          ? AppBar(
-              title: Text(
-                context.appLocale.me,
-                style: context.textTheme.titleLarge!.copyWith(
-                  fontFamily: FontFamily.margarine,
-                ),
-              ),
-              actions: [
-                InkWell(
-                  onTap: () => context.pushNamed(BookmarkScreen.id),
-                  customBorder: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(4),
-                  ),
-                  splashColor: AppColors.black15.withValues(alpha: 0.1),
-                  highlightColor: AppColors.black15.withValues(alpha: 0.1),
-                  child: const Padding(
-                    padding: EdgeInsets.symmetric(vertical: 4, horizontal: 6),
-                    child: Icon(
-                      Iconsax.save_2,
-                      color: AppColors.black15,
-                    ),
+    return BlocListener<AuthBloc, AuthState>(
+      listener: (context, state) {
+        state.maybeWhen(
+          orElse: () {},
+          authSignedOut: (user, message) {
+            ToastMessage.showError(
+              context: context,
+              text: 'Session expired, please login again',
+            );
+            context.goNamed(LoginScreen.id);
+          },
+        );
+      },
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        extendBodyBehindAppBar: true,
+        appBar: currentPosition.value == 3
+            ? AppBar(
+                title: Text(
+                  context.appLocale.me,
+                  style: context.textTheme.titleLarge!.copyWith(
+                    fontFamily: FontFamily.margarine,
                   ),
                 ),
-                const SizedBox(width: 20),
-                Transform.translate(
-                  offset: const Offset(-10, 0),
-                  child: InkWell(
-                    onTap: () => context.pushNamed(SettingsScreen.id),
+                actions: [
+                  InkWell(
+                    onTap: () => context.pushNamed(BookmarkScreen.id),
                     customBorder: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(4),
                     ),
@@ -59,115 +57,136 @@ class DashboardIndexScreen extends HookWidget {
                     child: const Padding(
                       padding: EdgeInsets.symmetric(vertical: 4, horizontal: 6),
                       child: Icon(
-                        Iconsax.setting_2,
+                        Iconsax.save_2,
                         color: AppColors.black15,
                       ),
                     ),
                   ),
-                ),
-              ],
-            )
-          : null,
-      body: DecoratedContainer(
-        child: Stack(
-          children: [
-            if (currentPosition.value == 0) const Home(),
-            if (currentPosition.value == 1) const LearnScreen(),
-            if (currentPosition.value == 2)
-              LeaderBoard(currentPosition: currentPosition),
-            if (currentPosition.value == 3) const MeScreen(),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: IntrinsicHeight(
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: AppColors.white,
-                    boxShadow: [
-                      BoxShadow(
-                        color: AppColors.black.withValues(alpha: 0.15),
-                        blurRadius: 11,
-                        spreadRadius: 1,
+                  const SizedBox(width: 20),
+                  Transform.translate(
+                    offset: const Offset(-10, 0),
+                    child: InkWell(
+                      onTap: () => context.pushNamed(SettingsScreen.id),
+                      customBorder: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(4),
                       ),
-                    ],
+                      splashColor: AppColors.black15.withValues(alpha: 0.1),
+                      highlightColor: AppColors.black15.withValues(alpha: 0.1),
+                      child: const Padding(
+                        padding:
+                            EdgeInsets.symmetric(vertical: 4, horizontal: 6),
+                        child: Icon(
+                          Iconsax.setting_2,
+                          color: AppColors.black15,
+                        ),
+                      ),
+                    ),
                   ),
-                  padding:
-                      EdgeInsets.fromLTRB(23.w, 16, 23.w, context.btmPadding),
+                ],
+              )
+            : null,
+        body: DecoratedContainer(
+          child: Stack(
+            children: [
+              if (currentPosition.value == 0) const Home(),
+              if (currentPosition.value == 1) const LearnScreen(),
+              if (currentPosition.value == 2)
+                LeaderBoard(currentPosition: currentPosition),
+              if (currentPosition.value == 3) const MeScreen(),
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: IntrinsicHeight(
                   child: Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 16,
-                      vertical: 10,
-                    ),
                     decoration: BoxDecoration(
-                      color: AppColors.blueE7,
-                      borderRadius: BorderRadius.circular(24),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: context.isTablet
-                          ? MainAxisAlignment.center
-                          : MainAxisAlignment.spaceBetween,
-                      children: [
-                        BottomNavButton(
-                          buttonName: context.appLocale.home,
-                          buttonIcon: AppAssets.images.svgs.home.path,
-                          buttonIconBold: AppAssets.images.svgs.homeBold.path,
-                          currentPosition: currentPosition.value,
-                          onPressed: () {
-                            if (0 != currentPosition.value) {
-                              currentPosition.value = 0;
-                              HapticFeedback.lightImpact();
-                            }
-                          },
-                        ),
-                        if (context.isTablet) SizedBox(width: 80.w),
-                        BottomNavButton(
-                          buttonName: context.appLocale.learn,
-                          buttonIcon: AppAssets.images.svgs.learn.path,
-                          buttonIconBold: AppAssets.images.svgs.learnBold.path,
-                          position: 1,
-                          currentPosition: currentPosition.value,
-                          onPressed: () {
-                            if (1 != currentPosition.value) {
-                              currentPosition.value = 1;
-                              HapticFeedback.lightImpact();
-                            }
-                          },
-                        ),
-                        if (context.isTablet) SizedBox(width: 80.w),
-                        BottomNavButton(
-                          buttonName: context.appLocale.leaderboard,
-                          buttonIcon: AppAssets.images.svgs.leaderBoard.path,
-                          buttonIconBold:
-                              AppAssets.images.svgs.leaderBoardBold.path,
-                          position: 2,
-                          currentPosition: currentPosition.value,
-                          onPressed: () {
-                            if (2 != currentPosition.value) {
-                              currentPosition.value = 2;
-                              HapticFeedback.lightImpact();
-                            }
-                          },
-                        ),
-                        if (context.isTablet) SizedBox(width: 80.w),
-                        BottomNavButton(
-                          buttonName: context.appLocale.me,
-                          buttonIcon: AppAssets.images.svgs.me.path,
-                          buttonIconBold: AppAssets.images.svgs.meBold.path,
-                          position: 3,
-                          currentPosition: currentPosition.value,
-                          onPressed: () {
-                            if (3 != currentPosition.value) {
-                              currentPosition.value = 3;
-                              HapticFeedback.lightImpact();
-                            }
-                          },
+                      color: AppColors.white,
+                      boxShadow: [
+                        BoxShadow(
+                          color: AppColors.black.withValues(alpha: 0.15),
+                          blurRadius: 11,
+                          spreadRadius: 1,
                         ),
                       ],
+                    ),
+                    padding:
+                        EdgeInsets.fromLTRB(23.w, 16, 23.w, context.btmPadding),
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 10,
+                      ),
+                      decoration: BoxDecoration(
+                        color: AppColors.blueE7,
+                        borderRadius: BorderRadius.circular(24),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: context.isTablet
+                            ? MainAxisAlignment.center
+                            : MainAxisAlignment.spaceBetween,
+                        children: [
+                          BottomNavButton(
+                            buttonName: context.appLocale.home,
+                            buttonIcon: AppAssets.images.svgs.home.path,
+                            buttonIconBold: AppAssets.images.svgs.homeBold.path,
+                            currentPosition: currentPosition.value,
+                            onPressed: () {
+                              if (0 != currentPosition.value) {
+                                currentPosition.value = 0;
+                                HapticFeedback.lightImpact();
+                              }
+                            },
+                          ),
+                          if (context.isTablet) SizedBox(width: 80.w),
+                          BottomNavButton(
+                            buttonName: context.appLocale.learn,
+                            buttonIcon: AppAssets.images.svgs.learn.path,
+                            buttonIconBold:
+                                AppAssets.images.svgs.learnBold.path,
+                            position: 1,
+                            currentPosition: currentPosition.value,
+                            onPressed: () {
+                              if (1 != currentPosition.value) {
+                                currentPosition.value = 1;
+                                HapticFeedback.lightImpact();
+                              }
+                            },
+                          ),
+                          if (context.isTablet) SizedBox(width: 80.w),
+                          BottomNavButton(
+                            buttonName: context.appLocale.leaderboard,
+                            buttonIcon: AppAssets.images.svgs.leaderBoard.path,
+                            buttonIconBold:
+                                AppAssets.images.svgs.leaderBoardBold.path,
+                            position: 2,
+                            currentPosition: currentPosition.value,
+                            onPressed: () {
+                              if (2 != currentPosition.value) {
+                                currentPosition.value = 2;
+                                HapticFeedback.lightImpact();
+                              }
+                            },
+                          ),
+                          if (context.isTablet) SizedBox(width: 80.w),
+                          BottomNavButton(
+                            buttonName: context.appLocale.me,
+                            buttonIcon: AppAssets.images.svgs.me.path,
+                            buttonIconBold: AppAssets.images.svgs.meBold.path,
+                            position: 3,
+                            currentPosition: currentPosition.value,
+                            onPressed: () {
+                              if (3 != currentPosition.value) {
+                                currentPosition.value = 3;
+                                HapticFeedback.lightImpact();
+                              }
+                            },
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

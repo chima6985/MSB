@@ -21,6 +21,7 @@ User _$UserFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$User {
   String get id => throw _privateConstructorUsedError;
+  @JsonKey(name: 'access_token')
   String get token => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
   String get username => throw _privateConstructorUsedError;
@@ -46,7 +47,7 @@ abstract class $UserCopyWith<$Res> {
   @useResult
   $Res call(
       {String id,
-      String token,
+      @JsonKey(name: 'access_token') String token,
       String email,
       String username,
       String gender,
@@ -119,7 +120,7 @@ abstract class _$$UserImplCopyWith<$Res> implements $UserCopyWith<$Res> {
   @useResult
   $Res call(
       {String id,
-      String token,
+      @JsonKey(name: 'access_token') String token,
       String email,
       String username,
       String gender,
@@ -185,7 +186,7 @@ class __$$UserImplCopyWithImpl<$Res>
 class _$UserImpl implements _User {
   const _$UserImpl(
       {this.id = '',
-      this.token = '',
+      @JsonKey(name: 'access_token') this.token = '',
       this.email = '',
       this.username = '',
       this.gender = '',
@@ -199,7 +200,7 @@ class _$UserImpl implements _User {
   @JsonKey()
   final String id;
   @override
-  @JsonKey()
+  @JsonKey(name: 'access_token')
   final String token;
   @override
   @JsonKey()
@@ -263,7 +264,7 @@ class _$UserImpl implements _User {
 abstract class _User implements User {
   const factory _User(
           {final String id,
-          final String token,
+          @JsonKey(name: 'access_token') final String token,
           final String email,
           final String username,
           final String gender,
@@ -276,6 +277,7 @@ abstract class _User implements User {
   @override
   String get id;
   @override
+  @JsonKey(name: 'access_token')
   String get token;
   @override
   String get email;

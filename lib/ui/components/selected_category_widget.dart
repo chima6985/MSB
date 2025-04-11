@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:masoyinbo_mobile/extension/extension.dart';
 import 'package:masoyinbo_mobile/ui/ui.dart';
 
-class SelectCategoryWidget extends StatelessWidget {
-  const SelectCategoryWidget({
+class CategoryWidget extends StatelessWidget {
+  const CategoryWidget({
     super.key,
     required this.title,
     required this.isSelected,

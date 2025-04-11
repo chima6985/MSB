@@ -738,7 +738,7 @@ class _PlayQuestionScreenState extends State<PlayQuestionScreen> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                SelectCategoryWidget(
+                                CategoryWidget(
                                   title: 'ògún',
                                   isSelected: selectedFillWordOption == 'ògún',
                                   onTap: () {
@@ -751,7 +751,7 @@ class _PlayQuestionScreenState extends State<PlayQuestionScreen> {
                                     });
                                   },
                                 ),
-                                SelectCategoryWidget(
+                                CategoryWidget(
                                   title: 'ogun',
                                   isSelected: selectedFillWordOption == 'ogun',
                                   onTap: () {
