@@ -9,15 +9,17 @@ import 'package:masoyinbo_mobile/utils/utils.dart';
 class ChangeAvatarScreen extends HookWidget {
   const ChangeAvatarScreen({
     super.key,
+    required this.selectedGender,
   });
   static const String id = 'changeAvatarScreen';
+  final String? selectedGender ;
 
   @override
   Widget build(BuildContext context) {
     final mqr = MediaQuery.of(context).size;
     final selectedProfileAvatar = useState<String?>(null);
     final isSelected = useState<int?>(null);
-    final bool isMale = false;
+    final  isMale = selectedGender == 'Male';
     return Scaffold(
       body: DecoratedContainer(
         child: SingleChildScrollView(
