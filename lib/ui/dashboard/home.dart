@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -19,6 +21,7 @@ class Home extends HookWidget {
     final greetings = Functions.greetingMessage(context);
     final currentLocale = context.currentLocale;
     final user = context.watch<UserCubit>().state.user;
+    log(user.toString());
     return SingleChildScrollView(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 23),

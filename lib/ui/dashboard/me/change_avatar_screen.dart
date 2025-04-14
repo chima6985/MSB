@@ -12,13 +12,12 @@ class ChangeAvatarScreen extends HookWidget {
   });
   static const String id = 'changeAvatarScreen';
 
-  final bool isMale = true;
-
   @override
   Widget build(BuildContext context) {
     final mqr = MediaQuery.of(context).size;
     final selectedProfileAvatar = useState<String?>(null);
     final isSelected = useState<int?>(null);
+    final bool isMale = false;
     return Scaffold(
       body: DecoratedContainer(
         child: SingleChildScrollView(
@@ -41,7 +40,7 @@ class ChangeAvatarScreen extends HookWidget {
                   ),
                 ],
               ),
-              SizedBox(height: 25.h),
+              SizedBox(height: 15.w),
               Container(
                 alignment: Alignment.bottomCenter,
                 width: mqr.width,
