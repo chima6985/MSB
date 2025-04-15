@@ -136,7 +136,7 @@
   "teamLeadersChoiceInstruction":"The system records the team leader's choice as the official team answer",
   "adjustTeam":"Adjust Team",
   "eachPlayerGameInstruction":"Each player will see the quiz at their end and they can select an option, while the team leader submit the final answer. All this within 30secs per question",
-  "setTeamOnlyPlayersIn":"Set the team only when you have all of your players in"
+  "setTeamOnlyPlayersIn":"Set the team only when you have all of your players in",
   "goingAheadToSetTeam":"If you go ahead to set team now, the door to the game room will be closed and new players won’t be able to join",
   "yesSetTeam":"Yes, set team",
   "goBackToRoom":"Go Back to Room",
@@ -157,8 +157,8 @@
   "createGame":"Create Game",
   "aboutToPlayAgainWithSameCode":"You are about to play again with the same invite code",
   "aboutToPlayAgainWithSameSettings":"You are about to play again with the same game set up, team mode, and formation",
-  "Go Home":"Go Home"
-  "acceptGame":"Accept game"
+  "goHome":"Go Home",
+  "acceptGame":"Accept game",
   "returnToLobby":"Return to Lobby",
   "playAgain":"Play Again",
   "scoreboard":"Scoreboard",
@@ -177,7 +177,7 @@
   "systemRecognizesTeamLeadersChoices":"The system records the team leader's choice as the official team answer",
   "eachPlayerInstruction":"Each player will see the quiz at their end and they can select an option, while the team leader submit the final answer. All this within 30secs per question",
   "teamAllSet":"Team All Set",
-  "sureToLeavePractice:"Are you sure you want to leave the quiz ?",
+  "sureToLeavePractice":"Are you sure you want to leave the quiz ?",
   "sureToLeaveGame":"Are you sure you want to leave the game room?",
   "leavePractice":"Yes, leave",
   "leaveRoom":"Yes, leave room",
@@ -188,13 +188,13 @@
   "teamMode":"Team mode",
   "gameDifficulty":"Game difficulty",
   "gameCategory":"Game category",
-  "leave":"Leave"
+  "leave":"Leave",
   "enterGameRoom":"Enter Game Room",
   "gamePreparedByFriend":"ere is the game set-up as prepared by your friend",
   "gameSetup":"Game Set-up",
   "gameCode":"Game code",
   "inputGameCode":"Input the game code your friend shared with you below",
-  "joinGameRoom":"Join Game Room"
+  "joinGameRoom":"Join Game Room",
   "findGameRoom":"Find Game Room",
   "joinGame":"Join Game",
   "searchBookMarks":"Search bookmarks",
@@ -289,11 +289,8 @@
   "lessonCovered":"COIN EARNED",
   "completedLessons":"Completed Lessons",
   "pleaseWaitForQuestions":"Please, wait while we prepare your set of questions.",
-  "":""
-
-  "":""
-
-  "":""
+  "alphabetLesson":"In this module, you'll embark on an exciting journey to learn the alphabets of the Yoruba language. We'll guide you through each letter, helping you understand how to pronounce and write them, as well as recognize their unique sounds. By the end of this lesson, you'll have a strong foundation to build upon as you continue your language learning journey.\n\nTo ensure you’ve mastered the content, there will be a knowledge review at the end of the module. This review will help reinforce what you've learned and prepare you for the next steps.\n\nLet’s get started!",
+  "inThisModuleScreen":"In this lesson, you'll embark on an exciting journey to learn the alphabets of the Yoruba language. We'll guide you through each letter, helping you understand how to pronounce and write them, as well as recognize their unique sounds. By the end of this lesson, you'll have a strong foundation to build upon as you continue your language learning journey.\n\nTo ensure you’ve mastered the content, there will be a knowledge review at the end of the module. This review will help reinforce what you've learned and prepare you for the next steps.\n\nLet’s get started!",
 
 
 
@@ -305,3 +302,4 @@
   
   "example":"example"
 }
+
