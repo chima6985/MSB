@@ -222,22 +222,23 @@
   "selectCategory":"Select category",
   "modifyPlayMode":"Modify game position",
   "cofirmPassword":"Confirm password",
-  "newPasswrod":"New password"
-  "":""
-  "":''
-  "":""
-  "":""
-  "":""
-  "":""
-  "":""
-  "":""
-  "":""
-  "":""
-  "":""
-  "":""
-  "":""
-  "":""
-  "":""
+  "newPasswrod":"New password",
+  "createANewPassword":"Create a new password",
+  "enterEmailAddressToReceiveOtp":"Enter your email address to receive an OTP to reset your password",
+  "createANewPassword":"Create a new password",
+  "enterEmailAddressToReceiveOtp":"Enter your email address to receive an OTP to reset your password",
+  "areYouSureYouWantToContinue":"Are you sure you want to continue with this action?",
+  "closeTheApp":"Close the App"
+  "thankYouForUsingOurProduct":"Thank you for using our product!\nWe look forward to seeing you again",
+  "deleteMyAccount":"Delete my Account"
+  "toCompleteYourDeletionProcess":"To complete your account deletion process, please enter your password",
+  "enterYourPassword":"Enter your Password"
+  "yourubaIsDifficultToLearn":"Yoruba is difficult to learn",
+  "tooManyAds":"Too many ads",
+  "cantAffordAPremiumAccount":"I can’t afford the premium account",
+  "saySomething":"Say something",
+  "optional":"Optional",
+  "howCanWeImproveOurService":"How we can improve our service?",
   "":""
   "":""
   "":""

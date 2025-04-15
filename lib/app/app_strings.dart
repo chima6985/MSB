@@ -115,12 +115,12 @@ const cantAffordAPremiumAccountEn = 'I can’t afford the premium account';
 const tooManyAdsEn = 'Too many ads';
 const yourubaIsDifficultToLearnEn = 'Yoruba is difficult to learn';
 const enterYourPasswordEn = 'Enter your Password';
-const toCompleteYourDeletionProcess =
+const toCompleteYourDeletionProcessEn =
     'To complete your account deletion process, please enter your password';
 const deleteMyAccountEn = 'Delete my Account';
 const thankYouForUsingOurProductEn =
     'Thank you for using our product!\nWe look forward to seeing you again';
-const closeTheApp = 'Close the App';
+const closeTheAppEn = 'Close the App';
 const areYouSureYouWantToContinueEn =
     'Are you sure you want to continue with this action?';
 

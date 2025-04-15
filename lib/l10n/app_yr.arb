@@ -222,7 +222,23 @@
     "selectCategory":"Yan ìsò̩rí",
     "modifyPlayMode":"Àtúnṣe ipò ere",
     "cofirmPassword":"Ṣe ìdánilójú ọrọ aṣínà",
-    "":""
+    "newPasswrod":"Ọrọ aṣínà tuntun",
+    "createANewPassword":"Ṣẹda ọrọ aṣínà tuntun",
+    "enterEmailAddressToReceiveOtp":"Tẹ adirẹsi imeeli rẹ silẹ lati gba OTP lati tun ọrọ aṣínà rẹ ṣe",
+    "createANewPassword":"Ṣẹda ọrọ aṣínà tuntun"
+    "enterEmailAddressToReceiveOtp":"Tẹ adirẹsi imeeli rẹ silẹ lati gba OTP lati tun ọrọ aṣínà rẹ ṣe",
+    "areYouSureYouWantToContinue":"Ṣe o da ọ loju pe o fẹ tẹsiwaju pẹlu iṣe yii?",
+    "closeTheApp":"Pa ohun elo naa",
+    "thankYouForUsingOurProduct":"O ṣeun fun lilo ọja wa!\nA nireti lati ri ọ lẹẹkansi"
+    "deleteMyAccount":"Pa akọọlẹ mi rẹ",
+    "toCompleteYourDeletionProcess":"Lati pari ilana piparẹ akọọlẹ rẹ, jọwọ tẹ ọrọ igbaniwọle rẹ sii",
+    "enterYourPassword":"Tẹ ọrọ igbaniwọle rẹ sii",
+    "yourubaIsDifficultToLearn":"Yoruba soro lati ko",
+    "tooManyAds":"Pupọ awọn ipolowo",
+    "cantAffordAPremiumAccount":"Nko le san owo iroyin Ere naa",
+    "saySomething":"So nkankan",
+    "optional":"iyan",
+    "howCanWeImproveOurService":""
     "":""
     "":""
     "":""
