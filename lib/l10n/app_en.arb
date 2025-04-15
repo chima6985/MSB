@@ -125,7 +125,7 @@
   "help":"Help",
   "logout":"Log out",
   "deleteAccount":"Delete account",
-  "otpVerifiedSuccessfully":"Aṣeyọrọ OTP ti o ni ibi ti a ti ṣẹjade",
+  "otpVerifiedSuccessfully":"OTP verified successfully",
   "anOtpSentToEmail":"OTP has been sent to your email",
   "unlockingFullExperience":"Unlock the full experience! Sign up now to explore more features and take full control of your journey",
   "signUp":"Sign up",
@@ -170,7 +170,7 @@
   "waitingForTeamLeaderToSubmitFinalAnswer":"Waiting for the team leader to submit final answer",
   "enterTeamName":"Enter team name",
   "teamName":"Team Name",
-  "selectedAsTeamLead":"You have been selected to play as your team leader!!"
+  "selectedAsTeamLead":"You have been selected to play as your team leader!!",
   "editTeamName":"Edit Team Name",
   "teamLeader":"Team Leader",
   "waitingForGameMasterToStartTheGame":"Waiting for the game master to start the game",
@@ -200,18 +200,18 @@
   "searchBookMarks":"Search bookmarks",
   "bookmarks":"Bookmarks",
   "selectMatchingImage":"Select the image that matches the term below",
-  "formTheSentence":"Form the sentence using the words below"
-  "writeYourAnswerHere":"Write your answer here"
+  "formTheSentence":"Form the sentence using the words below",
+  "writeYourAnswerHere":"Write your answer here",
   "selectAnswersFromOptionBelow":"Select your answers from the options below",
   "startPractice":"Start practice",
-  "practicePrep":"Here, you'll be presented with 10 questions to test your knowledge at your own pace.\n\nYou have no lives to look out for— Take your time, or not, think through your answers.\n\nRemember, practice Mode helps you gear up for the real deal, so take it easy on yourself.\nReady to dive in? Let's go!"
+  "practicePrep":"Here, you'll be presented with 10 questions to test your knowledge at your own pace.\n\nYou have no lives to look out for— Take your time, or not, think through your answers.\n\nRemember, practice Mode helps you gear up for the real deal, so take it easy on yourself.\nReady to dive in? Let's go!",
   "welcomeToPracticeMode":"Welcome to Practice mode",
   "getDailyReminder":"Get a daily reminder to play or relax. It can be turned off at the reset point",
   "setReminder":"Set Reminder",
   "remindMeLater":"Remind me later",
   "remindMe":"Remind me",
   "iWillDoThisLater":"I will do this later",
-  "setAvatar":"Set avatar"
+  "setAvatar":"Set avatar",
   "addSomeTouchOfPersonality":"Add some touch of personality to your profile with an avatar. You can do ths now or later",
   "letsGetYouAnAvatar":"Let’s get you an avatar!",
   "learnWhileYouPlay":"Learn while you play",
@@ -228,11 +228,11 @@
   "createANewPassword":"Create a new password",
   "enterEmailAddressToReceiveOtp":"Enter your email address to receive an OTP to reset your password",
   "areYouSureYouWantToContinue":"Are you sure you want to continue with this action?",
-  "closeTheApp":"Close the App"
+  "closeTheApp":"Close the App",
   "thankYouForUsingOurProduct":"Thank you for using our product!\nWe look forward to seeing you again",
-  "deleteMyAccount":"Delete my Account"
+  "deleteMyAccount":"Delete my Account",
   "toCompleteYourDeletionProcess":"To complete your account deletion process, please enter your password",
-  "enterYourPassword":"Enter your Password"
+  "enterYourPassword":"Enter your Password",
   "yourubaIsDifficultToLearn":"Yoruba is difficult to learn",
   "tooManyAds":"Too many ads",
   "cantAffordAPremiumAccount":"I can’t afford the premium account",
@@ -240,8 +240,8 @@
   "optional":"Optional",
   "howCanWeImproveOurService":"How we can improve our service?",
   "weHateToSeeYouGo":"We hate to see you go, but before you go, please, tell us what we have done wrong. Your feedback will help us improve our service",
-  "quickSurvey":"Quick Survey"
-  "ifYouHaveQuestions":"if you have questions!"
+  "quickSurvey":"Quick Survey",
+  "ifYouHaveQuestions":"if you have questions!",
   "ifYouAreCertain":"If you're certain you want to delete your account, tap Confirm below. Otherwise, feel free to reach out to us at",
   "actionCannotBeUndone":"This action cannot be undone. If you delete your account, you will need to start from scratch if you decide to return in the future",
   "profileAndSettings":"Profile & Settings: Your personalized settings and any customizations will be lost.",
@@ -249,35 +249,35 @@
   "whatHappensWhenYouDelete":"What happens when you delete your account:",
   "sureToDeleteAccount":"Are you sure you want to delete your account?",
   "reachUsViaMail":"Reach us via email with your concerns",
-  "mail":"Mail"
+  "mail":"Mail",
   "needToSpeakToUs":"Need to speak with us? Give us a call!",
-  "call":"Call"
-  "makePayment":"Make Payment"
-  "choosePreferredPaymentPlan":"Choose your preferred payment plan"
+  "call":"Call",
+  "makePayment":"Make Payment",
+  "choosePreferredPaymentPlan":"Choose your preferred payment plan",
   "paymentPlans":"Payment Plans",
   "cancelAnytime":"Cancel anytime with no charges",
   "exploreYorubaProverbs":"Explore Yoruba proverbs, folktales, and cultural lessons available only to premium users.",
-  "culturalContent":"Cultural Content:"
+  "culturalContent":"Cultural Content:",
   "receiveExclusivePronunciationGuides":"Receive exclusive pronunciation guides and voice recognition tools for speaking practice.",
   "pronunciationAndSpeakingPractice":"Pronunciation and Speaking Practice:",
   "getAccessToPremiumQuiz":"Get access to premium quizzes, interactive exercises, and progress tracking to sharpen your skills.",
-  "interactiveQuizes":"Interactive Quizzes and Tests:"
+  "interactiveQuizes":"Interactive Quizzes and Tests:",
   "downloadLessons":"Download lessons and materials to learn anytime, even without an internet connection.",
   "downloadForOfflineLearning":"Download for offline learning:",
   "enjoyWithoutAds":"Enjoy uninterrupted learning without ads.",
-  "addsFree":"Ad-free experience:"
+  "addsFree":"Ad-free experience:",
   "unlockMoreIndepth":"Unlock more in-depth Yoruba grammar, vocabulary, and cultural insights.",
-  "accessAdvancedLessons":"Access to Advanced Lessons:"
+  "accessAdvancedLessons":"Access to Advanced Lessons:",
   "withPremiumPlans":"With a premium plan, you get all of the following:",
-  "premiumPlan":"Premium Plan"
+  "premiumPlan":"Premium Plan",
   "selectAnAvatarOfYourChoice":"Select an avatar of your choice",
   "forgotPassword":"Forgot Password?",
-  "update":"Update"
+  "update":"Update",
   "updateChanges":"Update Changes",
   "changeYourAvatar":"Change your Avatar",
   "newPassword":"New password",
-  "currentPassword":"Current password"
-  "password":"Password"
+  "currentPassword":"Current password",
+  "password":"Password",
   "needHelp":"Need help? Our Support team is here for you!\nWe're dedicated to resolving your issues fast & efficiently.",
   "smsNotification":"SMS notification",
   "emailNotification":"Email notification",

@@ -86,7 +86,7 @@ class _ForgotPasswordOtpScreenState extends State<_ForgotPasswordOtpScreen>
                 });
                 ToastMessage.showSuccess(
                   context: context,
-                  text: context.appLocale.otp,
+                  text: context.appLocale.otpVerifiedSuccessfully,
                 );
                 context.replaceNamed(
                   ChangePasswordScreen.id,

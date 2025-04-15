@@ -172,8 +172,8 @@
     "teamName":"Orúko̩ e̩gbé̩",
     "selectedAsTeamLead":"Ati yàn é̩ láti s̩eré gé̩gé̩ bíi olórí e̩gbé̩ re̩",
     "editTeamName":"S̩e àtúns̩e orúko̩ e̩gbé̩",
-    "teamLeader":"Olórí e̩gbé̩"
-    "waitingForGameMasterToStartTheGame":"Dúró fún olórí eré láti bè̩rè̩ eré"
+    "teamLeader":"Olórí e̩gbé̩",
+    "waitingForGameMasterToStartTheGame":"Dúró fún olórí eré láti bè̩rè̩ eré",
     "systemRecognizesTeamLeadersChoices":"È̩ro̩ á gba ìdáhùn ìke̩hìn tí olórí e̩gbé̩ bá múlè̩ ge̩gé̩ bíí ìdáhùn gbogbo e̩gbé̩",
     "eachPlayerInstruction":"Gbogbo olùdíje ni yíò rí àwo̩n ìbéèrè níbikíbi ti wó̩n bá wà tí wó̩n sì lè yan èyí tó wùn wó̩n, nígbàtí olórí e̩gbé̩ á fi ìdáhùn ìke̩yìn sílè̩.. gbogbo èyí kò ní ko̩já o̩gbò̩n ìs̩é̩ju àáyá lórí ìbéèrè kan.",
     "teamAllSet":"Egbe Gbogbo Ṣeto",
@@ -202,7 +202,7 @@
     "selectMatchingImage":"Aworan to ba oro na mu",
     "formTheSentence":"Ṣe agbekalẹ gbolohun naa nipa lilo awọn ọrọ ti o wa ni isalẹ",
     "writeYourAnswerHere":"Kọ idahun rẹ nibi",
-    "selectAnswersFromOptionBelow":"Yan àwo̩n Ìdáhùn re̩ nínú àte̩ tí a pèsè sílè̩ yí"
+    "selectAnswersFromOptionBelow":"Yan àwo̩n Ìdáhùn re̩ nínú àte̩ tí a pèsè sílè̩ yí",
     "startPractice":"Bẹ̀rẹ ifikọ́ra",
     "practicePrep":"Báyìí, o ní ìbéèrè mẹwa láti dáhùn nígbà tóbá wùn ẹ. Àǹfàní tí ò lópin lówà láti fi dáhùn àwọn ìbéère--dáhùn lásìkò tóbá rọrùn fún e, kí o sì wo àwọn ìdáhùn ẹ fínífíní.\n\nRántí wípé ipò ìfikọra ma ràn ẹ́ lọ́wọ́ láti le ṣe ojúlówó eré gangan, nítorí nà tẹ̀ẹ́ jẹ́jẹ́.\n\nṢé o ti ṣetán láti wọlé kanlẹ̀? Jẹ́ká bẹ̀rẹ!",
     "welcomeToPracticeMode":"Káàbọ̀ sí ìfikọ́ra",
@@ -225,11 +225,11 @@
     "newPasswrod":"Ọrọ aṣínà tuntun",
     "createANewPassword":"Ṣẹda ọrọ aṣínà tuntun",
     "enterEmailAddressToReceiveOtp":"Tẹ adirẹsi imeeli rẹ silẹ lati gba OTP lati tun ọrọ aṣínà rẹ ṣe",
-    "createANewPassword":"Ṣẹda ọrọ aṣínà tuntun"
+    "createANewPassword":"Ṣẹda ọrọ aṣínà tuntun",
     "enterEmailAddressToReceiveOtp":"Tẹ adirẹsi imeeli rẹ silẹ lati gba OTP lati tun ọrọ aṣínà rẹ ṣe",
     "areYouSureYouWantToContinue":"Ṣe o da ọ loju pe o fẹ tẹsiwaju pẹlu iṣe yii?",
     "closeTheApp":"Pa ohun elo naa",
-    "thankYouForUsingOurProduct":"O ṣeun fun lilo ọja wa!\nA nireti lati ri ọ lẹẹkansi"
+    "thankYouForUsingOurProduct":"O ṣeun fun lilo ọja wa!\nA nireti lati ri ọ lẹẹkansi",
     "deleteMyAccount":"Pa akọọlẹ mi rẹ",
     "toCompleteYourDeletionProcess":"Lati pari ilana piparẹ akọọlẹ rẹ, jọwọ tẹ ọrọ igbaniwọle rẹ sii",
     "enterYourPassword":"Tẹ ọrọ igbaniwọle rẹ sii",
@@ -259,7 +259,7 @@
     "exploreYorubaProverbs":"Ṣawari awọn owe Yorùbá, itan-akọọlẹ, ati awọn ẹkọ aṣa ti o wa fun awọn olumulo ti o ni iye owo nikan.",
     "culturalContent":"Akoonu Asa:",
     "receiveExclusivePronunciationGuides":"Gba awọn itọsọna pronunciation iyasọtọ ati awọn irinṣẹ idanimọ ohun fun adaṣe sisọ",
-    "pronunciationAndSpeakingPractice":"Pípè àti Ìṣàmúlò sísọ:"
+    "pronunciationAndSpeakingPractice":"Pípè àti Ìṣàmúlò sísọ:",
     "getAccessToPremiumQuiz":"Gba iraye si awọn ibeere ibeere Ere, awọn adaṣe ibaraenisepo, ati ipasẹ ilọsiwaju lati mu awọn ọgbọn rẹ pọ si.",
     "interactiveQuizes":"Awọn Idanwo Ibanisọrọpọ ati Awọn Idanwo:",
     "downloadLessons":"Ṣe igbasilẹ awọn ẹkọ ati awọn ohun elo lati kọ ẹkọ nigbakugba, paapaa laisi asopọ intanẹẹti kan.",
