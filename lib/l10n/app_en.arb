@@ -177,10 +177,13 @@
   "systemRecognizesTeamLeadersChoices":"The system records the team leader's choice as the official team answer",
   "eachPlayerInstruction":"Each player will see the quiz at their end and they can select an option, while the team leader submit the final answer. All this within 30secs per question",
   "teamAllSet":"Team All Set",
-  ""
-  ""
-  ""
-  ""
+  "sureToLeavePractice:"Are you sure you want to leave the quiz ?",
+  "sureToLeaveGame":"Are you sure you want to leave the game room?",
+  "leavePractice":"Yes, leave",
+  "leaveRoom":"Yes, leave room",
+  "dontLeave":"Don’t leave",
+  "confirmAction":"Confirm Action",
+  "leaveGameRoom":"Leave Game Room",
 
 
 
