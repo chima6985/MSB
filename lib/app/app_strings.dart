@@ -35,7 +35,7 @@ const selectPreferredLanguageYr =
 const selectPreferredLanguage2En =
     'Select your preferred primary language for navigation and communication in the app';
 
-const needHelpYr = '';
+const needHelpYr = 'Nilo iranlọwọ? Ẹgbẹ Atilẹyin wa wa nibi fun ọ!\nA ṣe iyasọtọ lati yanju awọn iṣoro rẹ ni iyara ati daradara.';
 const needHelpEn =
     "Need help? Our Support team is here for you!\nWe're dedicated to resolving your issues fast & efficiently. ";
 

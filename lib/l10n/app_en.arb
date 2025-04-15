@@ -276,19 +276,19 @@
   "updateChanges":"Update Changes",
   "changeYourAvatar":"Change your Avatar",
   "newPassword":"New password",
-  "":""
-  "":""
-  "":""
-  "":""
-  "":""
-  "":""
-  "":""
-  "":""
-
-  "":""
-
-  "":""
-
+  "currentPassword":"Current password"
+  "password":"Password"
+  "needHelp":"Need help? Our Support team is here for you!\nWe're dedicated to resolving your issues fast & efficiently.",
+  "smsNotification":"SMS notification",
+  "emailNotification":"Email notification",
+  "inAppNotification":"In-app notification",
+  "streakReminders":"Streak reminders",
+  "reminders":"Reminders",
+  "bestStreak":"BEST STREAK",
+  "currentStreak":"CURRENT STREAK",
+  "lessonCovered":"COIN EARNED",
+  "completedLessons":"Completed Lessons",
+  "pleaseWaitForQuestions":"Please, wait while we prepare your set of questions.",
   "":""
 
   "":""

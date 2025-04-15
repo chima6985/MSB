@@ -277,11 +277,19 @@
     "changeYourAvatar":"Yi Afata rẹ pada",
     "TunTitunPassword":"Tun ọrọigbaniwọle titun tẹ sii",
     "newPassword":"Ọrọ aṣina Tuntun",
-    "":""
-    "":""
-    "":""
-    "":""
-    "":""
+    "currentPassword":"Ọrọigbaniwọle lọwọlọwọ",
+    "password":"Ọrọigbaniwọle",
+    "needHelp":"Nilo iranlọwọ? Ẹgbẹ Atilẹyin wa wa nibi fun ọ!\nA ṣe iyasọtọ lati yanju awọn iṣoro rẹ ni iyara ati daradara.",
+    "smsNotification":"SMS iwifunni",
+    "emailNotification":"Email notification",
+    "inAppNotification":"Ifitonileti inu-app",
+    "streakReminders":"Awọn olurannileti ṣiṣan",
+    "reminders":"Awọn olurannileti",
+    "bestStreak":"Èyí tó dára jùlo̩",
+    "currentStreak":"Ibi tí o dé",
+    "lessonCovered":"Owó ide̩ tí o ti je̩",
+    "completedLessons":"Awọn ẹkọ ti o pari",
+    "pleaseWaitForQuestions":""
     "":""
     "":""
     "":""
