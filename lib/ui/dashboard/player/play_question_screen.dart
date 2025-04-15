@@ -1,8 +1,13 @@
+import 'package:custom_timer/custom_timer.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:masoyinbo_mobile/app/app.dart';
+import 'package:masoyinbo_mobile/core/core.dart';
 import 'package:masoyinbo_mobile/extension/context_extension.dart';
+import 'package:masoyinbo_mobile/features/features.dart';
 import 'package:masoyinbo_mobile/gen/fonts.gen.dart';
 import 'package:masoyinbo_mobile/ui/ui.dart';
+import 'package:masoyinbo_mobile/utils/utils.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
@@ -10,26 +15,28 @@ class PlayQuestionScreen extends StatefulWidget {
   const PlayQuestionScreen({
     super.key,
     this.isPractice = false,
-    this.isTimed = false,
     this.isSinglePlayer = false,
     this.isTeamLeader = false,
     this.isMultiPlayer = false,
     this.isGameMaster = false,
+    this.questionSection,
   });
   static const String id = 'playQuestionScreen';
 
   final bool isPractice,
-      isTimed,
       isSinglePlayer,
       isTeamLeader,
       isMultiPlayer,
       isGameMaster;
+  final Section? questionSection;
 
   @override
   State<PlayQuestionScreen> createState() => _PlayQuestionScreenState();
 }
 
-class _PlayQuestionScreenState extends State<PlayQuestionScreen> {
+class _PlayQuestionScreenState extends State<PlayQuestionScreen>
+    with TickerProviderStateMixin {
+  CustomTimerController? otpCountDownController;
   List<String> wordTile = ['U', 'I', 'P', 'E', 'L', 'M'];
   List<String> correctWordTile = ['P', 'E', 'L', 'U', 'M', 'I'];
   bool isActivateNextButton = false;
@@ -43,17 +50,37 @@ class _PlayQuestionScreenState extends State<PlayQuestionScreen> {
   String? imageSelector;
 
   @override
+  void initState() {
+    final questions = context.read<GetQuestionCubit>().state.whenOrNull(
+              loaded: (questions) => questions,
+            ) ??
+        <Question>[];
+    otpCountDownController = CustomTimerController(
+      begin: Duration(
+        seconds: questions.isNotEmpty ? questions.first.timeLimit : 0,
+      ),
+      end: Duration.zero,
+      vsync: this,
+    )..start();
+    super.initState();
+  }
+
+  @override
   void dispose() {
+    otpCountDownController?.dispose();
     _textEditingController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    final currentLocale = context.currentLocale;
+    final enSectionName = widget.questionSection?.sectionName ?? '';
+    final yoSectionName = widget.questionSection?.yorubaSectionName ?? '';
+
     final isPracticeMode = widget.isPractice;
 
-    final isSinglePlayerMode =
-        !widget.isPractice && !widget.isMultiPlayer && !widget.isTeamLeader;
+    final isSinglePlayerMode = widget.isSinglePlayer;
 
     final isMultiPlayerMode = widget.isMultiPlayer;
 
@@ -62,6 +89,12 @@ class _PlayQuestionScreenState extends State<PlayQuestionScreen> {
 
     final isMultiPlayerGameMasterMode =
         widget.isMultiPlayer && widget.isTeamLeader;
+
+    final title = isPracticeMode
+        ? context.appLocale.practice
+        : isSinglePlayerMode
+            ? context.appLocale.singlePlayer
+            : context.appLocale.multiPlayer;
 
     final bgColor = {
       true: AppColors.greenCE,
@@ -72,6 +105,9 @@ class _PlayQuestionScreenState extends State<PlayQuestionScreen> {
       true: AppColors.green62,
       false: AppColors.redFF,
     };
+
+    // ignore: prefer_const_declarations
+    final currentQuestionIndex = 0;
 
     return Stack(
       alignment: Alignment.bottomCenter,
@@ -109,7 +145,7 @@ class _PlayQuestionScreenState extends State<PlayQuestionScreen> {
                         ),
                         Center(
                           child: Text(
-                            context.appLocale.practice,
+                            title,
                             textAlign: TextAlign.center,
                             style: context.textTheme.titleLarge!.copyWith(
                               fontFamily: FontFamily.margarine,
@@ -137,7 +173,9 @@ class _PlayQuestionScreenState extends State<PlayQuestionScreen> {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          '${context.appLocale.proverb}s',
+                                          currentLocale == yo
+                                              ? yoSectionName
+                                              : enSectionName,
                                           textAlign: TextAlign.center,
                                           style: context.textTheme.bodyMedium!
                                               .copyWith(
@@ -147,7 +185,9 @@ class _PlayQuestionScreenState extends State<PlayQuestionScreen> {
                                         ),
                                         const SizedBox(height: 4),
                                         Text(
-                                          context.appLocale.proverb,
+                                          currentLocale == yo
+                                              ? enSectionName
+                                              : yoSectionName,
                                           textAlign: TextAlign.start,
                                           style: context.textTheme.bodySmall!
                                               .copyWith(
@@ -197,209 +237,306 @@ class _PlayQuestionScreenState extends State<PlayQuestionScreen> {
                             ),
                             SizedBox(height: 40.h),
                           ],
-                          Padding(
-                            padding: EdgeInsets.symmetric(
-                              horizontal: isPracticeMode || isSinglePlayerMode
-                                  ? 23
-                                  : 13,
-                            ),
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                          BlocBuilder<GetQuestionCubit, GetQuestionState>(
+                            builder: (context, state) {
+                              return state.maybeWhen(
+                                loaded: (value) {
+                                  final questions = value;
+                                  final currentQuestion =
+                                      currentQuestionIndex < questions.length
+                                          ? questions[currentQuestionIndex]
+                                          : null;
+                                  return Column(
                                     children: [
-                                      Text(
-                                        'Question 321',
-                                        textAlign: TextAlign.center,
-                                        style: context.textTheme.bodyMedium!
-                                            .copyWith(
-                                          fontWeight: FontWeight.w500,
+                                      Padding(
+                                        padding: EdgeInsets.symmetric(
+                                          horizontal: isPracticeMode ||
+                                                  isSinglePlayerMode
+                                              ? 23
+                                              : 13,
                                         ),
-                                      ),
-                                      const SizedBox(height: 4),
-                                      Text(
-                                        'Ibeere Ọ̀kolelò̀ọ́dúnrún lékan',
-                                        textAlign: TextAlign.start,
-                                        style: context.textTheme.bodySmall!
-                                            .copyWith(
-                                          fontStyle: FontStyle.italic,
-                                          fontWeight: FontWeight.w300,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                const SizedBox(width: 10),
-                                if (widget.isTimed)
-                                  FittedBox(
-                                    child: CircularPercentIndicator(
-                                      radius: 23,
-                                      animation: true,
-                                      animationDuration: 1200,
-                                      lineWidth: 6.6,
-                                      backgroundWidth: 1.2,
-                                      percent: 0.7,
-                                      center: Text(
-                                        '26',
-                                        style: context.textTheme.bodyMedium!
-                                            .copyWith(
-                                          fontWeight: FontWeight.w500,
-                                        ),
-                                      ),
-                                      circularStrokeCap:
-                                          CircularStrokeCap.round,
-                                      backgroundColor: AppColors.greyB6,
-                                      progressColor: AppColors.goldFC,
-                                    ),
-                                  ),
-                              ],
-                            ),
-                          ),
-                          const SizedBox(height: 16),
-                          Container(
-                            padding: const EdgeInsets.symmetric(
-                              vertical: 24,
-                              horizontal: 16,
-                            ),
-                            margin: const EdgeInsets.symmetric(horizontal: 19),
-                            decoration: BoxDecoration(
-                              color: AppColors.white,
-                              borderRadius: BorderRadius.circular(18),
-                              border: Border.all(
-                                color: AppColors.greyDB,
-                              ),
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Row(
-                                  children: [
-                                    Expanded(
-                                      child: LinearPercentIndicator(
-                                        padding: EdgeInsets.zero,
-                                        lineHeight: 10,
-                                        percent: 0.2,
-                                        progressColor: AppColors.blue12,
-                                        backgroundColor: AppColors.greyDB,
-                                        animation: true,
-                                        barRadius: const Radius.circular(12),
-                                      ),
-                                    ),
-                                    if (widget.isSinglePlayer == true) ...[
-                                      SizedBox(width: 25.w),
-                                      const Icon(
-                                        Iconsax.heart_slash5,
-                                        color: AppColors.blackB6,
-                                        size: 16,
-                                      ),
-                                      const Icon(
-                                        Iconsax.heart5,
-                                        color: AppColors.redFF,
-                                        size: 16,
-                                      ),
-                                      const SizedBox(width: 4),
-                                      const Icon(
-                                        Iconsax.heart5,
-                                        color: AppColors.redFF,
-                                        size: 16,
-                                      ),
-                                    ],
-                                  ],
-                                ),
-                                const SizedBox(height: 24),
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 8),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        'Ki ni itumò òrò náà?',
-                                        textAlign: TextAlign.center,
-                                        style: context.textTheme.bodyMedium!
-                                            .copyWith(
-                                          fontWeight: FontWeight.w500,
-                                        ),
-                                      ),
-                                      const SizedBox(height: 4),
-                                      Text(
-                                        'What does the term mean?',
-                                        textAlign: TextAlign.start,
-                                        style: context.textTheme.bodySmall!
-                                            .copyWith(
-                                          fontStyle: FontStyle.italic,
-                                          fontWeight: FontWeight.w300,
-                                        ),
-                                      ),
-                                      const SizedBox(height: 24),
-                                      RichText(
-                                        text: TextSpan(
-                                          style: context.textTheme.bodySmall!
-                                              .copyWith(
-                                            fontWeight: FontWeight.w300,
-                                          ),
+                                        child: Row(
                                           children: [
-                                            const TextSpan(
-                                              text: 'Awon wo ni Yorubá n pè ní',
-                                            ),
-                                            TextSpan(
-                                              text: ' Oníyangí ',
-                                              style: context
-                                                  .textTheme.bodySmall!
-                                                  .copyWith(
-                                                fontWeight: FontWeight.w500,
+                                            Expanded(
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    currentLocale == yo
+                                                        ? yoQuestionNumberSystem[
+                                                                currentQuestionIndex +
+                                                                    1] ??
+                                                            context.yoLocale
+                                                                .question
+                                                        : enQuestionNumberSystem[
+                                                                currentQuestionIndex +
+                                                                    1] ??
+                                                            context.enLocale
+                                                                .question,
+                                                    textAlign: TextAlign.center,
+                                                    style: context
+                                                        .textTheme.bodyMedium!
+                                                        .copyWith(
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                    ),
+                                                  ),
+                                                  const SizedBox(height: 4),
+                                                  Text(
+                                                    currentLocale == yo
+                                                        ? enQuestionNumberSystem[
+                                                                currentQuestionIndex +
+                                                                    1] ??
+                                                            context.enLocale
+                                                                .question
+                                                        : yoQuestionNumberSystem[
+                                                                currentQuestionIndex +
+                                                                    1] ??
+                                                            context.yoLocale
+                                                                .question,
+                                                    textAlign: TextAlign.start,
+                                                    style: context
+                                                        .textTheme.bodySmall!
+                                                        .copyWith(
+                                                      fontStyle:
+                                                          FontStyle.italic,
+                                                      fontWeight:
+                                                          FontWeight.w300,
+                                                    ),
+                                                  ),
+                                                ],
                                               ),
                                             ),
-                                            const TextSpan(text: '?'),
+                                            const SizedBox(width: 10),
+                                            if ((currentQuestion?.timeLimit ??
+                                                    0) >
+                                                0)
+                                              CustomTimer(
+                                                controller:
+                                                    otpCountDownController!,
+                                                builder: (state, time) {
+                                                  final time = (double.tryParse(
+                                                            otpCountDownController
+                                                                    ?.remaining
+                                                                    .value
+                                                                    .seconds ??
+                                                                '0',
+                                                          ) ??
+                                                          1) /
+                                                      (currentQuestion
+                                                              ?.timeLimit ??
+                                                          1);
+                                                  return FittedBox(
+                                                    child:
+                                                        CircularPercentIndicator(
+                                                      radius: 23,
+                                                      lineWidth: 6.6,
+                                                      backgroundWidth: 1.2,
+                                                      animation: true,
+                                                      animateFromLastPercent:
+                                                          true,
+                                                      percent:
+                                                          time > 1 ? 1 : time,
+                                                      center: Text(
+                                                        otpCountDownController
+                                                                ?.remaining
+                                                                .value
+                                                                .seconds ??
+                                                            '',
+                                                        style: context.textTheme
+                                                            .bodyMedium!
+                                                            .copyWith(
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                        ),
+                                                      ),
+                                                      circularStrokeCap:
+                                                          CircularStrokeCap
+                                                              .round,
+                                                      backgroundColor:
+                                                          AppColors.greyB6,
+                                                      progressColor:
+                                                          AppColors.goldFC,
+                                                    ),
+                                                  );
+                                                },
+                                              ),
                                           ],
                                         ),
                                       ),
-                                      SizedBox(height: 65.h),
-                                      Row(
-                                        children: [
-                                          ActionButton(
-                                            label: 'Listen',
-                                            isEnabled: true,
-                                            icon: AppAssets.images.svgs.listen
-                                                .svg(
-                                              width: 17.sp,
-                                              height: 17.sp,
-                                            ),
-                                            onTap: () {},
+                                      const SizedBox(height: 16),
+                                      Container(
+                                        padding: const EdgeInsets.symmetric(
+                                          vertical: 24,
+                                          horizontal: 16,
+                                        ),
+                                        margin: const EdgeInsets.symmetric(
+                                          horizontal: 19,
+                                        ),
+                                        decoration: BoxDecoration(
+                                          color: AppColors.white,
+                                          borderRadius:
+                                              BorderRadius.circular(18),
+                                          border: Border.all(
+                                            color: AppColors.greyDB,
                                           ),
-                                          const SizedBox(width: 24),
-                                          ActionButton(
-                                            label: 'Speak',
-                                            isEnabled: true,
-                                            icon: Icon(
-                                              Iconsax.microphone_2,
-                                              size: 17.sp,
-                                              color: AppColors.black15,
+                                        ),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Row(
+                                              children: [
+                                                Expanded(
+                                                  child: LinearPercentIndicator(
+                                                    padding: EdgeInsets.zero,
+                                                    lineHeight: 10,
+                                                    percent:
+                                                        (currentQuestionIndex +
+                                                                1) /
+                                                            questions.length,
+                                                    progressColor:
+                                                        AppColors.blue12,
+                                                    backgroundColor:
+                                                        AppColors.greyDB,
+                                                    animation: true,
+                                                    animateFromLastPercent:
+                                                        true,
+                                                    barRadius:
+                                                        const Radius.circular(
+                                                      12,
+                                                    ),
+                                                  ),
+                                                ),
+                                                if (isPracticeMode == true ||
+                                                    isSinglePlayerMode ==
+                                                        true) ...[
+                                                  SizedBox(width: 15.w),
+                                                  const GameLivesWidget(
+                                                    totalLives: 3,
+                                                    livesRemaining: 3,
+                                                  ),
+                                                ],
+                                              ],
                                             ),
-                                            onTap: () {},
-                                          ),
-                                          const Spacer(),
-                                          ActionButton(
-                                            label: 'Flip',
-                                            isEnabled: false,
-                                            icon: Icon(
-                                              Icons.swipe_right_rounded,
-                                              size: 17.sp,
-                                              color: AppColors.black15,
+                                            const SizedBox(height: 24),
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                left: 8,
+                                              ),
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    'Ki ni itumò òrò náà?',
+                                                    textAlign: TextAlign.center,
+                                                    style: context
+                                                        .textTheme.bodyMedium!
+                                                        .copyWith(
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                    ),
+                                                  ),
+                                                  const SizedBox(height: 4),
+                                                  Text(
+                                                    'What does the term mean?',
+                                                    textAlign: TextAlign.start,
+                                                    style: context
+                                                        .textTheme.bodySmall!
+                                                        .copyWith(
+                                                      fontStyle:
+                                                          FontStyle.italic,
+                                                      fontWeight:
+                                                          FontWeight.w300,
+                                                    ),
+                                                  ),
+                                                  const SizedBox(height: 24),
+                                                  RichText(
+                                                    text: TextSpan(
+                                                      style: context
+                                                          .textTheme.bodySmall!
+                                                          .copyWith(
+                                                        fontWeight:
+                                                            FontWeight.w300,
+                                                      ),
+                                                      children: [
+                                                        const TextSpan(
+                                                          text:
+                                                              'Awon wo ni Yorubá n pè ní',
+                                                        ),
+                                                        TextSpan(
+                                                          text: ' Oníyangí ',
+                                                          style: context
+                                                              .textTheme
+                                                              .bodySmall!
+                                                              .copyWith(
+                                                            fontWeight:
+                                                                FontWeight.w500,
+                                                          ),
+                                                        ),
+                                                        const TextSpan(
+                                                          text: '?',
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                  SizedBox(height: 65.h),
+                                                  Row(
+                                                    children: [
+                                                      ActionButton(
+                                                        label: 'Listen',
+                                                        isEnabled: true,
+                                                        icon: AppAssets
+                                                            .images.svgs.listen
+                                                            .svg(
+                                                          width: 17.sp,
+                                                          height: 17.sp,
+                                                        ),
+                                                        onTap: () {},
+                                                      ),
+                                                      const SizedBox(width: 24),
+                                                      ActionButton(
+                                                        label: 'Speak',
+                                                        isEnabled: true,
+                                                        icon: Icon(
+                                                          Iconsax.microphone_2,
+                                                          size: 17.sp,
+                                                          color:
+                                                              AppColors.black15,
+                                                        ),
+                                                        onTap: () {},
+                                                      ),
+                                                      const Spacer(),
+                                                      ActionButton(
+                                                        label: 'Flip',
+                                                        isEnabled: false,
+                                                        icon: Icon(
+                                                          Icons
+                                                              .swipe_right_rounded,
+                                                          size: 17.sp,
+                                                          color:
+                                                              AppColors.black15,
+                                                        ),
+                                                        onTap: () {},
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ],
+                                              ),
                                             ),
-                                            onTap: () {},
-                                          ),
-                                        ],
+                                          ],
+                                        ),
                                       ),
+                                      const SizedBox(height: 28),
                                     ],
-                                  ),
-                                ),
-                              ],
-                            ),
+                                  );
+                                },
+                                orElse: SizedBox.new,
+                              );
+                            },
                           ),
-                          const SizedBox(height: 28),
                           if (isMultiPlayerMode ||
                               isMultiPlayerTeamLeaderMode ||
                               isMultiPlayerGameMasterMode) ...[

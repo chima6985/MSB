@@ -30,12 +30,12 @@ class GetQuestionCubit extends Cubit<GetQuestionState> {
       emit(const _Loading());
       final user = UserHelper.fetchUser(authBloc: _authBloc);
       if (user == null) return;
-      await _gameRepository.getQuestions(
+      final apiResponsee = await _gameRepository.getQuestions(
         difficulty: difficulty,
         section: section,
         token: user.token,
       );
-      emit(const _Loaded());
+      emit(_Loaded(questions: apiResponsee));
     } on GameException catch (e) {
       emit(_Error(error: e.message));
     } on AuthException catch (e) {
@@ -52,12 +52,12 @@ class GetQuestionCubit extends Cubit<GetQuestionState> {
       emit(const _Loading());
       final user = UserHelper.fetchUser(authBloc: _authBloc);
       if (user == null) return;
-      await _gameRepository.getQuestions(
+      final apiResponsee = await _gameRepository.getQuestions(
         difficulty: difficulty,
         section: section,
         token: user.token,
       );
-      emit(const _Loaded());
+      emit(_Loaded(questions: apiResponsee));
     } on GameException catch (e) {
       emit(_Error(error: e.message));
     } on AuthException catch (e) {
@@ -74,12 +74,12 @@ class GetQuestionCubit extends Cubit<GetQuestionState> {
       emit(const _Loading());
       final user = UserHelper.fetchUser(authBloc: _authBloc);
       if (user == null) return;
-      await _gameRepository.getQuestions(
+      final apiResponsee = await _gameRepository.getQuestions(
         difficulty: difficulty,
         section: section,
         token: user.token,
       );
-      emit(const _Loaded());
+      emit(_Loaded(questions: apiResponsee));
     } on GameException catch (e) {
       emit(_Error(error: e.message));
     } on AuthException catch (e) {

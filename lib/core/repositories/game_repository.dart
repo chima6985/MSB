@@ -50,6 +50,10 @@ class GameRepository {
   /// Get player rewards endpoint
   String _getPlayerRewards() => '$_baseUrl/game/single-player/rewards';
 
+  /// Join room endpoint
+  String _joinGameRoomEndpoint(String gameCode) =>
+      '$_baseUrl/game/multi-player/$gameCode/join-room';
+
   /// Get sections and difficulty
   ///
   /// Returns void on success.
@@ -83,9 +87,9 @@ class GameRepository {
 
   /// Get questions
   ///
-  /// Returns void on success.
+  /// Returns [List<Question>] on success.
   /// Throws [GameException] when operation fails.
-  Future<void> getQuestions({
+  Future<List<Question>> getQuestions({
     required String difficulty,
     required String section,
     required String token,
@@ -97,12 +101,15 @@ class GameRepository {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer $token',
       };
-      return await APIHelper.request<void>(
+      return await APIHelper.request<List<Question>>(
         request: _client.get(
           Uri.parse(url),
           headers: headers,
         ),
-        onSuccessMap: (value) {},
+        onSuccessMap: (value) {
+          final questions = value['questions'] as List;
+          return questions.map((item) => Question.fromJson(item)).toList();
+        },
       );
     } on APIException catch (e) {
       throw GameException(message: e.message);
@@ -196,6 +203,37 @@ class GameRepository {
       };
       return await APIHelper.request<void>(
         request: _client.get(
+          Uri.parse(url),
+          headers: headers,
+        ),
+        onSuccessMap: (value) {},
+      );
+    } on APIException catch (e) {
+      throw GameException(message: e.message);
+    } on AuthException catch (e) {
+      throw AuthException(message: e.message);
+    } catch (e) {
+      throw const GameException();
+    }
+  }
+
+  /// Join game room
+  ///
+  /// Returns [void] on success.
+  /// Throws [GameException] when operation fails.
+  Future<void> joinGameRoom({
+    required String gameCode,
+    required String token,
+  }) async {
+    try {
+      final url = _joinGameRoomEndpoint(gameCode);
+      final headers = {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      };
+      return await APIHelper.request<void>(
+        request: _client.post(
           Uri.parse(url),
           headers: headers,
         ),

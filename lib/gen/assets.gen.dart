@@ -263,6 +263,13 @@ class $AssetsImagesSvgsGen {
   /// File path: assets/images/svgs/google .svg
   SvgGenImage get google => const SvgGenImage('assets/images/svgs/google .svg');
 
+  /// File path: assets/images/svgs/heart.svg
+  SvgGenImage get heart => const SvgGenImage('assets/images/svgs/heart.svg');
+
+  /// File path: assets/images/svgs/heart_slash.svg
+  SvgGenImage get heartSlash =>
+      const SvgGenImage('assets/images/svgs/heart_slash.svg');
+
   /// File path: assets/images/svgs/home.svg
   SvgGenImage get home => const SvgGenImage('assets/images/svgs/home.svg');
 
@@ -330,6 +337,8 @@ class $AssetsImagesSvgsGen {
         error,
         flip,
         google,
+        heart,
+        heartSlash,
         home,
         homeBold,
         leaderBoard,

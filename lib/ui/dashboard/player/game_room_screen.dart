@@ -164,7 +164,9 @@ class GameRoomScreen extends HookWidget {
                     ),
                     if (isMultiplayer) ...[
                       Button(
-                        label: isTeamMode ? setTeamYr : startPlayingYr,
+                        label: isTeamMode
+                            ? setTeamYr
+                            : context.appLocale.startPlaying,
                         onPressed: () => showModalBottomSheet(
                           context: context,
                           builder: (context) => isTeamMode

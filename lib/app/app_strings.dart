@@ -146,9 +146,6 @@ const getReadyToTestYourSkillsYr =
 const getReadyToTestYourSkillsEn =
     "Get ready to test your skills in Play Mode!\n\nYou'll face 15 questions designed to challenge your knowledge. You have 3 lives to make it through all the questions, so choose your answers wisely. If you run out of lives, the game ends—but don’t worry, you can always try again.\nAs a reward for completing Play Mode, you'll earn coins that you can use to unlock special features or content. Get ready to test your knowledge and start collecting those coins! Good luck!";
 
-const startPlayingYr = 'Bẹ̀rẹ̀ eré';
-const startPlayingEn = 'Start Playing';
-
 const learnWhileYouPlayYr = 'Kẹ́kọ̀ọ́ nígba tí o bá ń seré lọ́wọ́';
 const learnWhileYouPlayEn = 'Learn while you play';
 
@@ -182,15 +179,6 @@ const getDailyReminderEn =
 
 const welcomeToPracticeModeYr = 'Káàbọ̀ sí ìfikọ́ra';
 const welcomeToPracticeModeEn = 'Welcome to Practice mode';
-
-const practicePrepYr =
-    'Báyìí, o ní ìbéèrè mẹwa láti dáhùn nígbà tóbá wùn ẹ. Àǹfàní tí ò lópin lówà láti fi dáhùn àwọn ìbéère--dáhùn lásìkò tóbá rọrùn fún e, kí o sì wo àwọn ìdáhùn ẹ fínífíní.\n\nRántí wípé ipò ìfikọra ma ràn ẹ́ lọ́wọ́ láti le ṣe ojúlówó eré gangan, nítorí nà tẹ̀ẹ́ jẹ́jẹ́.\n\nṢé o ti ṣetán láti wọlé kanlẹ̀? Jẹ́ká bẹ̀rẹ!';
-
-const practicePrepEn =
-    "Here, you'll be presented with 10 questions to test your knowledge at your own pace.\n\nYou have no lives to look out for— Take your time, or not, think through your answers.\n\nRemember, practice Mode helps you gear up for the real deal, so take it easy on yourself.\nReady to dive in? Let's go!";
-
-const startPracticeYr = 'Bẹ̀rẹ ifikọ́ra';
-const startPracticeEn = 'Start practice';
 
 const selectAnswersFromOptionBelowYr =
     'Yan àwo̩n Ìdáhùn re̩ nínú àte̩ tí a pèsè sílè̩ yí';

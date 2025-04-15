@@ -66,7 +66,13 @@ class MyApp extends StatelessWidget {
                   AuthBloc()..add(const AuthEvent.authAppStarted()),
             ),
             BlocProvider(
+              lazy: false,
               create: (context) => UserCubit(
+                authBloc: context.read(),
+              ),
+            ),
+            BlocProvider(
+              create: (context) => GetQuestionCubit(
                 authBloc: context.read(),
               ),
             ),

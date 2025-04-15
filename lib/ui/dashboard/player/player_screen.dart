@@ -32,11 +32,6 @@ class PlayerScreen extends StatelessWidget {
             authBloc: context.read(),
           ),
         ),
-        BlocProvider(
-          create: (context) => GetQuestionCubit(
-            authBloc: context.read(),
-          ),
-        ),
       ],
       child: _PlayerScreen(
         isPractice: isPractice,
@@ -70,11 +65,6 @@ class _PlayerScreen extends HookWidget {
     final categoryScrollController = useScrollController();
     final difficultyLevelScrollController = useScrollController();
     final isLoading = useState(false);
-    const randomDifficulty = Difficulty(
-      id: 'random',
-      type: 'random',
-      name: 'Random',
-    );
 
     useEffect(
       () {
@@ -89,7 +79,7 @@ class _PlayerScreen extends HookWidget {
           listener: (context, state) {
             state.maybeWhen(
               loading: () => isLoading.value = true,
-              loaded: () {
+              loaded: (questions) {
                 isLoading.value = false;
                 if (isMultiPlayer) {
                   context.pushNamed(
@@ -103,9 +93,10 @@ class _PlayerScreen extends HookWidget {
                 }
                 if (isSinglePlayer) {
                   context.pushNamed(
-                    PlayQuestionScreen.id,
+                    PlayerIntroScreen.id,
                     extra: {
                       'isSinglePlayer': true,
+                      'questionSection': selectedSection.value,
                     },
                   );
                 }
@@ -113,8 +104,8 @@ class _PlayerScreen extends HookWidget {
                   context.pushNamed(
                     PlayerIntroScreen.id,
                     extra: {
-                      'isPractice': isPractice,
-                      'isTimed': selectedPracticeSection.value == 'timed',
+                      'isPractice': true,
+                      'questionSection': selectedSection.value,
                     },
                   );
                 }
@@ -308,21 +299,6 @@ class _PlayerScreen extends HookWidget {
                                       selectedDifficulty.value = difficulty;
                                     },
                                   ),
-                                ),
-                                _SelectDifficultyWidget(
-                                  difficulty: randomDifficulty,
-                                  isSelected: selectedDifficulty.value ==
-                                      randomDifficulty,
-                                  onTap: () {
-                                    selectedDifficulty.value = randomDifficulty;
-                                    if (!context.isTablet) {
-                                      Functions.autoScroll(
-                                        controller:
-                                            difficultyLevelScrollController,
-                                        position: mqr.width * 0.15,
-                                      );
-                                    }
-                                  },
                                 ),
                               ],
                             ),

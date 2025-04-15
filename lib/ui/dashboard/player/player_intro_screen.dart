@@ -1,24 +1,55 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:masoyinbo_mobile/app/app.dart';
+import 'package:masoyinbo_mobile/core/core.dart';
 import 'package:masoyinbo_mobile/extension/context_extension.dart';
+import 'package:masoyinbo_mobile/features/features.dart';
 import 'package:masoyinbo_mobile/gen/fonts.gen.dart';
 import 'package:masoyinbo_mobile/ui/ui.dart';
+import 'package:masoyinbo_mobile/utils/utils.dart';
 
-class PlayerIntroScreen extends HookWidget {
+class PlayerIntroScreen extends StatelessWidget {
   const PlayerIntroScreen({
     super.key,
     this.isPractice = false,
-    this.isTimed = true,
+    this.isSinglePlayer = false,
+    this.questionSection,
   });
-  static const String id = 'playerIntroScreen';
 
-  final bool isPractice;
-  final bool isTimed;
+  final bool isPractice, isSinglePlayer;
+  final Section? questionSection;
+
+  static const String id = 'playerIntroScreen';
 
   @override
   Widget build(BuildContext context) {
-    final locale = useState('yr');
+    return _PlayerIntroScreen(
+      isPractice: isPractice,
+      isSinglePlayer: isSinglePlayer,
+      questionSection: questionSection,
+    );
+  }
+}
+
+class _PlayerIntroScreen extends HookWidget {
+  const _PlayerIntroScreen({
+    required this.isPractice,
+    required this.isSinglePlayer,
+    required this.questionSection,
+  });
+
+  final bool isPractice, isSinglePlayer;
+  final Section? questionSection;
+
+  @override
+  Widget build(BuildContext context) {
+    final currentLocale = context.currentLocale;
+    final selectedLocale = useState(currentLocale);
+    final questions = context.watch<GetQuestionCubit>().state.whenOrNull(
+              loaded: (questions) => questions,
+            ) ??
+        <Question>[];
     return Scaffold(
       body: DecoratedContainer(
         enablePadding: true,
@@ -27,7 +58,9 @@ class PlayerIntroScreen extends HookWidget {
           children: [
             SizedBox(height: context.topPadding),
             Text(
-              isPractice ? welcomeToPracticeModeYr : introductionToPlayerYr,
+              isPractice
+                  ? welcomeToPracticeModeYr
+                  : context.appLocale.welcomeToSinglePlayerMode,
               textAlign: TextAlign.center,
               style: context.textTheme.titleLarge!.copyWith(
                 fontFamily: FontFamily.margarine,
@@ -37,7 +70,9 @@ class PlayerIntroScreen extends HookWidget {
             const Spacer(),
             if (isPractice)
               Text(
-                locale.value == 'yr' ? practicePrepYr : practicePrepEn,
+                selectedLocale.value == yo
+                    ? context.yoLocale.practicePrep
+                    : context.enLocale.practicePrep,
                 textAlign: TextAlign.center,
                 style: context.textTheme.bodySmall!.copyWith(
                   fontSize: 12.5.sp,
@@ -47,9 +82,9 @@ class PlayerIntroScreen extends HookWidget {
               )
             else
               Text(
-                locale.value == 'yr'
-                    ? getReadyToTestYourSkillsYr
-                    : getReadyToTestYourSkillsEn,
+                selectedLocale.value == yo
+                    ? context.yoLocale.getReadyToTestYourSkills
+                    : context.enLocale.getReadyToTestYourSkills,
                 textAlign: TextAlign.center,
                 style: context.textTheme.bodySmall!.copyWith(
                   fontSize: 12.5.sp,
@@ -60,10 +95,10 @@ class PlayerIntroScreen extends HookWidget {
             const SizedBox(height: 24),
             TextButton(
               onPressed: () {
-                if (locale.value == 'en') {
-                  locale.value = 'yr';
+                if (selectedLocale.value == yo) {
+                  selectedLocale.value = en;
                 } else {
-                  locale.value = 'en';
+                  selectedLocale.value = yo;
                 }
               },
               child: Text(
@@ -79,13 +114,25 @@ class PlayerIntroScreen extends HookWidget {
             const SizedBox(height: 30),
             Button(
               label: '',
-              onPressed: () => context.pushReplacementNamed(
-                PlayQuestionScreen.id,
-                extra: {
-                  'isPractice': isPractice,
-                  'isTimed': isTimed,
-                },
-              ),
+              onPressed: () {
+                if (isPractice) {
+                  context.pushReplacementNamed(
+                    PlayQuestionScreen.id,
+                    extra: {
+                      'isPractice': isPractice,
+                      'questionSection': questionSection,
+                    },
+                  );
+                } else {
+                  context.pushNamed(
+                    PlayQuestionScreen.id,
+                    extra: {
+                      'isSinglePlayer': true,
+                      'questionSection': questionSection,
+                    },
+                  );
+                }
+              },
               child: RichText(
                 text: TextSpan(
                   style: context.textTheme.bodyMedium!.copyWith(
@@ -93,12 +140,14 @@ class PlayerIntroScreen extends HookWidget {
                   ),
                   children: [
                     TextSpan(
-                      text: isPractice ? startPracticeYr : startPlayingYr,
+                      text: isPractice
+                          ? context.appLocale.startPractice
+                          : context.appLocale.startPlaying,
                     ),
                     TextSpan(
                       text: isPractice
-                          ? ' ($startPracticeEn)'
-                          : ' ($startPlayingEn)',
+                          ? ' (${currentLocale == yo ? context.enLocale.startPractice : context.yoLocale.startPractice})'
+                          : ' (${currentLocale == yo ? context.enLocale.startPlaying : context.yoLocale.startPlaying})',
                       style: context.textTheme.bodySmall!.copyWith(
                         color: AppColors.white,
                         fontWeight: FontWeight.w300,
@@ -122,3 +171,7 @@ class PlayerIntroScreen extends HookWidget {
     );
   }
 }
+
+//  currentLocale == yo
+//                         ? context.enLocale.enterDetails
+//                         : context.yoLocale.enterDetails,

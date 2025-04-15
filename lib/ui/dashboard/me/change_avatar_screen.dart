@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:masoyinbo_mobile/app/app.dart';
 import 'package:masoyinbo_mobile/extension/extension.dart';
+import 'package:masoyinbo_mobile/features/features.dart';
 import 'package:masoyinbo_mobile/gen/fonts.gen.dart';
 import 'package:masoyinbo_mobile/ui/ui.dart';
 import 'package:masoyinbo_mobile/utils/utils.dart';
@@ -17,6 +19,8 @@ class ChangeAvatarScreen extends HookWidget {
     final mqr = MediaQuery.of(context).size;
     final selectedProfileAvatar = useState<String?>(null);
     final isSelected = useState<int?>(null);
+    final user = context.watch<UserCubit>().state.user;
+    final isMale = user?.gender == 'Male';
     return Scaffold(
       body: DecoratedContainer(
         child: SingleChildScrollView(
@@ -79,104 +83,107 @@ class ChangeAvatarScreen extends HookWidget {
                         spacing: 13.w,
                         runSpacing: 16.w,
                         children: [
-                          _AvatarWidget(
-                            imagePath: AppAssets.images.jpegs.profileImage.path,
-                            onTap: () {
-                              selectedProfileAvatar.value =
-                                  AppAssets.images.jpegs.profileImage.path;
-                              isSelected.value = 0;
-                            },
-                            isSelected: isSelected.value == 0,
-                          ),
-                          _AvatarWidget(
-                            imagePath:
-                                AppAssets.images.jpegs.profileImage1.path,
-                            onTap: () {
-                              selectedProfileAvatar.value =
-                                  AppAssets.images.jpegs.profileImage1.path;
-                              isSelected.value = 1;
-                            },
-                            isSelected: isSelected.value == 1,
-                          ),
-                          _AvatarWidget(
-                            imagePath: AppAssets.images.jpegs.profileImage.path,
-                            onTap: () {
-                              selectedProfileAvatar.value =
-                                  AppAssets.images.jpegs.profileImage.path;
-                              isSelected.value = 2;
-                            },
-                            isSelected: isSelected.value == 2,
-                          ),
-                          _AvatarWidget(
-                            imagePath:
-                                AppAssets.images.jpegs.profileImage1.path,
-                            onTap: () {
-                              selectedProfileAvatar.value =
-                                  AppAssets.images.jpegs.profileImage1.path;
-                              isSelected.value = 3;
-                            },
-                            isSelected: isSelected.value == 3,
-                          ),
-                          _AvatarWidget(
-                            imagePath:
-                                AppAssets.images.jpegs.profileImage1.path,
-                            onTap: () {
-                              selectedProfileAvatar.value =
-                                  AppAssets.images.jpegs.profileImage1.path;
-                              isSelected.value = 3;
-                            },
-                            isSelected: isSelected.value == 3,
-                          ),
-                          _AvatarWidget(
-                            imagePath:
-                                AppAssets.images.jpegs.profileImage1.path,
-                            onTap: () {
-                              selectedProfileAvatar.value =
-                                  AppAssets.images.jpegs.profileImage1.path;
-                              isSelected.value = 3;
-                            },
-                            isSelected: isSelected.value == 3,
-                          ),
-                          _AvatarWidget(
-                            imagePath:
-                                AppAssets.images.jpegs.profileImage1.path,
-                            onTap: () {
-                              selectedProfileAvatar.value =
-                                  AppAssets.images.jpegs.profileImage1.path;
-                              isSelected.value = 3;
-                            },
-                            isSelected: isSelected.value == 3,
-                          ),
-                          _AvatarWidget(
-                            imagePath:
-                                AppAssets.images.jpegs.profileImage1.path,
-                            onTap: () {
-                              selectedProfileAvatar.value =
-                                  AppAssets.images.jpegs.profileImage1.path;
-                              isSelected.value = 3;
-                            },
-                            isSelected: isSelected.value == 3,
-                          ),
-                          _AvatarWidget(
-                            imagePath:
-                                AppAssets.images.jpegs.profileImage1.path,
-                            onTap: () {
-                              selectedProfileAvatar.value =
-                                  AppAssets.images.jpegs.profileImage1.path;
-                              isSelected.value = 3;
-                            },
-                            isSelected: isSelected.value == 3,
-                          ),
-                          _AvatarWidget(
-                            imagePath:
-                                AppAssets.images.jpegs.profileImage1.path,
-                            onTap: () {
-                              selectedProfileAvatar.value =
-                                  AppAssets.images.jpegs.profileImage1.path;
-                              isSelected.value = 3;
-                            },
-                            isSelected: isSelected.value == 3,
-                          ),
+                          if (!isMale)
+                            _AvatarWidget(
+                              imagePath:
+                                  AppAssets.images.jpegs.profileImage.path,
+                              onTap: () {
+                                selectedProfileAvatar.value =
+                                    AppAssets.images.jpegs.profileImage.path;
+                                isSelected.value = 0;
+                              },
+                              isSelected: isSelected.value == 0,
+                            )
+                          else
+                            _AvatarWidget(
+                              imagePath:
+                                  AppAssets.images.jpegs.profileImage1.path,
+                              onTap: () {
+                                selectedProfileAvatar.value =
+                                    AppAssets.images.jpegs.profileImage1.path;
+                                isSelected.value = 1;
+                              },
+                              isSelected: isSelected.value == 1,
+                            ),
+                          // _AvatarWidget(
+                          //   imagePath: AppAssets.images.jpegs.profileImage.path,
+                          //   onTap: () {
+                          //     selectedProfileAvatar.value =
+                          //         AppAssets.images.jpegs.profileImage.path;
+                          //     isSelected.value = 2;
+                          //   },
+                          //   isSelected: isSelected.value == 2,
+                          // ),
+                          // _AvatarWidget(
+                          //   imagePath:
+                          //       AppAssets.images.jpegs.profileImage1.path,
+                          //   onTap: () {
+                          //     selectedProfileAvatar.value =
+                          //         AppAssets.images.jpegs.profileImage1.path;
+                          //     isSelected.value = 3;
+                          //   },
+                          //   isSelected: isSelected.value == 3,
+                          // ),
+                          // _AvatarWidget(
+                          //   imagePath:
+                          //       AppAssets.images.jpegs.profileImage1.path,
+                          //   onTap: () {
+                          //     selectedProfileAvatar.value =
+                          //         AppAssets.images.jpegs.profileImage1.path;
+                          //     isSelected.value = 3;
+                          //   },
+                          //   isSelected: isSelected.value == 3,
+                          // ),
+                          // _AvatarWidget(
+                          //   imagePath:
+                          //       AppAssets.images.jpegs.profileImage1.path,
+                          //   onTap: () {
+                          //     selectedProfileAvatar.value =
+                          //         AppAssets.images.jpegs.profileImage1.path;
+                          //     isSelected.value = 3;
+                          //   },
+                          //   isSelected: isSelected.value == 3,
+                          // ),
+                          // _AvatarWidget(
+                          //   imagePath:
+                          //       AppAssets.images.jpegs.profileImage1.path,
+                          //   onTap: () {
+                          //     selectedProfileAvatar.value =
+                          //         AppAssets.images.jpegs.profileImage1.path;
+                          //     isSelected.value = 3;
+                          //   },
+                          //   isSelected: isSelected.value == 3,
+                          // ),
+                          // _AvatarWidget(
+                          //   imagePath:
+                          //       AppAssets.images.jpegs.profileImage1.path,
+                          //   onTap: () {
+                          //     selectedProfileAvatar.value =
+                          //         AppAssets.images.jpegs.profileImage1.path;
+                          //     isSelected.value = 3;
+                          //   },
+                          //   isSelected: isSelected.value == 3,
+                          // ),
+                          // _AvatarWidget(
+                          //   imagePath:
+                          //       AppAssets.images.jpegs.profileImage1.path,
+                          //   onTap: () {
+                          //     selectedProfileAvatar.value =
+                          //         AppAssets.images.jpegs.profileImage1.path;
+                          //     isSelected.value = 3;
+                          //   },
+                          //   isSelected: isSelected.value == 3,
+                          // ),
+                          // _AvatarWidget(
+                          //   imagePath:
+                          //       AppAssets.images.jpegs.profileImage1.path,
+                          //   onTap: () {
+                          //     selectedProfileAvatar.value =
+                          //         AppAssets.images.jpegs.profileImage1.path;
+                          //     isSelected.value = 3;
+                          //   },
+                          //   isSelected: isSelected.value == 3,
+                          // ),
                         ],
                       ),
                     ),

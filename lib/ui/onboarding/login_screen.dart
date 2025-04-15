@@ -28,9 +28,13 @@ class LoginScreen extends HookWidget {
         state.maybeWhen(
           authenticating: (user) => isLoading.value = true,
           authenticated: (user) {
+            isLoading.value = false;
             context.read<UserCubit>().init();
             if (!user.isCompleted) {
-              context.pushNamed(PersonalizeSignUpScreen.id);
+              context.goNamed(
+                PersonalizeSignUpScreen.id,
+                extra: {'email': emailAddressController.text.trim()},
+              );
             } else if (!user.isSurveyCompleted) {
               context.goNamed(SurveyScreen.id);
             } else {

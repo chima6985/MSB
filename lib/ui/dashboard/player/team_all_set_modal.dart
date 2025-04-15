@@ -77,7 +77,7 @@ class TeamAllSetModal extends StatelessWidget {
           ),
           SizedBox(height: 40.h),
           Button(
-            label: startPlayingYr,
+            label: context.appLocale.startPlaying,
             onPressed: () => context
               ..pop()
               ..pushNamed(

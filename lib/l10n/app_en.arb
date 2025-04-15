@@ -131,12 +131,14 @@
   "selectDifficulty":"Choose difficulty level",
   "pleaseChooseDifficultyLevel":"Please choose a difficulty level",
   "pleaseChooseCategory":"Please choose a question category",
-
-
-
-
-
-
+  "otpVerifiedSuccessfully":"OTP verified successfully",
+  "welcomeToSinglePlayerMode":"Welcome to Single-player mode",
+  "getReadyToTestYourSkills":"Get ready to test your skills in Play Mode!\n\nYou'll face 7 questions designed to challenge your knowledge. You have 3 lives to make it through all the questions, so choose your answers wisely. If you run out of lives, the game ends—but don’t worry, you can always try again.\nAs a reward for completing Play Mode, you'll earn coins that you can use to unlock special features or content. Get ready to test your knowledge and start collecting those coins! Good luck!",
+  "practicePrep":"Here, you'll be presented with 10 questions to test your knowledge at your own pace.\n\nYou have no lives to look out for— Take your time, or not, think through your answers.\n\nRemember, practice Mode helps you gear up for the real deal, so take it easy on yourself.\nReady to dive in? Let's go!",
+  "startPractice":"Start Practice",
+  "startPlaying":"Start Playing",
+  "question":"Question",
+  
 
 
 

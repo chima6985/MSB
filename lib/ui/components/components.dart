@@ -6,6 +6,7 @@ export 'custom_spinner.dart';
 export 'custom_switch.dart';
 export 'custom_text_field.dart';
 export 'decorated_container.dart';
+export 'game_lives_widget.dart';
 export 'profile_widgets.dart';
 export 'selected_category_widget.dart';
 export 'type_writer_progress_text_indicator.dart';
