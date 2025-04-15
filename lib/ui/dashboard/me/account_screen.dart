@@ -58,7 +58,7 @@ class AccountScreen extends HookWidget {
             ),
             SizedBox(height: 20.h),
             GestureDetector(
-              onTap: () => context.pushNamed(ChangeAvatarScreen.id, extra: selectedGender.value),
+              onTap: () => context.pushNamed(ChangeAvatarScreen.id),
               child: Stack(
                 alignment: Alignment.bottomRight,
                 children: [

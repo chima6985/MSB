@@ -357,8 +357,10 @@ const aboutToPlayAgainWithSameSettingsYr =
 const aboutToPlayAgainWithSameSettingsEn =
     'You are about to play again with the same game set up, team mode, and formation';
 
-const aboutToPlayAgainWithSameCode =
+const aboutToPlayAgainWithSameCodeEn =
     'You are about to play again with the same invite code';
+const  aboutToPlayAgainWithSameCodeYr =
+    'O ń mura lati ṣe ere lẹ́ẹ̀kansi pẹ̀lú kóòdù ìpe kanna';
 
 const createGameYr = 'Dá eré silẹ̀';
 const createGameEn = 'Create Game';

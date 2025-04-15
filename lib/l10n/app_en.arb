@@ -125,14 +125,49 @@
   "help":"Help",
   "logout":"Log out",
   "deleteAccount":"Delete account",
-
-
-
-
-
-
-
-
+  "otpVerifiedSuccessfully":"Aṣeyọrọ OTP ti o ni ibi ti a ti ṣẹjade",
+  "anOtpSentToEmail":"OTP has been sent to your email",
+  "unlockingFullExperience":"Unlock the full experience! Sign up now to explore more features and take full control of your journey",
+  "signUp":"Sign up",
+  "firstTeamMemberTeamLeader":"The first member of each team will be the team leader",
+  "clickAndDragFriendsIntoTeam":"Click and drag friends into the team you want them to belong to",
+  "teamSetUp":"Team Set Up",
+  "allThingsSet":"ALl things set",
+  "teamLeadersChoiceInstruction":"The system records the team leader's choice as the official team answer",
+  "adjustTeam":"Adjust Team",
+  "eachPlayerGameInstruction":"Each player will see the quiz at their end and they can select an option, while the team leader submit the final answer. All this within 30secs per question",
+  "setTeamOnlyPlayersIn":"Set the team only when you have all of your players in"
+  "goingAheadToSetTeam":"If you go ahead to set team now, the door to the game room will be closed and new players won’t be able to join",
+  "yesSetTeam":"Yes, set team",
+  "goBackToRoom":"Go Back to Room",
+  "attention":"Attention",
+  "setTeam":"Set Team",
+  "modifyGameSetup":"Modify Game Setup",
+  "goToGameRoom":"Go to Game Room",
+  "shareGame":"Share Game",
+  "isYourGameCode":"Is your game code",
+  "inviteFriendsToYourGame":"Invite friends to your game room by sharing the game or giving them the game code",
+  "gameRoomCreated":"Game Room Created",
+  "createGameRoom":"Create Game Room",
+  "manual":"Manual",
+  "automatic":"Automatic",
+  "teamFormation":"Team formation",
+  "invitingMoreThanFivePlayers":"Turn on if you are inviting more than 5 players",
+  "chooseAnExistingGame":"Choose your adventure below! Create a new game room or join an existing one",
+  "createGame":"Create Game",
+  "aboutToPlayAgainWithSameCode":"You are about to play again with the same invite code",
+  "aboutToPlayAgainWithSameSettings":"You are about to play again with the same game set up, team mode, and formation",
+  "Go Home":"Go Home"
+  "acceptGame":"Accept game"
+  "returnToLobby":"Return to Lobby",
+  "playAgain":"Play Again",
+  "scoreboard":"Scoreboard",
+  "opps":"Oopsies!",
+  "nicelyDone":"Nicely done!",
+  "failedZagged":"Looks like we zigged when we should’ve zagged!",
+  "successNailedIt":"We nailed it—great job, everyone! 🎉💡",
+  "vote":"Vote",
+  
 
 
 

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:masoyinbo_mobile/app/app.dart';
 import 'package:masoyinbo_mobile/extension/extension.dart';
+import 'package:masoyinbo_mobile/features/user/cubits/user_cubit/user_cubit.dart';
 import 'package:masoyinbo_mobile/gen/fonts.gen.dart';
 import 'package:masoyinbo_mobile/ui/ui.dart';
 import 'package:masoyinbo_mobile/utils/utils.dart';
@@ -9,17 +11,17 @@ import 'package:masoyinbo_mobile/utils/utils.dart';
 class ChangeAvatarScreen extends HookWidget {
   const ChangeAvatarScreen({
     super.key,
-    required this.selectedGender,
   });
   static const String id = 'changeAvatarScreen';
-  final String? selectedGender ;
 
   @override
   Widget build(BuildContext context) {
     final mqr = MediaQuery.of(context).size;
     final selectedProfileAvatar = useState<String?>(null);
     final isSelected = useState<int?>(null);
-    final  isMale = selectedGender == 'Male';
+    final user = context.watch<UserCubit>().state.user;
+    final isMale = user?.gender == 'Male';
+
     return Scaffold(
       body: DecoratedContainer(
         child: SingleChildScrollView(
@@ -80,7 +82,7 @@ class ChangeAvatarScreen extends HookWidget {
                       alignment: Alignment.centerLeft,
                       child: Wrap(
                         spacing: 13.w,
-                        runSpacing: 16.w,
+                        runSpacing: 15.w,
                         children: [
                           if (isMale) ...[
                             _AvatarWidget(
