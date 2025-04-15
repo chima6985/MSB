@@ -168,7 +168,12 @@
   "successNailedIt":"We nailed it—great job, everyone! 🎉💡",
   "vote":"Vote",
   "waitingForTeamLeaderToSubmitFinalAnswer":"Waiting for the team leader to submit final answer",
-  ""
+  "enterTeamName":"Enter team name",
+  "teamName":"Team Name",
+  "selectedAsTeamLead":"You have been selected to play as your team leader!!"
+  "editTeamName":"Edit Team Name",
+  "teamLeader":"Team Leader",
+  "waitingForGameMasterToStartTheGame":"Waiting for the game master to start the game",
   ""
   ""
   ""
