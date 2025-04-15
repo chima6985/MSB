@@ -184,7 +184,30 @@
   "dontLeave":"Don’t leave",
   "confirmAction":"Confirm Action",
   "leaveGameRoom":"Leave Game Room",
-
+  "gameRoom":"Game Room",
+  "teamMode":"Team mode",
+  "gameDifficulty":"Game difficulty",
+  "gameCategory":"Game category",
+  "leave":"Leave"
+  "enterGameRoom":"Enter Game Room",
+  "gamePreparedByFriend":"ere is the game set-up as prepared by your friend",
+  "gameSetup":"Game Set-up",
+  "gameCode":"Game code",
+  "inputGameCode":"Input the game code your friend shared with you below",
+  "joinGameRoom":"Join Game Room"
+  "findGameRoom":"Find Game Room",
+  "joinGame":"Join Game",
+  "searchBookMarks":"Search bookmarks",
+  "bookmarks":"Bookmarks",
+  "selectMatchingImage":"Select the image that matches the term below",
+  "formTheSentence":"Form the sentence using the words below"
+  "writeYourAnswerHere":"Write your answer here"
+  "selectAnswersFromOptionBelow":"Select your answers from the options below",
+  "startPractice":"Start practice",
+  "":""
+  "":""
+  "":""
+  "":""
 
 
 
