@@ -174,8 +174,9 @@
   "editTeamName":"Edit Team Name",
   "teamLeader":"Team Leader",
   "waitingForGameMasterToStartTheGame":"Waiting for the game master to start the game",
-  ""
-  ""
+  "systemRecognizesTeamLeadersChoices":"The system records the team leader's choice as the official team answer",
+  "eachPlayerInstruction":"Each player will see the quiz at their end and they can select an option, while the team leader submit the final answer. All this within 30secs per question",
+  "teamAllSet":"Team All Set",
   ""
   ""
   ""
