@@ -238,21 +238,25 @@
     "cantAffordAPremiumAccount":"Nko le san owo iroyin Ere naa",
     "saySomething":"So nkankan",
     "optional":"iyan",
-    "howCanWeImproveOurService":""
-    "":""
-    "":""
-    "":""
-    "":""
-    "":""
-    "":""
-    "":""
-    "":""
-    "":""
-    "":""
-    "":""
-    "":""
-    "":""
-    "":""
+    "howCanWeImproveOurService":"Báwo la ṣe lè mú iṣẹ́ ìsìn wa sunwọ̀n sí i?",
+    "weHateToSeeYouGo":"A korira lati ri ọ lọ, ṣugbọn ṣaaju ki o to lọ, jọwọ, sọ fun wa ohun ti a ti ṣe aṣiṣe. Idahun si rẹ yoo ṣe iranlọwọ fun wa ni ilọsiwaju iṣẹ wa",
+    "quickSurvey":"Awọn ọna iwadi",
+    "ifYouHaveQuestions":"ti o ba ni ibeere!",
+    "ifYouAreCertain":"Ti o ba da ọ loju pe o fẹ pa akọọlẹ rẹ rẹ, tẹ  Jẹrisi ni isalẹ. Bibẹẹkọ, lero ọfẹ lati kan si wa ni",
+    "actionCannotBeUndone":"Iṣe yii ko le ṣe atunṣe. Ti o ba pa akọọlẹ rẹ rẹ, iwọ yoo nilo lati bẹrẹ lati ibere ti o ba pinnu lati pada si ọjọ iwaju",
+    "profileAndSettings":"Profaili & Eto: Eto ti ara ẹni ati eyikeyi isọdi yoo sọnu.",
+    "learningProgressDeleteAccount":"Ilọsiwaju kikọ: Gbogbo awọn ẹkọ rẹ, ṣiṣan, ati awọn aṣeyọri yoo parẹ ati pe ko le ṣe atunṣe",
+    "whatHappensWhenYouDelete":"Kini yoo ṣẹlẹ nigbati o ba pa akọọlẹ rẹ rẹ:",
+    "sureToDeleteAccount":"Ṣe o da ọ loju pe o fẹ pa akọọlẹ rẹ rẹ bi?",
+    "reachUsViaMailEn":"Kan si wa nipasẹ imeeli pẹlu awọn ifiyesi rẹ",
+    "mail":"meeli",
+    "needToSpeakToUs":"Ṣe o nilo lati ba wa sọrọ? Fun wa a ipe!",
+    "call":"Pe",
+    "makePayment":"Ṣe Owo sisan",
+    "choosePreferredPaymentPlan":"Yan eto isanwo ti o fẹ",
+    "paymentPlans":"Awọn Eto isanwo",
+    "cancelAnytime":"Fagilee nigbakugba laisi idiyele.",
+    "exploreYorubaProverbs":"Ṣawari awọn owe Yorùbá, itan-akọọlẹ, ati awọn ẹkọ aṣa ti o wa fun awọn olumulo ti o ni iye owo nikan.",
     "":""
     "":""
     "":""

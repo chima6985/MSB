@@ -239,25 +239,25 @@
   "saySomething":"Say something",
   "optional":"Optional",
   "howCanWeImproveOurService":"How we can improve our service?",
-  "":""
-  "":""
-  "":""
-  "":""
-  "":""
-  "":""
-  "":""
-  "":""
-  "":""
-  "":""
-  "":""
-  "":""
-  "":""
-  "":""
-  "":""
-  "":""
-  "":""
-  "":""
-  "":""
+  "weHateToSeeYouGo":"We hate to see you go, but before you go, please, tell us what we have done wrong. Your feedback will help us improve our service",
+  "quickSurvey":"Quick Survey"
+  "ifYouHaveQuestions":"if you have questions!"
+  "ifYouAreCertain":"If you're certain you want to delete your account, tap Confirm below. Otherwise, feel free to reach out to us at",
+  "actionCannotBeUndone":"This action cannot be undone. If you delete your account, you will need to start from scratch if you decide to return in the future",
+  "profileAndSettings":"Profile & Settings: Your personalized settings and any customizations will be lost.",
+  "learningProgressDeleteAccount":"Learning Progress: All your lessons, streaks, and achievements will be erased and cannot be restored",
+  "whatHappensWhenYouDelete":"What happens when you delete your account:",
+  "sureToDeleteAccount":"Are you sure you want to delete your account?",
+  "reachUsViaMail":"Reach us via email with your concerns",
+  "mail":"Mail"
+  "needToSpeakToUs":"Need to speak with us? Give us a call!",
+  "call":"Call"
+  "makePayment":"Make Payment"
+  "choosePreferredPaymentPlan":"Choose your preferred payment plan"
+  "paymentPlans":"Payment Plans",
+  "cancelAnytime":"Cancel anytime with no charges",
+  "exploreYorubaProverbs":"Explore Yoruba proverbs, folktales, and cultural lessons available only to premium users.",
+  "culturalContent":"Cultural Content: "
   "":""
   "":""
   "":""
