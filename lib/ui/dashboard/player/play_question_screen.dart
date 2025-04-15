@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:masoyinbo_mobile/app/app.dart';
 import 'package:masoyinbo_mobile/core/core.dart';
 import 'package:masoyinbo_mobile/extension/context_extension.dart';
+import 'package:masoyinbo_mobile/extension/extension.dart';
 import 'package:masoyinbo_mobile/features/features.dart';
 import 'package:masoyinbo_mobile/gen/fonts.gen.dart';
 import 'package:masoyinbo_mobile/ui/ui.dart';
@@ -37,7 +38,6 @@ class PlayQuestionScreen extends StatefulWidget {
 class _PlayQuestionScreenState extends State<PlayQuestionScreen>
     with TickerProviderStateMixin {
   CustomTimerController? otpCountDownController;
-  List<String> wordTile = ['U', 'I', 'P', 'E', 'L', 'M'];
   List<String> correctWordTile = ['P', 'E', 'L', 'U', 'M', 'I'];
   bool isActivateNextButton = false;
   bool? isWordTileArrangedCorrectly;
@@ -241,11 +241,43 @@ class _PlayQuestionScreenState extends State<PlayQuestionScreen>
                             builder: (context, state) {
                               return state.maybeWhen(
                                 loaded: (value) {
+                                  AnswerFormat? answerFormat =
+                                      const AnswerFormat(
+                                    answer: Answer(),
+                                    format: 'text',
+                                  );
                                   final questions = value;
                                   final currentQuestion =
                                       currentQuestionIndex < questions.length
                                           ? questions[currentQuestionIndex]
                                           : null;
+                                  final currentQuestionText =
+                                      '${currentQuestion?.question.titleCase() ?? ''}?';
+                                  final currentAltQuestionText =
+                                      '${currentQuestion?.translateQuestion.titleCase() ?? ''}?';
+                                  final answer = currentQuestion?.answer;
+
+                                  if (answer?.isNotEmpty ?? false) {
+                                    if (currentQuestion?.shuffleAnswers ==
+                                        false) {
+                                      final newAnswers = List.from(answer ?? [])
+                                        ..add(
+                                          AnswerFormat(
+                                            answer: Answer(
+                                              value: currentQuestion
+                                                  ?.correctAnswer
+                                                  .shuffleWord(),
+                                            ),
+                                            format: 'tile',
+                                          ),
+                                        )
+                                        ..shuffle();
+                                      answerFormat = newAnswers.first;
+                                    } else {
+                                      answerFormat = answer?.first;
+                                    }
+                                  }
+                                  print(answerFormat);
                                   return Column(
                                     children: [
                                       Padding(
@@ -430,7 +462,9 @@ class _PlayQuestionScreenState extends State<PlayQuestionScreen>
                                                     CrossAxisAlignment.start,
                                                 children: [
                                                   Text(
-                                                    'Ki ni itumò òrò náà?',
+                                                    currentLocale == yo
+                                                        ? currentAltQuestionText
+                                                        : currentQuestionText,
                                                     textAlign: TextAlign.center,
                                                     style: context
                                                         .textTheme.bodyMedium!
@@ -441,7 +475,9 @@ class _PlayQuestionScreenState extends State<PlayQuestionScreen>
                                                   ),
                                                   const SizedBox(height: 4),
                                                   Text(
-                                                    'What does the term mean?',
+                                                    currentLocale == yo
+                                                        ? currentQuestionText
+                                                        : currentAltQuestionText,
                                                     textAlign: TextAlign.start,
                                                     style: context
                                                         .textTheme.bodySmall!
@@ -452,37 +488,7 @@ class _PlayQuestionScreenState extends State<PlayQuestionScreen>
                                                           FontWeight.w300,
                                                     ),
                                                   ),
-                                                  const SizedBox(height: 24),
-                                                  RichText(
-                                                    text: TextSpan(
-                                                      style: context
-                                                          .textTheme.bodySmall!
-                                                          .copyWith(
-                                                        fontWeight:
-                                                            FontWeight.w300,
-                                                      ),
-                                                      children: [
-                                                        const TextSpan(
-                                                          text:
-                                                              'Awon wo ni Yorubá n pè ní',
-                                                        ),
-                                                        TextSpan(
-                                                          text: ' Oníyangí ',
-                                                          style: context
-                                                              .textTheme
-                                                              .bodySmall!
-                                                              .copyWith(
-                                                            fontWeight:
-                                                                FontWeight.w500,
-                                                          ),
-                                                        ),
-                                                        const TextSpan(
-                                                          text: '?',
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                  SizedBox(height: 65.h),
+                                                  SizedBox(height: 80.h),
                                                   Row(
                                                     children: [
                                                       ActionButton(
@@ -530,6 +536,419 @@ class _PlayQuestionScreenState extends State<PlayQuestionScreen>
                                         ),
                                       ),
                                       const SizedBox(height: 28),
+                                      if (isMultiPlayerMode ||
+                                          isMultiPlayerTeamLeaderMode ||
+                                          isMultiPlayerGameMasterMode) ...[
+                                        Center(
+                                          child: Text(
+                                            '* Select your answers from the options below',
+                                            textAlign: TextAlign.start,
+                                            style: context.textTheme.bodySmall!
+                                                .copyWith(
+                                              fontStyle: FontStyle.italic,
+                                              fontWeight: FontWeight.w300,
+                                            ),
+                                          ),
+                                        ),
+                                        const SizedBox(height: 12),
+                                        SelectCategoryWidget2(
+                                          title: 'Tiiro',
+                                          isSelected:
+                                              selectedMultipleOption == 'Tiiro',
+                                          isShowBgColor: false,
+                                          voteIndicator:
+                                              selectedMultipleOption == 'Tiiro'
+                                                  ? '4'
+                                                  : '3',
+                                          bgColor: bgColor[isMultipleOption],
+                                          brColor: brColor[isMultipleOption],
+                                          onTap: () {
+                                            setState(() {
+                                              if (selectedMultipleOption ==
+                                                  'Tiiro') {
+                                                selectedMultipleOption = null;
+                                              } else {
+                                                selectedMultipleOption =
+                                                    'Tiiro';
+                                                isMultiplayerAnswerSelected =
+                                                    false;
+                                                isMultipleOption = null;
+                                              }
+                                            });
+                                          },
+                                        ),
+                                        SelectCategoryWidget2(
+                                          title: 'Asiiro',
+                                          isSelected: selectedMultipleOption ==
+                                              'Asiiro',
+                                          isShowBgColor: false,
+                                          voteIndicator:
+                                              selectedMultipleOption == 'Asiiro'
+                                                  ? '1'
+                                                  : null,
+                                          bgColor: bgColor[isMultipleOption],
+                                          brColor: brColor[isMultipleOption],
+                                          onTap: () {
+                                            setState(() {
+                                              if (selectedMultipleOption ==
+                                                  'Asiiro') {
+                                                selectedMultipleOption = null;
+                                              } else {
+                                                selectedMultipleOption =
+                                                    'Asiiro';
+                                                isMultiplayerAnswerSelected =
+                                                    false;
+                                                isMultipleOption = null;
+                                              }
+                                            });
+                                          },
+                                        ),
+                                        SelectCategoryWidget2(
+                                          title: 'Asiiro',
+                                          isSelected: selectedMultipleOption ==
+                                              'Asiiroo',
+                                          isShowBgColor: false,
+                                          voteIndicator:
+                                              selectedMultipleOption ==
+                                                      'Asiiroo'
+                                                  ? '1'
+                                                  : null,
+                                          bgColor: bgColor[isMultipleOption],
+                                          brColor: brColor[isMultipleOption],
+                                          onTap: () {
+                                            setState(() {
+                                              if (selectedMultipleOption ==
+                                                  'Asiiroo') {
+                                                selectedMultipleOption = null;
+                                              } else {
+                                                selectedMultipleOption =
+                                                    'Asiiroo';
+                                                isMultiplayerAnswerSelected =
+                                                    false;
+                                                isMultipleOption = null;
+                                              }
+                                            });
+                                          },
+                                        ),
+                                        if (isMultiplayerAnswerSelected) ...[
+                                          SizedBox(height: 25.h),
+                                          Center(
+                                            child: Row(
+                                              mainAxisSize: MainAxisSize.min,
+                                              children: [
+                                                Text(
+                                                  waitingForTeamLeaderToSubmitFinalAnswerYr,
+                                                  textAlign: TextAlign.start,
+                                                  style: context
+                                                      .textTheme.bodySmall!
+                                                      .copyWith(
+                                                    fontStyle: FontStyle.italic,
+                                                    fontWeight: FontWeight.w300,
+                                                  ),
+                                                ),
+                                                const TypeWriterProgressTextIndicator(
+                                                  fontWeight: FontWeight.w400,
+                                                  isItalic: true,
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                        SizedBox(height: 24.h),
+                                        if (widget.isTeamLeader)
+                                          SizedBox(height: 150.h)
+                                        else
+                                          AbsorbPointer(
+                                            absorbing:
+                                                isMultiplayerAnswerSelected ==
+                                                        true ||
+                                                    selectedMultipleOption ==
+                                                        null,
+                                            child: Opacity(
+                                              opacity:
+                                                  (isMultiplayerAnswerSelected ==
+                                                              false &&
+                                                          selectedMultipleOption !=
+                                                              null)
+                                                      ? 1
+                                                      : 0.4,
+                                              child: Button(
+                                                label: voteYr,
+                                                onPressed: () async {
+                                                  await Future.delayed(
+                                                    1.seconds,
+                                                  );
+                                                  setState(() {
+                                                    isMultiplayerAnswerSelected =
+                                                        true;
+                                                  });
+                                                  await Future.delayed(
+                                                    3.seconds,
+                                                  ).then((_) {
+                                                    if (context.mounted) {
+                                                      showModalBottomSheet(
+                                                        context: context,
+                                                        isDismissible: false,
+                                                        barrierColor: AppColors
+                                                            .transparent,
+                                                        builder: (context) =>
+                                                            const PerformanceModal(
+                                                          type: 'success',
+                                                        ),
+                                                      ).then((_) {
+                                                        setState(() {
+                                                          isMultiplayerAnswerSelected =
+                                                              false;
+                                                          selectedMultipleOption =
+                                                              null;
+                                                        });
+                                                      });
+                                                    }
+                                                  });
+                                                },
+                                                onLongPress: () async {
+                                                  await Future.delayed(
+                                                    1.seconds,
+                                                  );
+                                                  setState(() {
+                                                    isMultiplayerAnswerSelected =
+                                                        true;
+                                                  });
+                                                  await Future.delayed(
+                                                    3.seconds,
+                                                  ).then((_) {
+                                                    if (context.mounted) {
+                                                      showModalBottomSheet(
+                                                        context: context,
+                                                        isDismissible: false,
+                                                        barrierColor: AppColors
+                                                            .transparent,
+                                                        builder: (context) =>
+                                                            const PerformanceModal(
+                                                          type: 'failure',
+                                                        ),
+                                                      ).then((_) {
+                                                        setState(() {
+                                                          isMultiplayerAnswerSelected =
+                                                              false;
+                                                          selectedMultipleOption =
+                                                              null;
+                                                        });
+                                                      });
+                                                    }
+                                                  });
+                                                },
+                                              ),
+                                            ),
+                                          ),
+                                      ] else ...[
+                                        if (answerFormat?.format == 'tile') ...[
+                                          SizedBox(
+                                            height: 45.h,
+                                            child: ReorderableListView(
+                                              shrinkWrap: true,
+                                              scrollDirection: Axis.horizontal,
+                                              onReorder: (i, j) {
+                                                final wordTile = answerFormat
+                                                        ?.answer.value
+                                                        ?.split('') ??
+                                                    [];
+                                                setState(() {
+                                                  if (j > i) j--;
+                                                  final tile =
+                                                      wordTile.removeAt(i);
+                                                  wordTile.insert(j, tile);
+                                                  isActivateNextButton = true;
+                                                  isWordTileArrangedCorrectly =
+                                                      null;
+                                                });
+                                              },
+                                              children: [
+                                                for (int i = 0;
+                                                    i <
+                                                        (answerFormat
+                                                                ?.answer
+                                                                .value
+                                                                ?.length ??
+                                                            0);
+                                                    i++)
+                                                  Padding(
+                                                    key: ValueKey(i),
+                                                    padding:
+                                                        const EdgeInsets.all(4),
+                                                    child: Container(
+                                                      width: 32.w,
+                                                      height: 32.w,
+                                                      decoration: BoxDecoration(
+                                                        color: bgColor[
+                                                                isWordTileArrangedCorrectly] ??
+                                                            AppColors.blueE7,
+                                                        border: Border.all(
+                                                          color: brColor[
+                                                                  isWordTileArrangedCorrectly] ??
+                                                              AppColors.greyB6,
+                                                          width: 0.6,
+                                                        ),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(4),
+                                                      ),
+                                                      child: Center(
+                                                        child: Text(
+                                                          answerFormat
+                                                                  ?.answer.value
+                                                                  ?.split(
+                                                                '',
+                                                              )[i] ??
+                                                              '',
+                                                          style: context
+                                                              .textTheme
+                                                              .bodyLarge!
+                                                              .copyWith(),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                              ],
+                                            ),
+                                          ),
+                                          const SizedBox(height: 16),
+                                          Center(
+                                            child: Text(
+                                              '* Long press on a tile to move and form the word',
+                                              textAlign: TextAlign.start,
+                                              style: context
+                                                  .textTheme.bodySmall!
+                                                  .copyWith(
+                                                fontStyle: FontStyle.italic,
+                                                fontWeight: FontWeight.w300,
+                                              ),
+                                            ),
+                                          ),
+                                        ] else if (answerFormat?.format ==
+                                            'text') ...[
+                                          SizedBox(height: 20.h),
+                                          CustomTextField(
+                                            textEditingController:
+                                                _textEditingController,
+                                            textFieldText:
+                                                writeYourAnswerHereYr,
+                                          ),
+                                        ] else if (answerFormat?.format ==
+                                            'multi-choice') ...[
+                                          Center(
+                                            child: Text(
+                                              '* $selectAnswersFromOptionBelowYr',
+                                              textAlign: TextAlign.start,
+                                              style: context
+                                                  .textTheme.bodySmall!
+                                                  .copyWith(
+                                                fontStyle: FontStyle.italic,
+                                                fontWeight: FontWeight.w300,
+                                              ),
+                                            ),
+                                          ),
+                                          SizedBox(height: 16.h),
+                                          SelectCategoryWidget2(
+                                            title: 'Tiiro',
+                                            isSelected:
+                                                selectedMultipleOption ==
+                                                    'Tiiro',
+                                            bgColor: bgColor[isMultipleOption],
+                                            brColor: brColor[isMultipleOption],
+                                            onTap: () {
+                                              setState(() {
+                                                if (selectedMultipleOption ==
+                                                    'Tiiro') {
+                                                  selectedMultipleOption = null;
+                                                  isMultipleOption = null;
+                                                } else {
+                                                  selectedMultipleOption =
+                                                      'Tiiro';
+                                                  isMultipleOption = null;
+                                                }
+                                              });
+                                            },
+                                          ),
+                                          SelectCategoryWidget2(
+                                            title: 'Asiiro',
+                                            isSelected:
+                                                selectedMultipleOption ==
+                                                    'Asiiro',
+                                            bgColor: bgColor[isMultipleOption],
+                                            brColor: brColor[isMultipleOption],
+                                            onTap: () {
+                                              setState(() {
+                                                if (selectedMultipleOption ==
+                                                    'Asiiro') {
+                                                  selectedMultipleOption = null;
+                                                  isMultipleOption = null;
+                                                } else {
+                                                  selectedMultipleOption =
+                                                      'Asiiro';
+                                                  isMultipleOption = null;
+                                                }
+                                              });
+                                            },
+                                          ),
+                                          SelectCategoryWidget2(
+                                            title: 'Asiiro',
+                                            isSelected:
+                                                selectedMultipleOption ==
+                                                    'Asiiroo',
+                                            bgColor: bgColor[isMultipleOption],
+                                            brColor: brColor[isMultipleOption],
+                                            onTap: () {
+                                              setState(() {
+                                                if (selectedMultipleOption ==
+                                                    'Asiiroo') {
+                                                  selectedMultipleOption = null;
+                                                  isMultipleOption = null;
+                                                } else {
+                                                  selectedMultipleOption =
+                                                      'Asiiroo';
+                                                  isMultipleOption = null;
+                                                }
+                                              });
+                                            },
+                                          ),
+                                        ],
+                                      ],
+                                      SizedBox(height: 40.h),
+                                      AbsorbPointer(
+                                        absorbing:
+                                            isActivateNextButton == false,
+                                        child: Opacity(
+                                          opacity:
+                                              isActivateNextButton ? 1 : 0.7,
+                                          child: Button(
+                                            label: context.appLocale.next,
+                                            onPressed: () {
+                                              // var isWordCorrect = false;
+                                              // for (var i = 0;
+                                              //     i < wordTile.length;
+                                              //     i++) {
+                                              //   if (wordTile[i] !=
+                                              //       correctWordTile[i]) {
+                                              //     isWordCorrect = false;
+                                              //     break;
+                                              //   } else {
+                                              //     isWordCorrect = true;
+                                              //   }
+                                              // }
+                                              // setState(() {
+                                              //   if (isWordCorrect) {
+                                              //     isWordTileArrangedCorrectly =
+                                              //         true;
+                                              //   } else {
+                                              //     isWordTileArrangedCorrectly =
+                                              //         false;
+                                              //   }
+                                              // });
+                                            },
+                                          ),
+                                        ),
+                                      ),
                                     ],
                                   );
                                 },
@@ -537,441 +956,6 @@ class _PlayQuestionScreenState extends State<PlayQuestionScreen>
                               );
                             },
                           ),
-                          if (isMultiPlayerMode ||
-                              isMultiPlayerTeamLeaderMode ||
-                              isMultiPlayerGameMasterMode) ...[
-                            Center(
-                              child: Text(
-                                '* Select your answers from the options below',
-                                textAlign: TextAlign.start,
-                                style: context.textTheme.bodySmall!.copyWith(
-                                  fontStyle: FontStyle.italic,
-                                  fontWeight: FontWeight.w300,
-                                ),
-                              ),
-                            ),
-                            const SizedBox(height: 12),
-                            SelectCategoryWidget2(
-                              title: 'Tiiro',
-                              isSelected: selectedMultipleOption == 'Tiiro',
-                              isShowBgColor: false,
-                              voteIndicator:
-                                  selectedMultipleOption == 'Tiiro' ? '4' : '3',
-                              bgColor: bgColor[isMultipleOption],
-                              brColor: brColor[isMultipleOption],
-                              onTap: () {
-                                setState(() {
-                                  if (selectedMultipleOption == 'Tiiro') {
-                                    selectedMultipleOption = null;
-                                  } else {
-                                    selectedMultipleOption = 'Tiiro';
-                                    isMultiplayerAnswerSelected = false;
-                                    isMultipleOption = null;
-                                  }
-                                });
-                              },
-                            ),
-                            SelectCategoryWidget2(
-                              title: 'Asiiro',
-                              isSelected: selectedMultipleOption == 'Asiiro',
-                              isShowBgColor: false,
-                              voteIndicator: selectedMultipleOption == 'Asiiro'
-                                  ? '1'
-                                  : null,
-                              bgColor: bgColor[isMultipleOption],
-                              brColor: brColor[isMultipleOption],
-                              onTap: () {
-                                setState(() {
-                                  if (selectedMultipleOption == 'Asiiro') {
-                                    selectedMultipleOption = null;
-                                  } else {
-                                    selectedMultipleOption = 'Asiiro';
-                                    isMultiplayerAnswerSelected = false;
-                                    isMultipleOption = null;
-                                  }
-                                });
-                              },
-                            ),
-                            SelectCategoryWidget2(
-                              title: 'Asiiro',
-                              isSelected: selectedMultipleOption == 'Asiiroo',
-                              isShowBgColor: false,
-                              voteIndicator: selectedMultipleOption == 'Asiiroo'
-                                  ? '1'
-                                  : null,
-                              bgColor: bgColor[isMultipleOption],
-                              brColor: brColor[isMultipleOption],
-                              onTap: () {
-                                setState(() {
-                                  if (selectedMultipleOption == 'Asiiroo') {
-                                    selectedMultipleOption = null;
-                                  } else {
-                                    selectedMultipleOption = 'Asiiroo';
-                                    isMultiplayerAnswerSelected = false;
-                                    isMultipleOption = null;
-                                  }
-                                });
-                              },
-                            ),
-                            if (isMultiplayerAnswerSelected) ...[
-                              SizedBox(height: 25.h),
-                              Center(
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Text(
-                                      waitingForTeamLeaderToSubmitFinalAnswerYr,
-                                      textAlign: TextAlign.start,
-                                      style:
-                                          context.textTheme.bodySmall!.copyWith(
-                                        fontStyle: FontStyle.italic,
-                                        fontWeight: FontWeight.w300,
-                                      ),
-                                    ),
-                                    const TypeWriterProgressTextIndicator(
-                                      fontWeight: FontWeight.w400,
-                                      isItalic: true,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                            SizedBox(height: 24.h),
-                            if (widget.isTeamLeader)
-                              SizedBox(height: 150.h)
-                            else
-                              AbsorbPointer(
-                                absorbing:
-                                    isMultiplayerAnswerSelected == true ||
-                                        selectedMultipleOption == null,
-                                child: Opacity(
-                                  opacity:
-                                      (isMultiplayerAnswerSelected == false &&
-                                              selectedMultipleOption != null)
-                                          ? 1
-                                          : 0.4,
-                                  child: Button(
-                                    label: voteYr,
-                                    onPressed: () async {
-                                      await Future.delayed(1.seconds);
-                                      setState(() {
-                                        isMultiplayerAnswerSelected = true;
-                                      });
-                                      await Future.delayed(3.seconds).then((_) {
-                                        if (context.mounted) {
-                                          showModalBottomSheet(
-                                            context: context,
-                                            isDismissible: false,
-                                            barrierColor: AppColors.transparent,
-                                            builder: (context) =>
-                                                const PerformanceModal(
-                                              type: 'success',
-                                            ),
-                                          ).then((_) {
-                                            setState(() {
-                                              isMultiplayerAnswerSelected =
-                                                  false;
-                                              selectedMultipleOption = null;
-                                            });
-                                          });
-                                        }
-                                      });
-                                    },
-                                    onLongPress: () async {
-                                      await Future.delayed(1.seconds);
-                                      setState(() {
-                                        isMultiplayerAnswerSelected = true;
-                                      });
-                                      await Future.delayed(3.seconds).then((_) {
-                                        if (context.mounted) {
-                                          showModalBottomSheet(
-                                            context: context,
-                                            isDismissible: false,
-                                            barrierColor: AppColors.transparent,
-                                            builder: (context) =>
-                                                const PerformanceModal(
-                                              type: 'failure',
-                                            ),
-                                          ).then((_) {
-                                            setState(() {
-                                              isMultiplayerAnswerSelected =
-                                                  false;
-                                              selectedMultipleOption = null;
-                                            });
-                                          });
-                                        }
-                                      });
-                                    },
-                                  ),
-                                ),
-                              ),
-                          ] else ...[
-                            SizedBox(
-                              height: 45.h,
-                              child: ReorderableListView(
-                                shrinkWrap: true,
-                                scrollDirection: Axis.horizontal,
-                                onReorder: (i, j) {
-                                  setState(() {
-                                    if (j > i) j--;
-                                    final tile = wordTile.removeAt(i);
-                                    wordTile.insert(j, tile);
-                                    isActivateNextButton = true;
-                                    isWordTileArrangedCorrectly = null;
-                                  });
-                                },
-                                children: [
-                                  for (int i = 0; i < wordTile.length; i++)
-                                    Padding(
-                                      key: ValueKey(i),
-                                      padding: const EdgeInsets.all(4),
-                                      child: Container(
-                                        width: 32.w,
-                                        height: 32.w,
-                                        decoration: BoxDecoration(
-                                          color: bgColor[
-                                                  isWordTileArrangedCorrectly] ??
-                                              AppColors.blueE7,
-                                          border: Border.all(
-                                            color: brColor[
-                                                    isWordTileArrangedCorrectly] ??
-                                                AppColors.greyB6,
-                                            width: 0.6,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(4),
-                                        ),
-                                        child: Center(
-                                          child: Text(
-                                            wordTile[i],
-                                            style: context.textTheme.bodyLarge!
-                                                .copyWith(),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                ],
-                              ),
-                            ),
-                            const SizedBox(height: 16),
-                            Center(
-                              child: Text(
-                                '* Long press on a tile to move and form the word',
-                                textAlign: TextAlign.start,
-                                style: context.textTheme.bodySmall!.copyWith(
-                                  fontStyle: FontStyle.italic,
-                                  fontWeight: FontWeight.w300,
-                                ),
-                              ),
-                            ),
-                            SizedBox(height: 40.h),
-                            AbsorbPointer(
-                              absorbing: isActivateNextButton == false,
-                              child: Opacity(
-                                opacity: isActivateNextButton ? 1 : 0.7,
-                                child: Button(
-                                  label: context.appLocale.next,
-                                  onPressed: () {
-                                    var isWordCorrect = false;
-                                    for (var i = 0; i < wordTile.length; i++) {
-                                      if (wordTile[i] != correctWordTile[i]) {
-                                        isWordCorrect = false;
-                                        break;
-                                      } else {
-                                        isWordCorrect = true;
-                                      }
-                                    }
-                                    setState(() {
-                                      if (isWordCorrect) {
-                                        isWordTileArrangedCorrectly = true;
-                                      } else {
-                                        isWordTileArrangedCorrectly = false;
-                                      }
-                                    });
-                                  },
-                                ),
-                              ),
-                            ),
-                            SizedBox(height: 100.h),
-                            Center(
-                              child: Text(
-                                '* $selectAnswersFromOptionBelowYr',
-                                textAlign: TextAlign.start,
-                                style: context.textTheme.bodySmall!.copyWith(
-                                  fontStyle: FontStyle.italic,
-                                  fontWeight: FontWeight.w300,
-                                ),
-                              ),
-                            ),
-                            SizedBox(height: 16.h),
-                            SelectCategoryWidget2(
-                              title: 'Tiiro',
-                              isSelected: selectedMultipleOption == 'Tiiro',
-                              bgColor: bgColor[isMultipleOption],
-                              brColor: brColor[isMultipleOption],
-                              onTap: () {
-                                setState(() {
-                                  if (selectedMultipleOption == 'Tiiro') {
-                                    selectedMultipleOption = null;
-                                    isMultipleOption = null;
-                                  } else {
-                                    selectedMultipleOption = 'Tiiro';
-                                    isMultipleOption = null;
-                                  }
-                                });
-                              },
-                            ),
-                            SelectCategoryWidget2(
-                              title: 'Asiiro',
-                              isSelected: selectedMultipleOption == 'Asiiro',
-                              bgColor: bgColor[isMultipleOption],
-                              brColor: brColor[isMultipleOption],
-                              onTap: () {
-                                setState(() {
-                                  if (selectedMultipleOption == 'Asiiro') {
-                                    selectedMultipleOption = null;
-                                    isMultipleOption = null;
-                                  } else {
-                                    selectedMultipleOption = 'Asiiro';
-                                    isMultipleOption = null;
-                                  }
-                                });
-                              },
-                            ),
-                            SelectCategoryWidget2(
-                              title: 'Asiiro',
-                              isSelected: selectedMultipleOption == 'Asiiroo',
-                              bgColor: bgColor[isMultipleOption],
-                              brColor: brColor[isMultipleOption],
-                              onTap: () {
-                                setState(() {
-                                  if (selectedMultipleOption == 'Asiiroo') {
-                                    selectedMultipleOption = null;
-                                    isMultipleOption = null;
-                                  } else {
-                                    selectedMultipleOption = 'Asiiroo';
-                                    isMultipleOption = null;
-                                  }
-                                });
-                              },
-                            ),
-                            SizedBox(height: 40.h),
-                            CustomTextField(
-                              textEditingController: _textEditingController,
-                              textFieldText: writeYourAnswerHereYr,
-                            ),
-                            SizedBox(height: 20.h),
-                            Center(
-                              child: Text(
-                                '* $formTheSentenceYr',
-                                textAlign: TextAlign.start,
-                                style: context.textTheme.bodySmall!.copyWith(
-                                  fontStyle: FontStyle.italic,
-                                  fontWeight: FontWeight.w300,
-                                ),
-                              ),
-                            ),
-                            SizedBox(height: 16.h),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                CategoryWidget(
-                                  title: 'ògún',
-                                  isSelected: selectedFillWordOption == 'ògún',
-                                  onTap: () {
-                                    setState(() {
-                                      if (selectedFillWordOption == 'ògún') {
-                                        selectedFillWordOption = null;
-                                      } else {
-                                        selectedFillWordOption = 'ògún';
-                                      }
-                                    });
-                                  },
-                                ),
-                                CategoryWidget(
-                                  title: 'ogun',
-                                  isSelected: selectedFillWordOption == 'ogun',
-                                  onTap: () {
-                                    setState(() {
-                                      if (selectedFillWordOption == 'ogun') {
-                                        selectedFillWordOption = null;
-                                      } else {
-                                        selectedFillWordOption = 'ogun';
-                                      }
-                                    });
-                                  },
-                                ),
-                              ],
-                            ),
-                            SizedBox(height: 40.h),
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Transform.translate(
-                                  offset: const Offset(0, 5),
-                                  child: AppAssets.images.svgs.listen.svg(
-                                    width: 17.sp,
-                                    height: 17.sp,
-                                  ),
-                                ),
-                                const SizedBox(width: 10),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      selectMatchingImageYr,
-                                      textAlign: TextAlign.center,
-                                      style: context.textTheme.bodyMedium!
-                                          .copyWith(
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                    const SizedBox(height: 4),
-                                    Text(
-                                      selectMatchingImageEn,
-                                      textAlign: TextAlign.start,
-                                      style:
-                                          context.textTheme.bodySmall!.copyWith(
-                                        fontWeight: FontWeight.w300,
-                                      ),
-                                    ),
-                                    const SizedBox(height: 5),
-                                    Text(
-                                      'ilú',
-                                      textAlign: TextAlign.center,
-                                      style: context.textTheme.bodyMedium!
-                                          .copyWith(
-                                        fontSize: 15.sp,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                            SizedBox(height: 32.h),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                _ImagePickerOption(
-                                  imageTitle: 'Drum',
-                                  onTap: () {
-                                    setState(() => imageSelector = 'drum');
-                                  },
-                                  isSelected: imageSelector == 'drum',
-                                ),
-                                const SizedBox(width: 25),
-                                _ImagePickerOption(
-                                  imageTitle: 'Village',
-                                  onTap: () {
-                                    setState(() => imageSelector = 'village');
-                                  },
-                                  isSelected: imageSelector == 'village',
-                                ),
-                              ],
-                            ),
-                            SizedBox(height: 40.h),
-                          ],
                         ],
                       ),
                     ),
@@ -1090,67 +1074,6 @@ class _PlayQuestionScreenState extends State<PlayQuestionScreen>
   }
 }
 
-class _ImagePickerOption extends StatelessWidget {
-  const _ImagePickerOption({
-    required this.imageTitle,
-    required this.onTap,
-    this.isSelected = false,
-  });
-
-  final String imageTitle;
-  final VoidCallback onTap;
-  final bool isSelected;
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Column(
-        children: [
-          Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 14,
-              vertical: 10,
-            ),
-            decoration: BoxDecoration(
-              color: AppColors.white,
-              borderRadius: BorderRadius.circular(8),
-              border: Border.all(
-                color: isSelected ? AppColors.blue12 : AppColors.greyDB,
-              ),
-              boxShadow: isSelected
-                  ? [
-                      BoxShadow(
-                        color: AppColors.black.withValues(alpha: 0.2),
-                        blurRadius: 10,
-                      ),
-                    ]
-                  : null,
-            ),
-            child: Container(
-              width: 100.w,
-              height: 100.w,
-              decoration: BoxDecoration(
-                color: AppColors.greyB6.withValues(alpha: 0.4),
-                borderRadius: BorderRadius.circular(4),
-              ),
-            ),
-          ),
-          const SizedBox(height: 6),
-          Text(
-            imageTitle,
-            textAlign: TextAlign.center,
-            style: context.textTheme.bodyMedium!.copyWith(
-              fontSize: 15.sp,
-              fontWeight: isSelected ? FontWeight.w500 : FontWeight.w400,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
 class ActionButton extends StatelessWidget {
   const ActionButton({
     super.key,
@@ -1202,3 +1125,192 @@ class ActionButton extends StatelessWidget {
     );
   }
 }
+
+// other question answer formats
+
+// class _ImagePickerOption extends StatelessWidget {
+//   const _ImagePickerOption({
+//     required this.imageTitle,
+//     required this.onTap,
+//     this.isSelected = false,
+//   });
+
+//   final String imageTitle;
+//   final VoidCallback onTap;
+//   final bool isSelected;
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return GestureDetector(
+//       onTap: onTap,
+//       child: Column(
+//         children: [
+//           Container(
+//             padding: const EdgeInsets.symmetric(
+//               horizontal: 14,
+//               vertical: 10,
+//             ),
+//             decoration: BoxDecoration(
+//               color: AppColors.white,
+//               borderRadius: BorderRadius.circular(8),
+//               border: Border.all(
+//                 color: isSelected ? AppColors.blue12 : AppColors.greyDB,
+//               ),
+//               boxShadow: isSelected
+//                   ? [
+//                       BoxShadow(
+//                         color: AppColors.black.withValues(alpha: 0.2),
+//                         blurRadius: 10,
+//                       ),
+//                     ]
+//                   : null,
+//             ),
+//             child: Container(
+//               width: 100.w,
+//               height: 100.w,
+//               decoration: BoxDecoration(
+//                 color: AppColors.greyB6.withValues(alpha: 0.4),
+//                 borderRadius: BorderRadius.circular(4),
+//               ),
+//             ),
+//           ),
+//           const SizedBox(height: 6),
+//           Text(
+//             imageTitle,
+//             textAlign: TextAlign.center,
+//             style: context.textTheme.bodyMedium!.copyWith(
+//               fontSize: 15.sp,
+//               fontWeight: isSelected ? FontWeight.w500 : FontWeight.w400,
+//             ),
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+// }
+
+
+
+
+// Center(
+//                                           child: Text(
+//                                             '* $formTheSentenceYr',
+//                                             textAlign: TextAlign.start,
+//                                             style: context.textTheme.bodySmall!
+//                                                 .copyWith(
+//                                               fontStyle: FontStyle.italic,
+//                                               fontWeight: FontWeight.w300,
+//                                             ),
+//                                           ),
+//                                         ),
+                                        // SizedBox(height: 16.h),
+// Row(
+//                                           mainAxisAlignment:
+//                                               MainAxisAlignment.center,
+//                                           children: [
+//                                             CategoryWidget(
+//                                               title: 'ògún',
+//                                               isSelected:
+//                                                   selectedFillWordOption ==
+//                                                       'ògún',
+//                                               onTap: () {
+//                                                 setState(() {
+//                                                   if (selectedFillWordOption ==
+//                                                       'ògún') {
+//                                                     selectedFillWordOption =
+//                                                         null;
+//                                                   } else {
+//                                                     selectedFillWordOption =
+//                                                         'ògún';
+//                                                   }
+//                                                 });
+//                                               },
+//                                             ),
+//                                             CategoryWidget(
+//                                               title: 'ogun',
+//                                               isSelected:
+//                                                   selectedFillWordOption ==
+//                                                       'ogun',
+//                                               onTap: () {
+//                                                 setState(() {
+//                                                   if (selectedFillWordOption ==
+//                                                       'ogun') {
+//                                                     selectedFillWordOption =
+//                                                         null;
+//                                                   } else {
+//                                                     selectedFillWordOption =
+//                                                         'ogun';
+//                                                   }
+//                                                 });
+//                                               },
+//                                             ),
+//                                           ],
+//                                         ),
+// SizedBox(height: 40.h),
+//                             Row(
+//                               crossAxisAlignment: CrossAxisAlignment.start,
+//                               children: [
+//                                 Transform.translate(
+//                                   offset: const Offset(0, 5),
+//                                   child: AppAssets.images.svgs.listen.svg(
+//                                     width: 17.sp,
+//                                     height: 17.sp,
+//                                   ),
+//                                 ),
+//                                 const SizedBox(width: 10),
+//                                 Column(
+//                                   crossAxisAlignment: CrossAxisAlignment.start,
+//                                   children: [
+//                                     Text(
+//                                       selectMatchingImageYr,
+//                                       textAlign: TextAlign.center,
+//                                       style: context.textTheme.bodyMedium!
+//                                           .copyWith(
+//                                         fontWeight: FontWeight.w500,
+//                                       ),
+//                                     ),
+//                                     const SizedBox(height: 4),
+//                                     Text(
+//                                       selectMatchingImageEn,
+//                                       textAlign: TextAlign.start,
+//                                       style:
+//                                           context.textTheme.bodySmall!.copyWith(
+//                                         fontWeight: FontWeight.w300,
+//                                       ),
+//                                     ),
+//                                     const SizedBox(height: 5),
+//                                     Text(
+//                                       'ilú',
+//                                       textAlign: TextAlign.center,
+//                                       style: context.textTheme.bodyMedium!
+//                                           .copyWith(
+//                                         fontSize: 15.sp,
+//                                         fontWeight: FontWeight.w500,
+//                                       ),
+//                                     ),
+//                                   ],
+//                                 ),
+//                               ],
+//                             ),
+//                             SizedBox(height: 32.h),
+//                             Row(
+//                               mainAxisAlignment: MainAxisAlignment.center,
+//                               children: [
+//                                 _ImagePickerOption(
+//                                   imageTitle: 'Drum',
+//                                   onTap: () {
+//                                     setState(() => imageSelector = 'drum');
+//                                   },
+//                                   isSelected: imageSelector == 'drum',
+//                                 ),
+//                                 const SizedBox(width: 25),
+//                                 _ImagePickerOption(
+//                                   imageTitle: 'Village',
+//                                   onTap: () {
+//                                     setState(() => imageSelector = 'village');
+//                                   },
+//                                   isSelected: imageSelector == 'village',
+//                                 ),
+//                               ],
+//                             ),
+//                             SizedBox(height: 40.h),

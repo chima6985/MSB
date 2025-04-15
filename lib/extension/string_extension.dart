@@ -1,3 +1,5 @@
+import 'dart:math';
+
 /// String extension methods.
 extension StringExtension on String {
   String pluralFormat({String? singular}) {
@@ -49,5 +51,12 @@ extension StringExtension on String {
       return url.substring(0, url.length - 1);
     }
     return url;
+  }
+
+  /// Shuffle the string.
+  String shuffleWord() {
+    final random = Random();
+    final chars = split('')..shuffle(random);
+    return chars.join();
   }
 }
