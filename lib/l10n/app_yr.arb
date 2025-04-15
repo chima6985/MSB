@@ -204,6 +204,22 @@
     "writeYourAnswerHere":"Kọ idahun rẹ nibi",
     "selectAnswersFromOptionBelow":"Yan àwo̩n Ìdáhùn re̩ nínú àte̩ tí a pèsè sílè̩ yí"
     "startPractice":"Bẹ̀rẹ ifikọ́ra",
+    "practicePrep":"Báyìí, o ní ìbéèrè mẹwa láti dáhùn nígbà tóbá wùn ẹ. Àǹfàní tí ò lópin lówà láti fi dáhùn àwọn ìbéère--dáhùn lásìkò tóbá rọrùn fún e, kí o sì wo àwọn ìdáhùn ẹ fínífíní.\n\nRántí wípé ipò ìfikọra ma ràn ẹ́ lọ́wọ́ láti le ṣe ojúlówó eré gangan, nítorí nà tẹ̀ẹ́ jẹ́jẹ́.\n\nṢé o ti ṣetán láti wọlé kanlẹ̀? Jẹ́ká bẹ̀rẹ!",
+    "welcomeToPracticeMode":"Káàbọ̀ sí ìfikọ́ra",
+    "getDailyReminder":"Gba ìrántí ojojúmọ́ láti ṣeré tàbí fikọ́ra. O lè paá ni ibi àtúntò.",
+    "setReminder":"Dúró sójú ìlà",
+    "remindMeLater":"Sètò ìránilétí tóbáyá",
+    "remindMe":"Rán mi létí",
+    "iWillDoThisLater":"Màá ṣe èyí tóbáyá",
+    "setAvatar":"Ṣètò “avatar",
+    "addSomeTouchOfPersonality":"Fi àwo̩n ohun díè̩ kún ìrínisí re̩ pè̩lú avatar. O lè s̩e èyí nísìyí tàbí tóbáyá",
+    "letsGetYouAnAvatar":"Jẹ ka fún ẹ ní àwòrán “avatar”",
+    "learnWhileYouPlay":"Kẹ́kọ̀ọ́ nígba tí o bá ń seré lọ́wọ́",
+    "startPlaying":"Bẹ̀rẹ̀ eré",
+    "getReadyToTestYourSkills":"Gbaradì láti ṣe àyẹ̀wò ìmọ̀ re ní ipò eré!\n\nÌbéèrè márùndínlógún lati pèsè láti fi dán ìmọ re wò. Ànfàní mẹta lówà láti fi dáhùn gbogbo àwọn ìbéèrè, nítorínà, ro àwọn ìdáhùn rẹ dáadá. Ti àwọn ànfàní métẹ̀ta báti tán, eré dópin- sugbọn má ṣèyọnu, o lè gbìyànjú si tóbáyá.\n\nGẹ́gẹ́ bí èrè fún píparí ere, wàá jẹ àwọn owó idẹ tí o lè lò làti fi ni ànfàni si àwọn ohun àkànṣe tí a ti yà sọ́tọ̀. Gbaradì láti dàn ìmọ̀ rẹ wo kí o sì bẹ̀rẹ̀ sí gba owó idẹ re! Ire o!",
+    "introductionToPlayer":"Káàbọ̀ sí eré aládáṣe",
+    "selectDifficulty":"Yan ipele tó le",
+    "selectCategory":"Yan ìsò̩rí",
     "":""
     "":""
     "":""
@@ -219,9 +235,24 @@
     "":""
     "":""
     "":""
-    ""
-    ""
-    ""
+    "":""
+    "":""
+    "":""
+    "":""
+    "":""
+    "":""
+    "":""
+    "":""
+    "":""
+    "":"" 
+    "":"" 
+    "":""
+    "":""
+    "":""
+    "":""
+    "":""
+    "":""
+    
 
 
 
