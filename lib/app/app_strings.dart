@@ -61,7 +61,7 @@ const unlockMoreIndepthEn =
 const addsFreeEn = 'Ad-free experience:';
 const enjoyWithoutAdsEn = 'Enjoy uninterrupted learning without ads.';
 
-const downloadForOfflineLearning = 'Download for offline learning:';
+const downloadForOfflineLearningEn = 'Download for offline learning:';
 const downloadLessonsEn =
     'Download lessons and materials to learn anytime, even without an internet connection.';
 
