@@ -21,7 +21,7 @@ class PlayerRewardsCubit extends Cubit<PlayerRewardsState> {
   /// Auth Bloc.
   final AuthBloc _authBloc;
 
-  /// Get question
+  /// Get player rewards
   Future<void> getPlayerRewards() async {
     try {
       emit(const _Loading());

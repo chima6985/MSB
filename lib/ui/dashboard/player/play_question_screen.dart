@@ -20,6 +20,7 @@ class PlayQuestionScreen extends StatelessWidget {
     this.isMultiPlayer = false,
     this.isGameMaster = false,
     this.questionSection,
+    this.totalLives,
   });
 
   final bool isPractice,
@@ -28,6 +29,7 @@ class PlayQuestionScreen extends StatelessWidget {
       isMultiPlayer,
       isGameMaster;
   final Section? questionSection;
+  final int? totalLives;
 
   static const String id = 'playQuestionScreen';
 
@@ -44,6 +46,7 @@ class PlayQuestionScreen extends StatelessWidget {
         isMultiPlayer: isMultiPlayer,
         isGameMaster: isGameMaster,
         questionSection: questionSection,
+        totalLives: totalLives,
       ),
     );
   }
@@ -57,6 +60,7 @@ class __PlayQuestionScreen extends StatefulWidget {
     this.isMultiPlayer = false,
     this.isGameMaster = false,
     this.questionSection,
+    this.totalLives,
   });
 
   final bool isPractice,
@@ -65,6 +69,7 @@ class __PlayQuestionScreen extends StatefulWidget {
       isMultiPlayer,
       isGameMaster;
   final Section? questionSection;
+  final int? totalLives;
 
   @override
   State<__PlayQuestionScreen> createState() => __PlayQuestionScreenState();
@@ -84,17 +89,19 @@ class __PlayQuestionScreenState extends State<__PlayQuestionScreen>
   bool isMultiplayerAnswerSelected = false;
   String? imageSelector;
   bool isLoading = false;
-  int totalLives = 3;
-  int livesRemaining = 3;
+  int livesRemaining = 0;
   // ignore: prefer_const_declarations
   int currentQuestionIndex = 0;
 
   @override
   void initState() {
     final questions = context.read<GetQuestionCubit>().state.whenOrNull(
-              loaded: (questions) => questions,
+              loaded: (questions, lives) => questions,
             ) ??
         <Question>[];
+    setState(() {
+      livesRemaining = widget.totalLives ?? 0;
+    });
     otpCountDownController = CustomTimerController(
       begin: Duration(
         seconds: questions.isNotEmpty ? questions.first.timeLimit : 0,
@@ -148,7 +155,7 @@ class __PlayQuestionScreenState extends State<__PlayQuestionScreen>
     };
 
     final questions = context.read<GetQuestionCubit>().state.whenOrNull(
-              loaded: (questions) => questions,
+              loaded: (questions, lives) => questions,
             ) ??
         <Question>[];
 
@@ -187,7 +194,8 @@ class __PlayQuestionScreenState extends State<__PlayQuestionScreen>
                     text: answer.message,
                   );
                 }
-                if ((currentQuestionIndex + 1) <= questions.length) {
+
+                if ((currentQuestionIndex + 1) < questions.length) {
                   // questions can still be served
                   setState(() => currentQuestionIndex++);
                   answerController.clear();
@@ -195,7 +203,7 @@ class __PlayQuestionScreenState extends State<__PlayQuestionScreen>
                   otpCountDownController?.start();
                 } else {
                   // ran out of questions, push user to game stats
-                  context.pushNamed(PlayerGameAnalyticsScreen.id);
+                  context.pushReplacementNamed(PlayerGameAnalyticsScreen.id);
                 }
               }
             } else {}
@@ -360,13 +368,13 @@ class __PlayQuestionScreenState extends State<__PlayQuestionScreen>
                                 BlocBuilder<GetQuestionCubit, GetQuestionState>(
                                   builder: (context, state) {
                                     return state.maybeWhen(
-                                      loaded: (value) {
+                                      loaded: (question, lives) {
                                         AnswerFormat? answerFormat =
                                             const AnswerFormat(
                                           answer: Answer(),
                                           format: 'text',
                                         );
-                                        final questions = value;
+                                        final questions = question;
                                         final currentQuestion =
                                             currentQuestionIndex <
                                                     questions.length
@@ -482,6 +490,21 @@ class __PlayQuestionScreenState extends State<__PlayQuestionScreen>
                                                       controller:
                                                           otpCountDownController!,
                                                       builder: (state, timer) {
+                                                        if (state ==
+                                                            CustomTimerState
+                                                                .finished) {
+                                                          context
+                                                              .read<
+                                                                  SubmitAnswerCubit>()
+                                                              .submitAnswer(
+                                                                questionId:
+                                                                    currentQuestion
+                                                                            ?.id ??
+                                                                        '',
+                                                                answer: '',
+                                                                startTime: 30,
+                                                              );
+                                                        }
                                                         final time = (double
                                                                     .tryParse(
                                                                   timer.seconds,
@@ -584,14 +607,17 @@ class __PlayQuestionScreenState extends State<__PlayQuestionScreen>
                                                           ),
                                                         ),
                                                       ),
-                                                      if (isPracticeMode ==
-                                                              true ||
-                                                          isSinglePlayerMode ==
-                                                              true) ...[
+                                                      if ((isPracticeMode ==
+                                                                  true ||
+                                                              isSinglePlayerMode ==
+                                                                  true) &&
+                                                          widget.totalLives !=
+                                                              null) ...[
                                                         SizedBox(width: 15.w),
                                                         GameLivesWidget(
-                                                          totalLives:
-                                                              totalLives,
+                                                          totalLives: widget
+                                                                  .totalLives ??
+                                                              0,
                                                           livesRemaining:
                                                               livesRemaining,
                                                         ),
@@ -944,7 +970,9 @@ class __PlayQuestionScreenState extends State<__PlayQuestionScreen>
                                                         final tile = wordTile
                                                             .removeAt(i);
                                                         wordTile.insert(
-                                                            j, tile);
+                                                          j,
+                                                          tile,
+                                                        );
                                                         isActivateNextButton =
                                                             true;
                                                         isWordTileArrangedCorrectly =
@@ -987,7 +1015,8 @@ class __PlayQuestionScreenState extends State<__PlayQuestionScreen>
                                                               borderRadius:
                                                                   BorderRadius
                                                                       .circular(
-                                                                          4),
+                                                                4,
+                                                              ),
                                                             ),
                                                             child: Center(
                                                               child: Text(

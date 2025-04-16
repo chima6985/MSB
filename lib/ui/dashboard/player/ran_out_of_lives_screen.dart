@@ -36,6 +36,7 @@ class RanOutOfLivesScreen extends StatelessWidget {
               Text(
                 context.appLocale.ifYouDontSucceedThisTime,
                 textScaler: TextScaler.noScaling,
+                textAlign: TextAlign.center,
                 style: context.textTheme.bodyMedium!.copyWith(
                   fontWeight: FontWeight.w300,
                 ),

@@ -237,6 +237,7 @@ final router = GoRouter(
           isMultiPlayer: paramHandler?['isMultiPlayer'] ?? false,
           isGameMaster: paramHandler?['isGameMaster'] ?? false,
           questionSection: paramHandler?['questionSection'],
+          totalLives: paramHandler?['totalLives'],
         );
       },
     ),

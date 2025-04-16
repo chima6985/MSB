@@ -128,7 +128,7 @@ class _PlayerScreen extends HookWidget {
           listener: (context, state) {
             state.maybeWhen(
               loading: () => isLoading.value = true,
-              loaded: (questions) {
+              loaded: (questions, lives) {
                 isLoading.value = false;
                 if (isMultiPlayer) {
                   context.pushNamed(

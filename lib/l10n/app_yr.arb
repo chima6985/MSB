@@ -133,7 +133,17 @@
   "pleaseChooseCategory":"Jọwọ yan ẹka ibeere kan",
   "otpVerifiedSuccessfully":"OTP jẹri ni aṣeyọri",
   "welcomeToSinglePlayerMode":"Kaabo si Nikan-player mode",
-  "getReadyToTestYourSkills":"Gbaradì láti ṣe àyẹ̀wò ìmọ̀ re ní ipò eré!\n\nÌbéèrè márùndínlógún lati pèsè láti fi dán ìmọ re wò. Ànfàní mẹta lówà láti fi dáhùn gbogbo àwọn ìbéèrè, nítorínà, ro àwọn ìdáhùn rẹ dáadá. Ti àwọn ànfàní métẹ̀ta báti tán, eré dópin- sugbọn má ṣèyọnu, o lè gbìyànjú si tóbáyá.\n\nGẹ́gẹ́ bí èrè fún píparí ere, wàá jẹ àwọn owó idẹ tí o lè lò làti fi ni ànfàni si àwọn ohun àkànṣe tí a ti yà sọ́tọ̀. Gbaradì láti dàn ìmọ̀ rẹ wo kí o sì bẹ̀rẹ̀ sí gba owó idẹ re! Ire o!",
+  "getReadyToTestYourSkills":"Gbaradì láti ṣe àyẹ̀wò ìmọ̀ re ní ipò eré!\n\nÌbéèrè {numberOfQuestions} lati pèsè láti fi dán ìmọ re wò. Ànfàní {numberOfLives} lówà láti fi dáhùn gbogbo àwọn ìbéèrè, nítorínà, ro àwọn ìdáhùn rẹ dáadá. Ti àwọn ànfàní métẹ̀ta báti tán, eré dópin- sugbọn má ṣèyọnu, o lè gbìyànjú si tóbáyá.\n\nGẹ́gẹ́ bí èrè fún píparí ere, wàá jẹ àwọn owó idẹ tí o lè lò làti fi ni ànfàni si àwọn ohun àkànṣe tí a ti yà sọ́tọ̀. Gbaradì láti dàn ìmọ̀ rẹ wo kí o sì bẹ̀rẹ̀ sí gba owó idẹ re! Ire o!",
+  "@getReadyToTestYourSkills": {
+    "placeholders": {
+      "numberOfQuestions": {
+        "type": "String"
+      },
+      "numberOfLives": {
+        "type": "String"
+      }
+    }
+  },
   "practicePrep":
   "Báyìí, o ní ìbéèrè mẹwa láti dáhùn nígbà tóbá wùn ẹ. Àǹfàní tí ò lópin lówà láti fi dáhùn àwọn ìbéère--dáhùn lásìkò tóbá rọrùn fún e, kí o sì wo àwọn ìdáhùn ẹ fínífíní.\n\nRántí wípé ipò ìfikọra ma ràn ẹ́ lọ́wọ́ láti le ṣe ojúlówó eré gangan, nítorí nà tẹ̀ẹ́ jẹ́jẹ́.\n\nṢé o ti ṣetán láti wọlé kanlẹ̀? Jẹ́ká bẹ̀rẹ!",
   "startPractice":"Bẹ̀rẹ ifikọ́ra",
@@ -143,7 +153,10 @@
   "ifYouDontSucceedThisTime":"Ti o ko ba ṣaṣeyọri ni akoko yii, o le gbiyanju lẹẹkansi",
   "playAgain":"Tún eré bẹ̀rẹ̀",
   "backToHome":"Pada si ibere pè̩pè̩",
-
+  "welldone":"Wa gba yi!",
+  "proudOfYourProgress":"Oduduwa dajudaju o gberaga fun ilosiwaju re",
+  "gameOver":"Eré ti parí!",
+  "dontGiveUp":"Maṣe gba fun. Iwa ṣe fere pipe",
 
 
 

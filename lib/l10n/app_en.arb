@@ -133,7 +133,17 @@
   "pleaseChooseCategory":"Please choose a question category",
   "otpVerifiedSuccessfully":"OTP verified successfully",
   "welcomeToSinglePlayerMode":"Welcome to Single-player mode",
-  "getReadyToTestYourSkills":"Get ready to test your skills in Play Mode!\n\nYou'll face 7 questions designed to challenge your knowledge. You have 3 lives to make it through all the questions, so choose your answers wisely. If you run out of lives, the game ends—but don’t worry, you can always try again.\nAs a reward for completing Play Mode, you'll earn coins that you can use to unlock special features or content. Get ready to test your knowledge and start collecting those coins! Good luck!",
+  "getReadyToTestYourSkills":"Get ready to test your skills in Play Mode!\n\nYou'll face {numberOfQuestions} questions designed to challenge your knowledge. You have {numberOfLives} lives to make it through all the questions, so choose your answers wisely. If you run out of lives, the game ends—but don’t worry, you can always try again.\nAs a reward for completing Play Mode, you'll earn coins that you can use to unlock special features or content. Get ready to test your knowledge and start collecting those coins! Good luck!",
+  "@getReadyToTestYourSkills": {
+    "placeholders": {
+      "numberOfQuestions": {
+        "type": "String"
+      },
+      "numberOfLives": {
+        "type": "String"
+      }
+    }
+  },
   "practicePrep":"Here, you'll be presented with 10 questions to test your knowledge at your own pace.\n\nYou have no lives to look out for— Take your time, or not, think through your answers.\n\nRemember, practice Mode helps you gear up for the real deal, so take it easy on yourself.\nReady to dive in? Let's go!",
   "startPractice":"Start Practice",
   "startPlaying":"Start Playing",
@@ -142,7 +152,10 @@
   "ifYouDontSucceedThisTime":"If you don't succeed this time, you can try again",
   "playAgain":"Play again",
   "backToHome":"Back to Home",
-  
+  "welldone":"Well done!",
+  "proudOfYourProgress":"Oduduwa is definitely proud of your progress",
+  "gameOver":"The game is over!",
+  "dontGiveUp":"Do not give up. Practice makes almost perfect",
 
 
 

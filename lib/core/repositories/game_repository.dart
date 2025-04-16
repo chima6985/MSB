@@ -89,7 +89,7 @@ class GameRepository {
   ///
   /// Returns [List<Question>] on success.
   /// Throws [GameException] when operation fails.
-  Future<List<Question>> getQuestions({
+  Future<Map<String, dynamic>> getQuestions({
     required String difficulty,
     required String section,
     required String token,
@@ -101,15 +101,12 @@ class GameRepository {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer $token',
       };
-      return await APIHelper.request<List<Question>>(
+      return await APIHelper.request<Map<String, dynamic>>(
         request: _client.get(
           Uri.parse(url),
           headers: headers,
         ),
-        onSuccessMap: (value) {
-          final questions = value['questions'] as List;
-          return questions.map((item) => Question.fromJson(item)).toList();
-        },
+        onSuccessMap: (value) => value,
       );
     } on APIException catch (e) {
       throw GameException(message: e.message);

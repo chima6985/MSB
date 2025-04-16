@@ -30,12 +30,12 @@ class GetQuestionCubit extends Cubit<GetQuestionState> {
       emit(const _Loading());
       final user = UserHelper.fetchUser(authBloc: _authBloc);
       if (user == null) return;
-      final apiResponsee = await _gameRepository.getQuestions(
+      final apiResponse = await _gameRepository.getQuestions(
         difficulty: difficulty,
         section: section,
         token: user.token,
       );
-      emit(_Loaded(questions: apiResponsee));
+      emit(_Loaded(questions: apiResponse['questions']));
     } on GameException catch (e) {
       emit(_Error(error: e.message));
     } on AuthException catch (e) {
@@ -52,12 +52,24 @@ class GetQuestionCubit extends Cubit<GetQuestionState> {
       emit(const _Loading());
       final user = UserHelper.fetchUser(authBloc: _authBloc);
       if (user == null) return;
-      final apiResponsee = await _gameRepository.getQuestions(
+      final apiResponse = await _gameRepository.getQuestions(
         difficulty: difficulty,
         section: section,
         token: user.token,
       );
-      emit(_Loaded(questions: apiResponsee));
+      final questions = (apiResponse['questions'] as List)
+          .map((item) => Question.fromJson(item))
+          .toList();
+      final userLives = apiResponse.containsKey('userLives')
+          ? apiResponse['userLives'] as int
+          : 0;
+
+      emit(
+        _Loaded(
+          questions: questions,
+          userLives: userLives,
+        ),
+      );
     } on GameException catch (e) {
       emit(_Error(error: e.message));
     } on AuthException catch (e) {
@@ -74,12 +86,12 @@ class GetQuestionCubit extends Cubit<GetQuestionState> {
       emit(const _Loading());
       final user = UserHelper.fetchUser(authBloc: _authBloc);
       if (user == null) return;
-      final apiResponsee = await _gameRepository.getQuestions(
+      final apiResponse = await _gameRepository.getQuestions(
         difficulty: difficulty,
         section: section,
         token: user.token,
       );
-      emit(_Loaded(questions: apiResponsee));
+      emit(_Loaded(questions: apiResponse['questions']));
     } on GameException catch (e) {
       emit(_Error(error: e.message));
     } on AuthException catch (e) {

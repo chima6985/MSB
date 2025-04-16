@@ -47,9 +47,14 @@ class _PlayerIntroScreen extends HookWidget {
     final currentLocale = context.currentLocale;
     final selectedLocale = useState(currentLocale);
     final questions = context.read<GetQuestionCubit>().state.whenOrNull(
-              loaded: (questions) => questions,
+              loaded: (questions, lives) => questions,
             ) ??
         <Question>[];
+
+    final lives = context.read<GetQuestionCubit>().state.whenOrNull(
+              loaded: (questions, lives) => lives,
+            ) ??
+        0;
     return Scaffold(
       body: DecoratedContainer(
         enablePadding: true,
@@ -83,8 +88,14 @@ class _PlayerIntroScreen extends HookWidget {
             else
               Text(
                 selectedLocale.value == yo
-                    ? context.yoLocale.getReadyToTestYourSkills
-                    : context.enLocale.getReadyToTestYourSkills,
+                    ? context.yoLocale.getReadyToTestYourSkills(
+                        yoNumberSystem[questions.length] ?? '',
+                        yoNumberSystem[lives] ?? '',
+                      )
+                    : context.enLocale.getReadyToTestYourSkills(
+                        questions.length.toString(),
+                        lives.toString(),
+                      ),
                 textAlign: TextAlign.center,
                 style: context.textTheme.bodySmall!.copyWith(
                   fontSize: 12.5.sp,
@@ -121,6 +132,7 @@ class _PlayerIntroScreen extends HookWidget {
                     extra: {
                       'isPractice': true,
                       'questionSection': questionSection,
+                      'totalLives': lives,
                     },
                   );
                 } else {
@@ -129,6 +141,7 @@ class _PlayerIntroScreen extends HookWidget {
                     extra: {
                       'isSinglePlayer': true,
                       'questionSection': questionSection,
+                      'totalLives': lives,
                     },
                   );
                 }

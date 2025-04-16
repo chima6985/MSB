@@ -70,6 +70,10 @@ class $AssetsImagesJpegsGen {
   AssetGenImage get exitDoor =>
       const AssetGenImage('assets/images/jpegs/exit_door.png');
 
+  /// File path: assets/images/jpegs/happy_emoji.png
+  AssetGenImage get happyEmoji =>
+      const AssetGenImage('assets/images/jpegs/happy_emoji.png');
+
   /// File path: assets/images/jpegs/hard.png
   AssetGenImage get hard => const AssetGenImage('assets/images/jpegs/hard.png');
 
@@ -148,6 +152,10 @@ class $AssetsImagesJpegsGen {
   AssetGenImage get remind =>
       const AssetGenImage('assets/images/jpegs/remind.png');
 
+  /// File path: assets/images/jpegs/sad_emoji.png
+  AssetGenImage get sadEmoji =>
+      const AssetGenImage('assets/images/jpegs/sad_emoji.png');
+
   /// File path: assets/images/jpegs/scoreboard_position_1.png
   AssetGenImage get scoreboardPosition1 =>
       const AssetGenImage('assets/images/jpegs/scoreboard_position_1.png');
@@ -202,6 +210,7 @@ class $AssetsImagesJpegsGen {
         drums,
         easy,
         exitDoor,
+        happyEmoji,
         hard,
         heartBroken,
         interactiveQuiz,
@@ -222,6 +231,7 @@ class $AssetsImagesJpegsGen {
         questionAndAnswer,
         random,
         remind,
+        sadEmoji,
         scoreboardPosition1,
         scoreboardPosition2,
         scoreboardPositoin3,
