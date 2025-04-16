@@ -45,7 +45,7 @@ class TeamAllSetScreen extends HookWidget {
     useEffect(() {
       Future.delayed(10.seconds).then((_) {
         if (context.mounted) {
-          final currentRoute = router.state?.name;
+          final currentRoute = router.state.name;
           if (currentRoute == TeamAllSetScreen.id) {
             context.pushReplacementNamed(
               QuizLoaderScreen.id,

@@ -307,6 +307,16 @@ final router = GoRouter(
         );
       },
     ),
+    GoRoute(
+      name: RanOutOfLivesScreen.id,
+      path: '/ranOutOfLivesScreen',
+      builder: (context, state) => const RanOutOfLivesScreen(),
+    ),
+    GoRoute(
+      name: PlayerGameAnalyticsScreen.id,
+      path: '/playerGameAnalyticsScreen',
+      builder: (context, state) => const PlayerGameAnalyticsScreen(),
+    ),
   ],
   // errorBuilder: (context, state) => const PageNotFound(),
 );

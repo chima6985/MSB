@@ -320,9 +320,6 @@ const oppsEn = 'Oopsies!';
 const scoreboardYr = 'Scoreboard';
 const scoreboardEn = 'Scoreboard';
 
-const playAgainYr = 'Play Again';
-const playAgainEn = 'Play Again';
-
 const returnToLobbyYr = 'Return to Lobby';
 const returnToLobbyEn = 'Return to Lobby';
 

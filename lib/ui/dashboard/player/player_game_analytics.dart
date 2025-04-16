@@ -5,9 +5,9 @@ import 'package:masoyinbo_mobile/gen/fonts.gen.dart';
 import 'package:masoyinbo_mobile/ui/ui.dart';
 import 'package:share_plus/share_plus.dart';
 
-class ScoreBoardScreen extends StatelessWidget {
-  const ScoreBoardScreen({super.key});
-  static const String id = 'scoreBoardScreen';
+class PlayerGameAnalyticsScreen extends StatelessWidget {
+  const PlayerGameAnalyticsScreen({super.key});
+  static const String id = 'playerGameAnalyticsScreen';
 
   @override
   Widget build(BuildContext context) {

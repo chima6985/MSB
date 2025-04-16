@@ -46,7 +46,7 @@ class _PlayerIntroScreen extends HookWidget {
   Widget build(BuildContext context) {
     final currentLocale = context.currentLocale;
     final selectedLocale = useState(currentLocale);
-    final questions = context.watch<GetQuestionCubit>().state.whenOrNull(
+    final questions = context.read<GetQuestionCubit>().state.whenOrNull(
               loaded: (questions) => questions,
             ) ??
         <Question>[];
@@ -119,12 +119,12 @@ class _PlayerIntroScreen extends HookWidget {
                   context.pushReplacementNamed(
                     PlayQuestionScreen.id,
                     extra: {
-                      'isPractice': isPractice,
+                      'isPractice': true,
                       'questionSection': questionSection,
                     },
                   );
                 } else {
-                  context.pushNamed(
+                  context.pushReplacementNamed(
                     PlayQuestionScreen.id,
                     extra: {
                       'isSinglePlayer': true,

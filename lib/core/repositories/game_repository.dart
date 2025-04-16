@@ -122,11 +122,12 @@ class GameRepository {
 
   /// Submit answer
   ///
-  /// Returns [User] on success.
+  /// Returns [AnswerResponse] on success.
   /// Throws [GameException] when operation fails.
-  Future<void> submitAnswer({
+  Future<AnswerResponse> submitAnswer({
     required String questionId,
     required String answer,
+    required int startTime,
     required String token,
   }) async {
     try {
@@ -139,14 +140,15 @@ class GameRepository {
       final body = {
         'question_Id': questionId,
         'answer': answer,
+        'start_time': startTime,
       };
-      return await APIHelper.request<void>(
+      return await APIHelper.request<AnswerResponse>(
         request: _client.post(
           Uri.parse(url),
           headers: headers,
           body: jsonEncode(body),
         ),
-        onSuccessMap: (value) {},
+        onSuccessMap: AnswerResponse.fromJson,
       );
     } on APIException catch (e) {
       throw GameException(message: e.message);

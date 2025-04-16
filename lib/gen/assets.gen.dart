@@ -73,6 +73,10 @@ class $AssetsImagesJpegsGen {
   /// File path: assets/images/jpegs/hard.png
   AssetGenImage get hard => const AssetGenImage('assets/images/jpegs/hard.png');
 
+  /// File path: assets/images/jpegs/heart_broken.png
+  AssetGenImage get heartBroken =>
+      const AssetGenImage('assets/images/jpegs/heart_broken.png');
+
   /// File path: assets/images/jpegs/interactive_quiz.png
   AssetGenImage get interactiveQuiz =>
       const AssetGenImage('assets/images/jpegs/interactive_quiz.png');
@@ -199,6 +203,7 @@ class $AssetsImagesJpegsGen {
         easy,
         exitDoor,
         hard,
+        heartBroken,
         interactiveQuiz,
         lessonCovered,
         lightBulb,

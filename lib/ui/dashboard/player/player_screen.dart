@@ -5,6 +5,7 @@ import 'package:masoyinbo_mobile/app/app.dart';
 import 'package:masoyinbo_mobile/core/core.dart';
 import 'package:masoyinbo_mobile/extension/extension.dart';
 import 'package:masoyinbo_mobile/features/features.dart';
+import 'package:masoyinbo_mobile/features/game/cubits/reset_user_stats/reset_user_stats_cubit.dart';
 import 'package:masoyinbo_mobile/gen/fonts.gen.dart';
 import 'package:masoyinbo_mobile/ui/ui.dart';
 import 'package:masoyinbo_mobile/utils/utils.dart';
@@ -27,6 +28,11 @@ class PlayerScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
+        BlocProvider(
+          create: (context) => ResetUserStatsCubit(
+            authBloc: context.read(),
+          ),
+        ),
         BlocProvider(
           create: (context) => ModuleAndDifficultyCubit(
             authBloc: context.read(),
@@ -75,6 +81,49 @@ class _PlayerScreen extends HookWidget {
     );
     return MultiBlocListener(
       listeners: [
+        BlocListener<ResetUserStatsCubit, ResetUserStatsState>(
+          listener: (context, state) {
+            state.maybeWhen(
+              loading: () => isLoading.value = true,
+              loaded: () {
+                isLoading.value = false;
+                if (isMultiPlayer) {
+                  context.pushNamed(
+                    GameRoomCreatedScreen.id,
+                    extra: {
+                      'isTeamMode': isTeamMode.value,
+                      'isTeamFormationAutomatic':
+                          isTeamFormationAutomatic.value ?? false,
+                    },
+                  );
+                }
+                if (isSinglePlayer) {
+                  context.read<GetQuestionCubit>().getSinglePlayerQuestions(
+                        difficulty: selectedDifficulty.value?.id ?? '',
+                        section: selectedSection.value?.id ?? '',
+                      );
+                }
+                if (isPractice) {
+                  context.pushNamed(
+                    PlayerIntroScreen.id,
+                    extra: {
+                      'isPractice': true,
+                      'questionSection': selectedSection.value,
+                    },
+                  );
+                }
+              },
+              error: (error) {
+                isLoading.value = false;
+                ToastMessage.showError(
+                  context: context,
+                  text: error ?? '',
+                );
+              },
+              orElse: () => isLoading.value = false,
+            );
+          },
+        ),
         BlocListener<GetQuestionCubit, GetQuestionState>(
           listener: (context, state) {
             state.maybeWhen(
@@ -468,22 +517,15 @@ class _PlayerScreen extends HookWidget {
                                     return;
                                   }
                                   context
-                                      .read<GetQuestionCubit>()
-                                      .getSinglePlayerQuestions(
-                                        difficulty:
-                                            selectedDifficulty.value?.id ?? '',
-                                        section:
-                                            selectedSection.value?.id ?? '',
-                                      );
+                                      .read<ResetUserStatsCubit>()
+                                      .resetUserStats();
                                 }
                                 if (isPractice) {
                                   context.pushNamed(
                                     PlayerIntroScreen.id,
                                     extra: {
-                                      'isPractice': isPractice,
-                                      'isTimed':
-                                          selectedPracticeSection.value ==
-                                              'timed',
+                                      'isPractice': true,
+                                      'questionSection': selectedSection.value,
                                     },
                                   );
                                 }

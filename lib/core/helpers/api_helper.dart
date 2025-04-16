@@ -52,10 +52,9 @@ class APIHelper {
         if (onSuccessMap != null) {
           final utf8Response = utf8.decode(response.bodyBytes);
           final map = jsonDecode(utf8Response) as Map<String, dynamic>;
-          if (map['data'] == null) {
-            return onSuccessMap(<String, dynamic>{});
-          }
-          final data = map['data'] as Map<String, dynamic>;
+          final data = map.containsKey('data')
+              ? map['data'] as Map<String, dynamic>
+              : map;
           return onSuccessMap(data);
         } else if (onSuccessList != null) {
           final utf8Response = utf8.decode(response.bodyBytes);

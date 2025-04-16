@@ -1,3 +1,4 @@
+export 'answer_response_model.dart';
 export 'question_model.dart';
 export 'section_difficulty_model.dart';
 export 'survey_age_range_model.dart';
