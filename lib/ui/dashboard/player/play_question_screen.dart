@@ -77,7 +77,7 @@ class __PlayQuestionScreen extends StatefulWidget {
 
 class __PlayQuestionScreenState extends State<__PlayQuestionScreen>
     with TickerProviderStateMixin {
-  CustomTimerController? otpCountDownController;
+  CustomTimerController? timerCountDownController;
   List<String> correctWordTile = ['P', 'E', 'L', 'U', 'M', 'I'];
   bool isActivateNextButton = false;
   bool? isWordTileArrangedCorrectly;
@@ -102,7 +102,7 @@ class __PlayQuestionScreenState extends State<__PlayQuestionScreen>
     setState(() {
       livesRemaining = widget.totalLives ?? 0;
     });
-    otpCountDownController = CustomTimerController(
+    timerCountDownController = CustomTimerController(
       begin: Duration(
         seconds: questions.isNotEmpty ? questions.first.timeLimit : 0,
       ),
@@ -115,8 +115,8 @@ class __PlayQuestionScreenState extends State<__PlayQuestionScreen>
   @override
   void dispose() {
     answerController.dispose();
-    otpCountDownController?.dispose();
-    answerController.dispose();
+    timerCountDownController?.dispose();
+    // answerController.dispose();
     super.dispose();
   }
 
@@ -163,12 +163,13 @@ class __PlayQuestionScreenState extends State<__PlayQuestionScreen>
       listener: (context, state) {
         state.maybeWhen(
           loading: () {
-            otpCountDownController?.pause();
+            timerCountDownController?.pause();
             setState(
               () => isLoading = true,
             );
           },
           loaded: (answer) {
+            timerCountDownController?.reset();
             if (isPracticeMode || isSinglePlayerMode) {
               if (answer.totalLives == 0) {
                 // get user stats and leave game session
@@ -199,8 +200,7 @@ class __PlayQuestionScreenState extends State<__PlayQuestionScreen>
                   // questions can still be served
                   setState(() => currentQuestionIndex++);
                   answerController.clear();
-                  otpCountDownController?.reset();
-                  otpCountDownController?.start();
+                  timerCountDownController?.start();
                 } else {
                   // ran out of questions, push user to game stats
                   context.pushReplacementNamed(PlayerGameAnalyticsScreen.id);
@@ -209,7 +209,7 @@ class __PlayQuestionScreenState extends State<__PlayQuestionScreen>
             } else {}
           },
           error: (error) {
-            otpCountDownController?.start();
+            timerCountDownController?.start();
             setState(
               () {
                 isLoading = false;
@@ -225,829 +225,536 @@ class __PlayQuestionScreenState extends State<__PlayQuestionScreen>
           ),
         );
       },
-      child: PopScope(
-        canPop: false,
-        child: Stack(
-          alignment: Alignment.bottomCenter,
-          children: [
-            DecoratedContainer(
-              canPop: !isLoading,
-              child: AbsorbPointer(
-                absorbing: isLoading,
-                child: Padding(
-                  padding: const EdgeInsets.only(right: 1),
-                  child: RawScrollbar(
-                    thumbColor: AppColors.black15.withValues(alpha: 0.6),
-                    radius: const Radius.circular(5),
-                    thickness: 2,
-                    thumbVisibility: true,
-                    minOverscrollLength: 1,
-                    child: SingleChildScrollView(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SizedBox(height: context.topPadding),
-                          Stack(
-                            children: [
-                              CustomBackButton(
-                                onTap: () => showModalBottomSheet(
-                                  context: context,
-                                  builder: (context) => isPracticeMode
-                                      ? const ConfirmPracticeLeaveActionModal()
-                                      : const ConfirmLeaveActionModal(),
-                                  isScrollControlled: true,
-                                  shape: const RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.only(
-                                      topLeft: Radius.circular(24),
-                                      topRight: Radius.circular(24),
+      child: Scaffold(
+        body: PopScope(
+          canPop: !isLoading,
+          child: Stack(
+            alignment: Alignment.bottomCenter,
+            children: [
+              DecoratedContainer(
+                child: AbsorbPointer(
+                  absorbing: isLoading,
+                  child: Padding(
+                    padding: const EdgeInsets.only(right: 1),
+                    child: RawScrollbar(
+                      thumbColor: AppColors.black15.withValues(alpha: 0.6),
+                      radius: const Radius.circular(5),
+                      thickness: 2,
+                      thumbVisibility: true,
+                      minOverscrollLength: 1,
+                      child: SingleChildScrollView(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SizedBox(height: context.topPadding),
+                            Stack(
+                              children: [
+                                CustomBackButton(
+                                  onTap: () => showModalBottomSheet(
+                                    context: context,
+                                    builder: (context) => isPracticeMode
+                                        ? const ConfirmPracticeLeaveActionModal()
+                                        : const ConfirmLeaveActionModal(),
+                                    isScrollControlled: true,
+                                    shape: const RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(24),
+                                        topRight: Radius.circular(24),
+                                      ),
                                     ),
                                   ),
                                 ),
-                              ),
-                              Center(
-                                child: Text(
-                                  title,
-                                  textAlign: TextAlign.center,
-                                  style: context.textTheme.titleLarge!.copyWith(
-                                    fontFamily: FontFamily.margarine,
-                                    height: 1.8,
+                                Center(
+                                  child: Text(
+                                    title,
+                                    textAlign: TextAlign.center,
+                                    style:
+                                        context.textTheme.titleLarge!.copyWith(
+                                      fontFamily: FontFamily.margarine,
+                                      height: 1.8,
+                                    ),
                                   ),
                                 ),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 24),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 23),
-                            child: Column(
-                              children: [
-                                if (isPracticeMode || isSinglePlayerMode) ...[
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Expanded(
-                                        child: FittedBox(
-                                          alignment: Alignment.centerLeft,
-                                          fit: BoxFit.scaleDown,
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
+                              ],
+                            ),
+                            const SizedBox(height: 24),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 23),
+                              child: Column(
+                                children: [
+                                  if (isPracticeMode || isSinglePlayerMode) ...[
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Expanded(
+                                          child: FittedBox(
+                                            alignment: Alignment.centerLeft,
+                                            fit: BoxFit.scaleDown,
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  currentLocale == yo
+                                                      ? yoSectionName
+                                                      : enSectionName,
+                                                  textAlign: TextAlign.center,
+                                                  style: context
+                                                      .textTheme.bodyMedium!
+                                                      .copyWith(
+                                                    fontFamily:
+                                                        FontFamily.margarine,
+                                                    fontWeight: FontWeight.w500,
+                                                  ),
+                                                ),
+                                                const SizedBox(height: 4),
+                                                Text(
+                                                  currentLocale == yo
+                                                      ? enSectionName
+                                                      : yoSectionName,
+                                                  textAlign: TextAlign.start,
+                                                  style: context
+                                                      .textTheme.bodySmall!
+                                                      .copyWith(
+                                                    fontFamily:
+                                                        FontFamily.margarine,
+                                                    fontWeight: FontWeight.w300,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                        const SizedBox(width: 10),
+                                        Container(
+                                          padding: const EdgeInsets.symmetric(
+                                            horizontal: 8,
+                                            vertical: 2,
+                                          ),
+                                          decoration: BoxDecoration(
+                                            color: AppColors.goldFC
+                                                .withValues(alpha: 0.1),
+                                            borderRadius:
+                                                BorderRadius.circular(20),
+                                            border: Border.all(
+                                              color: AppColors.goldCE,
+                                            ),
+                                          ),
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.min,
                                             children: [
+                                              AppAssets.images.jpegs.coin2
+                                                  .image(
+                                                width: 24.w,
+                                                height: 24.w,
+                                              ),
+                                              const SizedBox(width: 4),
                                               Text(
-                                                currentLocale == yo
-                                                    ? yoSectionName
-                                                    : enSectionName,
-                                                textAlign: TextAlign.center,
+                                                '0',
+                                                textScaler:
+                                                    TextScaler.noScaling,
                                                 style: context
                                                     .textTheme.bodyMedium!
                                                     .copyWith(
-                                                  fontFamily:
-                                                      FontFamily.margarine,
-                                                  fontWeight: FontWeight.w500,
-                                                ),
-                                              ),
-                                              const SizedBox(height: 4),
-                                              Text(
-                                                currentLocale == yo
-                                                    ? enSectionName
-                                                    : yoSectionName,
-                                                textAlign: TextAlign.start,
-                                                style: context
-                                                    .textTheme.bodySmall!
-                                                    .copyWith(
-                                                  fontFamily:
-                                                      FontFamily.margarine,
-                                                  fontWeight: FontWeight.w300,
+                                                  color: AppColors.goldCE,
+                                                  fontWeight: FontWeight.w600,
                                                 ),
                                               ),
                                             ],
                                           ),
                                         ),
-                                      ),
-                                      const SizedBox(width: 10),
-                                      Container(
-                                        padding: const EdgeInsets.symmetric(
-                                          horizontal: 8,
-                                          vertical: 2,
-                                        ),
-                                        decoration: BoxDecoration(
-                                          color: AppColors.goldFC
-                                              .withValues(alpha: 0.1),
-                                          borderRadius:
-                                              BorderRadius.circular(20),
-                                          border: Border.all(
-                                            color: AppColors.goldCE,
-                                          ),
-                                        ),
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: [
-                                            AppAssets.images.jpegs.coin2.image(
-                                              width: 24.w,
-                                              height: 24.w,
-                                            ),
-                                            const SizedBox(width: 4),
-                                            Text(
-                                              '0',
-                                              textScaler: TextScaler.noScaling,
-                                              style: context
-                                                  .textTheme.bodyMedium!
-                                                  .copyWith(
-                                                color: AppColors.goldCE,
-                                                fontWeight: FontWeight.w600,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  SizedBox(height: 40.h),
-                                ],
-                                BlocBuilder<GetQuestionCubit, GetQuestionState>(
-                                  builder: (context, state) {
-                                    return state.maybeWhen(
-                                      loaded: (question, lives) {
-                                        AnswerFormat? answerFormat =
-                                            const AnswerFormat(
-                                          answer: Answer(),
-                                          format: 'text',
-                                        );
-                                        final questions = question;
-                                        final currentQuestion =
-                                            currentQuestionIndex <
-                                                    questions.length
-                                                ? questions[
-                                                    currentQuestionIndex]
-                                                : null;
-                                        final currentQuestionText = (currentQuestion
-                                                    ?.question
-                                                    .contains('?') ??
-                                                false)
-                                            ? currentQuestion?.question
-                                                    .capitalize() ??
-                                                ''
-                                            : '${currentQuestion?.question.capitalize()}?';
-                                        final currentAltQuestionText =
-                                            '${currentQuestion?.translateQuestion.capitalize() ?? ''}?';
-                                        final answer = currentQuestion?.answer;
+                                      ],
+                                    ),
+                                    SizedBox(height: 40.h),
+                                  ],
+                                  BlocBuilder<GetQuestionCubit,
+                                      GetQuestionState>(
+                                    builder: (context, state) {
+                                      return state.maybeWhen(
+                                        loaded: (question, lives) {
+                                          AnswerFormat? answerFormat =
+                                              const AnswerFormat(
+                                            answer: Answer(),
+                                            format: 'text',
+                                          );
+                                          final questions = question;
+                                          final currentQuestion =
+                                              currentQuestionIndex <
+                                                      questions.length
+                                                  ? questions[
+                                                      currentQuestionIndex]
+                                                  : null;
+                                          final currentQuestionText =
+                                              (currentQuestion?.question
+                                                          .contains('?') ??
+                                                      false)
+                                                  ? currentQuestion?.question
+                                                          .capitalize() ??
+                                                      ''
+                                                  : '${currentQuestion?.question.capitalize()}?';
+                                          final currentAltQuestionText =
+                                              '${currentQuestion?.translateQuestion.capitalize() ?? ''}?';
+                                          final answer =
+                                              currentQuestion?.answer;
 
-                                        if (answer?.isNotEmpty ?? false) {
-                                          if (currentQuestion?.shuffleAnswers ==
-                                              true) {
-                                            final newAnswers =
-                                                List.from(answer ?? [])
-                                                  ..add(
-                                                    AnswerFormat(
-                                                      answer: Answer(
-                                                        value: currentQuestion
-                                                            ?.correctAnswer
-                                                            .shuffleWord(),
+                                          if (answer?.isNotEmpty ?? false) {
+                                            if (currentQuestion
+                                                    ?.shuffleAnswers ==
+                                                true) {
+                                              final newAnswers =
+                                                  List.from(answer ?? [])
+                                                    ..add(
+                                                      AnswerFormat(
+                                                        answer: Answer(
+                                                          value: currentQuestion
+                                                              ?.correctAnswer
+                                                              .shuffleWord(),
+                                                        ),
+                                                        format: 'tile',
                                                       ),
-                                                      format: 'tile',
-                                                    ),
-                                                  )
-                                                  ..shuffle();
-                                            answerFormat = newAnswers.first;
-                                          } else {
-                                            answerFormat = answer?.first;
+                                                    )
+                                                    ..shuffle();
+                                              answerFormat = newAnswers.first;
+                                            } else {
+                                              answerFormat = answer?.first;
+                                            }
                                           }
-                                        }
-                                        return Column(
-                                          children: [
-                                            Padding(
-                                              padding: EdgeInsets.symmetric(
-                                                horizontal: isPracticeMode ||
-                                                        isSinglePlayerMode
-                                                    ? 23
-                                                    : 13,
-                                              ),
-                                              child: Row(
-                                                children: [
-                                                  Expanded(
-                                                    child: Column(
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
-                                                      children: [
-                                                        Text(
-                                                          currentLocale == yo
-                                                              ? yoQuestionNumberSystem[
-                                                                      currentQuestionIndex +
-                                                                          1] ??
-                                                                  context
-                                                                      .yoLocale
-                                                                      .question
-                                                              : enQuestionNumberSystem[
-                                                                      currentQuestionIndex +
-                                                                          1] ??
-                                                                  context
-                                                                      .enLocale
-                                                                      .question,
-                                                          textAlign:
-                                                              TextAlign.center,
-                                                          style: context
-                                                              .textTheme
-                                                              .bodyMedium!
-                                                              .copyWith(
-                                                            fontWeight:
-                                                                FontWeight.w500,
-                                                          ),
-                                                        ),
-                                                        const SizedBox(
-                                                          height: 4,
-                                                        ),
-                                                        Text(
-                                                          currentLocale == yo
-                                                              ? enQuestionNumberSystem[
-                                                                      currentQuestionIndex +
-                                                                          1] ??
-                                                                  context
-                                                                      .enLocale
-                                                                      .question
-                                                              : yoQuestionNumberSystem[
-                                                                      currentQuestionIndex +
-                                                                          1] ??
-                                                                  context
-                                                                      .yoLocale
-                                                                      .question,
-                                                          textAlign:
-                                                              TextAlign.start,
-                                                          style: context
-                                                              .textTheme
-                                                              .bodySmall!
-                                                              .copyWith(
-                                                            fontStyle: FontStyle
-                                                                .italic,
-                                                            fontWeight:
-                                                                FontWeight.w300,
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                  const SizedBox(width: 10),
-                                                  if ((currentQuestion
-                                                              ?.timeLimit ??
-                                                          0) >
-                                                      0)
-                                                    CustomTimer(
-                                                      controller:
-                                                          otpCountDownController!,
-                                                      builder: (state, timer) {
-                                                        if (state ==
-                                                            CustomTimerState
-                                                                .finished) {
-                                                          context
-                                                              .read<
-                                                                  SubmitAnswerCubit>()
-                                                              .submitAnswer(
-                                                                questionId:
-                                                                    currentQuestion
-                                                                            ?.id ??
-                                                                        '',
-                                                                answer: '',
-                                                                startTime: 30,
-                                                              );
-                                                        }
-                                                        final time = (double
-                                                                    .tryParse(
-                                                                  timer.seconds,
-                                                                ) ??
-                                                                1) /
-                                                            (currentQuestion
-                                                                    ?.timeLimit ??
-                                                                1);
-                                                        return FittedBox(
-                                                          child:
-                                                              CircularPercentIndicator(
-                                                            radius: 23,
-                                                            lineWidth: 6.6,
-                                                            backgroundWidth:
-                                                                1.2,
-                                                            animation: true,
-                                                            animateFromLastPercent:
-                                                                true,
-                                                            percent: time > 1
-                                                                ? 1
-                                                                : time,
-                                                            center: Text(
-                                                              otpCountDownController
-                                                                      ?.remaining
-                                                                      .value
-                                                                      .seconds ??
-                                                                  '',
-                                                              style: context
-                                                                  .textTheme
-                                                                  .bodyMedium!
-                                                                  .copyWith(
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w500,
-                                                              ),
-                                                            ),
-                                                            circularStrokeCap:
-                                                                CircularStrokeCap
-                                                                    .round,
-                                                            backgroundColor:
-                                                                AppColors
-                                                                    .greyB6,
-                                                            progressColor:
-                                                                AppColors
-                                                                    .goldFC,
-                                                          ),
-                                                        );
-                                                      },
-                                                    ),
-                                                ],
-                                              ),
-                                            ),
-                                            const SizedBox(height: 16),
-                                            Container(
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                vertical: 24,
-                                                horizontal: 16,
-                                              ),
-                                              margin:
-                                                  const EdgeInsets.symmetric(
-                                                horizontal: 19,
-                                              ),
-                                              decoration: BoxDecoration(
-                                                color: AppColors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(18),
-                                                border: Border.all(
-                                                  color: AppColors.greyDB,
+                                          return Column(
+                                            children: [
+                                              Padding(
+                                                padding: EdgeInsets.symmetric(
+                                                  horizontal: isPracticeMode ||
+                                                          isSinglePlayerMode
+                                                      ? 23
+                                                      : 13,
                                                 ),
-                                              ),
-                                              child: Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Row(
-                                                    children: [
-                                                      Expanded(
-                                                        child:
-                                                            LinearPercentIndicator(
-                                                          padding:
-                                                              EdgeInsets.zero,
-                                                          lineHeight: 10,
-                                                          percent:
-                                                              (currentQuestionIndex +
-                                                                      1) /
-                                                                  questions
-                                                                      .length,
-                                                          progressColor:
-                                                              AppColors.blue12,
-                                                          backgroundColor:
-                                                              AppColors.greyDB,
-                                                          animation: true,
-                                                          animateFromLastPercent:
-                                                              true,
-                                                          barRadius:
-                                                              const Radius
-                                                                  .circular(
-                                                            12,
+                                                child: Row(
+                                                  children: [
+                                                    Expanded(
+                                                      child: Column(
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
+                                                        children: [
+                                                          Text(
+                                                            currentLocale == yo
+                                                                ? yoQuestionNumberSystem[
+                                                                        currentQuestionIndex +
+                                                                            1] ??
+                                                                    context
+                                                                        .yoLocale
+                                                                        .question
+                                                                : enQuestionNumberSystem[
+                                                                        currentQuestionIndex +
+                                                                            1] ??
+                                                                    context
+                                                                        .enLocale
+                                                                        .question,
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: context
+                                                                .textTheme
+                                                                .bodyMedium!
+                                                                .copyWith(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w500,
+                                                            ),
                                                           ),
-                                                        ),
+                                                          const SizedBox(
+                                                            height: 4,
+                                                          ),
+                                                          Text(
+                                                            currentLocale == yo
+                                                                ? enQuestionNumberSystem[
+                                                                        currentQuestionIndex +
+                                                                            1] ??
+                                                                    context
+                                                                        .enLocale
+                                                                        .question
+                                                                : yoQuestionNumberSystem[
+                                                                        currentQuestionIndex +
+                                                                            1] ??
+                                                                    context
+                                                                        .yoLocale
+                                                                        .question,
+                                                            textAlign:
+                                                                TextAlign.start,
+                                                            style: context
+                                                                .textTheme
+                                                                .bodySmall!
+                                                                .copyWith(
+                                                              fontStyle:
+                                                                  FontStyle
+                                                                      .italic,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w300,
+                                                            ),
+                                                          ),
+                                                        ],
                                                       ),
-                                                      if ((isPracticeMode ==
-                                                                  true ||
-                                                              isSinglePlayerMode ==
-                                                                  true) &&
-                                                          widget.totalLives !=
-                                                              null) ...[
-                                                        SizedBox(width: 15.w),
-                                                        GameLivesWidget(
-                                                          totalLives: widget
-                                                                  .totalLives ??
-                                                              0,
-                                                          livesRemaining:
-                                                              livesRemaining,
-                                                        ),
-                                                      ],
-                                                    ],
-                                                  ),
-                                                  const SizedBox(height: 24),
-                                                  Padding(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                      left: 8,
                                                     ),
-                                                    child: Column(
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
-                                                      children: [
-                                                        Text(
-                                                          currentLocale == yo
-                                                              ? currentAltQuestionText
-                                                              : currentQuestionText,
-                                                          textAlign:
-                                                              TextAlign.center,
-                                                          style: context
-                                                              .textTheme
-                                                              .bodyMedium!
-                                                              .copyWith(
-                                                            fontWeight:
-                                                                FontWeight.w500,
-                                                          ),
-                                                        ),
-                                                        const SizedBox(
-                                                          height: 4,
-                                                        ),
-                                                        Text(
-                                                          currentLocale == yo
-                                                              ? currentQuestionText
-                                                              : currentAltQuestionText,
-                                                          textAlign:
-                                                              TextAlign.start,
-                                                          style: context
-                                                              .textTheme
-                                                              .bodySmall!
-                                                              .copyWith(
-                                                            fontStyle: FontStyle
-                                                                .italic,
-                                                            fontWeight:
-                                                                FontWeight.w300,
-                                                          ),
-                                                        ),
-                                                        SizedBox(height: 80.h),
-                                                        Row(
-                                                          children: [
-                                                            ActionButton(
-                                                              label: 'Listen',
-                                                              isEnabled: true,
-                                                              icon: AppAssets
-                                                                  .images
-                                                                  .svgs
-                                                                  .listen
-                                                                  .svg(
-                                                                width: 17.sp,
-                                                                height: 17.sp,
-                                                              ),
-                                                              onTap: () {},
-                                                            ),
-                                                            const SizedBox(
-                                                              width: 24,
-                                                            ),
-                                                            ActionButton(
-                                                              label: 'Speak',
-                                                              isEnabled: true,
-                                                              icon: Icon(
-                                                                Iconsax
-                                                                    .microphone_2,
-                                                                size: 17.sp,
-                                                                color: AppColors
-                                                                    .black15,
-                                                              ),
-                                                              onTap: () {},
-                                                            ),
-                                                            const Spacer(),
-                                                            ActionButton(
-                                                              label: 'Flip',
-                                                              isEnabled: false,
-                                                              icon: Icon(
-                                                                Icons
-                                                                    .swipe_right_rounded,
-                                                                size: 17.sp,
-                                                                color: AppColors
-                                                                    .black15,
-                                                              ),
-                                                              onTap: () {},
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            const SizedBox(height: 28),
-                                            if (isMultiPlayerMode ||
-                                                isMultiPlayerTeamLeaderMode ||
-                                                isMultiPlayerGameMasterMode) ...[
-                                              Center(
-                                                child: Text(
-                                                  '* Select your answers from the options below',
-                                                  textAlign: TextAlign.start,
-                                                  style: context
-                                                      .textTheme.bodySmall!
-                                                      .copyWith(
-                                                    fontStyle: FontStyle.italic,
-                                                    fontWeight: FontWeight.w300,
-                                                  ),
-                                                ),
-                                              ),
-                                              const SizedBox(height: 12),
-                                              SelectCategoryWidget2(
-                                                title: 'Tiiro',
-                                                isSelected:
-                                                    selectedMultipleOption ==
-                                                        'Tiiro',
-                                                isShowBgColor: false,
-                                                voteIndicator:
-                                                    selectedMultipleOption ==
-                                                            'Tiiro'
-                                                        ? '4'
-                                                        : '3',
-                                                bgColor:
-                                                    bgColor[isMultipleOption],
-                                                brColor:
-                                                    brColor[isMultipleOption],
-                                                onTap: () {
-                                                  setState(() {
-                                                    if (selectedMultipleOption ==
-                                                        'Tiiro') {
-                                                      selectedMultipleOption =
-                                                          null;
-                                                    } else {
-                                                      selectedMultipleOption =
-                                                          'Tiiro';
-                                                      isMultiplayerAnswerSelected =
-                                                          false;
-                                                      isMultipleOption = null;
-                                                    }
-                                                  });
-                                                },
-                                              ),
-                                              SelectCategoryWidget2(
-                                                title: 'Asiiro',
-                                                isSelected:
-                                                    selectedMultipleOption ==
-                                                        'Asiiro',
-                                                isShowBgColor: false,
-                                                voteIndicator:
-                                                    selectedMultipleOption ==
-                                                            'Asiiro'
-                                                        ? '1'
-                                                        : null,
-                                                bgColor:
-                                                    bgColor[isMultipleOption],
-                                                brColor:
-                                                    brColor[isMultipleOption],
-                                                onTap: () {
-                                                  setState(() {
-                                                    if (selectedMultipleOption ==
-                                                        'Asiiro') {
-                                                      selectedMultipleOption =
-                                                          null;
-                                                    } else {
-                                                      selectedMultipleOption =
-                                                          'Asiiro';
-                                                      isMultiplayerAnswerSelected =
-                                                          false;
-                                                      isMultipleOption = null;
-                                                    }
-                                                  });
-                                                },
-                                              ),
-                                              SelectCategoryWidget2(
-                                                title: 'Asiiro',
-                                                isSelected:
-                                                    selectedMultipleOption ==
-                                                        'Asiiroo',
-                                                isShowBgColor: false,
-                                                voteIndicator:
-                                                    selectedMultipleOption ==
-                                                            'Asiiroo'
-                                                        ? '1'
-                                                        : null,
-                                                bgColor:
-                                                    bgColor[isMultipleOption],
-                                                brColor:
-                                                    brColor[isMultipleOption],
-                                                onTap: () {
-                                                  setState(() {
-                                                    if (selectedMultipleOption ==
-                                                        'Asiiroo') {
-                                                      selectedMultipleOption =
-                                                          null;
-                                                    } else {
-                                                      selectedMultipleOption =
-                                                          'Asiiroo';
-                                                      isMultiplayerAnswerSelected =
-                                                          false;
-                                                      isMultipleOption = null;
-                                                    }
-                                                  });
-                                                },
-                                              ),
-                                              if (isMultiplayerAnswerSelected) ...[
-                                                SizedBox(height: 25.h),
-                                                Center(
-                                                  child: Row(
-                                                    mainAxisSize:
-                                                        MainAxisSize.min,
-                                                    children: [
-                                                      Text(
-                                                        waitingForTeamLeaderToSubmitFinalAnswerYr,
-                                                        textAlign:
-                                                            TextAlign.start,
-                                                        style: context.textTheme
-                                                            .bodySmall!
-                                                            .copyWith(
-                                                          fontStyle:
-                                                              FontStyle.italic,
-                                                          fontWeight:
-                                                              FontWeight.w300,
-                                                        ),
-                                                      ),
-                                                      const TypeWriterProgressTextIndicator(
-                                                        fontWeight:
-                                                            FontWeight.w400,
-                                                        isItalic: true,
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ],
-                                              SizedBox(height: 24.h),
-                                              if (widget.isTeamLeader)
-                                                SizedBox(height: 150.h)
-                                              else
-                                                AbsorbPointer(
-                                                  absorbing:
-                                                      isMultiplayerAnswerSelected ==
-                                                              true ||
-                                                          selectedMultipleOption ==
-                                                              null,
-                                                  child: Opacity(
-                                                    opacity:
-                                                        (isMultiplayerAnswerSelected ==
-                                                                    false &&
-                                                                selectedMultipleOption !=
-                                                                    null)
-                                                            ? 1
-                                                            : 0.4,
-                                                    child: Button(
-                                                      label: voteYr,
-                                                      onPressed: () async {
-                                                        await Future.delayed(
-                                                          1.seconds,
-                                                        );
-                                                        setState(() {
-                                                          isMultiplayerAnswerSelected =
-                                                              true;
-                                                        });
-                                                        await Future.delayed(
-                                                          3.seconds,
-                                                        ).then((_) {
-                                                          if (context.mounted) {
-                                                            showModalBottomSheet(
-                                                              context: context,
-                                                              isDismissible:
-                                                                  false,
-                                                              barrierColor:
-                                                                  AppColors
-                                                                      .transparent,
-                                                              builder: (context) =>
-                                                                  const PerformanceModal(
-                                                                type: 'success',
-                                                              ),
-                                                            ).then((_) {
-                                                              setState(() {
-                                                                isMultiplayerAnswerSelected =
-                                                                    false;
-                                                                selectedMultipleOption =
-                                                                    null;
-                                                              });
-                                                            });
+                                                    const SizedBox(width: 10),
+                                                    if ((currentQuestion
+                                                                ?.timeLimit ??
+                                                            0) >
+                                                        0)
+                                                      CustomTimer(
+                                                        controller:
+                                                            timerCountDownController!,
+                                                        builder:
+                                                            (state, timer) {
+                                                          if (state ==
+                                                                  CustomTimerState
+                                                                      .finished &&
+                                                              isLoading ==
+                                                                  false) {
+                                                            context
+                                                                .read<
+                                                                    SubmitAnswerCubit>()
+                                                                .submitAnswer(
+                                                                  questionId:
+                                                                      currentQuestion
+                                                                              ?.id ??
+                                                                          '',
+                                                                  answer: '',
+                                                                  startTime: 30,
+                                                                );
                                                           }
-                                                        });
-                                                      },
-                                                      onLongPress: () async {
-                                                        await Future.delayed(
-                                                          1.seconds,
-                                                        );
-                                                        setState(() {
-                                                          isMultiplayerAnswerSelected =
-                                                              true;
-                                                        });
-                                                        await Future.delayed(
-                                                          3.seconds,
-                                                        ).then((_) {
-                                                          if (context.mounted) {
-                                                            showModalBottomSheet(
-                                                              context: context,
-                                                              isDismissible:
-                                                                  false,
-                                                              barrierColor:
-                                                                  AppColors
-                                                                      .transparent,
-                                                              builder: (context) =>
-                                                                  const PerformanceModal(
-                                                                type: 'failure',
-                                                              ),
-                                                            ).then((_) {
-                                                              setState(() {
-                                                                isMultiplayerAnswerSelected =
-                                                                    false;
-                                                                selectedMultipleOption =
-                                                                    null;
-                                                              });
-                                                            });
-                                                          }
-                                                        });
-                                                      },
-                                                    ),
-                                                  ),
-                                                ),
-                                            ] else ...[
-                                              if (answerFormat?.format ==
-                                                  'tile') ...[
-                                                SizedBox(
-                                                  height: 45.h,
-                                                  child: ReorderableListView(
-                                                    shrinkWrap: true,
-                                                    scrollDirection:
-                                                        Axis.horizontal,
-                                                    onReorder: (i, j) {
-                                                      final wordTile =
-                                                          answerFormat
-                                                                  ?.answer.value
-                                                                  ?.split('') ??
-                                                              [];
-                                                      setState(() {
-                                                        if (j > i) j--;
-                                                        final tile = wordTile
-                                                            .removeAt(i);
-                                                        wordTile.insert(
-                                                          j,
-                                                          tile,
-                                                        );
-                                                        isActivateNextButton =
-                                                            true;
-                                                        isWordTileArrangedCorrectly =
-                                                            null;
-                                                      });
-                                                    },
-                                                    children: [
-                                                      for (int i = 0;
-                                                          i <
-                                                              (answerFormat
-                                                                      ?.answer
-                                                                      .value
-                                                                      ?.length ??
-                                                                  0);
-                                                          i++)
-                                                        Padding(
-                                                          key: ValueKey(i),
-                                                          padding:
-                                                              const EdgeInsets
-                                                                  .all(
-                                                            4,
-                                                          ),
-                                                          child: Container(
-                                                            width: 32.w,
-                                                            height: 32.w,
-                                                            decoration:
-                                                                BoxDecoration(
-                                                              color: bgColor[
-                                                                      isWordTileArrangedCorrectly] ??
-                                                                  AppColors
-                                                                      .blueE7,
-                                                              border:
-                                                                  Border.all(
-                                                                color: brColor[
-                                                                        isWordTileArrangedCorrectly] ??
-                                                                    AppColors
-                                                                        .greyB6,
-                                                                width: 0.6,
-                                                              ),
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                4,
-                                                              ),
-                                                            ),
-                                                            child: Center(
-                                                              child: Text(
-                                                                answerFormat
-                                                                        ?.answer
+                                                          final time = (double
+                                                                      .tryParse(
+                                                                    timer
+                                                                        .seconds,
+                                                                  ) ??
+                                                                  1) /
+                                                              (currentQuestion
+                                                                      ?.timeLimit ??
+                                                                  1);
+                                                          return FittedBox(
+                                                            child:
+                                                                CircularPercentIndicator(
+                                                              radius: 23,
+                                                              lineWidth: 6.6,
+                                                              backgroundWidth:
+                                                                  1.2,
+                                                              animation: true,
+                                                              animateFromLastPercent:
+                                                                  true,
+                                                              percent: time > 1
+                                                                  ? 1
+                                                                  : time,
+                                                              center: Text(
+                                                                timerCountDownController
+                                                                        ?.remaining
                                                                         .value
-                                                                        ?.split(
-                                                                      '',
-                                                                    )[i] ??
+                                                                        .seconds ??
                                                                     '',
                                                                 style: context
                                                                     .textTheme
-                                                                    .bodyLarge!
-                                                                    .copyWith(),
+                                                                    .bodyMedium!
+                                                                    .copyWith(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w500,
+                                                                ),
                                                               ),
+                                                              circularStrokeCap:
+                                                                  CircularStrokeCap
+                                                                      .round,
+                                                              backgroundColor:
+                                                                  AppColors
+                                                                      .greyB6,
+                                                              progressColor:
+                                                                  AppColors
+                                                                      .goldFC,
+                                                            ),
+                                                          );
+                                                        },
+                                                      ),
+                                                  ],
+                                                ),
+                                              ),
+                                              const SizedBox(height: 16),
+                                              Container(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                  vertical: 24,
+                                                  horizontal: 16,
+                                                ),
+                                                margin:
+                                                    const EdgeInsets.symmetric(
+                                                  horizontal: 19,
+                                                ),
+                                                decoration: BoxDecoration(
+                                                  color: AppColors.white,
+                                                  borderRadius:
+                                                      BorderRadius.circular(18),
+                                                  border: Border.all(
+                                                    color: AppColors.greyDB,
+                                                  ),
+                                                ),
+                                                child: Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Row(
+                                                      children: [
+                                                        Expanded(
+                                                          child:
+                                                              LinearPercentIndicator(
+                                                            padding:
+                                                                EdgeInsets.zero,
+                                                            lineHeight: 10,
+                                                            percent:
+                                                                (currentQuestionIndex +
+                                                                        1) /
+                                                                    questions
+                                                                        .length,
+                                                            progressColor:
+                                                                AppColors
+                                                                    .blue12,
+                                                            backgroundColor:
+                                                                AppColors
+                                                                    .greyDB,
+                                                            animation: true,
+                                                            animateFromLastPercent:
+                                                                true,
+                                                            barRadius:
+                                                                const Radius
+                                                                    .circular(
+                                                              12,
                                                             ),
                                                           ),
                                                         ),
-                                                    ],
-                                                  ),
+                                                        if ((isPracticeMode ==
+                                                                    true ||
+                                                                isSinglePlayerMode ==
+                                                                    true) &&
+                                                            widget.totalLives !=
+                                                                null) ...[
+                                                          SizedBox(width: 15.w),
+                                                          GameLivesWidget(
+                                                            totalLives: widget
+                                                                    .totalLives ??
+                                                                0,
+                                                            livesRemaining:
+                                                                livesRemaining,
+                                                          ),
+                                                        ],
+                                                      ],
+                                                    ),
+                                                    const SizedBox(height: 24),
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                        left: 8,
+                                                      ),
+                                                      child: Column(
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
+                                                        children: [
+                                                          Text(
+                                                            currentLocale == yo
+                                                                ? currentAltQuestionText
+                                                                : currentQuestionText,
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: context
+                                                                .textTheme
+                                                                .bodyMedium!
+                                                                .copyWith(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w500,
+                                                            ),
+                                                          ),
+                                                          const SizedBox(
+                                                            height: 4,
+                                                          ),
+                                                          Text(
+                                                            currentLocale == yo
+                                                                ? currentQuestionText
+                                                                : currentAltQuestionText,
+                                                            textAlign:
+                                                                TextAlign.start,
+                                                            style: context
+                                                                .textTheme
+                                                                .bodySmall!
+                                                                .copyWith(
+                                                              fontStyle:
+                                                                  FontStyle
+                                                                      .italic,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w300,
+                                                            ),
+                                                          ),
+                                                          SizedBox(
+                                                            height: 80.h,
+                                                          ),
+                                                          Row(
+                                                            children: [
+                                                              ActionButton(
+                                                                label: 'Listen',
+                                                                isEnabled: true,
+                                                                icon: AppAssets
+                                                                    .images
+                                                                    .svgs
+                                                                    .listen
+                                                                    .svg(
+                                                                  width: 17.sp,
+                                                                  height: 17.sp,
+                                                                ),
+                                                                onTap: () {},
+                                                              ),
+                                                              const SizedBox(
+                                                                width: 24,
+                                                              ),
+                                                              ActionButton(
+                                                                label: 'Speak',
+                                                                isEnabled: true,
+                                                                icon: Icon(
+                                                                  Iconsax
+                                                                      .microphone_2,
+                                                                  size: 17.sp,
+                                                                  color: AppColors
+                                                                      .black15,
+                                                                ),
+                                                                onTap: () {},
+                                                              ),
+                                                              const Spacer(),
+                                                              ActionButton(
+                                                                label: 'Flip',
+                                                                isEnabled:
+                                                                    false,
+                                                                icon: Icon(
+                                                                  Icons
+                                                                      .swipe_right_rounded,
+                                                                  size: 17.sp,
+                                                                  color: AppColors
+                                                                      .black15,
+                                                                ),
+                                                                onTap: () {},
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ],
                                                 ),
-                                                const SizedBox(height: 16),
+                                              ),
+                                              const SizedBox(height: 28),
+                                              if (isMultiPlayerMode ||
+                                                  isMultiPlayerTeamLeaderMode ||
+                                                  isMultiPlayerGameMasterMode) ...[
                                                 Center(
                                                   child: Text(
-                                                    '* Long press on a tile to move and form the word',
+                                                    '* Select your answers from the options below',
                                                     textAlign: TextAlign.start,
                                                     style: context
                                                         .textTheme.bodySmall!
@@ -1059,37 +766,18 @@ class __PlayQuestionScreenState extends State<__PlayQuestionScreen>
                                                     ),
                                                   ),
                                                 ),
-                                              ] else if (answerFormat?.format ==
-                                                  'text') ...[
-                                                SizedBox(height: 20.h),
-                                                CustomTextField(
-                                                  textEditingController:
-                                                      answerController,
-                                                  textFieldText:
-                                                      writeYourAnswerHereYr,
-                                                ),
-                                              ] else if (answerFormat?.format ==
-                                                  'multi-choice') ...[
-                                                Center(
-                                                  child: Text(
-                                                    '* $selectAnswersFromOptionBelowYr',
-                                                    textAlign: TextAlign.start,
-                                                    style: context
-                                                        .textTheme.bodySmall!
-                                                        .copyWith(
-                                                      fontStyle:
-                                                          FontStyle.italic,
-                                                      fontWeight:
-                                                          FontWeight.w300,
-                                                    ),
-                                                  ),
-                                                ),
-                                                SizedBox(height: 16.h),
+                                                const SizedBox(height: 12),
                                                 SelectCategoryWidget2(
                                                   title: 'Tiiro',
                                                   isSelected:
                                                       selectedMultipleOption ==
                                                           'Tiiro',
+                                                  isShowBgColor: false,
+                                                  voteIndicator:
+                                                      selectedMultipleOption ==
+                                                              'Tiiro'
+                                                          ? '4'
+                                                          : '3',
                                                   bgColor:
                                                       bgColor[isMultipleOption],
                                                   brColor:
@@ -1100,10 +788,11 @@ class __PlayQuestionScreenState extends State<__PlayQuestionScreen>
                                                           'Tiiro') {
                                                         selectedMultipleOption =
                                                             null;
-                                                        isMultipleOption = null;
                                                       } else {
                                                         selectedMultipleOption =
                                                             'Tiiro';
+                                                        isMultiplayerAnswerSelected =
+                                                            false;
                                                         isMultipleOption = null;
                                                       }
                                                     });
@@ -1114,6 +803,12 @@ class __PlayQuestionScreenState extends State<__PlayQuestionScreen>
                                                   isSelected:
                                                       selectedMultipleOption ==
                                                           'Asiiro',
+                                                  isShowBgColor: false,
+                                                  voteIndicator:
+                                                      selectedMultipleOption ==
+                                                              'Asiiro'
+                                                          ? '1'
+                                                          : null,
                                                   bgColor:
                                                       bgColor[isMultipleOption],
                                                   brColor:
@@ -1124,10 +819,11 @@ class __PlayQuestionScreenState extends State<__PlayQuestionScreen>
                                                           'Asiiro') {
                                                         selectedMultipleOption =
                                                             null;
-                                                        isMultipleOption = null;
                                                       } else {
                                                         selectedMultipleOption =
                                                             'Asiiro';
+                                                        isMultiplayerAnswerSelected =
+                                                            false;
                                                         isMultipleOption = null;
                                                       }
                                                     });
@@ -1138,6 +834,12 @@ class __PlayQuestionScreenState extends State<__PlayQuestionScreen>
                                                   isSelected:
                                                       selectedMultipleOption ==
                                                           'Asiiroo',
+                                                  isShowBgColor: false,
+                                                  voteIndicator:
+                                                      selectedMultipleOption ==
+                                                              'Asiiroo'
+                                                          ? '1'
+                                                          : null,
                                                   bgColor:
                                                       bgColor[isMultipleOption],
                                                   brColor:
@@ -1148,204 +850,563 @@ class __PlayQuestionScreenState extends State<__PlayQuestionScreen>
                                                           'Asiiroo') {
                                                         selectedMultipleOption =
                                                             null;
-                                                        isMultipleOption = null;
                                                       } else {
                                                         selectedMultipleOption =
                                                             'Asiiroo';
+                                                        isMultiplayerAnswerSelected =
+                                                            false;
                                                         isMultipleOption = null;
                                                       }
                                                     });
                                                   },
                                                 ),
-                                              ],
-                                            ],
-                                            if (answerFormat?.format ==
-                                                'multi-choice')
-                                              SizedBox(height: 20.h)
-                                            else
-                                              SizedBox(height: 40.h),
-                                            ListenableBuilder(
-                                              listenable: answerController,
-                                              builder: (context, child) {
-                                                return Opacity(
-                                                  opacity: answerController
-                                                          .text.isNotEmpty
-                                                      ? 1
-                                                      : 0.7,
-                                                  child: Button(
-                                                    label:
-                                                        context.appLocale.next,
-                                                    isLoading: isLoading,
-                                                    onPressed: () {
-                                                      context
-                                                          .read<
-                                                              SubmitAnswerCubit>()
-                                                          .submitAnswer(
-                                                            questionId:
-                                                                currentQuestion
-                                                                        ?.id ??
-                                                                    '',
-                                                            answer:
-                                                                answerController
-                                                                    .text
-                                                                    .trim(),
-                                                            startTime: 30 -
-                                                                (int.parse(
-                                                                  otpCountDownController
-                                                                          ?.remaining
-                                                                          .value
-                                                                          .seconds ??
-                                                                      '0',
-                                                                )),
+                                                if (isMultiplayerAnswerSelected) ...[
+                                                  SizedBox(height: 25.h),
+                                                  Center(
+                                                    child: Row(
+                                                      mainAxisSize:
+                                                          MainAxisSize.min,
+                                                      children: [
+                                                        Text(
+                                                          waitingForTeamLeaderToSubmitFinalAnswerYr,
+                                                          textAlign:
+                                                              TextAlign.start,
+                                                          style: context
+                                                              .textTheme
+                                                              .bodySmall!
+                                                              .copyWith(
+                                                            fontStyle: FontStyle
+                                                                .italic,
+                                                            fontWeight:
+                                                                FontWeight.w300,
+                                                          ),
+                                                        ),
+                                                        const TypeWriterProgressTextIndicator(
+                                                          fontWeight:
+                                                              FontWeight.w400,
+                                                          isItalic: true,
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ],
+                                                SizedBox(height: 24.h),
+                                                if (widget.isTeamLeader)
+                                                  SizedBox(height: 150.h)
+                                                else
+                                                  AbsorbPointer(
+                                                    absorbing:
+                                                        isMultiplayerAnswerSelected ==
+                                                                true ||
+                                                            selectedMultipleOption ==
+                                                                null,
+                                                    child: Opacity(
+                                                      opacity:
+                                                          (isMultiplayerAnswerSelected ==
+                                                                      false &&
+                                                                  selectedMultipleOption !=
+                                                                      null)
+                                                              ? 1
+                                                              : 0.4,
+                                                      child: Button(
+                                                        label: voteYr,
+                                                        onPressed: () async {
+                                                          await Future.delayed(
+                                                            1.seconds,
                                                           );
-                                                      // var isWordCorrect = false;
-                                                      // for (var i = 0;
-                                                      //     i < wordTile.length;
-                                                      //     i++) {
-                                                      //   if (wordTile[i] !=
-                                                      //       correctWordTile[i]) {
-                                                      //     isWordCorrect = false;
-                                                      //     break;
-                                                      //   } else {
-                                                      //     isWordCorrect = true;
-                                                      //   }
-                                                      // }
-                                                      // setState(() {
-                                                      //   if (isWordCorrect) {
-                                                      //     isWordTileArrangedCorrectly =
-                                                      //         true;
-                                                      //   } else {
-                                                      //     isWordTileArrangedCorrectly =
-                                                      //         false;
-                                                      //   }
-                                                      // });
+                                                          setState(() {
+                                                            isMultiplayerAnswerSelected =
+                                                                true;
+                                                          });
+                                                          await Future.delayed(
+                                                            3.seconds,
+                                                          ).then((_) {
+                                                            if (context
+                                                                .mounted) {
+                                                              showModalBottomSheet(
+                                                                context:
+                                                                    context,
+                                                                isDismissible:
+                                                                    false,
+                                                                barrierColor:
+                                                                    AppColors
+                                                                        .transparent,
+                                                                builder:
+                                                                    (context) =>
+                                                                        const PerformanceModal(
+                                                                  type:
+                                                                      'success',
+                                                                ),
+                                                              ).then((_) {
+                                                                setState(() {
+                                                                  isMultiplayerAnswerSelected =
+                                                                      false;
+                                                                  selectedMultipleOption =
+                                                                      null;
+                                                                });
+                                                              });
+                                                            }
+                                                          });
+                                                        },
+                                                        onLongPress: () async {
+                                                          await Future.delayed(
+                                                            1.seconds,
+                                                          );
+                                                          setState(() {
+                                                            isMultiplayerAnswerSelected =
+                                                                true;
+                                                          });
+                                                          await Future.delayed(
+                                                            3.seconds,
+                                                          ).then((_) {
+                                                            if (context
+                                                                .mounted) {
+                                                              showModalBottomSheet(
+                                                                context:
+                                                                    context,
+                                                                isDismissible:
+                                                                    false,
+                                                                barrierColor:
+                                                                    AppColors
+                                                                        .transparent,
+                                                                builder:
+                                                                    (context) =>
+                                                                        const PerformanceModal(
+                                                                  type:
+                                                                      'failure',
+                                                                ),
+                                                              ).then((_) {
+                                                                setState(() {
+                                                                  isMultiplayerAnswerSelected =
+                                                                      false;
+                                                                  selectedMultipleOption =
+                                                                      null;
+                                                                });
+                                                              });
+                                                            }
+                                                          });
+                                                        },
+                                                      ),
+                                                    ),
+                                                  ),
+                                              ] else ...[
+                                                if (answerFormat?.format ==
+                                                    'tile') ...[
+                                                  SizedBox(
+                                                    height: 45.h,
+                                                    child: ReorderableListView(
+                                                      shrinkWrap: true,
+                                                      scrollDirection:
+                                                          Axis.horizontal,
+                                                      onReorder: (i, j) {
+                                                        final wordTile =
+                                                            answerFormat?.answer
+                                                                    .value
+                                                                    ?.split(
+                                                                  '',
+                                                                ) ??
+                                                                [];
+                                                        setState(() {
+                                                          if (j > i) j--;
+                                                          final tile = wordTile
+                                                              .removeAt(i);
+                                                          wordTile.insert(
+                                                            j,
+                                                            tile,
+                                                          );
+                                                          isActivateNextButton =
+                                                              true;
+                                                          isWordTileArrangedCorrectly =
+                                                              null;
+                                                        });
+                                                      },
+                                                      children: [
+                                                        for (int i = 0;
+                                                            i <
+                                                                (answerFormat
+                                                                        ?.answer
+                                                                        .value
+                                                                        ?.length ??
+                                                                    0);
+                                                            i++)
+                                                          Padding(
+                                                            key: ValueKey(i),
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .all(
+                                                              4,
+                                                            ),
+                                                            child: Container(
+                                                              width: 32.w,
+                                                              height: 32.w,
+                                                              decoration:
+                                                                  BoxDecoration(
+                                                                color: bgColor[
+                                                                        isWordTileArrangedCorrectly] ??
+                                                                    AppColors
+                                                                        .blueE7,
+                                                                border:
+                                                                    Border.all(
+                                                                  color: brColor[
+                                                                          isWordTileArrangedCorrectly] ??
+                                                                      AppColors
+                                                                          .greyB6,
+                                                                  width: 0.6,
+                                                                ),
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                  4,
+                                                                ),
+                                                              ),
+                                                              child: Center(
+                                                                child: Text(
+                                                                  answerFormat
+                                                                          ?.answer
+                                                                          .value
+                                                                          ?.split(
+                                                                        '',
+                                                                      )[i] ??
+                                                                      '',
+                                                                  style: context
+                                                                      .textTheme
+                                                                      .bodyLarge!
+                                                                      .copyWith(),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                  const SizedBox(height: 16),
+                                                  Center(
+                                                    child: Text(
+                                                      '* Long press on a tile to move and form the word',
+                                                      textAlign:
+                                                          TextAlign.start,
+                                                      style: context
+                                                          .textTheme.bodySmall!
+                                                          .copyWith(
+                                                        fontStyle:
+                                                            FontStyle.italic,
+                                                        fontWeight:
+                                                            FontWeight.w300,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ] else if (answerFormat
+                                                        ?.format ==
+                                                    'text') ...[
+                                                  SizedBox(height: 20.h),
+                                                  CustomTextField(
+                                                    textEditingController:
+                                                        answerController,
+                                                    textFieldText:
+                                                        writeYourAnswerHereYr,
+                                                  ),
+                                                ] else if (answerFormat
+                                                        ?.format ==
+                                                    'multi-choice') ...[
+                                                  Center(
+                                                    child: Text(
+                                                      '* $selectAnswersFromOptionBelowYr',
+                                                      textAlign:
+                                                          TextAlign.start,
+                                                      style: context
+                                                          .textTheme.bodySmall!
+                                                          .copyWith(
+                                                        fontStyle:
+                                                            FontStyle.italic,
+                                                        fontWeight:
+                                                            FontWeight.w300,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  SizedBox(height: 16.h),
+                                                  SelectCategoryWidget2(
+                                                    title: 'Tiiro',
+                                                    isSelected:
+                                                        selectedMultipleOption ==
+                                                            'Tiiro',
+                                                    bgColor: bgColor[
+                                                        isMultipleOption],
+                                                    brColor: brColor[
+                                                        isMultipleOption],
+                                                    onTap: () {
+                                                      setState(() {
+                                                        if (selectedMultipleOption ==
+                                                            'Tiiro') {
+                                                          selectedMultipleOption =
+                                                              null;
+                                                          isMultipleOption =
+                                                              null;
+                                                        } else {
+                                                          selectedMultipleOption =
+                                                              'Tiiro';
+                                                          isMultipleOption =
+                                                              null;
+                                                        }
+                                                      });
                                                     },
                                                   ),
-                                                );
-                                              },
-                                            ),
-                                          ],
-                                        );
-                                      },
-                                      orElse: SizedBox.new,
-                                    );
-                                  },
-                                ),
-                              ],
+                                                  SelectCategoryWidget2(
+                                                    title: 'Asiiro',
+                                                    isSelected:
+                                                        selectedMultipleOption ==
+                                                            'Asiiro',
+                                                    bgColor: bgColor[
+                                                        isMultipleOption],
+                                                    brColor: brColor[
+                                                        isMultipleOption],
+                                                    onTap: () {
+                                                      setState(() {
+                                                        if (selectedMultipleOption ==
+                                                            'Asiiro') {
+                                                          selectedMultipleOption =
+                                                              null;
+                                                          isMultipleOption =
+                                                              null;
+                                                        } else {
+                                                          selectedMultipleOption =
+                                                              'Asiiro';
+                                                          isMultipleOption =
+                                                              null;
+                                                        }
+                                                      });
+                                                    },
+                                                  ),
+                                                  SelectCategoryWidget2(
+                                                    title: 'Asiiro',
+                                                    isSelected:
+                                                        selectedMultipleOption ==
+                                                            'Asiiroo',
+                                                    bgColor: bgColor[
+                                                        isMultipleOption],
+                                                    brColor: brColor[
+                                                        isMultipleOption],
+                                                    onTap: () {
+                                                      setState(() {
+                                                        if (selectedMultipleOption ==
+                                                            'Asiiroo') {
+                                                          selectedMultipleOption =
+                                                              null;
+                                                          isMultipleOption =
+                                                              null;
+                                                        } else {
+                                                          selectedMultipleOption =
+                                                              'Asiiroo';
+                                                          isMultipleOption =
+                                                              null;
+                                                        }
+                                                      });
+                                                    },
+                                                  ),
+                                                ],
+                                              ],
+                                              if (answerFormat?.format ==
+                                                  'multi-choice')
+                                                SizedBox(height: 20.h)
+                                              else
+                                                SizedBox(height: 40.h),
+                                              ListenableBuilder(
+                                                listenable: answerController,
+                                                builder: (context, child) {
+                                                  return Opacity(
+                                                    opacity: answerController
+                                                            .text.isNotEmpty
+                                                        ? 1
+                                                        : 0.7,
+                                                    child: Button(
+                                                      label: context
+                                                          .appLocale.next,
+                                                      isLoading: isLoading,
+                                                      onPressed: () {
+                                                        if (answerController
+                                                            .text.isEmpty) {
+                                                          ToastMessage
+                                                              .showWarning(
+                                                            context: context,
+                                                            text: context
+                                                                .appLocale
+                                                                .pleaseTypeInYourAnswer,
+                                                          );
+                                                          return;
+                                                        }
+                                                        context
+                                                            .read<
+                                                                SubmitAnswerCubit>()
+                                                            .submitAnswer(
+                                                              questionId:
+                                                                  currentQuestion
+                                                                          ?.id ??
+                                                                      '',
+                                                              answer:
+                                                                  answerController
+                                                                      .text
+                                                                      .trim(),
+                                                              startTime: 30 -
+                                                                  (int.parse(
+                                                                    timerCountDownController
+                                                                            ?.remaining
+                                                                            .value
+                                                                            .seconds ??
+                                                                        '0',
+                                                                  )),
+                                                            );
+                                                        FocusManager.instance
+                                                            .primaryFocus
+                                                            ?.unfocus();
+
+                                                        // var isWordCorrect = false;
+                                                        // for (var i = 0;
+                                                        //     i < wordTile.length;
+                                                        //     i++) {
+                                                        //   if (wordTile[i] !=
+                                                        //       correctWordTile[i]) {
+                                                        //     isWordCorrect = false;
+                                                        //     break;
+                                                        //   } else {
+                                                        //     isWordCorrect = true;
+                                                        //   }
+                                                        // }
+                                                        // setState(() {
+                                                        //   if (isWordCorrect) {
+                                                        //     isWordTileArrangedCorrectly =
+                                                        //         true;
+                                                        //   } else {
+                                                        //     isWordTileArrangedCorrectly =
+                                                        //         false;
+                                                        //   }
+                                                        // });
+                                                      },
+                                                    ),
+                                                  );
+                                                },
+                                              ),
+                                            ],
+                                          );
+                                        },
+                                        orElse: SizedBox.new,
+                                      );
+                                    },
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                          SizedBox(height: context.btmPadding),
-                        ],
+                            SizedBox(height: context.btmPadding),
+                          ],
+                        ),
                       ),
                     ),
                   ),
                 ),
               ),
-            ),
-            if (widget.isTeamLeader)
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                decoration: BoxDecoration(
-                  color: AppColors.white,
-                  boxShadow: [
-                    BoxShadow(
-                      color: AppColors.black.withValues(alpha: 0.15),
-                      blurRadius: 11,
-                      spreadRadius: 1,
-                    ),
-                  ],
-                ),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    const SizedBox(height: 20),
-                    Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        AppAssets.images.svgs.thumbs.svg(),
-                        const SizedBox(width: 5),
-                        Text(
-                          'Final Answer',
-                          textAlign: TextAlign.center,
-                          style: context.textTheme.bodyMedium!.copyWith(
-                            fontWeight: FontWeight.w400,
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 16.h),
-                    Text(
-                      'Select your teams final answer',
-                      textAlign: TextAlign.center,
-                      style: context.textTheme.bodyMedium!.copyWith(
-                        fontWeight: FontWeight.w300,
-                      ),
-                    ),
-                    SizedBox(height: 24.h),
-                    AbsorbPointer(
-                      absorbing: isMultiplayerAnswerSelected == true ||
-                          selectedMultipleOption == null,
-                      child: Opacity(
-                        opacity: (isMultiplayerAnswerSelected == false &&
-                                selectedMultipleOption != null)
-                            ? 1
-                            : 0.4,
-                        child: Button(
-                          label: voteYr,
-                          onPressed: () async {
-                            await Future.delayed(1.seconds);
-                            setState(() {
-                              isMultiplayerAnswerSelected = true;
-                            });
-                            await Future.delayed(3.seconds).then((_) {
-                              if (context.mounted) {
-                                showModalBottomSheet(
-                                  context: context,
-                                  isDismissible: false,
-                                  barrierColor: AppColors.transparent,
-                                  builder: (context) => const PerformanceModal(
-                                    type: 'success',
-                                  ),
-                                ).then((_) {
-                                  setState(() {
-                                    isMultiplayerAnswerSelected = false;
-                                    selectedMultipleOption = null;
-                                  });
-                                });
-                              }
-                            });
-                          },
-                          onLongPress: () async {
-                            await Future.delayed(1.seconds);
-                            setState(() {
-                              isMultiplayerAnswerSelected = true;
-                            });
-                            await Future.delayed(3.seconds).then((_) {
-                              if (context.mounted) {
-                                showModalBottomSheet(
-                                  context: context,
-                                  isDismissible: false,
-                                  barrierColor: AppColors.transparent,
-                                  builder: (context) => const PerformanceModal(
-                                    type: 'failure',
-                                  ),
-                                ).then((_) {
-                                  setState(() {
-                                    isMultiplayerAnswerSelected = false;
-                                    selectedMultipleOption = null;
-                                  });
-                                });
-                              }
-                            });
-                          },
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: context.btmPadding),
-                  ],
-                ),
-              ),
-          ],
+              // if (widget.isTeamLeader)
+              //   Container(
+              //     padding: const EdgeInsets.symmetric(horizontal: 20),
+              //     decoration: BoxDecoration(
+              //       color: AppColors.white,
+              //       boxShadow: [
+              //         BoxShadow(
+              //           color: AppColors.black.withValues(alpha: 0.15),
+              //           blurRadius: 11,
+              //           spreadRadius: 1,
+              //         ),
+              //       ],
+              //     ),
+              //     child: Column(
+              //       mainAxisSize: MainAxisSize.min,
+              //       children: [
+              //         const SizedBox(height: 20),
+              //         Row(
+              //           mainAxisSize: MainAxisSize.min,
+              //           children: [
+              //             AppAssets.images.svgs.thumbs.svg(),
+              //             const SizedBox(width: 5),
+              //             Text(
+              //               'Final Answer',
+              //               textAlign: TextAlign.center,
+              //               style: context.textTheme.bodyMedium!.copyWith(
+              //                 fontWeight: FontWeight.w400,
+              //               ),
+              //             ),
+              //           ],
+              //         ),
+              //         SizedBox(height: 16.h),
+              //         Text(
+              //           'Select your teams final answer',
+              //           textAlign: TextAlign.center,
+              //           style: context.textTheme.bodyMedium!.copyWith(
+              //             fontWeight: FontWeight.w300,
+              //           ),
+              //         ),
+              //         SizedBox(height: 24.h),
+              //         AbsorbPointer(
+              //           absorbing: isMultiplayerAnswerSelected == true ||
+              //               selectedMultipleOption == null,
+              //           child: Opacity(
+              //             opacity: (isMultiplayerAnswerSelected == false &&
+              //                     selectedMultipleOption != null)
+              //                 ? 1
+              //                 : 0.4,
+              //             child: Button(
+              //               label: voteYr,
+              //               onPressed: () async {
+              //                 await Future.delayed(1.seconds);
+              //                 setState(() {
+              //                   isMultiplayerAnswerSelected = true;
+              //                 });
+              //                 await Future.delayed(3.seconds).then((_) {
+              //                   if (context.mounted) {
+              //                     showModalBottomSheet(
+              //                       context: context,
+              //                       isDismissible: false,
+              //                       barrierColor: AppColors.transparent,
+              //                       builder: (context) => const PerformanceModal(
+              //                         type: 'success',
+              //                       ),
+              //                     ).then((_) {
+              //                       setState(() {
+              //                         isMultiplayerAnswerSelected = false;
+              //                         selectedMultipleOption = null;
+              //                       });
+              //                     });
+              //                   }
+              //                 });
+              //               },
+              //               onLongPress: () async {
+              //                 await Future.delayed(1.seconds);
+              //                 setState(() {
+              //                   isMultiplayerAnswerSelected = true;
+              //                 });
+              //                 await Future.delayed(3.seconds).then((_) {
+              //                   if (context.mounted) {
+              //                     showModalBottomSheet(
+              //                       context: context,
+              //                       isDismissible: false,
+              //                       barrierColor: AppColors.transparent,
+              //                       builder: (context) => const PerformanceModal(
+              //                         type: 'failure',
+              //                       ),
+              //                     ).then((_) {
+              //                       setState(() {
+              //                         isMultiplayerAnswerSelected = false;
+              //                         selectedMultipleOption = null;
+              //                       });
+              //                     });
+              //                   }
+              //                 });
+              //               },
+              //             ),
+              //           ),
+              //         ),
+              //         SizedBox(height: context.btmPadding),
+              //       ],
+              //     ),
+              //   ),
+            ],
+          ),
         ),
       ),
     );
