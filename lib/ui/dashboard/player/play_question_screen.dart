@@ -381,10 +381,16 @@ class __PlayQuestionScreenState extends State<__PlayQuestionScreen>
                                                 ? questions[
                                                     currentQuestionIndex]
                                                 : null;
-                                        final currentQuestionText =
-                                            '${currentQuestion?.question.titleCase() ?? ''}?';
+                                        final currentQuestionText = (currentQuestion
+                                                    ?.question
+                                                    .contains('?') ??
+                                                false)
+                                            ? currentQuestion?.question
+                                                    .capitalize() ??
+                                                ''
+                                            : '${currentQuestion?.question.capitalize()}?';
                                         final currentAltQuestionText =
-                                            '${currentQuestion?.translateQuestion.titleCase() ?? ''}?';
+                                            '${currentQuestion?.translateQuestion.capitalize() ?? ''}?';
                                         final answer = currentQuestion?.answer;
 
                                         if (answer?.isNotEmpty ?? false) {

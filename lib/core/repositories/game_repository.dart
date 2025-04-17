@@ -188,9 +188,9 @@ class GameRepository {
 
   /// Get player rewards
   ///
-  /// Returns void on success.
+  /// Returns [PlayerStat] on success.
   /// Throws [GameException] when operation fails.
-  Future<void> getPlayerRewards({
+  Future<PlayerStat> getPlayerRewards({
     required String token,
   }) async {
     try {
@@ -200,12 +200,12 @@ class GameRepository {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer $token',
       };
-      return await APIHelper.request<void>(
+      return await APIHelper.request<PlayerStat>(
         request: _client.get(
           Uri.parse(url),
           headers: headers,
         ),
-        onSuccessMap: (value) {},
+        onSuccessMap: PlayerStat.fromJson,
       );
     } on APIException catch (e) {
       throw GameException(message: e.message);

@@ -29,6 +29,7 @@ class _PlayerGameAnalyticsScreen extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final mqr = MediaQuery.of(context).size;
     final currentLocale = context.currentLocale;
 
     useEffect(
@@ -44,113 +45,233 @@ class _PlayerGameAnalyticsScreen extends HookWidget {
         child: Column(
           children: [
             SizedBox(height: context.topPadding),
-            Align(
-              alignment: Alignment.topRight,
-              child: Padding(
-                padding: const EdgeInsets.only(right: 16),
-                child: InkWell(
-                  onTap: () => Share.share('See my team topping on Masoyinbo'),
-                  customBorder: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(4),
-                  ),
-                  splashColor: AppColors.black15.withValues(alpha: 0.1),
-                  highlightColor: AppColors.black15.withValues(alpha: 0.1),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 8,
-                      horizontal: 6,
+            Expanded(
+              child: BlocBuilder<PlayerRewardsCubit, PlayerRewardsState>(
+                builder: (context, state) {
+                  return state.maybeWhen(
+                    error: (error) => Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 15),
+                          child: Text(
+                            error ?? '',
+                            textScaler: TextScaler.noScaling,
+                            textAlign: TextAlign.center,
+                            style: context.textTheme.bodyLarge,
+                          ),
+                        ),
+                        const SizedBox(height: 20),
+                        Button(
+                          width: mqr.width * 0.4,
+                          label: context.appLocale.retry,
+                          onPressed: () => context
+                              .read<PlayerRewardsCubit>()
+                              .getPlayerRewards(),
+                        ),
+                      ],
                     ),
-                    child: AppAssets.images.svgs.share.svg(),
-                  ),
-                ),
+                    loading: () => const Center(
+                      child: CustomSpinner(color: AppColors.black),
+                    ),
+                    orElse: SizedBox.new,
+                    loaded: (playerStat) {
+                      final isGoodPerformance = playerStat.accuracy > 50;
+                      return Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 26.w),
+                        child: Column(
+                          children: [
+                            Align(
+                              alignment: Alignment.topRight,
+                              child: InkWell(
+                                onTap: () => Share.share(
+                                  'See my performance on Masoyinbo',
+                                ),
+                                customBorder: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(4),
+                                ),
+                                splashColor:
+                                    AppColors.black15.withValues(alpha: 0.1),
+                                highlightColor:
+                                    AppColors.black15.withValues(alpha: 0.1),
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                    vertical: 8,
+                                    horizontal: 6,
+                                  ),
+                                  child: AppAssets.images.svgs.share.svg(),
+                                ),
+                              ),
+                            ),
+                            SizedBox(height: 10.h),
+                            if (isGoodPerformance)
+                              AppAssets.images.jpegs.happyEmoji.image(
+                                scale: 2.w,
+                              )
+                            else
+                              AppAssets.images.jpegs.sadEmoji.image(
+                                scale: 2.w,
+                              ),
+                            SizedBox(height: 20.h),
+                            Text(
+                              isGoodPerformance
+                                  ? context.appLocale.welldone
+                                  : context.appLocale.gameOver,
+                              textScaler: TextScaler.noScaling,
+                              style: context.textTheme.titleLarge!.copyWith(
+                                fontFamily: FontFamily.margarine,
+                              ),
+                            ),
+                            const SizedBox(height: 8),
+                            Text(
+                              isGoodPerformance
+                                  ? context.appLocale.proudOfYourProgress
+                                  : context.appLocale.dontGiveUp,
+                              textAlign: TextAlign.center,
+                              textScaler: TextScaler.noScaling,
+                              style: context.textTheme.bodyMedium!.copyWith(
+                                fontWeight: FontWeight.w300,
+                              ),
+                            ),
+                            SizedBox(height: 28.h),
+                            _AnalyticsWidget(
+                              icon: AppAssets.images.jpegs.coin2.image(
+                                width: 32.w,
+                                height: 32.w,
+                              ),
+                              title: context.appLocale.coinsEarned,
+                              value: playerStat.coins.toString(),
+                            ),
+                            const SizedBox(height: 8),
+                            _AnalyticsWidget(
+                              icon: AppAssets.images.svgs.accuracy.svg(),
+                              title: context.appLocale.accuracy,
+                              value: playerStat.accuracy.toString(),
+                            ),
+                            const SizedBox(height: 8),
+                            _AnalyticsWidget(
+                              icon: AppAssets.images.svgs.hourGlass.svg(),
+                              title: context.appLocale.timeSpent,
+                              value: playerStat.timeSpent.isEmpty
+                                  ? '- : -'
+                                  : playerStat.timeSpent,
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                  );
+                },
               ),
             ),
-            SizedBox(height: 20.h),
-            Expanded(
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 26.w),
-                child: Column(
-                  children: [
-                    AppAssets.images.jpegs.heartBroken.image(
-                      scale: 2.w,
-                    ),
-                    SizedBox(height: 10.h),
-                    Text(
-                      context.appLocale.noMoreOpportunities,
-                      textScaler: TextScaler.noScaling,
-                      style: context.textTheme.titleLarge!.copyWith(
-                        fontFamily: FontFamily.margarine,
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                    Text(
-                      context.appLocale.ifYouDontSucceedThisTime,
-                      textAlign: TextAlign.center,
-                      textScaler: TextScaler.noScaling,
-                      style: context.textTheme.bodyMedium!.copyWith(
-                        fontWeight: FontWeight.w300,
-                      ),
-                    ),
-                    SizedBox(height: 10.h),
-                    const Spacer(),
-                    Button(
-                      label: '',
-                      onPressed: () => context.pop(),
-                      child: RichText(
-                        text: TextSpan(
-                          style: context.textTheme.bodyMedium!.copyWith(
-                            color: AppColors.white,
-                          ),
-                          children: [
-                            TextSpan(text: context.appLocale.playAgain),
-                            TextSpan(
-                              text:
-                                  ' (${currentLocale == yo ? context.enLocale.playAgain : context.yoLocale.playAgain})',
-                              style: context.textTheme.bodySmall!.copyWith(
-                                color: AppColors.white,
-                                fontWeight: FontWeight.w300,
-                              ),
-                            ),
-                          ],
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 26.w),
+              child: Column(
+                children: [
+                  Button(
+                    label: '',
+                    onPressed: () => context.pop(),
+                    child: RichText(
+                      text: TextSpan(
+                        style: context.textTheme.bodyMedium!.copyWith(
+                          color: AppColors.white,
                         ),
-                      ),
-                    ),
-                    SizedBox(height: 24.h),
-                    Button(
-                      label: '',
-                      isOutlined: true,
-                      labelColor: AppColors.black15,
-                      onPressed: () => Navigator.popUntil(
-                        context,
-                        (route) =>
-                            route.settings.name == DashboardIndexScreen.id,
-                      ),
-                      child: RichText(
-                        text: TextSpan(
-                          style: context.textTheme.bodyMedium!.copyWith(
-                            color: AppColors.black15,
-                          ),
-                          children: [
-                            TextSpan(text: context.appLocale.backToHome),
-                            TextSpan(
-                              text:
-                                  ' (${currentLocale == yo ? context.enLocale.backToHome : context.yoLocale.backToHome})',
-                              style: context.textTheme.bodySmall!.copyWith(
-                                color: AppColors.black15,
-                                fontWeight: FontWeight.w300,
-                              ),
+                        children: [
+                          TextSpan(text: context.appLocale.playAgain),
+                          TextSpan(
+                            text:
+                                ' (${currentLocale == yo ? context.enLocale.playAgain : context.yoLocale.playAgain})',
+                            style: context.textTheme.bodySmall!.copyWith(
+                              color: AppColors.white,
+                              fontWeight: FontWeight.w300,
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                  SizedBox(height: 24.h),
+                  Button(
+                    label: '',
+                    isOutlined: true,
+                    labelColor: AppColors.black15,
+                    onPressed: () => Navigator.popUntil(
+                      context,
+                      (route) => route.settings.name == DashboardIndexScreen.id,
+                    ),
+                    child: RichText(
+                      text: TextSpan(
+                        style: context.textTheme.bodyMedium!.copyWith(
+                          color: AppColors.black15,
+                        ),
+                        children: [
+                          TextSpan(text: context.appLocale.backToHome),
+                          TextSpan(
+                            text:
+                                ' (${currentLocale == yo ? context.enLocale.backToHome : context.yoLocale.backToHome})',
+                            style: context.textTheme.bodySmall!.copyWith(
+                              color: AppColors.black15,
+                              fontWeight: FontWeight.w300,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
             SizedBox(height: context.btmPadding),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class _AnalyticsWidget extends StatelessWidget {
+  const _AnalyticsWidget({
+    required this.icon,
+    required this.title,
+    required this.value,
+  });
+
+  final Widget icon;
+  final String title;
+  final String value;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(8),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(
+          color: AppColors.greyB6,
+          width: 0.6,
+        ),
+      ),
+      child: Row(
+        children: [
+          icon,
+          const SizedBox(width: 8),
+          Text(
+            title,
+            textScaler: TextScaler.noScaling,
+            style: context.textTheme.bodySmall!.copyWith(
+              fontWeight: FontWeight.w500,
+              color: AppColors.grey95,
+            ),
+          ),
+          const Spacer(),
+          Text(
+            value,
+            textScaler: TextScaler.noScaling,
+            style: context.textTheme.bodyMedium!.copyWith(
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+        ],
       ),
     );
   }

@@ -248,6 +248,10 @@ class $AssetsImagesJpegsGen {
 class $AssetsImagesSvgsGen {
   const $AssetsImagesSvgsGen();
 
+  /// File path: assets/images/svgs/accuracy.svg
+  SvgGenImage get accuracy =>
+      const SvgGenImage('assets/images/svgs/accuracy.svg');
+
   /// File path: assets/images/svgs/bolt.svg
   SvgGenImage get bolt => const SvgGenImage('assets/images/svgs/bolt.svg');
 
@@ -291,6 +295,10 @@ class $AssetsImagesSvgsGen {
   /// File path: assets/images/svgs/home_bold.svg
   SvgGenImage get homeBold =>
       const SvgGenImage('assets/images/svgs/home_bold.svg');
+
+  /// File path: assets/images/svgs/hour_glass.svg
+  SvgGenImage get hourGlass =>
+      const SvgGenImage('assets/images/svgs/hour_glass.svg');
 
   /// File path: assets/images/svgs/leader_board.svg
   SvgGenImage get leaderBoard =>
@@ -343,6 +351,7 @@ class $AssetsImagesSvgsGen {
 
   /// List of all assets
   List<SvgGenImage> get values => [
+        accuracy,
         bolt,
         bookmark,
         bookmarked,
@@ -356,6 +365,7 @@ class $AssetsImagesSvgsGen {
         heartSlash,
         home,
         homeBold,
+        hourGlass,
         leaderBoard,
         leaderBoardBold,
         learn,

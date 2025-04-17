@@ -27,10 +27,10 @@ class PlayerRewardsCubit extends Cubit<PlayerRewardsState> {
       emit(const _Loading());
       final user = UserHelper.fetchUser(authBloc: _authBloc);
       if (user == null) return;
-      await _gameRepository.getPlayerRewards(
+      final apiResponse = await _gameRepository.getPlayerRewards(
         token: user.token,
       );
-      emit(const _Loaded());
+      emit(_Loaded(playerStat: apiResponse));
     } on GameException catch (e) {
       emit(_Error(error: e.message));
     } on AuthException catch (e) {
