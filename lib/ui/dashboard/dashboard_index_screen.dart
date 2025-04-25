@@ -22,6 +22,15 @@ class DashboardIndexScreen extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final currentPosition = useState(initialIndex);
+
+    useEffect(
+      () {
+        context.read<ModuleAndDifficultyCubit>().getSectionsAndDifficulty();
+        return null;
+      },
+      [],
+    );
+
     return BlocListener<AuthBloc, AuthState>(
       listener: (context, state) {
         state.maybeWhen(

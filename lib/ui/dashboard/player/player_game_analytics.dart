@@ -146,7 +146,7 @@ class _PlayerGameAnalyticsScreen extends HookWidget {
                             _AnalyticsWidget(
                               icon: AppAssets.images.svgs.accuracy.svg(),
                               title: context.appLocale.accuracy,
-                              value: playerStat.accuracy.toString(),
+                              value: '${playerStat.accuracy}%',
                             ),
                             const SizedBox(height: 8),
                             _AnalyticsWidget(

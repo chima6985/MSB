@@ -16,11 +16,13 @@ class PlayerScreen extends StatelessWidget {
     this.isPractice = false,
     this.isSinglePlayer = false,
     this.isMultiPlayer = false,
+    this.section,
   });
 
   final bool isPractice;
   final bool isSinglePlayer;
   final bool isMultiPlayer;
+  final Section? section;
 
   static const String id = 'playerScreen';
 
@@ -33,16 +35,12 @@ class PlayerScreen extends StatelessWidget {
             authBloc: context.read(),
           ),
         ),
-        BlocProvider(
-          create: (context) => ModuleAndDifficultyCubit(
-            authBloc: context.read(),
-          ),
-        ),
       ],
       child: _PlayerScreen(
         isPractice: isPractice,
         isSinglePlayer: isSinglePlayer,
         isMultiPlayer: isMultiPlayer,
+        section: section,
       ),
     );
   }
@@ -53,32 +51,35 @@ class _PlayerScreen extends HookWidget {
     required this.isPractice,
     required this.isSinglePlayer,
     required this.isMultiPlayer,
+    this.section,
   });
 
   final bool isPractice;
   final bool isSinglePlayer;
   final bool isMultiPlayer;
+  final Section? section;
 
   @override
   Widget build(BuildContext context) {
     final currentLocale = context.currentLocale;
-    final selectedPracticeSection = useState('');
+    final isTimedPacticeMode = useState<bool?>(null);
     final isTeamMode = useState<bool?>(null);
     final isTeamFormationAutomatic = useState<bool?>(null);
     final mqr = MediaQuery.of(context).size;
     final selectedDifficulty = useState<Difficulty?>(null);
-    final selectedSection = useState<Section?>(null);
+    final selectedSection = useState<Section?>(section);
     final categoryScrollController = useScrollController();
     final difficultyLevelScrollController = useScrollController();
     final isLoading = useState(false);
-
-    useEffect(
-      () {
-        context.read<ModuleAndDifficultyCubit>().getSectionsAndDifficulty();
-        return null;
-      },
-      [],
-    );
+    final pageTitle = isPractice
+        ? context.appLocale.practice
+        : isSinglePlayer
+            ? context.appLocale.singlePlayer
+            : context.appLocale.multiPlayer;
+    final moduleDifficulty =
+        context.read<ModuleAndDifficultyCubit>().state.whenOrNull(
+              loaded: (moduleDifficulty) => moduleDifficulty,
+            );
     return MultiBlocListener(
       listeners: [
         BlocListener<ResetUserStatsCubit, ResetUserStatsState>(
@@ -107,6 +108,7 @@ class _PlayerScreen extends HookWidget {
                   context.pushNamed(
                     PlayerIntroScreen.id,
                     extra: {
+                      'isTimed': isTimedPacticeMode.value,
                       'isPractice': true,
                       'questionSection': selectedSection.value,
                     },
@@ -154,6 +156,7 @@ class _PlayerScreen extends HookWidget {
                     PlayerIntroScreen.id,
                     extra: {
                       'isPractice': true,
+                      'isTimed': isTimedPacticeMode.value,
                       'questionSection': selectedSection.value,
                     },
                   );
@@ -174,6 +177,7 @@ class _PlayerScreen extends HookWidget {
       child: Scaffold(
         body: DecoratedContainer(
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(height: context.topPadding),
               Stack(
@@ -185,7 +189,7 @@ class _PlayerScreen extends HookWidget {
                       child: Column(
                         children: [
                           Text(
-                            context.appLocale.singlePlayer,
+                            pageTitle,
                             style: context.textTheme.titleLarge!.copyWith(
                               fontFamily: FontFamily.margarine,
                             ),
@@ -207,363 +211,311 @@ class _PlayerScreen extends HookWidget {
                 ],
               ),
               SizedBox(height: 40.h),
-              Expanded(
-                child: BlocBuilder<ModuleAndDifficultyCubit,
-                    ModuleAndDifficultyState>(
-                  builder: (context, state) {
-                    return state.maybeWhen(
-                      error: (error) => Column(
-                        children: [
-                          SizedBox(height: mqr.height * 0.2),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 15),
-                            child: Text(
-                              error ?? '',
-                              textScaler: TextScaler.noScaling,
-                              textAlign: TextAlign.center,
-                              style: context.textTheme.bodyLarge,
-                            ),
-                          ),
-                          const SizedBox(height: 20),
-                          Button(
-                            width: mqr.width * 0.4,
-                            label: context.appLocale.retry,
-                            onPressed: () => context
-                                .read<ModuleAndDifficultyCubit>()
-                                .getSectionsAndDifficulty(),
-                          ),
-                        ],
+              if (isPractice) ...[
+                Padding(
+                  padding: const EdgeInsets.only(left: 23, right: 10),
+                  child: RichText(
+                    text: TextSpan(
+                      style: context.textTheme.bodyLarge!.copyWith(
+                        fontWeight: FontWeight.w500,
                       ),
-                      loading: () => Column(
-                        children: [
-                          SizedBox(height: mqr.height * 0.2),
-                          const CustomSpinner(color: AppColors.black),
-                        ],
+                      children: [
+                        TextSpan(
+                          text: context.appLocale.selectPracticeMode,
+                        ),
+                        TextSpan(
+                          text:
+                              ' (${currentLocale == yo ? context.enLocale.selectPracticeMode : context.yoLocale.selectPracticeMode})',
+                          style: context.textTheme.bodySmall!.copyWith(
+                            fontSize: 13.5.sp,
+                            fontWeight: FontWeight.w300,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ] else
+                Padding(
+                  padding: const EdgeInsets.only(left: 23, right: 10),
+                  child: RichText(
+                    text: TextSpan(
+                      style: context.textTheme.bodyLarge!.copyWith(
+                        fontWeight: FontWeight.w500,
                       ),
-                      loaded: (sectionDifficulty) => Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(left: 23, right: 10),
-                            child: RichText(
-                              text: TextSpan(
-                                style: context.textTheme.bodyLarge!.copyWith(
-                                  fontWeight: FontWeight.w500,
-                                ),
-                                children: [
-                                  TextSpan(
-                                    text: context.appLocale.selectCategory,
-                                  ),
-                                  TextSpan(
-                                    text:
-                                        ' (${currentLocale == yo ? context.enLocale.selectCategory : context.yoLocale.selectCategory})',
-                                    style:
-                                        context.textTheme.bodySmall!.copyWith(
-                                      fontSize: 13.5.sp,
-                                      fontWeight: FontWeight.w300,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
+                      children: [
+                        TextSpan(
+                          text: context.appLocale.selectCategory,
+                        ),
+                        TextSpan(
+                          text:
+                              ' (${currentLocale == yo ? context.enLocale.selectCategory : context.yoLocale.selectCategory})',
+                          style: context.textTheme.bodySmall!.copyWith(
+                            fontSize: 13.5.sp,
+                            fontWeight: FontWeight.w300,
                           ),
-                          const SizedBox(height: 24),
-                          SingleChildScrollView(
-                            padding: EdgeInsets.only(left: 29.w),
-                            scrollDirection: Axis.horizontal,
-                            controller: categoryScrollController,
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                if (isPractice) ...[
-                                  CategoryWidget(
-                                    title: 'Timed',
-                                    isSelected: selectedPracticeSection.value ==
-                                        'timed',
-                                    onTap: () =>
-                                        selectedPracticeSection.value = 'timed',
-                                  ),
-                                  CategoryWidget(
-                                    title: 'Not timed',
-                                    isSelected: selectedPracticeSection.value ==
-                                        'not_timed',
-                                    onTap: () => selectedPracticeSection.value =
-                                        'not_timed',
-                                  ),
-                                ] else
-                                  ...sectionDifficulty.sections.map(
-                                    (section) => CategoryWidget(
-                                      title: currentLocale == yo
-                                          ? section.yorubaSectionName
-                                          : section.sectionName,
-                                      isSelected:
-                                          selectedSection.value == section,
-                                      onTap: () {
-                                        selectedSection.value = section;
-                                      },
-                                    ),
-                                  ),
-                              ],
-                            ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              const SizedBox(height: 24),
+              SingleChildScrollView(
+                padding: EdgeInsets.only(left: 29.w),
+                scrollDirection: Axis.horizontal,
+                controller: categoryScrollController,
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    if (isPractice) ...[
+                      CategoryWidget(
+                        title: 'Timed',
+                        isSelected: isTimedPacticeMode.value == true,
+                        onTap: () => isTimedPacticeMode.value = true,
+                      ),
+                      CategoryWidget(
+                        title: 'Not timed',
+                        isSelected: isTimedPacticeMode.value == false,
+                        onTap: () => isTimedPacticeMode.value = false,
+                      ),
+                    ] else
+                      ...moduleDifficulty!.sections.map(
+                        (section) => CategoryWidget(
+                          title: currentLocale == yo
+                              ? section.yorubaSectionName
+                              : section.sectionName,
+                          isSelected: selectedSection.value == section,
+                          onTap: () {
+                            selectedSection.value = section;
+                          },
+                        ),
+                      ),
+                  ],
+                ),
+              ),
+              SizedBox(height: 40.h),
+              Padding(
+                padding: const EdgeInsets.only(left: 23, right: 10),
+                child: RichText(
+                  text: TextSpan(
+                    style: context.textTheme.bodyLarge!.copyWith(
+                      fontWeight: FontWeight.w500,
+                    ),
+                    children: [
+                      TextSpan(
+                        text: context.appLocale.selectDifficulty,
+                      ),
+                      TextSpan(
+                        text:
+                            ' (${currentLocale == yo ? context.enLocale.selectDifficulty : context.yoLocale.selectDifficulty})',
+                        style: context.textTheme.bodySmall!.copyWith(
+                          fontSize: 13.5.sp,
+                          fontWeight: FontWeight.w300,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              const SizedBox(height: 24),
+              SingleChildScrollView(
+                padding: EdgeInsets.only(left: 40.w),
+                scrollDirection: Axis.horizontal,
+                controller: difficultyLevelScrollController,
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    ...moduleDifficulty!.difficulties.map(
+                      (difficulty) => _SelectDifficultyWidget(
+                        difficulty: difficulty,
+                        isSelected: selectedDifficulty.value == difficulty,
+                        onTap: () {
+                          selectedDifficulty.value = difficulty;
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              if (isMultiPlayer) ...[
+                Padding(
+                  padding: const EdgeInsets.only(left: 23, right: 10),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const SizedBox(height: 24),
+                      RichText(
+                        text: TextSpan(
+                          style: context.textTheme.bodyLarge!.copyWith(
+                            fontWeight: FontWeight.w500,
                           ),
-                          SizedBox(height: 40.h),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 23, right: 10),
-                            child: RichText(
-                              text: TextSpan(
-                                style: context.textTheme.bodyLarge!.copyWith(
-                                  fontWeight: FontWeight.w500,
-                                ),
-                                children: [
-                                  TextSpan(
-                                    text: context.appLocale.selectDifficulty,
-                                  ),
-                                  TextSpan(
-                                    text:
-                                        ' (${currentLocale == yo ? context.enLocale.selectDifficulty : context.yoLocale.selectDifficulty})',
-                                    style:
-                                        context.textTheme.bodySmall!.copyWith(
-                                      fontSize: 13.5.sp,
-                                      fontWeight: FontWeight.w300,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          const SizedBox(height: 24),
-                          SingleChildScrollView(
-                            padding: EdgeInsets.only(left: 40.w),
-                            scrollDirection: Axis.horizontal,
-                            controller: difficultyLevelScrollController,
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                ...sectionDifficulty.difficulties.map(
-                                  (difficulty) => _SelectDifficultyWidget(
-                                    difficulty: difficulty,
-                                    isSelected:
-                                        selectedDifficulty.value == difficulty,
-                                    onTap: () {
-                                      selectedDifficulty.value = difficulty;
-                                    },
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          if (isMultiPlayer) ...[
-                            Padding(
-                              padding:
-                                  const EdgeInsets.only(left: 23, right: 10),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  const SizedBox(height: 24),
-                                  RichText(
-                                    text: TextSpan(
-                                      style:
-                                          context.textTheme.bodyLarge!.copyWith(
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                      children: [
-                                        const TextSpan(text: teamModeYr),
-                                        TextSpan(
-                                          text: ' ()',
-                                          style: context.textTheme.bodySmall!
-                                              .copyWith(
-                                            fontSize: 13.5.sp,
-                                            fontWeight: FontWeight.w300,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  const SizedBox(height: 2),
-                                  RichText(
-                                    text: TextSpan(
-                                      style:
-                                          context.textTheme.bodySmall!.copyWith(
-                                        fontWeight: FontWeight.w500,
-                                        fontStyle: FontStyle.italic,
-                                      ),
-                                      children: [
-                                        const TextSpan(
-                                          text: '(Optional: ',
-                                        ),
-                                        TextSpan(
-                                          text: ' )',
-                                          style: context.textTheme.bodySmall!
-                                              .copyWith(
-                                            fontWeight: FontWeight.w300,
-                                            fontStyle: FontStyle.italic,
-                                            color: AppColors.black
-                                                .withValues(alpha: 0.7),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  const SizedBox(height: 16),
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 12),
-                                    child: Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        SelectFilledCategoryWidget(
-                                          title: 'On',
-                                          isSelected: isTeamMode.value == true,
-                                          onTap: () => isTeamMode.value = true,
-                                        ),
-                                        SelectFilledCategoryWidget(
-                                          title: 'Off',
-                                          isSelected: isTeamMode.value == false,
-                                          onTap: () => isTeamMode.value = false,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  SizedBox(height: 25.h),
-                                  if (isTeamMode.value != false) ...[
-                                    const SizedBox(height: 24),
-                                    RichText(
-                                      text: TextSpan(
-                                        style: context.textTheme.bodyLarge!
-                                            .copyWith(
-                                          fontWeight: FontWeight.w500,
-                                        ),
-                                        children: [
-                                          const TextSpan(text: teamFormationYr),
-                                          TextSpan(
-                                            text: ' ()',
-                                            style: context.textTheme.bodySmall!
-                                                .copyWith(
-                                              fontSize: 13.5.sp,
-                                              fontWeight: FontWeight.w300,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    const SizedBox(height: 16),
-                                    Padding(
-                                      padding: const EdgeInsets.only(left: 12),
-                                      child: Row(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          SelectFilledCategoryWidget(
-                                            title: automaticYr,
-                                            isSelected: isTeamFormationAutomatic
-                                                    .value ==
-                                                true,
-                                            onTap: () =>
-                                                isTeamFormationAutomatic.value =
-                                                    true,
-                                          ),
-                                          SelectFilledCategoryWidget(
-                                            title: manualYr,
-                                            isSelected: isTeamFormationAutomatic
-                                                    .value ==
-                                                false,
-                                            onTap: () =>
-                                                isTeamFormationAutomatic.value =
-                                                    false,
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ],
+                          children: [
+                            const TextSpan(text: teamModeYr),
+                            TextSpan(
+                              text: ' ()',
+                              style: context.textTheme.bodySmall!.copyWith(
+                                fontSize: 13.5.sp,
+                                fontWeight: FontWeight.w300,
                               ),
                             ),
                           ],
-                          const Spacer(),
-                          Center(
-                            child: Button(
-                              label: isMultiPlayer
-                                  ? context.appLocale.multiPlayer
-                                  : '',
-                              width: mqr.width * 0.85,
-                              isLoading: isLoading.value,
-                              onPressed: () {
-                                if (isMultiPlayer) {
-                                  context.pushNamed(
-                                    GameRoomCreatedScreen.id,
-                                    extra: {
-                                      'isTeamMode': isTeamMode.value,
-                                      'isTeamFormationAutomatic':
-                                          isTeamFormationAutomatic.value ??
-                                              false,
-                                    },
-                                  );
-                                }
-                                if (isSinglePlayer) {
-                                  if (selectedDifficulty.value == null) {
-                                    ToastMessage.showWarning(
-                                      context: context,
-                                      text: context.appLocale
-                                          .pleaseChooseDifficultyLevel,
-                                    );
-                                    return;
-                                  }
-                                  if (selectedSection.value == null) {
-                                    ToastMessage.showWarning(
-                                      context: context,
-                                      text: context
-                                          .appLocale.pleaseChooseCategory,
-                                    );
-                                    return;
-                                  }
-                                  context
-                                      .read<ResetUserStatsCubit>()
-                                      .resetUserStats();
-                                }
-                                if (isPractice) {
-                                  context.pushNamed(
-                                    PlayerIntroScreen.id,
-                                    extra: {
-                                      'isPractice': true,
-                                      'questionSection': selectedSection.value,
-                                    },
-                                  );
-                                }
-                              },
-                              child: !isMultiPlayer
-                                  ? RichText(
-                                      text: TextSpan(
-                                        style: context.textTheme.bodyMedium!
-                                            .copyWith(
-                                          color: AppColors.white,
-                                        ),
-                                        children: [
-                                          TextSpan(
-                                            text: context.appLocale.continueTx,
-                                          ),
-                                          TextSpan(
-                                            text:
-                                                ' (${currentLocale == yo ? context.enLocale.continueTx : context.yoLocale.continueTx})',
-                                            style: context.textTheme.bodySmall!
-                                                .copyWith(
-                                              color: AppColors.white,
-                                              fontWeight: FontWeight.w300,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    )
-                                  : null,
-                            ),
-                          ),
-                          SizedBox(height: context.btmPadding),
-                        ],
+                        ),
                       ),
-                      orElse: SizedBox.new,
-                    );
+                      const SizedBox(height: 2),
+                      RichText(
+                        text: TextSpan(
+                          style: context.textTheme.bodySmall!.copyWith(
+                            fontWeight: FontWeight.w500,
+                            fontStyle: FontStyle.italic,
+                          ),
+                          children: [
+                            const TextSpan(
+                              text: '(Optional: ',
+                            ),
+                            TextSpan(
+                              text: ' )',
+                              style: context.textTheme.bodySmall!.copyWith(
+                                fontWeight: FontWeight.w300,
+                                fontStyle: FontStyle.italic,
+                                color: AppColors.black.withValues(alpha: 0.7),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 12),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SelectFilledCategoryWidget(
+                              title: 'On',
+                              isSelected: isTeamMode.value == true,
+                              onTap: () => isTeamMode.value = true,
+                            ),
+                            SelectFilledCategoryWidget(
+                              title: 'Off',
+                              isSelected: isTeamMode.value == false,
+                              onTap: () => isTeamMode.value = false,
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(height: 25.h),
+                      if (isTeamMode.value != false) ...[
+                        const SizedBox(height: 24),
+                        RichText(
+                          text: TextSpan(
+                            style: context.textTheme.bodyLarge!.copyWith(
+                              fontWeight: FontWeight.w500,
+                            ),
+                            children: [
+                              const TextSpan(text: teamFormationYr),
+                              TextSpan(
+                                text: ' ()',
+                                style: context.textTheme.bodySmall!.copyWith(
+                                  fontSize: 13.5.sp,
+                                  fontWeight: FontWeight.w300,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(height: 16),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 12),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SelectFilledCategoryWidget(
+                                title: automaticYr,
+                                isSelected:
+                                    isTeamFormationAutomatic.value == true,
+                                onTap: () =>
+                                    isTeamFormationAutomatic.value = true,
+                              ),
+                              SelectFilledCategoryWidget(
+                                title: manualYr,
+                                isSelected:
+                                    isTeamFormationAutomatic.value == false,
+                                onTap: () =>
+                                    isTeamFormationAutomatic.value = false,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ],
+                  ),
+                ),
+              ],
+              const Spacer(),
+              Center(
+                child: Button(
+                  label: isMultiPlayer ? context.appLocale.multiPlayer : '',
+                  width: mqr.width * 0.85,
+                  isLoading: isLoading.value,
+                  onPressed: () {
+                    if (selectedSection.value == null) {
+                      ToastMessage.showWarning(
+                        context: context,
+                        text: context.appLocale.pleaseChooseCategory,
+                      );
+                      return;
+                    }
+                    if (isPractice && isTimedPacticeMode.value == null) {
+                      ToastMessage.showWarning(
+                        context: context,
+                        text: context.appLocale.pleaseSelectPracticeMode,
+                      );
+                      return;
+                    }
+                    if (selectedDifficulty.value == null) {
+                      ToastMessage.showWarning(
+                        context: context,
+                        text: context.appLocale.pleaseChooseDifficultyLevel,
+                      );
+                      return;
+                    }
+
+                    if (isMultiPlayer) {
+                      context.pushNamed(
+                        GameRoomCreatedScreen.id,
+                        extra: {
+                          'isTeamMode': isTeamMode.value,
+                          'isTeamFormationAutomatic':
+                              isTeamFormationAutomatic.value ?? false,
+                        },
+                      );
+                    }
+                    context.read<ResetUserStatsCubit>().resetUserStats();
                   },
+                  child: !isMultiPlayer
+                      ? RichText(
+                          text: TextSpan(
+                            style: context.textTheme.bodyMedium!.copyWith(
+                              color: AppColors.white,
+                            ),
+                            children: [
+                              TextSpan(
+                                text: context.appLocale.continueTx,
+                              ),
+                              TextSpan(
+                                text:
+                                    ' (${currentLocale == yo ? context.enLocale.continueTx : context.yoLocale.continueTx})',
+                                style: context.textTheme.bodySmall!.copyWith(
+                                  color: AppColors.white,
+                                  fontWeight: FontWeight.w300,
+                                ),
+                              ),
+                            ],
+                          ),
+                        )
+                      : null,
                 ),
               ),
+              SizedBox(height: context.btmPadding),
             ],
           ),
         ),

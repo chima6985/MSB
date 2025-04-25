@@ -76,6 +76,11 @@ class MyApp extends StatelessWidget {
                 authBloc: context.read(),
               ),
             ),
+            BlocProvider(
+              create: (context) => ModuleAndDifficultyCubit(
+                authBloc: context.read(),
+              ),
+            ),
           ],
           child: Unfocus(
             child: BlocBuilder<LocaleBloc, LocaleState>(

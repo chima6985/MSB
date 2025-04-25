@@ -23,7 +23,6 @@ class Home extends HookWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 23),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(height: context.topPadding),
             if (isShowEmailVerify.value)
@@ -61,11 +60,16 @@ class Home extends HookWidget {
             SizedBox(height: 16.h),
             Row(
               children: [
-                Text(
-                  greetings.first,
-                  textScaler: TextScaler.noScaling,
-                  style: context.textTheme.titleLarge!.copyWith(
-                    fontFamily: FontFamily.margarine,
+                GestureDetector(
+                  onTap: () => context
+                      .read<ModuleAndDifficultyCubit>()
+                      .getSectionsAndDifficulty(),
+                  child: Text(
+                    greetings.first,
+                    textScaler: TextScaler.noScaling,
+                    style: context.textTheme.titleLarge!.copyWith(
+                      fontFamily: FontFamily.margarine,
+                    ),
                   ),
                 ),
                 const Spacer(),
@@ -101,278 +105,330 @@ class Home extends HookWidget {
               ],
             ),
             const SizedBox(height: 4),
-            Text(
-              greetings.last,
-              textScaler: TextScaler.noScaling,
-              style: context.textTheme.bodyMedium,
-            ),
-            if (isShowLessonsWidget.value) ...[
-              SizedBox(height: 26.h),
-              RichText(
-                text: TextSpan(
-                  style: context.textTheme.bodyLarge!.copyWith(
-                    fontFamily: FontFamily.margarine,
-                  ),
-                  children: [
-                    TextSpan(text: context.appLocale.lesson),
-                    TextSpan(
-                      text: ' (${context.appLocale.lesson})',
-                      style: context.textTheme.bodySmall!.copyWith(
-                        fontFamily: FontFamily.margarine,
-                      ),
-                    ),
-                  ],
-                ),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                greetings.last,
+                textScaler: TextScaler.noScaling,
+                style: context.textTheme.bodyMedium,
               ),
-              SizedBox(height: 10.h),
-              GestureDetector(
-                onTap: () {
-                  if (user == null) {
-                    Functions.showModalAuth(context);
-                  } else {
-                    context.pushNamed(ModuleScreen.id);
-                  }
-                },
-                child: Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                  decoration: BoxDecoration(
-                    color: AppColors.purpleF1,
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+            ),
+            BlocBuilder<ModuleAndDifficultyCubit, ModuleAndDifficultyState>(
+              builder: (context, state) {
+                return state.maybeWhen(
+                  error: (error) => Column(
                     children: [
-                      Text(
-                        context.appLocale.lesson1Of4,
-                        textScaler: TextScaler.noScaling,
-                        style: context.textTheme.bodySmall!.copyWith(
-                          fontWeight: FontWeight.w400,
+                      SizedBox(height: mqr.height * 0.2),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 15),
+                        child: Text(
+                          error ?? '',
+                          textScaler: TextScaler.noScaling,
+                          textAlign: TextAlign.center,
+                          style: context.textTheme.bodyLarge,
                         ),
                       ),
-                      Row(
-                        children: [
-                          Expanded(
-                            child: Stack(
-                              children: [
-                                Container(
-                                  clipBehavior: Clip.hardEdge,
-                                  height: 4.h,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(12),
-                                    color: AppColors.blue12
-                                        .withValues(alpha: 0.12),
-                                  ),
-                                ),
-                                Container(
-                                  width: 120,
-                                  height: 4.h,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(12),
-                                    color: AppColors.blue12,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          const SizedBox(width: 16),
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 5),
-                            child: Text(
-                              '12%',
-                              textScaler: TextScaler.noScaling,
-                              style: context.textTheme.bodyMedium,
-                            ),
-                          ),
-                        ],
+                      const SizedBox(height: 20),
+                      Button(
+                        width: mqr.width * 0.4,
+                        label: context.appLocale.retry,
+                        onPressed: () => context
+                            .read<ModuleAndDifficultyCubit>()
+                            .getSectionsAndDifficulty(),
                       ),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          AppAssets.images.jpegs.alphabet.image(
-                            width: 40.w,
-                            height: 40.w,
-                          ),
-                          const SizedBox(width: 12),
-                          Column(
-                            mainAxisSize: MainAxisSize.min,
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                    ],
+                  ),
+                  loading: () => Column(
+                    children: [
+                      SizedBox(height: mqr.height * 0.2),
+                      const CustomSpinner(color: AppColors.black),
+                    ],
+                  ),
+                  loaded: (sectionDifficulty) => Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      if (isShowLessonsWidget.value) ...[
+                        SizedBox(height: 26.h),
+                        RichText(
+                          text: TextSpan(
+                            style: context.textTheme.bodyLarge!.copyWith(
+                              fontFamily: FontFamily.margarine,
+                            ),
                             children: [
-                              Text(
-                                context.appLocale.alphabets,
-                                textScaler: TextScaler.noScaling,
-                                style: context.textTheme.bodyLarge!.copyWith(
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                              Text(
-                                context.appLocale.alphabets,
-                                textScaler: TextScaler.noScaling,
+                              TextSpan(text: context.appLocale.lesson),
+                              TextSpan(
+                                text: ' (${context.appLocale.lesson})',
                                 style: context.textTheme.bodySmall!.copyWith(
-                                  fontStyle: FontStyle.italic,
-                                  fontWeight: FontWeight.w300,
+                                  fontFamily: FontFamily.margarine,
                                 ),
                               ),
                             ],
                           ),
-                          const Spacer(),
-                          Text(
-                            context.appLocale.continueTx,
-                            textScaler: TextScaler.noScaling,
-                            style: context.textTheme.bodySmall!.copyWith(
-                              fontWeight: FontWeight.w500,
+                        ),
+                        SizedBox(height: 10.h),
+                        GestureDetector(
+                          onTap: () {
+                            if (user == null) {
+                              Functions.showModalAuth(context);
+                            } else {
+                              context.pushNamed(ModuleScreen.id);
+                            }
+                          },
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 16,
+                              vertical: 12,
+                            ),
+                            decoration: BoxDecoration(
+                              color: AppColors.purpleF1,
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  context.appLocale.lesson1Of4,
+                                  textScaler: TextScaler.noScaling,
+                                  style: context.textTheme.bodySmall!.copyWith(
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                ),
+                                Row(
+                                  children: [
+                                    Expanded(
+                                      child: Stack(
+                                        children: [
+                                          Container(
+                                            clipBehavior: Clip.hardEdge,
+                                            height: 4.h,
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(12),
+                                              color: AppColors.blue12
+                                                  .withValues(alpha: 0.12),
+                                            ),
+                                          ),
+                                          Container(
+                                            width: 120,
+                                            height: 4.h,
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(12),
+                                              color: AppColors.blue12,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    const SizedBox(width: 16),
+                                    Padding(
+                                      padding: const EdgeInsets.only(bottom: 5),
+                                      child: Text(
+                                        '12%',
+                                        textScaler: TextScaler.noScaling,
+                                        style: context.textTheme.bodyMedium,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  children: [
+                                    AppAssets.images.jpegs.alphabet.image(
+                                      width: 40.w,
+                                      height: 40.w,
+                                    ),
+                                    const SizedBox(width: 12),
+                                    Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          context.appLocale.alphabets,
+                                          textScaler: TextScaler.noScaling,
+                                          style: context.textTheme.bodyLarge!
+                                              .copyWith(
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                        ),
+                                        Text(
+                                          context.appLocale.alphabets,
+                                          textScaler: TextScaler.noScaling,
+                                          style: context.textTheme.bodySmall!
+                                              .copyWith(
+                                            fontStyle: FontStyle.italic,
+                                            fontWeight: FontWeight.w300,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    const Spacer(),
+                                    Text(
+                                      context.appLocale.continueTx,
+                                      textScaler: TextScaler.noScaling,
+                                      style:
+                                          context.textTheme.bodySmall!.copyWith(
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 15.h),
+                      ],
+                      SizedBox(height: 15.h),
+                      RichText(
+                        text: TextSpan(
+                          style: context.textTheme.bodyLarge!.copyWith(
+                            fontFamily: FontFamily.margarine,
+                          ),
+                          children: [
+                            TextSpan(text: context.appLocale.practice),
+                            TextSpan(
+                              text:
+                                  ' (${currentLocale == yo ? context.enLocale.practice : context.yoLocale.practice})',
+                              style: context.textTheme.bodySmall!.copyWith(
+                                fontFamily: FontFamily.margarine,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(height: 16.h),
+                      Row(
+                        children: [
+                          _QuickActionsPracticeWidget(
+                            image: AppAssets.images.jpegs.proverb.image(
+                              width: context.isTablet ? null : 78.w,
+                              scale: context.isTablet ? 1.4 : null,
+                            ),
+                            width: mqr.width * 0.375,
+                            section: PracticeSection.proverb,
+                          ),
+                          const SizedBox(width: 16),
+                          Expanded(
+                            child: _QuickActionsPracticeWidget(
+                              image: Padding(
+                                padding: const EdgeInsets.only(top: 10),
+                                child: AppAssets.images.jpegs.questionAndAnswer
+                                    .image(
+                                  width: context.isTablet ? null : 60.w,
+                                  scale: context.isTablet ? 1.3 : null,
+                                ),
+                              ),
+                              width: mqr.width * 0.38,
+                              section: PracticeSection.qAndA,
                             ),
                           ),
                         ],
                       ),
-                    ],
-                  ),
-                ),
-              ),
-              SizedBox(height: 15.h),
-            ],
-            SizedBox(height: 15.h),
-            RichText(
-              text: TextSpan(
-                style: context.textTheme.bodyLarge!.copyWith(
-                  fontFamily: FontFamily.margarine,
-                ),
-                children: [
-                  TextSpan(text: context.appLocale.practice),
-                  TextSpan(
-                    text:
-                        ' (${currentLocale == yo ? context.enLocale.practice : context.yoLocale.practice})',
-                    style: context.textTheme.bodySmall!.copyWith(
-                      fontFamily: FontFamily.margarine,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(height: 16.h),
-            Row(
-              children: [
-                _QuickActionsPracticeWidget(
-                  image: AppAssets.images.jpegs.proverb.image(
-                    width: context.isTablet ? null : 78.w,
-                    scale: context.isTablet ? 1.4 : null,
-                  ),
-                  width: mqr.width * 0.375,
-                  section: PracticeSection.proverb,
-                ),
-                const SizedBox(width: 16),
-                Expanded(
-                  child: _QuickActionsPracticeWidget(
-                    image: Padding(
-                      padding: const EdgeInsets.only(top: 10),
-                      child: AppAssets.images.jpegs.questionAndAnswer.image(
-                        width: context.isTablet ? null : 60.w,
-                        scale: context.isTablet ? 1.3 : null,
-                      ),
-                    ),
-                    width: mqr.width * 0.38,
-                    section: PracticeSection.qAndA,
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 16),
-            Row(
-              children: [
-                Expanded(
-                  child: _QuickActionsPracticeWidget(
-                    image: AppAssets.images.jpegs.meaning.image(
-                      width: context.isTablet ? null : 100.w,
-                      scale: context.isTablet ? 1 : null,
-                    ),
-                    width: mqr.width * 0.38,
-                    section: PracticeSection.meaning,
-                  ),
-                ),
-                const SizedBox(width: 16),
-                _QuickActionsPracticeWidget(
-                  image: AppAssets.images.jpegs.numbers.image(
-                    width: context.isTablet ? null : 90.w,
-                    scale: context.isTablet ? 1 : null,
-                  ),
-                  width: mqr.width * 0.375,
-                  section: PracticeSection.numbers,
-                ),
-              ],
-            ),
-            const SizedBox(height: 32),
-            RichText(
-              text: TextSpan(
-                style: context.textTheme.bodyLarge!.copyWith(
-                  fontFamily: FontFamily.margarine,
-                ),
-                children: [
-                  TextSpan(text: context.appLocale.play),
-                  TextSpan(
-                    text:
-                        ' (${currentLocale == yo ? context.enLocale.play : context.yoLocale.play})',
-                    style: context.textTheme.bodySmall!.copyWith(
-                      fontFamily: FontFamily.margarine,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(height: 16),
-            Row(
-              children: [
-                Expanded(
-                  child: _QuickActionPlayWidget(
-                    mainText: context.appLocale.singlePlayer,
-                    subText: currentLocale == yo
-                        ? context.enLocale.singlePlayer
-                        : context.yoLocale.singlePlayer,
-                    color: AppColors.lemon9C,
-                    image: AppAssets.images.jpegs.singlePlayer.path,
-                    onTap: () {
-                      if (user == null) {
-                        Functions.showModalAuth(context);
-                      } else {
-                        context.pushNamed(
-                          PlayerScreen.id,
-                          extra: {'isSinglePlayer': true},
-                        );
-                      }
-                    },
-                  ),
-                ),
-                const SizedBox(width: 16),
-                Expanded(
-                  child: _QuickActionPlayWidget(
-                    mainText: context.appLocale.multiPlayer,
-                    subText: currentLocale == yo
-                        ? context.enLocale.multiPlayer
-                        : context.yoLocale.multiPlayer,
-                    color: AppColors.lilac9E,
-                    image: AppAssets.images.jpegs.multiplePlayer.path,
-                    onTap: () {
-                      if (user == null) {
-                        Functions.showModalAuth(context);
-                      } else {
-                        showModalBottomSheet(
-                          context: context,
-                          builder: (context) =>
-                              const ChooseMutliPlayerModeModal(),
-                          isScrollControlled: true,
-                          shape: const RoundedRectangleBorder(
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(24),
-                              topRight: Radius.circular(24),
+                      const SizedBox(height: 16),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: _QuickActionsPracticeWidget(
+                              image: AppAssets.images.jpegs.meaning.image(
+                                width: context.isTablet ? null : 100.w,
+                                scale: context.isTablet ? 1 : null,
+                              ),
+                              width: mqr.width * 0.38,
+                              section: PracticeSection.meaning,
                             ),
                           ),
-                        );
-                      }
-                    },
+                          const SizedBox(width: 16),
+                          _QuickActionsPracticeWidget(
+                            image: AppAssets.images.jpegs.numbers.image(
+                              width: context.isTablet ? null : 90.w,
+                              scale: context.isTablet ? 1 : null,
+                            ),
+                            width: mqr.width * 0.375,
+                            section: PracticeSection.numbers,
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 32),
+                      RichText(
+                        text: TextSpan(
+                          style: context.textTheme.bodyLarge!.copyWith(
+                            fontFamily: FontFamily.margarine,
+                          ),
+                          children: [
+                            TextSpan(text: context.appLocale.play),
+                            TextSpan(
+                              text:
+                                  ' (${currentLocale == yo ? context.enLocale.play : context.yoLocale.play})',
+                              style: context.textTheme.bodySmall!.copyWith(
+                                fontFamily: FontFamily.margarine,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: _QuickActionPlayWidget(
+                              mainText: context.appLocale.singlePlayer,
+                              subText: currentLocale == yo
+                                  ? context.enLocale.singlePlayer
+                                  : context.yoLocale.singlePlayer,
+                              color: AppColors.lemon9C,
+                              image: AppAssets.images.jpegs.singlePlayer.path,
+                              onTap: () {
+                                if (user == null) {
+                                  Functions.showModalAuth(context);
+                                } else {
+                                  context.pushNamed(
+                                    PlayerScreen.id,
+                                    extra: {'isSinglePlayer': true},
+                                  );
+                                }
+                              },
+                            ),
+                          ),
+                          const SizedBox(width: 16),
+                          Expanded(
+                            child: _QuickActionPlayWidget(
+                              mainText: context.appLocale.multiPlayer,
+                              subText: currentLocale == yo
+                                  ? context.enLocale.multiPlayer
+                                  : context.yoLocale.multiPlayer,
+                              color: AppColors.lilac9E,
+                              image: AppAssets.images.jpegs.multiplePlayer.path,
+                              onTap: () {
+                                if (user == null) {
+                                  Functions.showModalAuth(context);
+                                } else {
+                                  showModalBottomSheet(
+                                    context: context,
+                                    builder: (context) =>
+                                        const ChooseMutliPlayerModeModal(),
+                                    isScrollControlled: true,
+                                    shape: const RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(24),
+                                        topRight: Radius.circular(24),
+                                      ),
+                                    ),
+                                  );
+                                }
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: mqr.height * 0.2 + context.btmPadding),
+                    ],
                   ),
-                ),
-              ],
+                  orElse: SizedBox.new,
+                );
+              },
             ),
-            SizedBox(height: mqr.height * 0.2 + context.btmPadding),
           ],
         ),
       ),
@@ -428,7 +484,10 @@ class _QuickActionsPracticeWidget extends StatelessWidget {
         if (user == null) {
           Functions.showModalAuth(context);
         } else {
-          context.pushNamed(ModuleScreen.id);
+          context.pushNamed(
+            PlayerScreen.id,
+            extra: {'isPractice': true},
+          );
         }
       },
       child: context.isTablet

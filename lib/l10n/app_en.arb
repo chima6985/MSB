@@ -160,6 +160,11 @@
   "accuracy":"Accuracy",
   "timeSpent":"Time spent",
   "pleaseTypeInYourAnswer":"Please type in your answer",
+  "selectPracticeMode":"Select practice mode",
+  "pleaseSelectPracticeMode":"Please select practice mode",
+
+
+
 
   
   "example":"example"

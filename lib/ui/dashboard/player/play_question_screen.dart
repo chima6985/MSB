@@ -15,6 +15,7 @@ class PlayQuestionScreen extends StatelessWidget {
   const PlayQuestionScreen({
     super.key,
     this.isPractice = false,
+    this.isTimed = false,
     this.isSinglePlayer = false,
     this.isTeamLeader = false,
     this.isMultiPlayer = false,
@@ -24,6 +25,7 @@ class PlayQuestionScreen extends StatelessWidget {
   });
 
   final bool isPractice,
+      isTimed,
       isSinglePlayer,
       isTeamLeader,
       isMultiPlayer,
@@ -41,6 +43,7 @@ class PlayQuestionScreen extends StatelessWidget {
       ),
       child: __PlayQuestionScreen(
         isPractice: isPractice,
+        isTimed: isTimed,
         isSinglePlayer: isSinglePlayer,
         isTeamLeader: isTeamLeader,
         isMultiPlayer: isMultiPlayer,
@@ -55,6 +58,7 @@ class PlayQuestionScreen extends StatelessWidget {
 class __PlayQuestionScreen extends StatefulWidget {
   const __PlayQuestionScreen({
     this.isPractice = false,
+    this.isTimed = false,
     this.isSinglePlayer = false,
     this.isTeamLeader = false,
     this.isMultiPlayer = false,
@@ -64,6 +68,7 @@ class __PlayQuestionScreen extends StatefulWidget {
   });
 
   final bool isPractice,
+      isTimed,
       isSinglePlayer,
       isTeamLeader,
       isMultiPlayer,
@@ -499,9 +504,10 @@ class __PlayQuestionScreenState extends State<__PlayQuestionScreen>
                                                     ),
                                                     const SizedBox(width: 10),
                                                     if ((currentQuestion
-                                                                ?.timeLimit ??
-                                                            0) >
-                                                        0)
+                                                                    ?.timeLimit ??
+                                                                0) >
+                                                            0 &&
+                                                        widget.isTimed)
                                                       CustomTimer(
                                                         controller:
                                                             timerCountDownController!,

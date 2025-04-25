@@ -1,4 +1,4 @@
-export 'constatnts.dart';
+export 'constants.dart';
 export 'email_validator.dart';
 export 'enums.dart';
 export 'functions.dart';

@@ -13,11 +13,12 @@ class PlayerIntroScreen extends StatelessWidget {
   const PlayerIntroScreen({
     super.key,
     this.isPractice = false,
+    this.isTimed = false,
     this.isSinglePlayer = false,
     this.questionSection,
   });
 
-  final bool isPractice, isSinglePlayer;
+  final bool isTimed, isPractice, isSinglePlayer;
   final Section? questionSection;
 
   static const String id = 'playerIntroScreen';
@@ -26,6 +27,7 @@ class PlayerIntroScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return _PlayerIntroScreen(
       isPractice: isPractice,
+      isTimed: isTimed,
       isSinglePlayer: isSinglePlayer,
       questionSection: questionSection,
     );
@@ -35,11 +37,12 @@ class PlayerIntroScreen extends StatelessWidget {
 class _PlayerIntroScreen extends HookWidget {
   const _PlayerIntroScreen({
     required this.isPractice,
+    required this.isTimed,
     required this.isSinglePlayer,
     required this.questionSection,
   });
 
-  final bool isPractice, isSinglePlayer;
+  final bool isPractice, isTimed, isSinglePlayer;
   final Section? questionSection;
 
   @override
@@ -131,14 +134,15 @@ class _PlayerIntroScreen extends HookWidget {
                     PlayQuestionScreen.id,
                     extra: {
                       'isPractice': true,
+                      'isTimed': isTimed,
                       'questionSection': questionSection,
-                      'totalLives': lives,
                     },
                   );
                 } else {
                   context.pushReplacementNamed(
                     PlayQuestionScreen.id,
                     extra: {
+                      'isTimed': true,
                       'isSinglePlayer': true,
                       'questionSection': questionSection,
                       'totalLives': lives,
