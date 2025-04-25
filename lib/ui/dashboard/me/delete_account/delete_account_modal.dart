@@ -43,7 +43,7 @@ class EnterYourPasswordModal extends HookWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15),
             child: Text(
-              toCompleteYourDeletionProcess,
+              context.appLocale.toCompleteYourDeletionProcess,
               textAlign: TextAlign.center,
               style: context.textTheme.bodyMedium!.copyWith(
                 fontWeight: FontWeight.w300,
@@ -153,7 +153,7 @@ class AccountDeletedModal extends StatelessWidget {
           ),
           const SizedBox(height: 35),
           Button(
-            label: closeTheApp,
+            label: context.appLocale.closeTheApp,
             onPressed: () => context.goNamed(SplashScreen.id),
           ),
           SizedBox(height: context.btmPadding),

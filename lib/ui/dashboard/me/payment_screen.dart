@@ -91,7 +91,7 @@ class PaymentScreen extends HookWidget {
                                   ),
                                   _PremiumInfoWidget(
                                     image: AppAssets.images.jpegs.offline.path,
-                                    title: downloadForOfflineLearning,
+                                    title: downloadForOfflineLearningEn,
                                     subtitle: downloadLessonsEn,
                                   ),
                                   _PremiumInfoWidget(

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:masoyinbo_mobile/app/app.dart';
+// import 'package:masoyinbo_mobile/app/app.dart';
 import 'package:masoyinbo_mobile/extension/context_extension.dart';
 import 'package:masoyinbo_mobile/gen/fonts.gen.dart';
 import 'package:masoyinbo_mobile/ui/ui.dart';
@@ -33,7 +33,7 @@ class LearnIntroScreen extends StatelessWidget {
               ),
               SizedBox(height: 22.h),
               Text(
-                alphabetLesson,
+                context.appLocale.alphabetLesson,
                 textAlign: TextAlign.center,
                 style: context.textTheme.bodySmall!.copyWith(
                   height: 1.8,

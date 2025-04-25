@@ -70,7 +70,7 @@ class NewGameScreen extends StatelessWidget {
                         text: TextSpan(
                           style: context.textTheme.bodyMedium,
                           children: [
-                            const TextSpan(text: aboutToPlayAgainWithSameCode),
+                            TextSpan(text: context.appLocale.aboutToPlayAgainWithSameCode),
                             TextSpan(
                               text: ' VV9645',
                               style: context.textTheme.bodyMedium!.copyWith(
