@@ -76,7 +76,7 @@ class _PlayerGameAnalyticsScreen extends HookWidget {
                     ),
                     orElse: SizedBox.new,
                     loaded: (playerStat) {
-                      final isGoodPerformance = playerStat.accuracy > 50;
+                      final isGoodPerformance = playerStat.accuracy >= 50;
                       return Padding(
                         padding: EdgeInsets.symmetric(horizontal: 26.w),
                         child: Column(
