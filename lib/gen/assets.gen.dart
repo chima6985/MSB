@@ -96,6 +96,54 @@ class $AssetsImagesJpegsGen {
   /// File path: assets/images/jpegs/lips.png
   AssetGenImage get lips => const AssetGenImage('assets/images/jpegs/lips.png');
 
+  /// File path: assets/images/jpegs/man_1.png
+  AssetGenImage get man1 =>
+      const AssetGenImage('assets/images/jpegs/man_1.png');
+
+  /// File path: assets/images/jpegs/man_10.png
+  AssetGenImage get man10 =>
+      const AssetGenImage('assets/images/jpegs/man_10.png');
+
+  /// File path: assets/images/jpegs/man_11.png
+  AssetGenImage get man11 =>
+      const AssetGenImage('assets/images/jpegs/man_11.png');
+
+  /// File path: assets/images/jpegs/man_12.png
+  AssetGenImage get man12 =>
+      const AssetGenImage('assets/images/jpegs/man_12.png');
+
+  /// File path: assets/images/jpegs/man_2.png
+  AssetGenImage get man2 =>
+      const AssetGenImage('assets/images/jpegs/man_2.png');
+
+  /// File path: assets/images/jpegs/man_3.png
+  AssetGenImage get man3 =>
+      const AssetGenImage('assets/images/jpegs/man_3.png');
+
+  /// File path: assets/images/jpegs/man_4.png
+  AssetGenImage get man4 =>
+      const AssetGenImage('assets/images/jpegs/man_4.png');
+
+  /// File path: assets/images/jpegs/man_5.png
+  AssetGenImage get man5 =>
+      const AssetGenImage('assets/images/jpegs/man_5.png');
+
+  /// File path: assets/images/jpegs/man_6.png
+  AssetGenImage get man6 =>
+      const AssetGenImage('assets/images/jpegs/man_6.png');
+
+  /// File path: assets/images/jpegs/man_7.png
+  AssetGenImage get man7 =>
+      const AssetGenImage('assets/images/jpegs/man_7.png');
+
+  /// File path: assets/images/jpegs/man_8.png
+  AssetGenImage get man8 =>
+      const AssetGenImage('assets/images/jpegs/man_8.png');
+
+  /// File path: assets/images/jpegs/man_9.png
+  AssetGenImage get man9 =>
+      const AssetGenImage('assets/images/jpegs/man_9.png');
+
   /// File path: assets/images/jpegs/masoyinbo_logo.png
   AssetGenImage get masoyinboLogo =>
       const AssetGenImage('assets/images/jpegs/masoyinbo_logo.png');
@@ -192,6 +240,54 @@ class $AssetsImagesJpegsGen {
   AssetGenImage get welcome =>
       const AssetGenImage('assets/images/jpegs/welcome.png');
 
+  /// File path: assets/images/jpegs/woman_1.png
+  AssetGenImage get woman1 =>
+      const AssetGenImage('assets/images/jpegs/woman_1.png');
+
+  /// File path: assets/images/jpegs/woman_10.png
+  AssetGenImage get woman10 =>
+      const AssetGenImage('assets/images/jpegs/woman_10.png');
+
+  /// File path: assets/images/jpegs/woman_11.png
+  AssetGenImage get woman11 =>
+      const AssetGenImage('assets/images/jpegs/woman_11.png');
+
+  /// File path: assets/images/jpegs/woman_12.png
+  AssetGenImage get woman12 =>
+      const AssetGenImage('assets/images/jpegs/woman_12.png');
+
+  /// File path: assets/images/jpegs/woman_2.png
+  AssetGenImage get woman2 =>
+      const AssetGenImage('assets/images/jpegs/woman_2.png');
+
+  /// File path: assets/images/jpegs/woman_3.png
+  AssetGenImage get woman3 =>
+      const AssetGenImage('assets/images/jpegs/woman_3.png');
+
+  /// File path: assets/images/jpegs/woman_4.png
+  AssetGenImage get woman4 =>
+      const AssetGenImage('assets/images/jpegs/woman_4.png');
+
+  /// File path: assets/images/jpegs/woman_5.png
+  AssetGenImage get woman5 =>
+      const AssetGenImage('assets/images/jpegs/woman_5.png');
+
+  /// File path: assets/images/jpegs/woman_6.png
+  AssetGenImage get woman6 =>
+      const AssetGenImage('assets/images/jpegs/woman_6.png');
+
+  /// File path: assets/images/jpegs/woman_7.png
+  AssetGenImage get woman7 =>
+      const AssetGenImage('assets/images/jpegs/woman_7.png');
+
+  /// File path: assets/images/jpegs/woman_8.png
+  AssetGenImage get woman8 =>
+      const AssetGenImage('assets/images/jpegs/woman_8.png');
+
+  /// File path: assets/images/jpegs/woman_9.png
+  AssetGenImage get woman9 =>
+      const AssetGenImage('assets/images/jpegs/woman_9.png');
+
   /// File path: assets/images/jpegs/yoruba_group_avatar.png
   AssetGenImage get yorubaGroupAvatar =>
       const AssetGenImage('assets/images/jpegs/yoruba_group_avatar.png');
@@ -217,6 +313,18 @@ class $AssetsImagesJpegsGen {
         lessonCovered,
         lightBulb,
         lips,
+        man1,
+        man10,
+        man11,
+        man12,
+        man2,
+        man3,
+        man4,
+        man5,
+        man6,
+        man7,
+        man8,
+        man9,
         masoyinboLogo,
         meaning,
         medium,
@@ -241,6 +349,18 @@ class $AssetsImagesJpegsGen {
         successIcon,
         trapeziumBlue,
         welcome,
+        woman1,
+        woman10,
+        woman11,
+        woman12,
+        woman2,
+        woman3,
+        woman4,
+        woman5,
+        woman6,
+        woman7,
+        woman8,
+        woman9,
         yorubaGroupAvatar
       ];
 }
