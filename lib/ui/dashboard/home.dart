@@ -102,6 +102,15 @@ class Home extends HookWidget {
                     ],
                   ),
                 ),
+                const SizedBox(
+                  width: 24,
+                ),
+                InkWell(
+                  onTap: () => context.pushNamed(NotificationScreen.id),
+                  child: const Icon(
+                    Iconsax.notification,
+                  ),
+                )
               ],
             ),
             const SizedBox(height: 4),

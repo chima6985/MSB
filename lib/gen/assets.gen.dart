@@ -452,6 +452,10 @@ class $AssetsImagesSvgsGen {
   SvgGenImage get message =>
       const SvgGenImage('assets/images/svgs/message.svg');
 
+  /// File path: assets/images/svgs/notification.svg
+  SvgGenImage get notification =>
+      const SvgGenImage('assets/images/svgs/notification.svg');
+
   /// File path: assets/images/svgs/share.svg
   SvgGenImage get share => const SvgGenImage('assets/images/svgs/share.svg');
 
@@ -495,6 +499,7 @@ class $AssetsImagesSvgsGen {
         me,
         meBold,
         message,
+        notification,
         share,
         speak,
         success,

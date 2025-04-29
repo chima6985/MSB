@@ -12,3 +12,4 @@ export 'dashboard/dashboard.dart';
 export 'onboarding/onboarding.dart';
 export 'set_avatar_modal.dart';
 export 'splash_screen.dart';
+

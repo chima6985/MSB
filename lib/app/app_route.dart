@@ -132,9 +132,14 @@ final router = GoRouter(
       builder: (context, state) => const SettingsScreen(),
     ),
     GoRoute(
-      name: NotificationsScreen.id,
-      path: '/notificationsScreen',
-      builder: (context, state) => const NotificationsScreen(),
+      name: NotificationsSettingScreen.id,
+      path: '/notificationsSettingScreen',
+      builder: (context, state) => const NotificationsSettingScreen(),
+    ),
+    GoRoute(
+      name: NotificationScreen.id,
+      path: '/notificationScreen',
+      builder: (context, state) => const NotificationScreen(),
     ),
     GoRoute(
       name: LanguageScreen.id,
@@ -159,7 +164,7 @@ final router = GoRouter(
     GoRoute(
       name: ChangeAvatarScreen.id,
       path: '/changeAvatarScreen',
-      builder: (context, state) => ChangeAvatarScreen(),
+      builder: (context, state) =>  ChangeAvatarScreen(),
     ),
     GoRoute(
       name: PaymentScreen.id,
@@ -210,7 +215,6 @@ final router = GoRouter(
           isPractice: paramHandler?['isPractice'] ?? false,
           isSinglePlayer: paramHandler?['isSinglePlayer'] ?? false,
           isMultiPlayer: paramHandler?['isMultiPlayer'] ?? false,
-          section: paramHandler?['section'],
         );
       },
     ),
@@ -221,9 +225,7 @@ final router = GoRouter(
         final paramHandler = state.extra is Map ? state.extra as Map? : {};
         return PlayerIntroScreen(
           isPractice: paramHandler?['isPractice'] ?? false,
-          isTimed: paramHandler?['isTimed'] ?? false,
-          isSinglePlayer: paramHandler?['isSinglePlayer'] ?? false,
-          questionSection: paramHandler?['questionSection'],
+          isTimed: paramHandler?['isTimed'] ?? true,
         );
       },
     ),
@@ -239,8 +241,6 @@ final router = GoRouter(
           isTeamLeader: paramHandler?['isTeamLeader'] ?? false,
           isMultiPlayer: paramHandler?['isMultiPlayer'] ?? false,
           isGameMaster: paramHandler?['isGameMaster'] ?? false,
-          questionSection: paramHandler?['questionSection'],
-          totalLives: paramHandler?['totalLives'],
         );
       },
     ),
@@ -310,16 +310,6 @@ final router = GoRouter(
               paramHandler?['isTeamFormationAutomatic'] ?? false,
         );
       },
-    ),
-    GoRoute(
-      name: RanOutOfLivesScreen.id,
-      path: '/ranOutOfLivesScreen',
-      builder: (context, state) => const RanOutOfLivesScreen(),
-    ),
-    GoRoute(
-      name: PlayerGameAnalyticsScreen.id,
-      path: '/playerGameAnalyticsScreen',
-      builder: (context, state) => const PlayerGameAnalyticsScreen(),
     ),
   ],
   // errorBuilder: (context, state) => const PageNotFound(),
