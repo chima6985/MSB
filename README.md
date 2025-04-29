@@ -1,16 +1,37 @@
-# masoyinbo_mobile
+# Masoyinbo
 
-A new Flutter project.
+Create local .env file using stg.env as template e.g. stg.env, prod.env, in the project's asset directory
+NB: Make sure created .env file is gitignored
 
-## Getting Started
+To switch between environments (dev and production), specify relevant .env class in env/env.dart
+```dart
+static Env _getEnv() => StgEnv();
+```
+Project relies heavily on build runner for - images, assets, models
+```dart
+  make codegen-build || make codegen-watch;
+```
 
-This project is a starting point for a Flutter application.
+```Run
+  make + [cmd] in the make file;
+```
 
-A few resources to get you started if this is your first Flutter project:
+- Run app
+  flutter run
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- Build apk
+  make build-apk
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- Build appbundle
+  make build-app-bundle
+
+- Build ipa
+  flutter build ipa --build-name="1.x.x" --build-number="1"
+
+Router - [GoRouter](https://pub.dev/packages/go_router)
+State management - [Bloc](https://pub.dev/packages/flutter_bloc)
+Build generator - [Freezed](https://pub.dev/packages/freezed)
+Networking - [Http](https://pub.dev/packages/http)
+
+Integrations
+Firebase - [Link](https://firebase.google.com/docs/flutter/setup?platform=ios)
