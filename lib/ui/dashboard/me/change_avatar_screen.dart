@@ -9,18 +9,48 @@ import 'package:masoyinbo_mobile/ui/ui.dart';
 import 'package:masoyinbo_mobile/utils/utils.dart';
 
 class ChangeAvatarScreen extends HookWidget {
-  const ChangeAvatarScreen({
+  ChangeAvatarScreen({
     super.key,
   });
   static const String id = 'changeAvatarScreen';
+
+  final List<String> maleAvatars = [
+    AppAssets.images.jpegs.man1.path,
+    AppAssets.images.jpegs.man2.path,
+    AppAssets.images.jpegs.man3.path,
+    AppAssets.images.jpegs.man4.path,
+    AppAssets.images.jpegs.man5.path,
+    AppAssets.images.jpegs.man6.path,
+    AppAssets.images.jpegs.man7.path,
+    AppAssets.images.jpegs.man8.path,
+    AppAssets.images.jpegs.man9.path,
+    AppAssets.images.jpegs.man10.path,
+    AppAssets.images.jpegs.man11.path,
+    AppAssets.images.jpegs.man12.path,
+  ];
+  final List<String> femaleAvatars = [
+    AppAssets.images.jpegs.woman1.path,
+    AppAssets.images.jpegs.woman2.path,
+    AppAssets.images.jpegs.woman3.path,
+    AppAssets.images.jpegs.woman4.path,
+    AppAssets.images.jpegs.woman5.path,
+    AppAssets.images.jpegs.woman6.path,
+    AppAssets.images.jpegs.woman7.path,
+    AppAssets.images.jpegs.woman8.path,
+    AppAssets.images.jpegs.woman9.path,
+    AppAssets.images.jpegs.woman10.path,
+    AppAssets.images.jpegs.woman11.path,
+    AppAssets.images.jpegs.woman12.path,
+  ];
 
   @override
   Widget build(BuildContext context) {
     final mqr = MediaQuery.of(context).size;
     final selectedProfileAvatar = useState<String?>(null);
-    final isSelected = useState<int?>(null);
+    // final isSelected = useState<int?>(null);
     final user = context.watch<UserCubit>().state.user;
     final isMale = user?.gender == 'Male';
+    final avatars = isMale ? maleAvatars : femaleAvatars;
     return Scaffold(
       body: DecoratedContainer(
         child: SingleChildScrollView(
@@ -82,227 +112,29 @@ class ChangeAvatarScreen extends HookWidget {
                       child: Wrap(
                         spacing: 13.w,
                         runSpacing: 16.w,
-                        children: [
-                          if (isMale) ...[
-                            _AvatarWidget(
-                              imagePath: AppAssets.images.jpegs.man1.path,
-                              onTap: () {
-                                selectedProfileAvatar.value =
-                                    AppAssets.images.jpegs.man1.path;
-                                isSelected.value = 0;
-                              },
-                              isSelected: isSelected.value == 0,
-                            ),
-                            _AvatarWidget(
-                              imagePath: AppAssets.images.jpegs.man2.path,
-                              onTap: () {
-                                selectedProfileAvatar.value =
-                                    AppAssets.images.jpegs.man2.path;
-                                isSelected.value = 1;
-                              },
-                              isSelected: isSelected.value == 1,
-                            ),
-                            _AvatarWidget(
-                              imagePath: AppAssets.images.jpegs.man3.path,
-                              onTap: () {
-                                selectedProfileAvatar.value =
-                                    AppAssets.images.jpegs.man3.path;
-                                isSelected.value = 2;
-                              },
-                              isSelected: isSelected.value == 2,
-                            ),
-                            _AvatarWidget(
-                              imagePath: AppAssets.images.jpegs.man4.path,
-                              onTap: () {
-                                selectedProfileAvatar.value =
-                                    AppAssets.images.jpegs.man4.path;
-                                isSelected.value = 3;
-                              },
-                              isSelected: isSelected.value == 3,
-                            ),
-                            _AvatarWidget(
-                              imagePath: AppAssets.images.jpegs.man5.path,
-                              onTap: () {
-                                selectedProfileAvatar.value =
-                                    AppAssets.images.jpegs.man5.path;
-                                isSelected.value = 4;
-                              },
-                              isSelected: isSelected.value == 4,
-                            ),
-                            _AvatarWidget(
-                              imagePath: AppAssets.images.jpegs.man6.path,
-                              onTap: () {
-                                selectedProfileAvatar.value =
-                                    AppAssets.images.jpegs.man6.path;
-                                isSelected.value = 5;
-                              },
-                              isSelected: isSelected.value == 5,
-                            ),
-                            _AvatarWidget(
-                              imagePath: AppAssets.images.jpegs.man7.path,
-                              onTap: () {
-                                selectedProfileAvatar.value =
-                                    AppAssets.images.jpegs.man7.path;
-                                isSelected.value = 6;
-                              },
-                              isSelected: isSelected.value == 6,
-                            ),
-                            _AvatarWidget(
-                              imagePath: AppAssets.images.jpegs.man8.path,
-                              onTap: () {
-                                selectedProfileAvatar.value =
-                                    AppAssets.images.jpegs.man8.path;
-                                isSelected.value = 7;
-                              },
-                              isSelected: isSelected.value == 7,
-                            ),
-                            _AvatarWidget(
-                              imagePath: AppAssets.images.jpegs.man9.path,
-                              onTap: () {
-                                selectedProfileAvatar.value =
-                                    AppAssets.images.jpegs.man9.path;
-                                isSelected.value = 8;
-                              },
-                              isSelected: isSelected.value == 8,
-                            ),
-                            _AvatarWidget(
-                              imagePath: AppAssets.images.jpegs.man10.path,
-                              onTap: () {
-                                selectedProfileAvatar.value =
-                                    AppAssets.images.jpegs.man10.path;
-                                isSelected.value = 9;
-                              },
-                              isSelected: isSelected.value == 9,
-                            ),
-                            _AvatarWidget(
-                              imagePath: AppAssets.images.jpegs.man11.path,
-                              onTap: () {
-                                selectedProfileAvatar.value =
-                                    AppAssets.images.jpegs.man11.path;
-                                isSelected.value = 10;
-                              },
-                              isSelected: isSelected.value == 10,
-                            ),
-                            _AvatarWidget(
-                              imagePath: AppAssets.images.jpegs.man12.path,
-                              onTap: () {
-                                selectedProfileAvatar.value =
-                                    AppAssets.images.jpegs.man12.path;
-                                isSelected.value = 11;
-                              },
-                              isSelected: isSelected.value == 11,
-                            ),
-                          ] else ...[
-                            _AvatarWidget(
-                              imagePath: AppAssets.images.jpegs.woman1.path,
-                              onTap: () {
-                                selectedProfileAvatar.value =
-                                    AppAssets.images.jpegs.woman1.path;
-                                isSelected.value = 0;
-                              },
-                              isSelected: isSelected.value == 0,
-                            ),
-                            _AvatarWidget(
-                              imagePath: AppAssets.images.jpegs.woman2.path,
-                              onTap: () {
-                                selectedProfileAvatar.value =
-                                    AppAssets.images.jpegs.woman2.path;
-                                isSelected.value = 1;
-                              },
-                              isSelected: isSelected.value == 1,
-                            ),
-                            _AvatarWidget(
-                              imagePath: AppAssets.images.jpegs.woman3.path,
-                              onTap: () {
-                                selectedProfileAvatar.value =
-                                    AppAssets.images.jpegs.woman3.path;
-                                isSelected.value = 2;
-                              },
-                              isSelected: isSelected.value == 2,
-                            ),
-                            _AvatarWidget(
-                              imagePath: AppAssets.images.jpegs.woman4.path,
-                              onTap: () {
-                                selectedProfileAvatar.value =
-                                    AppAssets.images.jpegs.woman4.path;
-                                isSelected.value = 3;
-                              },
-                              isSelected: isSelected.value == 3,
-                            ),
-                            _AvatarWidget(
-                              imagePath: AppAssets.images.jpegs.woman5.path,
-                              onTap: () {
-                                selectedProfileAvatar.value =
-                                    AppAssets.images.jpegs.woman5.path;
-                                isSelected.value = 4;
-                              },
-                              isSelected: isSelected.value == 4,
-                            ),
-                            _AvatarWidget(
-                              imagePath: AppAssets.images.jpegs.woman6.path,
-                              onTap: () {
-                                selectedProfileAvatar.value =
-                                    AppAssets.images.jpegs.woman6.path;
-                                isSelected.value = 5;
-                              },
-                              isSelected: isSelected.value == 5,
-                            ),
-                            _AvatarWidget(
-                              imagePath: AppAssets.images.jpegs.woman7.path,
-                              onTap: () {
-                                selectedProfileAvatar.value =
-                                    AppAssets.images.jpegs.woman7.path;
-                                isSelected.value = 6;
-                              },
-                              isSelected: isSelected.value == 6,
-                            ),
-                            _AvatarWidget(
-                              imagePath: AppAssets.images.jpegs.woman8.path,
-                              onTap: () {
-                                selectedProfileAvatar.value =
-                                    AppAssets.images.jpegs.woman8.path;
-                                isSelected.value = 7;
-                              },
-                              isSelected: isSelected.value == 7,
-                            ),
-                            _AvatarWidget(
-                              imagePath: AppAssets.images.jpegs.woman9.path,
-                              onTap: () {
-                                selectedProfileAvatar.value =
-                                    AppAssets.images.jpegs.woman9.path;
-                                isSelected.value = 8;
-                              },
-                              isSelected: isSelected.value == 8,
-                            ),
-                            _AvatarWidget(
-                              imagePath: AppAssets.images.jpegs.woman10.path,
-                              onTap: () {
-                                selectedProfileAvatar.value =
-                                    AppAssets.images.jpegs.woman10.path;
-                                isSelected.value = 9;
-                              },
-                              isSelected: isSelected.value == 9,
-                            ),
-                            _AvatarWidget(
-                              imagePath: AppAssets.images.jpegs.woman11.path,
-                              onTap: () {
-                                selectedProfileAvatar.value =
-                                    AppAssets.images.jpegs.woman11.path;
-                                isSelected.value = 10;
-                              },
-                              isSelected: isSelected.value == 10,
-                            ),
-                            _AvatarWidget(
-                              imagePath: AppAssets.images.jpegs.woman12.path,
-                              onTap: () {
-                                selectedProfileAvatar.value =
-                                    AppAssets.images.jpegs.woman12.path;
-                                isSelected.value = 11;
-                              },
-                              isSelected: isSelected.value == 11,
-                            ),
-                          ]
-                        ],
+                        children: avatars
+                            .map(
+                              (avatar) => _AvatarWidget(
+                                imagePath: avatar,
+                                onTap: () {
+                                  selectedProfileAvatar.value = avatar;
+                                },
+                                isSelected:
+                                    selectedProfileAvatar.value == avatar,
+                              ),
+                            )
+                            .toList(),
+
+                        //  List.generate(avatars.length, (index) {
+                        //   return _AvatarWidget(
+                        //     imagePath: avatars[index],
+                        //    onTap: () {
+                        //     selectedProfileAvatar.value = avatars[index];
+                        //     isSelected.value = index;
+                        //    },
+                        //    isSelected: isSelected.value == index,
+                        //    );
+                        // })
                       ),
                     ),
                     SizedBox(height: 75.h),

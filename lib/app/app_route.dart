@@ -159,7 +159,7 @@ final router = GoRouter(
     GoRoute(
       name: ChangeAvatarScreen.id,
       path: '/changeAvatarScreen',
-      builder: (context, state) => const ChangeAvatarScreen(),
+      builder: (context, state) => ChangeAvatarScreen(),
     ),
     GoRoute(
       name: PaymentScreen.id,
