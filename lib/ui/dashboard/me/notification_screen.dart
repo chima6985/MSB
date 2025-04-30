@@ -11,8 +11,7 @@ class NotificationScreen extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    
-    final ShowSecondScreenContent = useState(false);
+    final showSecondScreen = useState(true);
     return Scaffold(
       body: DecoratedContainer(
         child: Column(
@@ -27,7 +26,9 @@ class NotificationScreen extends HookWidget {
                   padding: const EdgeInsets.only(top: 7),
                   child: Center(
                     child: InkWell(
-                      // onTap: () => ,
+                      onTap: () {
+                        showSecondScreen.value = !showSecondScreen.value;
+                      },
                       child: Text(
                         context.appLocale.notifications,
                         style: context.textTheme.titleLarge!.copyWith(
@@ -40,52 +41,82 @@ class NotificationScreen extends HookWidget {
               ],
             ),
             SizedBox(height: 162.h),
-            Center(
-              child: CircleAvatar(
-                radius: 70,
-                backgroundColor: AppColors.blueE6,
-                child: AppAssets.images.svgs.notification.svg(),
+            if (!showSecondScreen.value) ...[
+              Center(
+                child: CircleAvatar(
+                  radius: 70,
+                  backgroundColor: AppColors.blueE6,
+                  child: AppAssets.images.svgs.notification.svg(),
+                ),
               ),
-            ),
-            SizedBox(
-              height: 32.h,
-            ),
-            Center(
-              child: Column(
-                children: [
-                  Text(
-                    context.appLocale.itsQuietInHere,
-                    style: context.textTheme.titleLarge!.copyWith(
-                      fontFamily: FontFamily.kanit,
-                    ),
+              SizedBox(
+                height: 32.h,
+              ),
+              Center(
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 24, right: 24),
+                  child: Column(
+                    children: [
+                      Text(
+                        context.appLocale.itsQuietInHere,
+                        style: context.textTheme.titleLarge!.copyWith(
+                          fontFamily: FontFamily.kanit,
+                        ),
+                      ),
+                      SizedBox(height: 16.h),
+                      Text(
+                        context.appLocale.keeppracticing,
+                        style: context.textTheme.titleMedium!.copyWith(
+                          fontFamily: FontFamily.kanit,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ],
                   ),
-                  SizedBox(height: 16.h),
-                  Text(
-                    context.appLocale.keeppracticing,
-                    style: context.textTheme.titleMedium!.copyWith(
-                      fontFamily: FontFamily.kanit,
-                    ),
-                    textAlign: TextAlign.center,
-                  )
+                ),
+              ),
+            ],
+            if (showSecondScreen.value) ...[
+              Column(
+                children: [
+                  Column(
+                    children: [
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(left: 24),
+                            child: CircleAvatar(
+                              radius: 16,
+                              backgroundColor: AppColors.blueE6,
+                              child: AppAssets.images.svgs.heartAdd.svg(),
+                            ),
+                          ),
+                          SizedBox(
+                            width: 16.h,
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                context.appLocale.gameInvite,
+                                style: context.textTheme.titleLarge!,
+                              ),
+                              Text(
+                                context.appLocale.practiceInvite,
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
+                    ],
+                  ),
                 ],
               ),
-            )
+            ],
           ],
         ),
       ),
     );
   }
 }
-
-
-
-
-// class ShowSecondScreen extends StatelessWidget{
-//   const ShowSecondScreen({super.key});
-//   @override
-//   Widget build(BuildContext context) {
-//     return const Scaffold(
-//       body: ,
-//     );
-//   }
-// }

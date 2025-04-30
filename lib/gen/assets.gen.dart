@@ -402,6 +402,10 @@ class $AssetsImagesSvgsGen {
   /// File path: assets/images/svgs/google .svg
   SvgGenImage get google => const SvgGenImage('assets/images/svgs/google .svg');
 
+  /// File path: assets/images/svgs/heart-add.svg
+  SvgGenImage get heartAdd =>
+      const SvgGenImage('assets/images/svgs/heart-add.svg');
+
   /// File path: assets/images/svgs/heart.svg
   SvgGenImage get heart => const SvgGenImage('assets/images/svgs/heart.svg');
 
@@ -419,6 +423,10 @@ class $AssetsImagesSvgsGen {
   /// File path: assets/images/svgs/hour_glass.svg
   SvgGenImage get hourGlass =>
       const SvgGenImage('assets/images/svgs/hour_glass.svg');
+
+  /// File path: assets/images/svgs/info-circle.svg
+  SvgGenImage get infoCircle =>
+      const SvgGenImage('assets/images/svgs/info-circle.svg');
 
   /// File path: assets/images/svgs/leader_board.svg
   SvgGenImage get leaderBoard =>
@@ -485,11 +493,13 @@ class $AssetsImagesSvgsGen {
         error,
         flip,
         google,
+        heartAdd,
         heart,
         heartSlash,
         home,
         homeBold,
         hourGlass,
+        infoCircle,
         leaderBoard,
         leaderBoardBold,
         learn,
