@@ -16,3 +16,4 @@ export 'set_team_modal.dart';
 export 'team_all_set_screen.dart';
 export 'team_leader_confirmation_modal.dart';
 export 'team_setup_screen.dart';
+export 'widgets/widgets.dart';

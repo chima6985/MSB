@@ -4,5 +4,6 @@ export 'home.dart';
 export 'leader_board.dart';
 export 'learn/learn.dart';
 export 'me/me.dart';
+export 'notifications_screen.dart';
 export 'player/player.dart';
 export 'practice/practice.dart';

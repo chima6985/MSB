@@ -6,7 +6,7 @@ export 'help_screen.dart';
 export 'language_screen.dart';
 export 'logout_modal.dart';
 export 'me_screen.dart';
-export 'notifications_screen.dart';
+export 'notification_settings_screen.dart';
 export 'password_screen.dart';
 export 'payment_screen.dart';
 export 'settings_screen.dart';

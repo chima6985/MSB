@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'submit_answer_cubit.dart';
+part of 'create_game_room_cubit.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -15,12 +15,12 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
-mixin _$SubmitAnswerState {
+mixin _$CreateGameRoomState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function() loaded,
+    required TResult Function(String gameCode) loaded,
     required TResult Function(String? error) error,
   }) =>
       throw _privateConstructorUsedError;
@@ -28,7 +28,7 @@ mixin _$SubmitAnswerState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function()? loaded,
+    TResult? Function(String gameCode)? loaded,
     TResult? Function(String? error)? error,
   }) =>
       throw _privateConstructorUsedError;
@@ -36,7 +36,7 @@ mixin _$SubmitAnswerState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function()? loaded,
+    TResult Function(String gameCode)? loaded,
     TResult Function(String? error)? error,
     required TResult orElse(),
   }) =>
@@ -69,23 +69,23 @@ mixin _$SubmitAnswerState {
 }
 
 /// @nodoc
-abstract class $SubmitAnswerStateCopyWith<$Res> {
-  factory $SubmitAnswerStateCopyWith(
-          SubmitAnswerState value, $Res Function(SubmitAnswerState) then) =
-      _$SubmitAnswerStateCopyWithImpl<$Res, SubmitAnswerState>;
+abstract class $CreateGameRoomStateCopyWith<$Res> {
+  factory $CreateGameRoomStateCopyWith(
+          CreateGameRoomState value, $Res Function(CreateGameRoomState) then) =
+      _$CreateGameRoomStateCopyWithImpl<$Res, CreateGameRoomState>;
 }
 
 /// @nodoc
-class _$SubmitAnswerStateCopyWithImpl<$Res, $Val extends SubmitAnswerState>
-    implements $SubmitAnswerStateCopyWith<$Res> {
-  _$SubmitAnswerStateCopyWithImpl(this._value, this._then);
+class _$CreateGameRoomStateCopyWithImpl<$Res, $Val extends CreateGameRoomState>
+    implements $CreateGameRoomStateCopyWith<$Res> {
+  _$CreateGameRoomStateCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of SubmitAnswerState
+  /// Create a copy of CreateGameRoomState
   /// with the given fields replaced by the non-null parameter values.
 }
 
@@ -98,13 +98,13 @@ abstract class _$$InitialImplCopyWith<$Res> {
 
 /// @nodoc
 class __$$InitialImplCopyWithImpl<$Res>
-    extends _$SubmitAnswerStateCopyWithImpl<$Res, _$InitialImpl>
+    extends _$CreateGameRoomStateCopyWithImpl<$Res, _$InitialImpl>
     implements _$$InitialImplCopyWith<$Res> {
   __$$InitialImplCopyWithImpl(
       _$InitialImpl _value, $Res Function(_$InitialImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of SubmitAnswerState
+  /// Create a copy of CreateGameRoomState
   /// with the given fields replaced by the non-null parameter values.
 }
 
@@ -115,7 +115,7 @@ class _$InitialImpl implements _Initial {
 
   @override
   String toString() {
-    return 'SubmitAnswerState.initial()';
+    return 'CreateGameRoomState.initial()';
   }
 
   @override
@@ -132,7 +132,7 @@ class _$InitialImpl implements _Initial {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function() loaded,
+    required TResult Function(String gameCode) loaded,
     required TResult Function(String? error) error,
   }) {
     return initial();
@@ -143,7 +143,7 @@ class _$InitialImpl implements _Initial {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function()? loaded,
+    TResult? Function(String gameCode)? loaded,
     TResult? Function(String? error)? error,
   }) {
     return initial?.call();
@@ -154,7 +154,7 @@ class _$InitialImpl implements _Initial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function()? loaded,
+    TResult Function(String gameCode)? loaded,
     TResult Function(String? error)? error,
     required TResult orElse(),
   }) {
@@ -202,7 +202,7 @@ class _$InitialImpl implements _Initial {
   }
 }
 
-abstract class _Initial implements SubmitAnswerState {
+abstract class _Initial implements CreateGameRoomState {
   const factory _Initial() = _$InitialImpl;
 }
 
@@ -215,13 +215,13 @@ abstract class _$$LoadingImplCopyWith<$Res> {
 
 /// @nodoc
 class __$$LoadingImplCopyWithImpl<$Res>
-    extends _$SubmitAnswerStateCopyWithImpl<$Res, _$LoadingImpl>
+    extends _$CreateGameRoomStateCopyWithImpl<$Res, _$LoadingImpl>
     implements _$$LoadingImplCopyWith<$Res> {
   __$$LoadingImplCopyWithImpl(
       _$LoadingImpl _value, $Res Function(_$LoadingImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of SubmitAnswerState
+  /// Create a copy of CreateGameRoomState
   /// with the given fields replaced by the non-null parameter values.
 }
 
@@ -232,7 +232,7 @@ class _$LoadingImpl implements _Loading {
 
   @override
   String toString() {
-    return 'SubmitAnswerState.loading()';
+    return 'CreateGameRoomState.loading()';
   }
 
   @override
@@ -249,7 +249,7 @@ class _$LoadingImpl implements _Loading {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function() loaded,
+    required TResult Function(String gameCode) loaded,
     required TResult Function(String? error) error,
   }) {
     return loading();
@@ -260,7 +260,7 @@ class _$LoadingImpl implements _Loading {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function()? loaded,
+    TResult? Function(String gameCode)? loaded,
     TResult? Function(String? error)? error,
   }) {
     return loading?.call();
@@ -271,7 +271,7 @@ class _$LoadingImpl implements _Loading {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function()? loaded,
+    TResult Function(String gameCode)? loaded,
     TResult Function(String? error)? error,
     required TResult orElse(),
   }) {
@@ -319,7 +319,7 @@ class _$LoadingImpl implements _Loading {
   }
 }
 
-abstract class _Loading implements SubmitAnswerState {
+abstract class _Loading implements CreateGameRoomState {
   const factory _Loading() = _$LoadingImpl;
 }
 
@@ -328,48 +328,76 @@ abstract class _$$LoadedImplCopyWith<$Res> {
   factory _$$LoadedImplCopyWith(
           _$LoadedImpl value, $Res Function(_$LoadedImpl) then) =
       __$$LoadedImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String gameCode});
 }
 
 /// @nodoc
 class __$$LoadedImplCopyWithImpl<$Res>
-    extends _$SubmitAnswerStateCopyWithImpl<$Res, _$LoadedImpl>
+    extends _$CreateGameRoomStateCopyWithImpl<$Res, _$LoadedImpl>
     implements _$$LoadedImplCopyWith<$Res> {
   __$$LoadedImplCopyWithImpl(
       _$LoadedImpl _value, $Res Function(_$LoadedImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of SubmitAnswerState
+  /// Create a copy of CreateGameRoomState
   /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? gameCode = null,
+  }) {
+    return _then(_$LoadedImpl(
+      gameCode: null == gameCode
+          ? _value.gameCode
+          : gameCode // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$LoadedImpl implements _Loaded {
-  const _$LoadedImpl();
+  const _$LoadedImpl({required this.gameCode});
+
+  @override
+  final String gameCode;
 
   @override
   String toString() {
-    return 'SubmitAnswerState.loaded()';
+    return 'CreateGameRoomState.loaded(gameCode: $gameCode)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$LoadedImpl);
+        (other.runtimeType == runtimeType &&
+            other is _$LoadedImpl &&
+            (identical(other.gameCode, gameCode) ||
+                other.gameCode == gameCode));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, gameCode);
+
+  /// Create a copy of CreateGameRoomState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$LoadedImplCopyWith<_$LoadedImpl> get copyWith =>
+      __$$LoadedImplCopyWithImpl<_$LoadedImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function() loaded,
+    required TResult Function(String gameCode) loaded,
     required TResult Function(String? error) error,
   }) {
-    return loaded();
+    return loaded(gameCode);
   }
 
   @override
@@ -377,10 +405,10 @@ class _$LoadedImpl implements _Loaded {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function()? loaded,
+    TResult? Function(String gameCode)? loaded,
     TResult? Function(String? error)? error,
   }) {
-    return loaded?.call();
+    return loaded?.call(gameCode);
   }
 
   @override
@@ -388,12 +416,12 @@ class _$LoadedImpl implements _Loaded {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function()? loaded,
+    TResult Function(String gameCode)? loaded,
     TResult Function(String? error)? error,
     required TResult orElse(),
   }) {
     if (loaded != null) {
-      return loaded();
+      return loaded(gameCode);
     }
     return orElse();
   }
@@ -436,8 +464,16 @@ class _$LoadedImpl implements _Loaded {
   }
 }
 
-abstract class _Loaded implements SubmitAnswerState {
-  const factory _Loaded() = _$LoadedImpl;
+abstract class _Loaded implements CreateGameRoomState {
+  const factory _Loaded({required final String gameCode}) = _$LoadedImpl;
+
+  String get gameCode;
+
+  /// Create a copy of CreateGameRoomState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$LoadedImplCopyWith<_$LoadedImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -451,13 +487,13 @@ abstract class _$$ErrorImplCopyWith<$Res> {
 
 /// @nodoc
 class __$$ErrorImplCopyWithImpl<$Res>
-    extends _$SubmitAnswerStateCopyWithImpl<$Res, _$ErrorImpl>
+    extends _$CreateGameRoomStateCopyWithImpl<$Res, _$ErrorImpl>
     implements _$$ErrorImplCopyWith<$Res> {
   __$$ErrorImplCopyWithImpl(
       _$ErrorImpl _value, $Res Function(_$ErrorImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of SubmitAnswerState
+  /// Create a copy of CreateGameRoomState
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
@@ -483,7 +519,7 @@ class _$ErrorImpl implements _Error {
 
   @override
   String toString() {
-    return 'SubmitAnswerState.error(error: $error)';
+    return 'CreateGameRoomState.error(error: $error)';
   }
 
   @override
@@ -497,7 +533,7 @@ class _$ErrorImpl implements _Error {
   @override
   int get hashCode => Object.hash(runtimeType, error);
 
-  /// Create a copy of SubmitAnswerState
+  /// Create a copy of CreateGameRoomState
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
@@ -510,7 +546,7 @@ class _$ErrorImpl implements _Error {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function() loaded,
+    required TResult Function(String gameCode) loaded,
     required TResult Function(String? error) error,
   }) {
     return error(this.error);
@@ -521,7 +557,7 @@ class _$ErrorImpl implements _Error {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function()? loaded,
+    TResult? Function(String gameCode)? loaded,
     TResult? Function(String? error)? error,
   }) {
     return error?.call(this.error);
@@ -532,7 +568,7 @@ class _$ErrorImpl implements _Error {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function()? loaded,
+    TResult Function(String gameCode)? loaded,
     TResult Function(String? error)? error,
     required TResult orElse(),
   }) {
@@ -580,12 +616,12 @@ class _$ErrorImpl implements _Error {
   }
 }
 
-abstract class _Error implements SubmitAnswerState {
+abstract class _Error implements CreateGameRoomState {
   const factory _Error({final String? error}) = _$ErrorImpl;
 
   String? get error;
 
-  /// Create a copy of SubmitAnswerState
+  /// Create a copy of CreateGameRoomState
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ErrorImplCopyWith<_$ErrorImpl> get copyWith =>

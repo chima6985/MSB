@@ -14,7 +14,6 @@ class Question with _$Question {
     @JsonKey(name: 'image_path') @Default('') String imagePath,
     @JsonKey(name: 'time_limit') @Default(0) int timeLimit,
     @Default(false) bool shuffleAnswers,
-    // required dynamic options,
     @Default('') String correctAnswer,
     @Default(<AnswerFormat>[]) List<AnswerFormat>? answer,
   }) = _Question;

@@ -4,11 +4,11 @@ import 'package:masoyinbo_mobile/app/app_locator.dart';
 import 'package:masoyinbo_mobile/core/core.dart';
 import 'package:masoyinbo_mobile/features/features.dart';
 
-part 'player_rewards_state.dart';
-part 'player_rewards_cubit.freezed.dart';
+part 'create_game_room_state.dart';
+part 'create_game_room_cubit.freezed.dart';
 
-class PlayerRewardsCubit extends Cubit<PlayerRewardsState> {
-  PlayerRewardsCubit({
+class CreateGameRoomCubit extends Cubit<CreateGameRoomState> {
+  CreateGameRoomCubit({
     GameRepository? gameRepository,
     required AuthBloc authBloc,
   })  : _gameRepository = gameRepository ?? locator<GameRepository>(),
@@ -21,19 +21,25 @@ class PlayerRewardsCubit extends Cubit<PlayerRewardsState> {
   /// Auth Bloc.
   final AuthBloc _authBloc;
 
-  /// Get player rewards
-  Future<void> getPlayerRewards({
-    required bool isPractice,
+  /// Create game room
+  Future<void> createGameRoom({
+    required String sectionId,
+    required String difficultyId,
+    required bool teamMode,
+    required String teamFormation,
   }) async {
     try {
       emit(const _Loading());
       final user = UserHelper.fetchUser(authBloc: _authBloc);
       if (user == null) return;
-      final apiResponse = await _gameRepository.getPlayerRewards(
-        isPractice: isPractice,
+      final gameCode = await _gameRepository.createRoom(
+        sectionId: sectionId,
+        difficultyId: difficultyId,
+        teamMode: teamMode,
+        teamFormation: teamFormation,
         token: user.token,
       );
-      emit(_Loaded(playerStat: apiResponse));
+      emit(_Loaded(gameCode: gameCode));
     } on GameException catch (e) {
       emit(_Error(error: e.message));
     } on AuthException catch (e) {

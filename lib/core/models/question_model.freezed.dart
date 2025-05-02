@@ -31,8 +31,7 @@ mixin _$Question {
   String get imagePath => throw _privateConstructorUsedError;
   @JsonKey(name: 'time_limit')
   int get timeLimit => throw _privateConstructorUsedError;
-  bool get shuffleAnswers =>
-      throw _privateConstructorUsedError; // required dynamic options,
+  bool get shuffleAnswers => throw _privateConstructorUsedError;
   String get correctAnswer => throw _privateConstructorUsedError;
   List<AnswerFormat>? get answer => throw _privateConstructorUsedError;
 
@@ -268,7 +267,6 @@ class _$QuestionImpl implements _Question {
   @override
   @JsonKey()
   final bool shuffleAnswers;
-// required dynamic options,
   @override
   @JsonKey()
   final String correctAnswer;
@@ -378,7 +376,7 @@ abstract class _Question implements Question {
   @JsonKey(name: 'time_limit')
   int get timeLimit;
   @override
-  bool get shuffleAnswers; // required dynamic options,
+  bool get shuffleAnswers;
   @override
   String get correctAnswer;
   @override

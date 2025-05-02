@@ -31,6 +31,8 @@ _$SectionImpl _$$SectionImplFromJson(Map<String, dynamic> json) =>
       id: json['id'] as String? ?? '',
       sectionName: json['section_name'] as String? ?? '',
       yorubaSectionName: json['yoruba_section_name'] as String? ?? '',
+      colour: json['colour'] as String? ?? '',
+      image: json['image'] as String? ?? '',
     );
 
 Map<String, dynamic> _$$SectionImplToJson(_$SectionImpl instance) =>
@@ -38,6 +40,8 @@ Map<String, dynamic> _$$SectionImplToJson(_$SectionImpl instance) =>
       'id': instance.id,
       'section_name': instance.sectionName,
       'yoruba_section_name': instance.yorubaSectionName,
+      'colour': instance.colour,
+      'image': instance.image,
     };
 
 _$DifficultyImpl _$$DifficultyImplFromJson(Map<String, dynamic> json) =>

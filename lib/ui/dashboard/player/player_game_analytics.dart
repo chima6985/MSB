@@ -9,7 +9,12 @@ import 'package:masoyinbo_mobile/utils/utils.dart';
 import 'package:share_plus/share_plus.dart';
 
 class PlayerGameAnalyticsScreen extends StatelessWidget {
-  const PlayerGameAnalyticsScreen({super.key});
+  const PlayerGameAnalyticsScreen({
+    super.key,
+    this.isPractice = false,
+  });
+
+  final bool isPractice;
 
   static const String id = 'playerGameAnalyticsScreen';
 
@@ -19,13 +24,17 @@ class PlayerGameAnalyticsScreen extends StatelessWidget {
       create: (context) => PlayerRewardsCubit(
         authBloc: context.read(),
       ),
-      child: const _PlayerGameAnalyticsScreen(),
+      child: _PlayerGameAnalyticsScreen(isPractice: isPractice),
     );
   }
 }
 
 class _PlayerGameAnalyticsScreen extends HookWidget {
-  const _PlayerGameAnalyticsScreen();
+  const _PlayerGameAnalyticsScreen({
+    required this.isPractice,
+  });
+
+  final bool isPractice;
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +43,9 @@ class _PlayerGameAnalyticsScreen extends HookWidget {
 
     useEffect(
       () {
-        context.read<PlayerRewardsCubit>().getPlayerRewards();
+        context
+            .read<PlayerRewardsCubit>()
+            .getPlayerRewards(isPractice: isPractice);
         return null;
       },
       [],
@@ -67,7 +78,7 @@ class _PlayerGameAnalyticsScreen extends HookWidget {
                           label: context.appLocale.retry,
                           onPressed: () => context
                               .read<PlayerRewardsCubit>()
-                              .getPlayerRewards(),
+                              .getPlayerRewards(isPractice: isPractice),
                         ),
                       ],
                     ),
@@ -134,14 +145,15 @@ class _PlayerGameAnalyticsScreen extends HookWidget {
                               ),
                             ),
                             SizedBox(height: 28.h),
-                            _AnalyticsWidget(
-                              icon: AppAssets.images.jpegs.coin2.image(
-                                width: 32.w,
-                                height: 32.w,
+                            if (!isPractice)
+                              _AnalyticsWidget(
+                                icon: AppAssets.images.jpegs.coin2.image(
+                                  width: 32.w,
+                                  height: 32.w,
+                                ),
+                                title: context.appLocale.coinsEarned,
+                                value: playerStat.coins.toString(),
                               ),
-                              title: context.appLocale.coinsEarned,
-                              value: playerStat.coins.toString(),
-                            ),
                             const SizedBox(height: 8),
                             _AnalyticsWidget(
                               icon: AppAssets.images.svgs.accuracy.svg(),

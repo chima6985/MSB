@@ -1,39 +1,87 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:masoyinbo_mobile/app/app.dart';
 import 'package:masoyinbo_mobile/extension/extension.dart';
+import 'package:masoyinbo_mobile/features/features.dart';
 import 'package:masoyinbo_mobile/gen/fonts.gen.dart';
 import 'package:masoyinbo_mobile/ui/dashboard/player/team_all_set_modal.dart';
 import 'package:masoyinbo_mobile/ui/ui.dart';
 
-class GameRoomScreen extends HookWidget {
+class GameRoomScreen extends StatelessWidget {
   const GameRoomScreen({
     super.key,
+    required this.gameCode,
     this.isMultiplayer = false,
     this.isTeamMode = false,
     this.isTeamFormationAutomatic = false,
   });
+
+  final String gameCode;
+  final bool isMultiplayer;
+  final bool isTeamMode;
+  final bool isTeamFormationAutomatic;
+
   static const String id = 'gameRoomScreen';
 
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) => AllPlayersCubit(
+        authBloc: context.read(),
+      ),
+      child: _GameRoomScreen(
+        gameCode: gameCode,
+        isMultiplayer: isMultiplayer,
+        isTeamMode: isTeamMode,
+        isTeamFormationAutomatic: isTeamFormationAutomatic,
+      ),
+    );
+  }
+}
+
+class _GameRoomScreen extends StatefulWidget {
+  const _GameRoomScreen({
+    required this.gameCode,
+    required this.isMultiplayer,
+    required this.isTeamMode,
+    required this.isTeamFormationAutomatic,
+  });
+
+  final String gameCode;
   final bool isMultiplayer;
   final bool isTeamMode;
   final bool isTeamFormationAutomatic;
 
   @override
+  State<_GameRoomScreen> createState() => _GameRoomScreenState();
+}
+
+class _GameRoomScreenState extends State<_GameRoomScreen> {
+  @override
+  void initState() {
+    super.initState();
+    // if (!isMultiplayer) {
+    //   Future.delayed(5.seconds).then((_) {
+    //     if (context.mounted) {
+    //       context.pushReplacementNamed(TeamAllSetScreen.id);
+    //     }
+    //   });
+    // }
+    context.read<AllPlayersCubit>().startPolling(gameCode: widget.gameCode);
+  }
+
+  @override
+  void dispose() {
+    context.read<AllPlayersCubit>().close();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    useEffect(() {
-      if (!isMultiplayer) {
-        Future.delayed(5.seconds).then((_) {
-          if (context.mounted) {
-            context.pushReplacementNamed(TeamAllSetScreen.id);
-          }
-        });
-      }
-      return null;
-    });
     return Scaffold(
       body: DecoratedContainer(
         isAnimate: true,
+        canPop: false,
         child: Column(
           children: [
             SizedBox(height: context.topPadding),
@@ -42,7 +90,7 @@ class GameRoomScreen extends HookWidget {
                 CustomBackButton(
                   onTap: () => showModalBottomSheet(
                     context: context,
-                    builder: (context) => !isMultiplayer
+                    builder: (context) => !widget.isMultiplayer
                         ? const ConfirmLeaveActionModal()
                         : ConfirmLeaveActionModal(
                             onTapIntent: () => Navigator.popUntil(
@@ -82,7 +130,7 @@ class GameRoomScreen extends HookWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          'VV9645',
+                          widget.gameCode,
                           style: context.textTheme.bodyLarge!.copyWith(
                             fontWeight: FontWeight.w500,
                           ),
@@ -162,17 +210,17 @@ class GameRoomScreen extends HookWidget {
                         ),
                       ),
                     ),
-                    if (isMultiplayer) ...[
+                    if (widget.isMultiplayer) ...[
                       Button(
-                        label: isTeamMode
+                        label: widget.isTeamMode
                             ? setTeamYr
                             : context.appLocale.startPlaying,
                         onPressed: () => showModalBottomSheet(
                           context: context,
-                          builder: (context) => isTeamMode
+                          builder: (context) => widget.isTeamMode
                               ? SetTeamModal(
                                   isTeamFormationAutomatic:
-                                      isTeamFormationAutomatic,
+                                      widget.isTeamFormationAutomatic,
                                 )
                               : const TeamAllSetModal(),
                           isScrollControlled: true,

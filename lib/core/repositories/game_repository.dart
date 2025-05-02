@@ -40,12 +40,18 @@ class GameRepository {
   String _getQuestions(String difficulty, String section) =>
       '$_baseUrl/game/single-player/get-question/$difficulty/$section';
 
-  /// Submit answer endpoint
-  String _submitAnswerEndpoint() =>
+  /// Submit practice answer endpoint
+  String _submitPracticeAnswerEndpoint() => '$_baseUrl/practice/submit-answer';
+
+  /// Submit single player answer endpoint
+  String _submitSinglePlayerAnswerEndpoint() =>
       '$_baseUrl/game/single-player/submit-answer';
 
   /// Back to home endpoint
   String _backToHomeEndpoint() => '$_baseUrl/game/single-player/back-to-home';
+
+  /// Get user analytics endpoint
+  String _getUserAnalyticsEndpoint() => '$_baseUrl/practice/get-user-analytics';
 
   /// Get player rewards endpoint
   String _getPlayerRewards() => '$_baseUrl/game/single-player/rewards';
@@ -53,6 +59,17 @@ class GameRepository {
   /// Join room endpoint
   String _joinGameRoomEndpoint(String gameCode) =>
       '$_baseUrl/game/multi-player/$gameCode/join-room';
+
+  /// Get game details endpoint
+  String _getGameDetailsEndpoint(String gameCode) =>
+      '$_baseUrl/game/multi-player/invitee/get-game-details/$gameCode';
+
+  /// Create room endpoint
+  String _createRoomEndpoint() => '$_baseUrl/game/multi-player/create-room';
+
+  /// Get all players endpoint
+  String _getAllPlayersEndpoint(String gameCode) =>
+      '$_baseUrl/game/multi-player/$gameCode/get-all-players';
 
   /// Get sections and difficulty
   ///
@@ -125,10 +142,13 @@ class GameRepository {
     required String questionId,
     required String answer,
     required int startTime,
+    required bool isPractice,
     required String token,
   }) async {
     try {
-      final url = _submitAnswerEndpoint();
+      final url = isPractice
+          ? _submitPracticeAnswerEndpoint()
+          : _submitSinglePlayerAnswerEndpoint();
       final headers = {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
@@ -191,10 +211,12 @@ class GameRepository {
   /// Returns [PlayerStat] on success.
   /// Throws [GameException] when operation fails.
   Future<PlayerStat> getPlayerRewards({
+    required bool isPractice,
     required String token,
   }) async {
     try {
-      final url = _getPlayerRewards();
+      final url =
+          isPractice ? _getUserAnalyticsEndpoint() : _getPlayerRewards();
       final headers = {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
@@ -233,6 +255,115 @@ class GameRepository {
       };
       return await APIHelper.request<void>(
         request: _client.post(
+          Uri.parse(url),
+          headers: headers,
+        ),
+        onSuccessMap: (value) {},
+      );
+    } on APIException catch (e) {
+      throw GameException(message: e.message);
+    } on AuthException catch (e) {
+      throw AuthException(message: e.message);
+    } catch (e) {
+      throw const GameException();
+    }
+  }
+
+  /// Get game details
+  ///
+  /// Returns [void] on success.
+  /// Throws [GameException] when operation fails.
+  Future<void> getGameDetails({
+    required String gameCode,
+    required String token,
+  }) async {
+    try {
+      final url = _getGameDetailsEndpoint(gameCode);
+      final headers = {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      };
+      return await APIHelper.request<void>(
+        request: _client.get(
+          Uri.parse(url),
+          headers: headers,
+        ),
+        onSuccessMap: (value) {},
+      );
+    } on APIException catch (e) {
+      throw GameException(message: e.message);
+    } on AuthException catch (e) {
+      throw AuthException(message: e.message);
+    } catch (e) {
+      throw const GameException();
+    }
+  }
+
+  /// Create room
+  ///
+  /// Returns [String] on success.
+  /// Throws [GameException] when operation fails.
+  Future<String> createRoom({
+    required String sectionId,
+    required String difficultyId,
+    required bool teamMode,
+    required String teamFormation,
+    required String token,
+  }) async {
+    try {
+      final url = _createRoomEndpoint();
+      final headers = {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      };
+      final body = {
+        'section_id': sectionId,
+        'difficulty_id': difficultyId,
+        'team_mode': teamMode,
+        if (teamMode) 'team_formation': teamFormation,
+      };
+      return await APIHelper.request<String>(
+        request: _client.post(
+          Uri.parse(url),
+          headers: headers,
+          body: jsonEncode(body),
+        ),
+        onSuccessMap: (value) {
+          if (value.containsKey('gameCode')) {
+            return value['gameCode'];
+          } else {
+            return '';
+          }
+        },
+      );
+    } on APIException catch (e) {
+      throw GameException(message: e.message);
+    } on AuthException catch (e) {
+      throw AuthException(message: e.message);
+    } catch (e) {
+      throw const GameException();
+    }
+  }
+
+  /// Get all players
+  ///
+  /// Returns [void] on success.
+  /// Throws [GameException] when operation fails.
+  Future<void> getAllPlayersEndpoint({
+    required String gameCode,
+    required String token,
+  }) async {
+    try {
+      final url = _getAllPlayersEndpoint(gameCode);
+      final headers = {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      };
+      return await APIHelper.request<void>(
+        request: _client.get(
           Uri.parse(url),
           headers: headers,
         ),

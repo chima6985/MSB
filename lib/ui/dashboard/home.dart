@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -19,6 +20,7 @@ class Home extends HookWidget {
     final greetings = Functions.greetingMessage(context);
     final currentLocale = context.currentLocale;
     final user = context.watch<UserCubit>().state.user;
+    final expandableIndices = [1, 2, 5, 6, 8, 9];
     return SingleChildScrollView(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 23),
@@ -60,46 +62,44 @@ class Home extends HookWidget {
             SizedBox(height: 16.h),
             Row(
               children: [
-                GestureDetector(
-                  onTap: () => context
-                      .read<ModuleAndDifficultyCubit>()
-                      .getSectionsAndDifficulty(),
-                  child: Text(
-                    greetings.first,
-                    textScaler: TextScaler.noScaling,
-                    style: context.textTheme.titleLarge!.copyWith(
-                      fontFamily: FontFamily.margarine,
-                    ),
+                Text(
+                  greetings.first,
+                  textScaler: TextScaler.noScaling,
+                  style: context.textTheme.titleLarge!.copyWith(
+                    fontFamily: FontFamily.margarine,
                   ),
                 ),
                 const Spacer(),
-                Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-                  decoration: BoxDecoration(
-                    color: AppColors.goldFC.withValues(alpha: 0.1),
-                    borderRadius: BorderRadius.circular(20),
-                    border: Border.all(
-                      color: AppColors.goldCE,
+                InkWell(
+                  onTap: () => context.pushNamed(NotificationsScreen.id),
+                  child: Container(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                    decoration: BoxDecoration(
+                      color: AppColors.goldFC.withValues(alpha: 0.1),
+                      borderRadius: BorderRadius.circular(20),
+                      border: Border.all(
+                        color: AppColors.goldCE,
+                      ),
                     ),
-                  ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      AppAssets.images.jpegs.coin2.image(
-                        width: 24.w,
-                        height: 24.w,
-                      ),
-                      const SizedBox(width: 4),
-                      Text(
-                        '0',
-                        textScaler: TextScaler.noScaling,
-                        style: context.textTheme.bodyMedium!.copyWith(
-                          color: AppColors.goldCE,
-                          fontWeight: FontWeight.w600,
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        AppAssets.images.jpegs.coin2.image(
+                          width: 24.w,
+                          height: 24.w,
                         ),
-                      ),
-                    ],
+                        const SizedBox(width: 4),
+                        Text(
+                          '0',
+                          textScaler: TextScaler.noScaling,
+                          style: context.textTheme.bodyMedium!.copyWith(
+                            color: AppColors.goldCE,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ],
@@ -299,56 +299,27 @@ class Home extends HookWidget {
                         ),
                       ),
                       SizedBox(height: 16.h),
-                      Row(
-                        children: [
-                          _QuickActionsPracticeWidget(
-                            image: AppAssets.images.jpegs.proverb.image(
-                              width: context.isTablet ? null : 78.w,
-                              scale: context.isTablet ? 1.4 : null,
-                            ),
-                            width: mqr.width * 0.375,
-                            section: PracticeSection.proverb,
-                          ),
-                          const SizedBox(width: 16),
-                          Expanded(
-                            child: _QuickActionsPracticeWidget(
-                              image: Padding(
-                                padding: const EdgeInsets.only(top: 10),
-                                child: AppAssets.images.jpegs.questionAndAnswer
-                                    .image(
-                                  width: context.isTablet ? null : 60.w,
-                                  scale: context.isTablet ? 1.3 : null,
+                      LayoutBuilder(
+                        builder: (context, constraints) {
+                          final fullWidth = constraints.maxWidth;
+                          final tileWidth = fullWidth * 0.44;
+                          const spacing = 10.0;
+                          return Wrap(
+                            spacing: spacing,
+                            runSpacing: spacing,
+                            children: [
+                              for (int i = 0;
+                                  i < sectionDifficulty.sections.length;
+                                  i++)
+                                _QuickActionsPracticeWidget(
+                                  section: sectionDifficulty.sections[i],
+                                  width: expandableIndices.contains(i)
+                                      ? (fullWidth - tileWidth - 11.w)
+                                      : tileWidth,
                                 ),
-                              ),
-                              width: mqr.width * 0.38,
-                              section: PracticeSection.qAndA,
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 16),
-                      Row(
-                        children: [
-                          Expanded(
-                            child: _QuickActionsPracticeWidget(
-                              image: AppAssets.images.jpegs.meaning.image(
-                                width: context.isTablet ? null : 100.w,
-                                scale: context.isTablet ? 1 : null,
-                              ),
-                              width: mqr.width * 0.38,
-                              section: PracticeSection.meaning,
-                            ),
-                          ),
-                          const SizedBox(width: 16),
-                          _QuickActionsPracticeWidget(
-                            image: AppAssets.images.jpegs.numbers.image(
-                              width: context.isTablet ? null : 90.w,
-                              scale: context.isTablet ? 1 : null,
-                            ),
-                            width: mqr.width * 0.375,
-                            section: PracticeSection.numbers,
-                          ),
-                        ],
+                            ],
+                          );
+                        },
                       ),
                       const SizedBox(height: 32),
                       RichText(
@@ -438,47 +409,23 @@ class Home extends HookWidget {
 
 class _QuickActionsPracticeWidget extends StatelessWidget {
   const _QuickActionsPracticeWidget({
-    required this.image,
-    required this.width,
     required this.section,
+    this.width,
   });
 
-  final Widget image;
-  final double width;
-  final PracticeSection section;
+  final Section section;
+  final double? width;
 
   @override
   Widget build(BuildContext context) {
     final user = AppStorage.getUser();
     final currentLocale = context.currentLocale;
-    final mainText = {
-      PracticeSection.proverb: context.appLocale.proverb,
-      PracticeSection.qAndA: context.appLocale.questionAndAnswer,
-      PracticeSection.meaning: context.appLocale.meaning,
-      PracticeSection.numbers: context.appLocale.numbers,
-    };
-
-    final subText = {
-      PracticeSection.proverb: currentLocale == yo
-          ? context.enLocale.proverb
-          : context.yoLocale.proverb,
-      PracticeSection.qAndA: currentLocale == yo
-          ? context.enLocale.questionAndAnswer
-          : context.yoLocale.questionAndAnswer,
-      PracticeSection.meaning: currentLocale == yo
-          ? context.enLocale.meaning
-          : context.yoLocale.meaning,
-      PracticeSection.numbers: currentLocale == yo
-          ? context.enLocale.numbers
-          : context.yoLocale.numbers,
-    };
-
-    final color = {
-      PracticeSection.proverb: AppColors.purpleF1,
-      PracticeSection.qAndA: AppColors.greenCE,
-      PracticeSection.meaning: AppColors.lemonEC,
-      PracticeSection.numbers: AppColors.greyB6,
-    };
+    final mainText =
+        currentLocale == yo ? section.yorubaSectionName : section.sectionName;
+    final subText =
+        currentLocale == yo ? section.sectionName : section.yorubaSectionName;
+    final bgColor =
+        int.tryParse(section.colour.replaceAll('#', '0xFF')) ?? 0xFFF1ECFD;
     return InkWell(
       onTap: () {
         if (user == null) {
@@ -486,7 +433,10 @@ class _QuickActionsPracticeWidget extends StatelessWidget {
         } else {
           context.pushNamed(
             PlayerScreen.id,
-            extra: {'isPractice': true},
+            extra: {
+              'isPractice': true,
+              'section': section,
+            },
           );
         }
       },
@@ -496,7 +446,7 @@ class _QuickActionsPracticeWidget extends StatelessWidget {
               height: 205.h,
               padding: const EdgeInsets.symmetric(horizontal: 24),
               decoration: BoxDecoration(
-                color: color[section] ?? AppColors.purpleF1,
+                color: Color(bgColor),
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Column(
@@ -505,7 +455,22 @@ class _QuickActionsPracticeWidget extends StatelessWidget {
                   Expanded(
                     child: Align(
                       alignment: Alignment.topRight,
-                      child: image,
+                      child: section.image.contains('svg')
+                          ? SvgNetworkWidget(
+                              url: section.image,
+                              placeHolder: AppAssets
+                                  .images.jpegs.questionAndAnswer
+                                  .image(),
+                              width: 65.w,
+                              height: 65.w,
+                            )
+                          : CachedNetworkImage(
+                              imageUrl: section.image,
+                              errorWidget: (context, _, error) => AppAssets
+                                  .images.jpegs.questionAndAnswer
+                                  .image(),
+                              scale: 1.35,
+                            ),
                     ),
                   ),
                   Column(
@@ -518,7 +483,7 @@ class _QuickActionsPracticeWidget extends StatelessWidget {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             Text(
-                              mainText[section]?.titleCase() ?? '',
+                              mainText.titleCase(),
                               textScaler: TextScaler.noScaling,
                               style: context.textTheme.bodyMedium!.copyWith(
                                 fontWeight: FontWeight.w500,
@@ -529,7 +494,7 @@ class _QuickActionsPracticeWidget extends StatelessWidget {
                             Transform.translate(
                               offset: const Offset(0, -3),
                               child: Text(
-                                subText[section]?.titleCase() ?? '',
+                                subText.titleCase(),
                                 textScaler: TextScaler.noScaling,
                                 style: context.textTheme.bodySmall!.copyWith(
                                   fontStyle: FontStyle.italic,
@@ -547,16 +512,35 @@ class _QuickActionsPracticeWidget extends StatelessWidget {
             )
           : Container(
               width: width,
+              height: 110.h,
               padding: const EdgeInsets.symmetric(horizontal: 8),
               decoration: BoxDecoration(
-                color: color[section] ?? AppColors.purpleF1,
+                color: Color(bgColor).withValues(alpha: 0.5),
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Stack(
                 children: [
                   Align(
                     alignment: Alignment.topRight,
-                    child: image,
+                    child: Transform.translate(
+                      offset: Offset(-3.w, 10.h),
+                      child: section.image.contains('svg')
+                          ? SvgNetworkWidget(
+                              url: section.image,
+                              placeHolder: AppAssets
+                                  .images.jpegs.questionAndAnswer
+                                  .image(),
+                              width: 55.w,
+                              height: 55.w,
+                            )
+                          : CachedNetworkImage(
+                              imageUrl: section.image,
+                              errorWidget: (context, _, error) => AppAssets
+                                  .images.jpegs.questionAndAnswer
+                                  .image(),
+                              width: 55.w,
+                            ),
+                    ),
                   ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -568,21 +552,29 @@ class _QuickActionsPracticeWidget extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            Text(
-                              mainText[section]?.titleCase() ?? '',
-                              textScaler: TextScaler.noScaling,
-                              style: context.textTheme.bodyMedium!.copyWith(
-                                fontWeight: FontWeight.w500,
+                            FittedBox(
+                              fit: BoxFit.scaleDown,
+                              alignment: Alignment.centerLeft,
+                              child: Text(
+                                mainText.titleCase(),
+                                textScaler: TextScaler.noScaling,
+                                style: context.textTheme.bodyMedium!.copyWith(
+                                  fontWeight: FontWeight.w500,
+                                ),
                               ),
                             ),
                             Transform.translate(
                               offset: const Offset(0, -3),
-                              child: Text(
-                                subText[section]?.titleCase() ?? '',
-                                textScaler: TextScaler.noScaling,
-                                style: context.textTheme.bodySmall!.copyWith(
-                                  fontStyle: FontStyle.italic,
-                                  fontWeight: FontWeight.w300,
+                              child: FittedBox(
+                                fit: BoxFit.scaleDown,
+                                alignment: Alignment.centerLeft,
+                                child: Text(
+                                  subText.titleCase(),
+                                  textScaler: TextScaler.noScaling,
+                                  style: context.textTheme.bodySmall!.copyWith(
+                                    fontStyle: FontStyle.italic,
+                                    fontWeight: FontWeight.w300,
+                                  ),
                                 ),
                               ),
                             ),

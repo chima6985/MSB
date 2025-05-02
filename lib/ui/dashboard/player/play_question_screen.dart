@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:custom_timer/custom_timer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,7 +11,6 @@ import 'package:masoyinbo_mobile/gen/fonts.gen.dart';
 import 'package:masoyinbo_mobile/ui/ui.dart';
 import 'package:masoyinbo_mobile/utils/utils.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
-import 'package:percent_indicator/linear_percent_indicator.dart';
 
 class PlayQuestionScreen extends StatelessWidget {
   const PlayQuestionScreen({
@@ -97,6 +98,9 @@ class __PlayQuestionScreenState extends State<__PlayQuestionScreen>
   int livesRemaining = 0;
   // ignore: prefer_const_declarations
   int currentQuestionIndex = 0;
+  bool showFrontSide = true;
+  bool flipXAxis = true;
+  final stopwatch = Stopwatch();
 
   @override
   void initState() {
@@ -107,13 +111,18 @@ class __PlayQuestionScreenState extends State<__PlayQuestionScreen>
     setState(() {
       livesRemaining = widget.totalLives ?? 0;
     });
-    timerCountDownController = CustomTimerController(
-      begin: Duration(
-        seconds: questions.isNotEmpty ? questions.first.timeLimit : 0,
-      ),
-      end: Duration.zero,
-      vsync: this,
-    )..start();
+    if (widget.isTimed || widget.isSinglePlayer) {
+      timerCountDownController = CustomTimerController(
+        begin: Duration(
+          seconds: questions.isNotEmpty ? questions.first.timeLimit : 0,
+        ),
+        end: Duration.zero,
+        vsync: this,
+      )..start();
+    }
+    if (widget.isPractice) {
+      stopwatch.start();
+    }
     super.initState();
   }
 
@@ -121,15 +130,18 @@ class __PlayQuestionScreenState extends State<__PlayQuestionScreen>
   void dispose() {
     answerController.dispose();
     timerCountDownController?.dispose();
+    stopwatch.stop();
     // answerController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    final mqr = MediaQuery.of(context).size;
     final currentLocale = context.currentLocale;
-    final enSectionName = widget.questionSection?.sectionName ?? '';
-    final yoSectionName = widget.questionSection?.yorubaSectionName ?? '';
+    final enSectionName = widget.questionSection?.sectionName.titleCase() ?? '';
+    final yoSectionName =
+        widget.questionSection?.yorubaSectionName.titleCase() ?? '';
 
     final isPracticeMode = widget.isPractice;
 
@@ -176,11 +188,13 @@ class __PlayQuestionScreenState extends State<__PlayQuestionScreen>
           loaded: (answer) {
             timerCountDownController?.reset();
             if (isPracticeMode || isSinglePlayerMode) {
-              if (answer.totalLives == 0) {
+              if (isPracticeMode) {
+                stopwatch.reset();
+                setState(() => showFrontSide = true);
+              }
+              if (isSinglePlayerMode && answer.totalLives == 0) {
                 // get user stats and leave game session
-                setState(
-                  () => isLoading = false,
-                );
+                setState(() => isLoading = false);
                 context.pushReplacementNamed(RanOutOfLivesScreen.id);
               } else {
                 setState(
@@ -189,16 +203,40 @@ class __PlayQuestionScreenState extends State<__PlayQuestionScreen>
                     livesRemaining = answer.totalLives;
                   },
                 );
-                if (answer.message.toLowerCase().contains('incorrect')) {
-                  ToastMessage.showWarning(
-                    context: context,
-                    text: answer.message,
-                  );
-                } else {
-                  ToastMessage.showSuccess(
-                    context: context,
-                    text: answer.message,
-                  );
+                //Toast Logic
+                if (isPracticeMode) {
+                  // dont show toast if user flips
+                  if (answerController.text.trim() == 'flipped') {
+                    ToastMessage.showInformation(
+                      context: context,
+                      text: context.appLocale.questionFlipped,
+                    );
+                  } else {
+                    if (answer.message.toLowerCase().contains('incorrect')) {
+                      ToastMessage.showWarning(
+                        context: context,
+                        text: answer.message,
+                      );
+                    } else {
+                      ToastMessage.showSuccess(
+                        context: context,
+                        text: answer.message,
+                      );
+                    }
+                  }
+                }
+                if (isSinglePlayerMode) {
+                  if (answer.message.toLowerCase().contains('incorrect')) {
+                    ToastMessage.showWarning(
+                      context: context,
+                      text: answer.message,
+                    );
+                  } else {
+                    ToastMessage.showSuccess(
+                      context: context,
+                      text: answer.message,
+                    );
+                  }
                 }
 
                 if ((currentQuestionIndex + 1) < questions.length) {
@@ -208,7 +246,10 @@ class __PlayQuestionScreenState extends State<__PlayQuestionScreen>
                   timerCountDownController?.start();
                 } else {
                   // ran out of questions, push user to game stats
-                  context.pushReplacementNamed(PlayerGameAnalyticsScreen.id);
+                  context.pushReplacementNamed(
+                    PlayerGameAnalyticsScreen.id,
+                    extra: {'isPractice': isPracticeMode},
+                  );
                 }
               }
             } else {}
@@ -404,6 +445,8 @@ class __PlayQuestionScreenState extends State<__PlayQuestionScreen>
                                           final answer =
                                               currentQuestion?.answer;
 
+                                          print(currentQuestion);
+
                                           if (answer?.isNotEmpty ?? false) {
                                             if (currentQuestion
                                                     ?.shuffleAnswers ==
@@ -527,7 +570,13 @@ class __PlayQuestionScreenState extends State<__PlayQuestionScreen>
                                                                               ?.id ??
                                                                           '',
                                                                   answer: '',
-                                                                  startTime: 30,
+                                                                  startTime: isPracticeMode
+                                                                      ? stopwatch
+                                                                          .elapsed
+                                                                          .inSeconds
+                                                                      : 30,
+                                                                  isPractice:
+                                                                      isPracticeMode,
                                                                 );
                                                           }
                                                           final time = (double
@@ -584,107 +633,187 @@ class __PlayQuestionScreenState extends State<__PlayQuestionScreen>
                                                 ),
                                               ),
                                               const SizedBox(height: 16),
-                                              Container(
-                                                padding:
-                                                    const EdgeInsets.symmetric(
-                                                  vertical: 24,
-                                                  horizontal: 16,
-                                                ),
-                                                margin:
-                                                    const EdgeInsets.symmetric(
-                                                  horizontal: 19,
-                                                ),
-                                                decoration: BoxDecoration(
-                                                  color: AppColors.white,
-                                                  borderRadius:
-                                                      BorderRadius.circular(18),
-                                                  border: Border.all(
-                                                    color: AppColors.greyDB,
-                                                  ),
-                                                ),
-                                                child: Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
+                                              AnimatedSwitcher(
+                                                duration: 800.ms,
+                                                transitionBuilder:
+                                                    __transitionBuilder,
+                                                layoutBuilder: (widget, list) =>
+                                                    Stack(
                                                   children: [
-                                                    Row(
-                                                      children: [
-                                                        Expanded(
-                                                          child:
-                                                              LinearPercentIndicator(
-                                                            padding:
-                                                                EdgeInsets.zero,
-                                                            lineHeight: 10,
-                                                            percent:
-                                                                (currentQuestionIndex +
-                                                                        1) /
-                                                                    questions
-                                                                        .length,
-                                                            progressColor:
-                                                                AppColors
-                                                                    .blue12,
-                                                            backgroundColor:
-                                                                AppColors
-                                                                    .greyDB,
-                                                            animation: true,
-                                                            animateFromLastPercent:
-                                                                true,
-                                                            barRadius:
-                                                                const Radius
-                                                                    .circular(
-                                                              12,
-                                                            ),
-                                                          ),
-                                                        ),
-                                                        if ((isPracticeMode ==
-                                                                    true ||
-                                                                isSinglePlayerMode ==
-                                                                    true) &&
-                                                            widget.totalLives !=
-                                                                null) ...[
-                                                          SizedBox(width: 15.w),
-                                                          GameLivesWidget(
-                                                            totalLives: widget
-                                                                    .totalLives ??
-                                                                0,
-                                                            livesRemaining:
-                                                                livesRemaining,
-                                                          ),
-                                                        ],
-                                                      ],
-                                                    ),
-                                                    const SizedBox(height: 24),
-                                                    Padding(
-                                                      padding:
-                                                          const EdgeInsets.only(
-                                                        left: 8,
+                                                    widget ?? const SizedBox(),
+                                                    ...list,
+                                                  ],
+                                                ),
+                                                switchInCurve:
+                                                    Curves.easeInBack,
+                                                switchOutCurve:
+                                                    Curves.easeInBack.flipped,
+                                                child: showFrontSide
+                                                    ? QuestionCard(
+                                                        currentQuestionIndex:
+                                                            currentQuestionIndex,
+                                                        totalNoOfQuestions:
+                                                            questions.length,
+                                                        isPracticeMode:
+                                                            isPracticeMode,
+                                                        isSinglePlayerMode:
+                                                            isSinglePlayerMode,
+                                                        totalLives:
+                                                            widget.totalLives,
+                                                        livesRemaining:
+                                                            livesRemaining,
+                                                        currentAltQuestionText:
+                                                            currentAltQuestionText,
+                                                        currentQuestionText:
+                                                            currentQuestionText,
+                                                        onFlipPressed: () {
+                                                          answerController
+                                                              .text = 'flipped';
+                                                          setState(() {
+                                                            showFrontSide =
+                                                                false;
+                                                          });
+                                                        },
+                                                      )
+                                                    : FlippedQuestionCard(
+                                                        currentQuestionIndex:
+                                                            currentQuestionIndex,
+                                                        totalNoOfQuestions:
+                                                            questions.length,
+                                                        isPracticeMode:
+                                                            isPracticeMode,
+                                                        answer: answer,
                                                       ),
-                                                      child: Column(
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .start,
+                                              ),
+                                              SizedBox(
+                                                height: 28.h +
+                                                    (!showFrontSide ? 40.h : 0),
+                                              ),
+                                              if (showFrontSide) ...[
+                                                if (isMultiPlayerMode ||
+                                                    isMultiPlayerTeamLeaderMode ||
+                                                    isMultiPlayerGameMasterMode) ...[
+                                                  Center(
+                                                    child: Text(
+                                                      '* Select your answers from the options below',
+                                                      textAlign:
+                                                          TextAlign.start,
+                                                      style: context
+                                                          .textTheme.bodySmall!
+                                                          .copyWith(
+                                                        fontStyle:
+                                                            FontStyle.italic,
+                                                        fontWeight:
+                                                            FontWeight.w300,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  const SizedBox(height: 12),
+                                                  SelectCategoryWidget2(
+                                                    title: 'Tiiro',
+                                                    isSelected:
+                                                        selectedMultipleOption ==
+                                                            'Tiiro',
+                                                    isShowBgColor: false,
+                                                    voteIndicator:
+                                                        selectedMultipleOption ==
+                                                                'Tiiro'
+                                                            ? '4'
+                                                            : '3',
+                                                    bgColor: bgColor[
+                                                        isMultipleOption],
+                                                    brColor: brColor[
+                                                        isMultipleOption],
+                                                    onTap: () {
+                                                      setState(() {
+                                                        if (selectedMultipleOption ==
+                                                            'Tiiro') {
+                                                          selectedMultipleOption =
+                                                              null;
+                                                        } else {
+                                                          selectedMultipleOption =
+                                                              'Tiiro';
+                                                          isMultiplayerAnswerSelected =
+                                                              false;
+                                                          isMultipleOption =
+                                                              null;
+                                                        }
+                                                      });
+                                                    },
+                                                  ),
+                                                  SelectCategoryWidget2(
+                                                    title: 'Asiiro',
+                                                    isSelected:
+                                                        selectedMultipleOption ==
+                                                            'Asiiro',
+                                                    isShowBgColor: false,
+                                                    voteIndicator:
+                                                        selectedMultipleOption ==
+                                                                'Asiiro'
+                                                            ? '1'
+                                                            : null,
+                                                    bgColor: bgColor[
+                                                        isMultipleOption],
+                                                    brColor: brColor[
+                                                        isMultipleOption],
+                                                    onTap: () {
+                                                      setState(() {
+                                                        if (selectedMultipleOption ==
+                                                            'Asiiro') {
+                                                          selectedMultipleOption =
+                                                              null;
+                                                        } else {
+                                                          selectedMultipleOption =
+                                                              'Asiiro';
+                                                          isMultiplayerAnswerSelected =
+                                                              false;
+                                                          isMultipleOption =
+                                                              null;
+                                                        }
+                                                      });
+                                                    },
+                                                  ),
+                                                  SelectCategoryWidget2(
+                                                    title: 'Asiiro',
+                                                    isSelected:
+                                                        selectedMultipleOption ==
+                                                            'Asiiroo',
+                                                    isShowBgColor: false,
+                                                    voteIndicator:
+                                                        selectedMultipleOption ==
+                                                                'Asiiroo'
+                                                            ? '1'
+                                                            : null,
+                                                    bgColor: bgColor[
+                                                        isMultipleOption],
+                                                    brColor: brColor[
+                                                        isMultipleOption],
+                                                    onTap: () {
+                                                      setState(() {
+                                                        if (selectedMultipleOption ==
+                                                            'Asiiroo') {
+                                                          selectedMultipleOption =
+                                                              null;
+                                                        } else {
+                                                          selectedMultipleOption =
+                                                              'Asiiroo';
+                                                          isMultiplayerAnswerSelected =
+                                                              false;
+                                                          isMultipleOption =
+                                                              null;
+                                                        }
+                                                      });
+                                                    },
+                                                  ),
+                                                  if (isMultiplayerAnswerSelected) ...[
+                                                    SizedBox(height: 25.h),
+                                                    Center(
+                                                      child: Row(
+                                                        mainAxisSize:
+                                                            MainAxisSize.min,
                                                         children: [
                                                           Text(
-                                                            currentLocale == yo
-                                                                ? currentAltQuestionText
-                                                                : currentQuestionText,
-                                                            textAlign: TextAlign
-                                                                .center,
-                                                            style: context
-                                                                .textTheme
-                                                                .bodyMedium!
-                                                                .copyWith(
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w500,
-                                                            ),
-                                                          ),
-                                                          const SizedBox(
-                                                            height: 4,
-                                                          ),
-                                                          Text(
-                                                            currentLocale == yo
-                                                                ? currentQuestionText
-                                                                : currentAltQuestionText,
+                                                            waitingForTeamLeaderToSubmitFinalAnswerYr,
                                                             textAlign:
                                                                 TextAlign.start,
                                                             style: context
@@ -699,522 +828,345 @@ class __PlayQuestionScreenState extends State<__PlayQuestionScreen>
                                                                       .w300,
                                                             ),
                                                           ),
-                                                          SizedBox(
-                                                            height: 80.h,
-                                                          ),
-                                                          Row(
-                                                            children: [
-                                                              ActionButton(
-                                                                label: 'Listen',
-                                                                isEnabled: true,
-                                                                icon: AppAssets
-                                                                    .images
-                                                                    .svgs
-                                                                    .listen
-                                                                    .svg(
-                                                                  width: 17.sp,
-                                                                  height: 17.sp,
-                                                                ),
-                                                                onTap: () {},
-                                                              ),
-                                                              const SizedBox(
-                                                                width: 24,
-                                                              ),
-                                                              ActionButton(
-                                                                label: 'Speak',
-                                                                isEnabled: true,
-                                                                icon: Icon(
-                                                                  Iconsax
-                                                                      .microphone_2,
-                                                                  size: 17.sp,
-                                                                  color: AppColors
-                                                                      .black15,
-                                                                ),
-                                                                onTap: () {},
-                                                              ),
-                                                              const Spacer(),
-                                                              ActionButton(
-                                                                label: 'Flip',
-                                                                isEnabled:
-                                                                    false,
-                                                                icon: Icon(
-                                                                  Icons
-                                                                      .swipe_right_rounded,
-                                                                  size: 17.sp,
-                                                                  color: AppColors
-                                                                      .black15,
-                                                                ),
-                                                                onTap: () {},
-                                                              ),
-                                                            ],
+                                                          const TypeWriterProgressTextIndicator(
+                                                            fontWeight:
+                                                                FontWeight.w400,
+                                                            isItalic: true,
                                                           ),
                                                         ],
                                                       ),
                                                     ),
                                                   ],
-                                                ),
-                                              ),
-                                              const SizedBox(height: 28),
-                                              if (isMultiPlayerMode ||
-                                                  isMultiPlayerTeamLeaderMode ||
-                                                  isMultiPlayerGameMasterMode) ...[
-                                                Center(
-                                                  child: Text(
-                                                    '* Select your answers from the options below',
-                                                    textAlign: TextAlign.start,
-                                                    style: context
-                                                        .textTheme.bodySmall!
-                                                        .copyWith(
-                                                      fontStyle:
-                                                          FontStyle.italic,
-                                                      fontWeight:
-                                                          FontWeight.w300,
-                                                    ),
-                                                  ),
-                                                ),
-                                                const SizedBox(height: 12),
-                                                SelectCategoryWidget2(
-                                                  title: 'Tiiro',
-                                                  isSelected:
-                                                      selectedMultipleOption ==
-                                                          'Tiiro',
-                                                  isShowBgColor: false,
-                                                  voteIndicator:
-                                                      selectedMultipleOption ==
-                                                              'Tiiro'
-                                                          ? '4'
-                                                          : '3',
-                                                  bgColor:
-                                                      bgColor[isMultipleOption],
-                                                  brColor:
-                                                      brColor[isMultipleOption],
-                                                  onTap: () {
-                                                    setState(() {
-                                                      if (selectedMultipleOption ==
-                                                          'Tiiro') {
-                                                        selectedMultipleOption =
-                                                            null;
-                                                      } else {
-                                                        selectedMultipleOption =
-                                                            'Tiiro';
-                                                        isMultiplayerAnswerSelected =
-                                                            false;
-                                                        isMultipleOption = null;
-                                                      }
-                                                    });
-                                                  },
-                                                ),
-                                                SelectCategoryWidget2(
-                                                  title: 'Asiiro',
-                                                  isSelected:
-                                                      selectedMultipleOption ==
-                                                          'Asiiro',
-                                                  isShowBgColor: false,
-                                                  voteIndicator:
-                                                      selectedMultipleOption ==
-                                                              'Asiiro'
-                                                          ? '1'
-                                                          : null,
-                                                  bgColor:
-                                                      bgColor[isMultipleOption],
-                                                  brColor:
-                                                      brColor[isMultipleOption],
-                                                  onTap: () {
-                                                    setState(() {
-                                                      if (selectedMultipleOption ==
-                                                          'Asiiro') {
-                                                        selectedMultipleOption =
-                                                            null;
-                                                      } else {
-                                                        selectedMultipleOption =
-                                                            'Asiiro';
-                                                        isMultiplayerAnswerSelected =
-                                                            false;
-                                                        isMultipleOption = null;
-                                                      }
-                                                    });
-                                                  },
-                                                ),
-                                                SelectCategoryWidget2(
-                                                  title: 'Asiiro',
-                                                  isSelected:
-                                                      selectedMultipleOption ==
-                                                          'Asiiroo',
-                                                  isShowBgColor: false,
-                                                  voteIndicator:
-                                                      selectedMultipleOption ==
-                                                              'Asiiroo'
-                                                          ? '1'
-                                                          : null,
-                                                  bgColor:
-                                                      bgColor[isMultipleOption],
-                                                  brColor:
-                                                      brColor[isMultipleOption],
-                                                  onTap: () {
-                                                    setState(() {
-                                                      if (selectedMultipleOption ==
-                                                          'Asiiroo') {
-                                                        selectedMultipleOption =
-                                                            null;
-                                                      } else {
-                                                        selectedMultipleOption =
-                                                            'Asiiroo';
-                                                        isMultiplayerAnswerSelected =
-                                                            false;
-                                                        isMultipleOption = null;
-                                                      }
-                                                    });
-                                                  },
-                                                ),
-                                                if (isMultiplayerAnswerSelected) ...[
-                                                  SizedBox(height: 25.h),
-                                                  Center(
-                                                    child: Row(
-                                                      mainAxisSize:
-                                                          MainAxisSize.min,
-                                                      children: [
-                                                        Text(
-                                                          waitingForTeamLeaderToSubmitFinalAnswerYr,
-                                                          textAlign:
-                                                              TextAlign.start,
-                                                          style: context
-                                                              .textTheme
-                                                              .bodySmall!
-                                                              .copyWith(
-                                                            fontStyle: FontStyle
-                                                                .italic,
-                                                            fontWeight:
-                                                                FontWeight.w300,
-                                                          ),
-                                                        ),
-                                                        const TypeWriterProgressTextIndicator(
-                                                          fontWeight:
-                                                              FontWeight.w400,
-                                                          isItalic: true,
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                ],
-                                                SizedBox(height: 24.h),
-                                                if (widget.isTeamLeader)
-                                                  SizedBox(height: 150.h)
-                                                else
-                                                  AbsorbPointer(
-                                                    absorbing:
-                                                        isMultiplayerAnswerSelected ==
-                                                                true ||
-                                                            selectedMultipleOption ==
-                                                                null,
-                                                    child: Opacity(
-                                                      opacity:
-                                                          (isMultiplayerAnswerSelected ==
-                                                                      false &&
-                                                                  selectedMultipleOption !=
-                                                                      null)
-                                                              ? 1
-                                                              : 0.4,
-                                                      child: Button(
-                                                        label: voteYr,
-                                                        onPressed: () async {
-                                                          await Future.delayed(
-                                                            1.seconds,
-                                                          );
-                                                          setState(() {
-                                                            isMultiplayerAnswerSelected =
-                                                                true;
-                                                          });
-                                                          await Future.delayed(
-                                                            3.seconds,
-                                                          ).then((_) {
-                                                            if (context
-                                                                .mounted) {
-                                                              showModalBottomSheet(
-                                                                context:
-                                                                    context,
-                                                                isDismissible:
-                                                                    false,
-                                                                barrierColor:
-                                                                    AppColors
-                                                                        .transparent,
-                                                                builder:
-                                                                    (context) =>
-                                                                        const PerformanceModal(
-                                                                  type:
-                                                                      'success',
-                                                                ),
-                                                              ).then((_) {
-                                                                setState(() {
-                                                                  isMultiplayerAnswerSelected =
-                                                                      false;
-                                                                  selectedMultipleOption =
-                                                                      null;
+                                                  SizedBox(height: 24.h),
+                                                  if (widget.isTeamLeader)
+                                                    SizedBox(height: 150.h)
+                                                  else
+                                                    AbsorbPointer(
+                                                      absorbing:
+                                                          isMultiplayerAnswerSelected ==
+                                                                  true ||
+                                                              selectedMultipleOption ==
+                                                                  null,
+                                                      child: Opacity(
+                                                        opacity:
+                                                            (isMultiplayerAnswerSelected ==
+                                                                        false &&
+                                                                    selectedMultipleOption !=
+                                                                        null)
+                                                                ? 1
+                                                                : 0.4,
+                                                        child: Button(
+                                                          label: voteYr,
+                                                          onPressed: () async {
+                                                            await Future
+                                                                .delayed(
+                                                              1.seconds,
+                                                            );
+                                                            setState(() {
+                                                              isMultiplayerAnswerSelected =
+                                                                  true;
+                                                            });
+                                                            await Future
+                                                                .delayed(
+                                                              3.seconds,
+                                                            ).then((_) {
+                                                              if (context
+                                                                  .mounted) {
+                                                                showModalBottomSheet(
+                                                                  context:
+                                                                      context,
+                                                                  isDismissible:
+                                                                      false,
+                                                                  barrierColor:
+                                                                      AppColors
+                                                                          .transparent,
+                                                                  builder:
+                                                                      (context) =>
+                                                                          const PerformanceModal(
+                                                                    type:
+                                                                        'success',
+                                                                  ),
+                                                                ).then((_) {
+                                                                  setState(() {
+                                                                    isMultiplayerAnswerSelected =
+                                                                        false;
+                                                                    selectedMultipleOption =
+                                                                        null;
+                                                                  });
                                                                 });
-                                                              });
-                                                            }
-                                                          });
-                                                        },
-                                                        onLongPress: () async {
-                                                          await Future.delayed(
-                                                            1.seconds,
-                                                          );
-                                                          setState(() {
-                                                            isMultiplayerAnswerSelected =
-                                                                true;
-                                                          });
-                                                          await Future.delayed(
-                                                            3.seconds,
-                                                          ).then((_) {
-                                                            if (context
-                                                                .mounted) {
-                                                              showModalBottomSheet(
-                                                                context:
-                                                                    context,
-                                                                isDismissible:
-                                                                    false,
-                                                                barrierColor:
-                                                                    AppColors
-                                                                        .transparent,
-                                                                builder:
-                                                                    (context) =>
-                                                                        const PerformanceModal(
-                                                                  type:
-                                                                      'failure',
-                                                                ),
-                                                              ).then((_) {
-                                                                setState(() {
-                                                                  isMultiplayerAnswerSelected =
-                                                                      false;
-                                                                  selectedMultipleOption =
-                                                                      null;
+                                                              }
+                                                            });
+                                                          },
+                                                          onLongPress:
+                                                              () async {
+                                                            await Future
+                                                                .delayed(
+                                                              1.seconds,
+                                                            );
+                                                            setState(() {
+                                                              isMultiplayerAnswerSelected =
+                                                                  true;
+                                                            });
+                                                            await Future
+                                                                .delayed(
+                                                              3.seconds,
+                                                            ).then((_) {
+                                                              if (context
+                                                                  .mounted) {
+                                                                showModalBottomSheet(
+                                                                  context:
+                                                                      context,
+                                                                  isDismissible:
+                                                                      false,
+                                                                  barrierColor:
+                                                                      AppColors
+                                                                          .transparent,
+                                                                  builder:
+                                                                      (context) =>
+                                                                          const PerformanceModal(
+                                                                    type:
+                                                                        'failure',
+                                                                  ),
+                                                                ).then((_) {
+                                                                  setState(() {
+                                                                    isMultiplayerAnswerSelected =
+                                                                        false;
+                                                                    selectedMultipleOption =
+                                                                        null;
+                                                                  });
                                                                 });
-                                                              });
-                                                            }
-                                                          });
-                                                        },
+                                                              }
+                                                            });
+                                                          },
+                                                        ),
                                                       ),
                                                     ),
-                                                  ),
-                                              ] else ...[
-                                                if (answerFormat?.format ==
-                                                    'tile') ...[
-                                                  SizedBox(
-                                                    height: 45.h,
-                                                    child: ReorderableListView(
-                                                      shrinkWrap: true,
-                                                      scrollDirection:
-                                                          Axis.horizontal,
-                                                      onReorder: (i, j) {
-                                                        final wordTile =
-                                                            answerFormat?.answer
-                                                                    .value
-                                                                    ?.split(
-                                                                  '',
-                                                                ) ??
-                                                                [];
-                                                        setState(() {
-                                                          if (j > i) j--;
-                                                          final tile = wordTile
-                                                              .removeAt(i);
-                                                          wordTile.insert(
-                                                            j,
-                                                            tile,
-                                                          );
-                                                          isActivateNextButton =
-                                                              true;
-                                                          isWordTileArrangedCorrectly =
-                                                              null;
-                                                        });
-                                                      },
-                                                      children: [
-                                                        for (int i = 0;
-                                                            i <
-                                                                (answerFormat
-                                                                        ?.answer
-                                                                        .value
-                                                                        ?.length ??
-                                                                    0);
-                                                            i++)
-                                                          Padding(
-                                                            key: ValueKey(i),
-                                                            padding:
-                                                                const EdgeInsets
-                                                                    .all(
-                                                              4,
-                                                            ),
-                                                            child: Container(
-                                                              width: 32.w,
-                                                              height: 32.w,
-                                                              decoration:
-                                                                  BoxDecoration(
-                                                                color: bgColor[
-                                                                        isWordTileArrangedCorrectly] ??
-                                                                    AppColors
-                                                                        .blueE7,
-                                                                border:
-                                                                    Border.all(
-                                                                  color: brColor[
-                                                                          isWordTileArrangedCorrectly] ??
-                                                                      AppColors
-                                                                          .greyB6,
-                                                                  width: 0.6,
-                                                                ),
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                  4,
-                                                                ),
-                                                              ),
-                                                              child: Center(
-                                                                child: Text(
-                                                                  answerFormat
+                                                ] else ...[
+                                                  if (answerFormat?.format ==
+                                                      'tile') ...[
+                                                    SizedBox(
+                                                      height: 45.h,
+                                                      child:
+                                                          ReorderableListView(
+                                                        shrinkWrap: true,
+                                                        scrollDirection:
+                                                            Axis.horizontal,
+                                                        onReorder: (i, j) {
+                                                          final wordTile =
+                                                              answerFormat
+                                                                      ?.answer
+                                                                      .value
+                                                                      ?.split(
+                                                                    '',
+                                                                  ) ??
+                                                                  [];
+                                                          setState(() {
+                                                            if (j > i) j--;
+                                                            final tile =
+                                                                wordTile
+                                                                    .removeAt(
+                                                              i,
+                                                            );
+                                                            wordTile.insert(
+                                                              j,
+                                                              tile,
+                                                            );
+                                                            isActivateNextButton =
+                                                                true;
+                                                            isWordTileArrangedCorrectly =
+                                                                null;
+                                                          });
+                                                        },
+                                                        children: [
+                                                          for (int i = 0;
+                                                              i <
+                                                                  (answerFormat
                                                                           ?.answer
                                                                           .value
-                                                                          ?.split(
+                                                                          ?.length ??
+                                                                      0);
+                                                              i++)
+                                                            Padding(
+                                                              key: ValueKey(i),
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                      .all(
+                                                                4,
+                                                              ),
+                                                              child: Container(
+                                                                width: 32.w,
+                                                                height: 32.w,
+                                                                decoration:
+                                                                    BoxDecoration(
+                                                                  color: bgColor[
+                                                                          isWordTileArrangedCorrectly] ??
+                                                                      AppColors
+                                                                          .blueE7,
+                                                                  border: Border
+                                                                      .all(
+                                                                    color: brColor[
+                                                                            isWordTileArrangedCorrectly] ??
+                                                                        AppColors
+                                                                            .greyB6,
+                                                                    width: 0.6,
+                                                                  ),
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                    4,
+                                                                  ),
+                                                                ),
+                                                                child: Center(
+                                                                  child: Text(
+                                                                    answerFormat
+                                                                            ?.answer
+                                                                            .value
+                                                                            ?.split(
+                                                                          '',
+                                                                        )[i] ??
                                                                         '',
-                                                                      )[i] ??
-                                                                      '',
-                                                                  style: context
-                                                                      .textTheme
-                                                                      .bodyLarge!
-                                                                      .copyWith(),
+                                                                    style: context
+                                                                        .textTheme
+                                                                        .bodyLarge!
+                                                                        .copyWith(),
+                                                                  ),
                                                                 ),
                                                               ),
                                                             ),
-                                                          ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                  const SizedBox(height: 16),
-                                                  Center(
-                                                    child: Text(
-                                                      '* Long press on a tile to move and form the word',
-                                                      textAlign:
-                                                          TextAlign.start,
-                                                      style: context
-                                                          .textTheme.bodySmall!
-                                                          .copyWith(
-                                                        fontStyle:
-                                                            FontStyle.italic,
-                                                        fontWeight:
-                                                            FontWeight.w300,
+                                                        ],
                                                       ),
                                                     ),
-                                                  ),
-                                                ] else if (answerFormat
-                                                        ?.format ==
-                                                    'text') ...[
-                                                  SizedBox(height: 20.h),
-                                                  CustomTextField(
-                                                    textEditingController:
-                                                        answerController,
-                                                    textFieldText:
-                                                        writeYourAnswerHereYr,
-                                                  ),
-                                                ] else if (answerFormat
-                                                        ?.format ==
-                                                    'multi-choice') ...[
-                                                  Center(
-                                                    child: Text(
-                                                      '* $selectAnswersFromOptionBelowYr',
-                                                      textAlign:
-                                                          TextAlign.start,
-                                                      style: context
-                                                          .textTheme.bodySmall!
-                                                          .copyWith(
-                                                        fontStyle:
-                                                            FontStyle.italic,
-                                                        fontWeight:
-                                                            FontWeight.w300,
+                                                    const SizedBox(height: 16),
+                                                    Center(
+                                                      child: Text(
+                                                        '* Long press on a tile to move and form the word',
+                                                        textAlign:
+                                                            TextAlign.start,
+                                                        style: context.textTheme
+                                                            .bodySmall!
+                                                            .copyWith(
+                                                          fontStyle:
+                                                              FontStyle.italic,
+                                                          fontWeight:
+                                                              FontWeight.w300,
+                                                        ),
                                                       ),
                                                     ),
-                                                  ),
-                                                  SizedBox(height: 16.h),
-                                                  SelectCategoryWidget2(
-                                                    title: 'Tiiro',
-                                                    isSelected:
-                                                        selectedMultipleOption ==
-                                                            'Tiiro',
-                                                    bgColor: bgColor[
-                                                        isMultipleOption],
-                                                    brColor: brColor[
-                                                        isMultipleOption],
-                                                    onTap: () {
-                                                      setState(() {
-                                                        if (selectedMultipleOption ==
-                                                            'Tiiro') {
-                                                          selectedMultipleOption =
-                                                              null;
-                                                          isMultipleOption =
-                                                              null;
-                                                        } else {
-                                                          selectedMultipleOption =
-                                                              'Tiiro';
-                                                          isMultipleOption =
-                                                              null;
-                                                        }
-                                                      });
-                                                    },
-                                                  ),
-                                                  SelectCategoryWidget2(
-                                                    title: 'Asiiro',
-                                                    isSelected:
-                                                        selectedMultipleOption ==
-                                                            'Asiiro',
-                                                    bgColor: bgColor[
-                                                        isMultipleOption],
-                                                    brColor: brColor[
-                                                        isMultipleOption],
-                                                    onTap: () {
-                                                      setState(() {
-                                                        if (selectedMultipleOption ==
-                                                            'Asiiro') {
-                                                          selectedMultipleOption =
-                                                              null;
-                                                          isMultipleOption =
-                                                              null;
-                                                        } else {
-                                                          selectedMultipleOption =
-                                                              'Asiiro';
-                                                          isMultipleOption =
-                                                              null;
-                                                        }
-                                                      });
-                                                    },
-                                                  ),
-                                                  SelectCategoryWidget2(
-                                                    title: 'Asiiro',
-                                                    isSelected:
-                                                        selectedMultipleOption ==
-                                                            'Asiiroo',
-                                                    bgColor: bgColor[
-                                                        isMultipleOption],
-                                                    brColor: brColor[
-                                                        isMultipleOption],
-                                                    onTap: () {
-                                                      setState(() {
-                                                        if (selectedMultipleOption ==
-                                                            'Asiiroo') {
-                                                          selectedMultipleOption =
-                                                              null;
-                                                          isMultipleOption =
-                                                              null;
-                                                        } else {
-                                                          selectedMultipleOption =
-                                                              'Asiiroo';
-                                                          isMultipleOption =
-                                                              null;
-                                                        }
-                                                      });
-                                                    },
-                                                  ),
+                                                  ] else if (answerFormat
+                                                          ?.format ==
+                                                      'text') ...[
+                                                    SizedBox(height: 20.h),
+                                                    CustomTextField(
+                                                      textEditingController:
+                                                          answerController,
+                                                      textFieldText:
+                                                          writeYourAnswerHereYr,
+                                                    ),
+                                                  ] else if (answerFormat
+                                                          ?.format ==
+                                                      'multi-choice') ...[
+                                                    Center(
+                                                      child: Text(
+                                                        '* $selectAnswersFromOptionBelowYr',
+                                                        textAlign:
+                                                            TextAlign.start,
+                                                        style: context.textTheme
+                                                            .bodySmall!
+                                                            .copyWith(
+                                                          fontStyle:
+                                                              FontStyle.italic,
+                                                          fontWeight:
+                                                              FontWeight.w300,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    SizedBox(height: 16.h),
+                                                    SelectCategoryWidget2(
+                                                      title: 'Tiiro',
+                                                      isSelected:
+                                                          selectedMultipleOption ==
+                                                              'Tiiro',
+                                                      bgColor: bgColor[
+                                                          isMultipleOption],
+                                                      brColor: brColor[
+                                                          isMultipleOption],
+                                                      onTap: () {
+                                                        setState(() {
+                                                          if (selectedMultipleOption ==
+                                                              'Tiiro') {
+                                                            selectedMultipleOption =
+                                                                null;
+                                                            isMultipleOption =
+                                                                null;
+                                                          } else {
+                                                            selectedMultipleOption =
+                                                                'Tiiro';
+                                                            isMultipleOption =
+                                                                null;
+                                                          }
+                                                        });
+                                                      },
+                                                    ),
+                                                    SelectCategoryWidget2(
+                                                      title: 'Asiiro',
+                                                      isSelected:
+                                                          selectedMultipleOption ==
+                                                              'Asiiro',
+                                                      bgColor: bgColor[
+                                                          isMultipleOption],
+                                                      brColor: brColor[
+                                                          isMultipleOption],
+                                                      onTap: () {
+                                                        setState(() {
+                                                          if (selectedMultipleOption ==
+                                                              'Asiiro') {
+                                                            selectedMultipleOption =
+                                                                null;
+                                                            isMultipleOption =
+                                                                null;
+                                                          } else {
+                                                            selectedMultipleOption =
+                                                                'Asiiro';
+                                                            isMultipleOption =
+                                                                null;
+                                                          }
+                                                        });
+                                                      },
+                                                    ),
+                                                    SelectCategoryWidget2(
+                                                      title: 'Asiiro',
+                                                      isSelected:
+                                                          selectedMultipleOption ==
+                                                              'Asiiroo',
+                                                      bgColor: bgColor[
+                                                          isMultipleOption],
+                                                      brColor: brColor[
+                                                          isMultipleOption],
+                                                      onTap: () {
+                                                        setState(() {
+                                                          if (selectedMultipleOption ==
+                                                              'Asiiroo') {
+                                                            selectedMultipleOption =
+                                                                null;
+                                                            isMultipleOption =
+                                                                null;
+                                                          } else {
+                                                            selectedMultipleOption =
+                                                                'Asiiroo';
+                                                            isMultipleOption =
+                                                                null;
+                                                          }
+                                                        });
+                                                      },
+                                                    ),
+                                                  ],
                                                 ],
+                                                if (answerFormat?.format ==
+                                                    'multi-choice')
+                                                  SizedBox(height: 20.h)
+                                                else
+                                                  SizedBox(height: 40.h),
                                               ],
-                                              if (answerFormat?.format ==
-                                                  'multi-choice')
-                                                SizedBox(height: 20.h)
-                                              else
-                                                SizedBox(height: 40.h),
                                               ListenableBuilder(
                                                 listenable: answerController,
                                                 builder: (context, child) {
@@ -1224,6 +1176,7 @@ class __PlayQuestionScreenState extends State<__PlayQuestionScreen>
                                                         ? 1
                                                         : 0.7,
                                                     child: Button(
+                                                      width: mqr.width * 0.8,
                                                       label: context
                                                           .appLocale.next,
                                                       isLoading: isLoading,
@@ -1251,14 +1204,18 @@ class __PlayQuestionScreenState extends State<__PlayQuestionScreen>
                                                                   answerController
                                                                       .text
                                                                       .trim(),
-                                                              startTime: 30 -
-                                                                  (int.parse(
-                                                                    timerCountDownController
-                                                                            ?.remaining
-                                                                            .value
-                                                                            .seconds ??
-                                                                        '0',
-                                                                  )),
+                                                              startTime:
+                                                                  isPracticeMode
+                                                                      ? stopwatch
+                                                                          .elapsed
+                                                                          .inSeconds
+                                                                      : 30 -
+                                                                          (int.parse(
+                                                                            timerCountDownController?.remaining.value.seconds ??
+                                                                                '0',
+                                                                          )),
+                                                              isPractice:
+                                                                  isPracticeMode,
                                                             );
                                                         FocusManager.instance
                                                             .primaryFocus
@@ -1417,56 +1374,27 @@ class __PlayQuestionScreenState extends State<__PlayQuestionScreen>
       ),
     );
   }
-}
 
-class ActionButton extends StatelessWidget {
-  const ActionButton({
-    super.key,
-    required this.label,
-    required this.isEnabled,
-    required this.icon,
-    required this.onTap,
-  });
-
-  final String label;
-  final bool isEnabled;
-  final Widget icon;
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {
-        if (isEnabled) {
-          onTap.call();
-        }
+  Widget __transitionBuilder(Widget widget, Animation<double> animation) {
+    // ignore: prefer_int_literals
+    final rotateAnim = Tween(begin: pi, end: 0.0).animate(animation);
+    return AnimatedBuilder(
+      animation: rotateAnim,
+      child: widget,
+      builder: (context, widget) {
+        final isUnder = (ValueKey(showFrontSide) != widget?.key);
+        var tilt = ((animation.value - 0.5).abs() - 0.5) * 0.003;
+        tilt *= isUnder ? -1.0 : 1.0;
+        final value =
+            isUnder ? min(rotateAnim.value, pi / 2) : rotateAnim.value;
+        return Transform(
+          transform: flipXAxis
+              ? (Matrix4.rotationY(value)..setEntry(3, 0, tilt))
+              : (Matrix4.rotationX(value)..setEntry(3, 1, tilt)),
+          alignment: Alignment.center,
+          child: widget,
+        );
       },
-      child: Opacity(
-        opacity: isEnabled ? 1 : 0.5,
-        child: Column(
-          children: [
-            Container(
-              padding: const EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                border: Border.all(
-                  width: 0.5,
-                  color: AppColors.black15,
-                ),
-              ),
-              child: icon,
-            ),
-            const SizedBox(height: 1),
-            Text(
-              label,
-              textAlign: TextAlign.start,
-              style: context.textTheme.bodySmall!.copyWith(
-                fontWeight: FontWeight.w300,
-              ),
-            ),
-          ],
-        ),
-      ),
     );
   }
 }

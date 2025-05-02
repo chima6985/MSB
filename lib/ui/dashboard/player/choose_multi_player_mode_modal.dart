@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:masoyinbo_mobile/app/app.dart';
 import 'package:masoyinbo_mobile/extension/extension.dart';
 import 'package:masoyinbo_mobile/gen/fonts.gen.dart';
 import 'package:masoyinbo_mobile/ui/ui.dart';
+import 'package:masoyinbo_mobile/utils/utils.dart';
 
 class ChooseMutliPlayerModeModal extends StatelessWidget {
   const ChooseMutliPlayerModeModal({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final currentLocale = context.currentLocale;
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Column(
@@ -42,7 +43,7 @@ class ChooseMutliPlayerModeModal extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15),
             child: Text(
-              chooseAnExistingGameYr,
+              context.appLocale.chooseAnExistingGame,
               textAlign: TextAlign.center,
               style: context.textTheme.bodyMedium!.copyWith(
                 fontWeight: FontWeight.w300,
@@ -64,9 +65,10 @@ class ChooseMutliPlayerModeModal extends StatelessWidget {
                   color: AppColors.white,
                 ),
                 children: [
-                  const TextSpan(text: createGameYr),
+                  TextSpan(text: context.appLocale.createGame),
                   TextSpan(
-                    text: ' ($createGameEn)',
+                    text:
+                        ' (${currentLocale == yo ? context.enLocale.createGame : context.yoLocale.createGame})',
                     style: context.textTheme.bodySmall!.copyWith(
                       color: AppColors.white,
                       fontWeight: FontWeight.w300,
@@ -90,9 +92,10 @@ class ChooseMutliPlayerModeModal extends StatelessWidget {
               text: TextSpan(
                 style: context.textTheme.bodyMedium,
                 children: [
-                  const TextSpan(text: joinGameYr),
+                  TextSpan(text: context.appLocale.joinGame),
                   TextSpan(
-                    text: ' ($joinGameEn)',
+                    text:
+                        ' (${currentLocale == yo ? context.enLocale.joinGame : context.yoLocale.joinGame})',
                     style: context.textTheme.bodySmall!.copyWith(
                       fontWeight: FontWeight.w300,
                     ),

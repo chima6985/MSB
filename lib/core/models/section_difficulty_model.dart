@@ -8,7 +8,6 @@ class SectionDifficulty with _$SectionDifficulty {
   const factory SectionDifficulty({
     @Default(<Section>[]) List<Section> sections,
     @Default(<Difficulty>[]) List<Difficulty> difficulties,
-
   }) = _SectionDifficulty;
 
   factory SectionDifficulty.fromJson(Map<String, dynamic> json) =>
@@ -21,9 +20,12 @@ class Section with _$Section {
     @Default('') String id,
     @JsonKey(name: 'section_name') @Default('') String sectionName,
     @JsonKey(name: 'yoruba_section_name') @Default('') String yorubaSectionName,
+    @Default('') String colour,
+    @Default('') String image,
   }) = _Section;
 
-  factory Section.fromJson(Map<String, dynamic> json) => _$SectionFromJson(json);
+  factory Section.fromJson(Map<String, dynamic> json) =>
+      _$SectionFromJson(json);
 }
 
 @freezed

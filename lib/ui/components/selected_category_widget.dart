@@ -35,7 +35,7 @@ class CategoryWidget extends StatelessWidget {
               ),
             ),
             child: Text(
-              title,
+              title.titleCase(),
               textScaler: TextScaler.noScaling,
               style: context.textTheme.bodyMedium!.copyWith(
                 fontWeight: isSelected ? FontWeight.w500 : FontWeight.w300,

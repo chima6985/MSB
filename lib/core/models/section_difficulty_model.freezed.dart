@@ -214,6 +214,8 @@ mixin _$Section {
   String get sectionName => throw _privateConstructorUsedError;
   @JsonKey(name: 'yoruba_section_name')
   String get yorubaSectionName => throw _privateConstructorUsedError;
+  String get colour => throw _privateConstructorUsedError;
+  String get image => throw _privateConstructorUsedError;
 
   /// Serializes this Section to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -232,7 +234,9 @@ abstract class $SectionCopyWith<$Res> {
   $Res call(
       {String id,
       @JsonKey(name: 'section_name') String sectionName,
-      @JsonKey(name: 'yoruba_section_name') String yorubaSectionName});
+      @JsonKey(name: 'yoruba_section_name') String yorubaSectionName,
+      String colour,
+      String image});
 }
 
 /// @nodoc
@@ -253,6 +257,8 @@ class _$SectionCopyWithImpl<$Res, $Val extends Section>
     Object? id = null,
     Object? sectionName = null,
     Object? yorubaSectionName = null,
+    Object? colour = null,
+    Object? image = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -266,6 +272,14 @@ class _$SectionCopyWithImpl<$Res, $Val extends Section>
       yorubaSectionName: null == yorubaSectionName
           ? _value.yorubaSectionName
           : yorubaSectionName // ignore: cast_nullable_to_non_nullable
+              as String,
+      colour: null == colour
+          ? _value.colour
+          : colour // ignore: cast_nullable_to_non_nullable
+              as String,
+      image: null == image
+          ? _value.image
+          : image // ignore: cast_nullable_to_non_nullable
               as String,
     ) as $Val);
   }
@@ -281,7 +295,9 @@ abstract class _$$SectionImplCopyWith<$Res> implements $SectionCopyWith<$Res> {
   $Res call(
       {String id,
       @JsonKey(name: 'section_name') String sectionName,
-      @JsonKey(name: 'yoruba_section_name') String yorubaSectionName});
+      @JsonKey(name: 'yoruba_section_name') String yorubaSectionName,
+      String colour,
+      String image});
 }
 
 /// @nodoc
@@ -300,6 +316,8 @@ class __$$SectionImplCopyWithImpl<$Res>
     Object? id = null,
     Object? sectionName = null,
     Object? yorubaSectionName = null,
+    Object? colour = null,
+    Object? image = null,
   }) {
     return _then(_$SectionImpl(
       id: null == id
@@ -314,6 +332,14 @@ class __$$SectionImplCopyWithImpl<$Res>
           ? _value.yorubaSectionName
           : yorubaSectionName // ignore: cast_nullable_to_non_nullable
               as String,
+      colour: null == colour
+          ? _value.colour
+          : colour // ignore: cast_nullable_to_non_nullable
+              as String,
+      image: null == image
+          ? _value.image
+          : image // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -324,7 +350,9 @@ class _$SectionImpl implements _Section {
   const _$SectionImpl(
       {this.id = '',
       @JsonKey(name: 'section_name') this.sectionName = '',
-      @JsonKey(name: 'yoruba_section_name') this.yorubaSectionName = ''});
+      @JsonKey(name: 'yoruba_section_name') this.yorubaSectionName = '',
+      this.colour = '',
+      this.image = ''});
 
   factory _$SectionImpl.fromJson(Map<String, dynamic> json) =>
       _$$SectionImplFromJson(json);
@@ -338,10 +366,16 @@ class _$SectionImpl implements _Section {
   @override
   @JsonKey(name: 'yoruba_section_name')
   final String yorubaSectionName;
+  @override
+  @JsonKey()
+  final String colour;
+  @override
+  @JsonKey()
+  final String image;
 
   @override
   String toString() {
-    return 'Section(id: $id, sectionName: $sectionName, yorubaSectionName: $yorubaSectionName)';
+    return 'Section(id: $id, sectionName: $sectionName, yorubaSectionName: $yorubaSectionName, colour: $colour, image: $image)';
   }
 
   @override
@@ -353,13 +387,15 @@ class _$SectionImpl implements _Section {
             (identical(other.sectionName, sectionName) ||
                 other.sectionName == sectionName) &&
             (identical(other.yorubaSectionName, yorubaSectionName) ||
-                other.yorubaSectionName == yorubaSectionName));
+                other.yorubaSectionName == yorubaSectionName) &&
+            (identical(other.colour, colour) || other.colour == colour) &&
+            (identical(other.image, image) || other.image == image));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, id, sectionName, yorubaSectionName);
+  int get hashCode => Object.hash(
+      runtimeType, id, sectionName, yorubaSectionName, colour, image);
 
   /// Create a copy of Section
   /// with the given fields replaced by the non-null parameter values.
@@ -381,8 +417,9 @@ abstract class _Section implements Section {
   const factory _Section(
       {final String id,
       @JsonKey(name: 'section_name') final String sectionName,
-      @JsonKey(name: 'yoruba_section_name')
-      final String yorubaSectionName}) = _$SectionImpl;
+      @JsonKey(name: 'yoruba_section_name') final String yorubaSectionName,
+      final String colour,
+      final String image}) = _$SectionImpl;
 
   factory _Section.fromJson(Map<String, dynamic> json) = _$SectionImpl.fromJson;
 
@@ -394,6 +431,10 @@ abstract class _Section implements Section {
   @override
   @JsonKey(name: 'yoruba_section_name')
   String get yorubaSectionName;
+  @override
+  String get colour;
+  @override
+  String get image;
 
   /// Create a copy of Section
   /// with the given fields replaced by the non-null parameter values.

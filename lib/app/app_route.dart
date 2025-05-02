@@ -137,6 +137,11 @@ final router = GoRouter(
       builder: (context, state) => const NotificationsScreen(),
     ),
     GoRoute(
+      name: NotificationSettingsScreen.id,
+      path: '/notificationSettingsScreen',
+      builder: (context, state) => const NotificationSettingsScreen(),
+    ),
+    GoRoute(
       name: LanguageScreen.id,
       path: '/languageScreen',
       builder: (context, state) => const LanguageScreen(),
@@ -260,6 +265,7 @@ final router = GoRouter(
       builder: (context, state) {
         final paramHandler = state.extra is Map ? state.extra as Map? : {};
         return GameRoomScreen(
+          gameCode: paramHandler?['gameCode'],
           isMultiplayer: paramHandler?['isMultiplayer'] ?? false,
           isTeamMode: paramHandler?['isTeamMode'] ?? false,
           isTeamFormationAutomatic:
@@ -283,6 +289,7 @@ final router = GoRouter(
       builder: (context, state) {
         final paramHandler = state.extra is Map ? state.extra as Map? : {};
         return GameRoomCreatedScreen(
+          gameCode: paramHandler?['gameCode'],
           isTeamMode: paramHandler?['isTeamMode'] ?? false,
           isTeamFormationAutomatic:
               paramHandler?['isTeamFormationAutomatic'] ?? false,
@@ -319,7 +326,12 @@ final router = GoRouter(
     GoRoute(
       name: PlayerGameAnalyticsScreen.id,
       path: '/playerGameAnalyticsScreen',
-      builder: (context, state) => const PlayerGameAnalyticsScreen(),
+      builder: (context, state) {
+        final paramHandler = state.extra is Map ? state.extra as Map? : {};
+        return PlayerGameAnalyticsScreen(
+          isPractice: paramHandler?['isPractice'] ?? false,
+        );
+      },
     ),
   ],
   // errorBuilder: (context, state) => const PageNotFound(),

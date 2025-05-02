@@ -24,7 +24,7 @@ extension StringExtension on String {
         result += '${value[0].toUpperCase()}${value.substring(1)} ';
       }
     }
-    return result;
+    return result.trim();
   }
 
   /// Add query parameters to end of string.

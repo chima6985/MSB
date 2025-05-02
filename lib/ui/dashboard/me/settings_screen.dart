@@ -62,7 +62,8 @@ class SettingsScreen extends HookWidget {
                     _SettingsWidget(
                       title: context.appLocale.notifications,
                       iconData: Iconsax.notification,
-                      onTap: () => context.pushNamed(NotificationsScreen.id),
+                      onTap: () =>
+                          context.pushNamed(NotificationSettingsScreen.id),
                     ),
                     _SettingsWidget(
                       title: context.appLocale.paymentPlan,

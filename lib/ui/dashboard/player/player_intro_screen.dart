@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:masoyinbo_mobile/app/app.dart';
 import 'package:masoyinbo_mobile/core/core.dart';
 import 'package:masoyinbo_mobile/extension/context_extension.dart';
 import 'package:masoyinbo_mobile/features/features.dart';
@@ -67,7 +66,7 @@ class _PlayerIntroScreen extends HookWidget {
             SizedBox(height: context.topPadding),
             Text(
               isPractice
-                  ? welcomeToPracticeModeYr
+                  ? context.appLocale.welcomeToPracticeMode
                   : context.appLocale.welcomeToSinglePlayerMode,
               textAlign: TextAlign.center,
               style: context.textTheme.titleLarge!.copyWith(
@@ -79,8 +78,10 @@ class _PlayerIntroScreen extends HookWidget {
             if (isPractice)
               Text(
                 selectedLocale.value == yo
-                    ? context.yoLocale.practicePrep
-                    : context.enLocale.practicePrep,
+                    ? context.yoLocale
+                        .practicePrep(yoNumberSystem[questions.length] ?? '')
+                    : context.enLocale
+                        .practicePrep(questions.length.toString()),
                 textAlign: TextAlign.center,
                 style: context.textTheme.bodySmall!.copyWith(
                   fontSize: 12.5.sp,
@@ -188,7 +189,3 @@ class _PlayerIntroScreen extends HookWidget {
     );
   }
 }
-
-//  currentLocale == yo
-//                         ? context.enLocale.enterDetails
-//                         : context.yoLocale.enterDetails,

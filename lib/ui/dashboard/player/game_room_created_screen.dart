@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:masoyinbo_mobile/app/app.dart';
 import 'package:masoyinbo_mobile/extension/context_extension.dart';
 import 'package:masoyinbo_mobile/gen/fonts.gen.dart';
 import 'package:masoyinbo_mobile/ui/ui.dart';
@@ -8,11 +7,13 @@ import 'package:share_plus/share_plus.dart';
 class GameRoomCreatedScreen extends StatelessWidget {
   const GameRoomCreatedScreen({
     super.key,
+    required this.gameCode,
     this.isTeamMode = false,
     this.isTeamFormationAutomatic = false,
   });
   static const String id = 'gameRoomCreatedScreen';
 
+  final String gameCode;
   final bool isTeamMode;
   final bool isTeamFormationAutomatic;
 
@@ -29,7 +30,7 @@ class GameRoomCreatedScreen extends StatelessWidget {
                 const CustomBackButton(),
                 Center(
                   child: Text(
-                    gameRoomCreatedEn,
+                    context.appLocale.gameRoomCreated,
                     textAlign: TextAlign.center,
                     style: context.textTheme.titleLarge!.copyWith(
                       fontFamily: FontFamily.margarine,
@@ -62,13 +63,13 @@ class GameRoomCreatedScreen extends StatelessWidget {
                         ),
                     const SizedBox(height: 15),
                     Text(
-                      inviteFriendsToYourGameYr,
+                      context.appLocale.inviteFriendsToYourGame,
                       textAlign: TextAlign.center,
                       style: context.textTheme.bodyMedium,
                     ),
                     const SizedBox(height: 20),
                     Text(
-                      'VV9645',
+                      gameCode,
                       textAlign: TextAlign.center,
                       style: context.textTheme.bodyLarge!.copyWith(
                         fontWeight: FontWeight.w500,
@@ -76,7 +77,7 @@ class GameRoomCreatedScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: 15),
                     Text(
-                      isYourGameCodeYr,
+                      context.appLocale.isYourGameCode,
                       textAlign: TextAlign.center,
                       style: context.textTheme.bodyMedium!.copyWith(
                         fontWeight: FontWeight.w300,
@@ -86,17 +87,20 @@ class GameRoomCreatedScreen extends StatelessWidget {
                     const Spacer(),
                     const SizedBox(height: 24),
                     Button(
-                      label: shareGameYr,
-                      onPressed: () => Share.share('Join my team with VV9645'),
+                      label: context.appLocale.shareGame,
+                      onPressed: () => Share.share(
+                        'Join my game room on Masoyinbo with $gameCode',
+                      ),
                     ),
                     const SizedBox(height: 24),
                     Button(
-                      label: goToGameRoomYr,
+                      label: context.appLocale.goToGameRoom,
                       isOutlined: true,
                       labelColor: AppColors.black15,
                       onPressed: () => context.pushNamed(
                         GameRoomScreen.id,
                         extra: {
+                          'gameCode': gameCode,
                           'isMultiplayer': true,
                           'isTeamMode': isTeamMode,
                           'isTeamFormationAutomatic': isTeamFormationAutomatic,

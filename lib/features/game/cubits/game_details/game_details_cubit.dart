@@ -4,40 +4,37 @@ import 'package:masoyinbo_mobile/app/app_locator.dart';
 import 'package:masoyinbo_mobile/core/core.dart';
 import 'package:masoyinbo_mobile/features/features.dart';
 
-part 'submit_answer_state.dart';
-part 'submit_answer_cubit.freezed.dart';
+part 'game_details_state.dart';
+part 'game_details_cubit.freezed.dart';
 
-class SubmitAnswerCubit extends Cubit<SubmitAnswerState> {
-  SubmitAnswerCubit({
-    PracticeRepository? practiceRepository,
+class GameDetailsCubit extends Cubit<GameDetailsState> {
+  GameDetailsCubit({
+    GameRepository? gameRepository,
     required AuthBloc authBloc,
-  })  : _practiceRepository =
-            practiceRepository ?? locator<PracticeRepository>(),
+  })  : _gameRepository = gameRepository ?? locator<GameRepository>(),
         _authBloc = authBloc,
         super(const _Initial());
 
-  /// PracticeRepository repository.
-  final PracticeRepository _practiceRepository;
+  /// GameRepository repository.
+  final GameRepository _gameRepository;
 
   /// Auth Bloc.
   final AuthBloc _authBloc;
 
-  /// Answer submit
-  Future<void> submitAnswer({
-    required String questionId,
-    required String answer,
+  /// Get game details
+  Future<void> getGameDetails({
+    required String gameCode,
   }) async {
     try {
       emit(const _Loading());
       final user = UserHelper.fetchUser(authBloc: _authBloc);
       if (user == null) return;
-      await _practiceRepository.submitAnswer(
-        questionId: questionId,
-        answer: answer,
+      await _gameRepository.getGameDetails(
+        gameCode: gameCode,
         token: user.token,
       );
       emit(const _Loaded());
-    } on PracticeException catch (e) {
+    } on GameException catch (e) {
       emit(_Error(error: e.message));
     } on AuthException catch (e) {
       _authBloc.add(AuthEvent.authSignOut(message: e.message));

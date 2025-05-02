@@ -21,11 +21,12 @@ class SubmitAnswerCubit extends Cubit<SubmitAnswerState> {
   /// Auth Bloc.
   final AuthBloc _authBloc;
 
-  /// Get question
+  /// Submit answer
   Future<void> submitAnswer({
     required String questionId,
     required String answer,
     required int startTime,
+    required bool isPractice,
   }) async {
     try {
       emit(const _Loading());
@@ -35,6 +36,7 @@ class SubmitAnswerCubit extends Cubit<SubmitAnswerState> {
         questionId: questionId,
         answer: answer,
         startTime: startTime,
+        isPractice: isPractice,
         token: user.token,
       );
       emit(_Loaded(answerResponse: apiRespone));

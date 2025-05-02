@@ -36,7 +36,7 @@ class TeamLeaderConfirmationModal extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15),
             child: Text(
-              sureToLeaveGameYr,
+              context.appLocale.sureToLeaveGame,
               textAlign: TextAlign.center,
               style: context.textTheme.bodyMedium!.copyWith(
                 fontWeight: FontWeight.w300,

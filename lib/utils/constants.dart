@@ -6,7 +6,6 @@ final surveyDeleteOptions = [
   yourubaIsDifficultToLearnEn,
 ];
 
-enum PracticeSection { proverb, qAndA, meaning, numbers }
 
 const yo = 'yo';
 const en = 'en';

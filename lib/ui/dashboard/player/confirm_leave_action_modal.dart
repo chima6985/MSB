@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:masoyinbo_mobile/app/app.dart';
 import 'package:masoyinbo_mobile/extension/extension.dart';
 import 'package:masoyinbo_mobile/gen/fonts.gen.dart';
 import 'package:masoyinbo_mobile/ui/ui.dart';
@@ -36,7 +35,7 @@ class ConfirmLeaveActionModal extends StatelessWidget {
           ),
           const SizedBox(height: 5),
           Text(
-            confirmActionYr,
+            context.appLocale.confirmAction,
             textAlign: TextAlign.center,
             style: context.textTheme.bodyLarge!.copyWith(
               fontFamily: FontFamily.margarine,
@@ -48,7 +47,7 @@ class ConfirmLeaveActionModal extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15),
             child: Text(
-              sureToLeaveGameYr,
+              context.appLocale.sureToLeaveGame,
               textAlign: TextAlign.center,
               style: context.textTheme.bodyMedium!.copyWith(
                 fontWeight: FontWeight.w300,
@@ -57,7 +56,7 @@ class ConfirmLeaveActionModal extends StatelessWidget {
           ),
           SizedBox(height: 62.h),
           Button(
-            label: leaveRoomYr,
+            label: context.appLocale.leaveRoom,
             onPressed: onTapIntent ??
                 () => context
                   ..pop(context)
@@ -65,7 +64,7 @@ class ConfirmLeaveActionModal extends StatelessWidget {
           ),
           const SizedBox(height: 24),
           Button(
-            label: dontLeaveYr,
+            label: context.appLocale.dontLeave,
             isOutlined: true,
             labelColor: AppColors.black15,
             onPressed: () => context..pop(context),
@@ -109,28 +108,26 @@ class ConfirmPracticeLeaveActionModal extends StatelessWidget {
           ),
           const SizedBox(height: 5),
           Text(
-            confirmActionYr,
+            context.appLocale.closePractice,
             textAlign: TextAlign.center,
             style: context.textTheme.bodyLarge!.copyWith(
               fontFamily: FontFamily.margarine,
             ),
           ),
-          SizedBox(height: 32.h),
-          AppAssets.images.jpegs.exitDoor.image(scale: 4),
           SizedBox(height: 16.h),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15),
             child: Text(
-              sureToLeavePractiveYr,
+              context.appLocale.ongoingPracticeProgressWillBeLost,
               textAlign: TextAlign.center,
               style: context.textTheme.bodyMedium!.copyWith(
                 fontWeight: FontWeight.w300,
               ),
             ),
           ),
-          SizedBox(height: 62.h),
+          SizedBox(height: 55.h),
           Button(
-            label: leavePracticeYr,
+            label: context.appLocale.endSession,
             onPressed: onTapIntent ??
                 () => context
                   ..pop(context)
@@ -138,7 +135,7 @@ class ConfirmPracticeLeaveActionModal extends StatelessWidget {
           ),
           const SizedBox(height: 24),
           Button(
-            label: dontLeaveYr,
+            label: context.appLocale.continuePlaying,
             isOutlined: true,
             labelColor: AppColors.black15,
             onPressed: () => context..pop(context),

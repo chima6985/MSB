@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:masoyinbo_mobile/app/app.dart';
 import 'package:masoyinbo_mobile/extension/extension.dart';
-import 'package:masoyinbo_mobile/features/features.dart';
+import 'package:masoyinbo_mobile/features/game/cubits/game_details/game_details_cubit.dart';
 import 'package:masoyinbo_mobile/gen/fonts.gen.dart';
 import 'package:masoyinbo_mobile/ui/ui.dart';
 import 'package:masoyinbo_mobile/utils/utils.dart';
@@ -16,7 +15,7 @@ class JoinGameByCodeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => JoinGameRoomCubit(
+      create: (context) => GameDetailsCubit(
         authBloc: context.read(),
       ),
       child: const _JoinGameByCodeScreen(),
@@ -29,10 +28,11 @@ class _JoinGameByCodeScreen extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final currentLocale = context.currentLocale;
     final gameCodeController = useTextEditingController();
     final isLoading = useState(false);
     final formKey = useState(GlobalKey<FormState>());
-    return BlocListener<JoinGameRoomCubit, JoinGameRoomState>(
+    return BlocListener<GameDetailsCubit, GameDetailsState>(
       listener: (context, state) {
         state.maybeWhen(
           loading: () => isLoading.value = true,
@@ -77,7 +77,7 @@ class _JoinGameByCodeScreen extends HookWidget {
                         child: Column(
                           children: [
                             Text(
-                              joinGameRoomYr,
+                              context.appLocale.joinGameRoom,
                               style: context.textTheme.titleLarge!.copyWith(
                                 fontFamily: FontFamily.margarine,
                               ),
@@ -87,7 +87,7 @@ class _JoinGameByCodeScreen extends HookWidget {
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 21),
                               child: Text(
-                                inputGameCodeYr,
+                                context.appLocale.inputGameCode,
                                 textAlign: TextAlign.center,
                                 textScaler: TextScaler.noScaling,
                                 style: context.textTheme.bodyMedium!.copyWith(),
@@ -109,23 +109,25 @@ class _JoinGameByCodeScreen extends HookWidget {
                           key: formKey.value,
                           child: CustomTextField(
                             textEditingController: gameCodeController,
-                            textFieldText: gameCodeYr,
-                            textFieldSubText: gameCodeYr,
+                            textFieldText: context.appLocale.gameCode,
+                            textFieldSubText: currentLocale == yo
+                                ? context.enLocale.gameCode
+                                : context.yoLocale.gameCode,
                             validator: (value) =>
                                 FormValidation.validateFieldNotEmpty(
                               value,
-                              gameCodeYr,
+                              context.appLocale.gameCode,
                             ),
                           ),
                         ),
                         const SizedBox(height: 40),
                         Button(
-                          label: findGameRoomYr,
+                          label: context.appLocale.findGameRoom,
                           isLoading: isLoading.value,
                           onPressed: () {
                             if (formKey.value.currentState!.validate()) {
                               FocusManager.instance.primaryFocus?.unfocus();
-                              context.read<JoinGameRoomCubit>().joinGameRoom(
+                              context.read<GameDetailsCubit>().getGameDetails(
                                     gameCode: gameCodeController.text.trim(),
                                   );
                             }

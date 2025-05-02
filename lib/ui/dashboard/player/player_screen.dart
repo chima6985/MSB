@@ -31,6 +31,11 @@ class PlayerScreen extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
+          create: (context) => CreateGameRoomCubit(
+            authBloc: context.read(),
+          ),
+        ),
+        BlocProvider(
           create: (context) => ResetUserStatsCubit(
             authBloc: context.read(),
           ),
@@ -82,6 +87,33 @@ class _PlayerScreen extends HookWidget {
             );
     return MultiBlocListener(
       listeners: [
+        BlocListener<CreateGameRoomCubit, CreateGameRoomState>(
+          listener: (context, state) {
+            state.maybeWhen(
+              loading: () => isLoading.value = true,
+              loaded: (gameCode) {
+                isLoading.value = false;
+                context.pushNamed(
+                  GameRoomCreatedScreen.id,
+                  extra: {
+                    'gameCode': gameCode,
+                    'isTeamMode': isTeamMode.value,
+                    'isTeamFormationAutomatic':
+                        isTeamFormationAutomatic.value ?? false,
+                  },
+                );
+              },
+              error: (error) {
+                isLoading.value = false;
+                ToastMessage.showError(
+                  context: context,
+                  text: error ?? '',
+                );
+              },
+              orElse: () => isLoading.value = false,
+            );
+          },
+        ),
         BlocListener<ResetUserStatsCubit, ResetUserStatsState>(
           listener: (context, state) {
             state.maybeWhen(
@@ -89,30 +121,20 @@ class _PlayerScreen extends HookWidget {
               loaded: () {
                 isLoading.value = false;
                 if (isMultiPlayer) {
-                  context.pushNamed(
-                    GameRoomCreatedScreen.id,
-                    extra: {
-                      'isTeamMode': isTeamMode.value,
-                      'isTeamFormationAutomatic':
-                          isTeamFormationAutomatic.value ?? false,
-                    },
-                  );
+                  context.read<CreateGameRoomCubit>().createGameRoom(
+                        sectionId: selectedSection.value?.id ?? '',
+                        difficultyId: selectedDifficulty.value?.id ?? '',
+                        teamMode: isTeamMode.value ?? false,
+                        teamFormation: (isTeamFormationAutomatic.value ?? false)
+                            ? 'automatic'
+                            : 'manual',
+                      );
                 }
-                if (isSinglePlayer) {
+                if (isSinglePlayer || isPractice) {
                   context.read<GetQuestionCubit>().getSinglePlayerQuestions(
                         difficulty: selectedDifficulty.value?.id ?? '',
                         section: selectedSection.value?.id ?? '',
                       );
-                }
-                if (isPractice) {
-                  context.pushNamed(
-                    PlayerIntroScreen.id,
-                    extra: {
-                      'isTimed': isTimedPacticeMode.value,
-                      'isPractice': true,
-                      'questionSection': selectedSection.value,
-                    },
-                  );
                 }
               },
               error: (error) {
@@ -132,16 +154,6 @@ class _PlayerScreen extends HookWidget {
               loading: () => isLoading.value = true,
               loaded: (questions, lives) {
                 isLoading.value = false;
-                if (isMultiPlayer) {
-                  context.pushNamed(
-                    GameRoomCreatedScreen.id,
-                    extra: {
-                      'isTeamMode': isTeamMode.value,
-                      'isTeamFormationAutomatic':
-                          isTeamFormationAutomatic.value ?? false,
-                    },
-                  );
-                }
                 if (isSinglePlayer) {
                   context.pushNamed(
                     PlayerIntroScreen.id,
@@ -155,8 +167,8 @@ class _PlayerScreen extends HookWidget {
                   context.pushNamed(
                     PlayerIntroScreen.id,
                     extra: {
-                      'isPractice': true,
                       'isTimed': isTimedPacticeMode.value,
+                      'isPractice': true,
                       'questionSection': selectedSection.value,
                     },
                   );
@@ -269,12 +281,12 @@ class _PlayerScreen extends HookWidget {
                   children: [
                     if (isPractice) ...[
                       CategoryWidget(
-                        title: 'Timed',
+                        title: context.appLocale.timed,
                         isSelected: isTimedPacticeMode.value == true,
                         onTap: () => isTimedPacticeMode.value = true,
                       ),
                       CategoryWidget(
-                        title: 'Not timed',
+                        title: context.appLocale.notTimed,
                         isSelected: isTimedPacticeMode.value == false,
                         onTap: () => isTimedPacticeMode.value = false,
                       ),
@@ -317,7 +329,7 @@ class _PlayerScreen extends HookWidget {
                   ),
                 ),
               ),
-              const SizedBox(height: 24),
+              SizedBox(height: 22.h),
               SingleChildScrollView(
                 padding: EdgeInsets.only(left: 40.w),
                 scrollDirection: Axis.horizontal,
@@ -350,9 +362,10 @@ class _PlayerScreen extends HookWidget {
                             fontWeight: FontWeight.w500,
                           ),
                           children: [
-                            const TextSpan(text: teamModeYr),
+                            TextSpan(text: context.appLocale.teamMode),
                             TextSpan(
-                              text: ' ()',
+                              text:
+                                  ' (${currentLocale == yo ? context.enLocale.teamMode : context.yoLocale.teamMode})',
                               style: context.textTheme.bodySmall!.copyWith(
                                 fontSize: 13.5.sp,
                                 fontWeight: FontWeight.w300,
@@ -369,11 +382,20 @@ class _PlayerScreen extends HookWidget {
                             fontStyle: FontStyle.italic,
                           ),
                           children: [
-                            const TextSpan(
-                              text: '(Optional: ',
+                            TextSpan(
+                              text: '(${context.appLocale.optional}: ',
                             ),
                             TextSpan(
-                              text: ' )',
+                              text: context
+                                  .appLocale.turnOnIfInvitingMoreThanFive,
+                              style: context.textTheme.bodySmall!.copyWith(
+                                fontWeight: FontWeight.w300,
+                                fontStyle: FontStyle.italic,
+                                color: AppColors.black.withValues(alpha: 0.7),
+                              ),
+                            ),
+                            TextSpan(
+                              text: ')',
                               style: context.textTheme.bodySmall!.copyWith(
                                 fontWeight: FontWeight.w300,
                                 fontStyle: FontStyle.italic,
@@ -390,30 +412,31 @@ class _PlayerScreen extends HookWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             SelectFilledCategoryWidget(
-                              title: 'On',
+                              title: context.appLocale.on,
                               isSelected: isTeamMode.value == true,
                               onTap: () => isTeamMode.value = true,
                             ),
                             SelectFilledCategoryWidget(
-                              title: 'Off',
+                              title: context.appLocale.off,
                               isSelected: isTeamMode.value == false,
                               onTap: () => isTeamMode.value = false,
                             ),
                           ],
                         ),
                       ),
-                      SizedBox(height: 25.h),
+                      SizedBox(height: 22.h),
                       if (isTeamMode.value != false) ...[
-                        const SizedBox(height: 24),
+                        SizedBox(height: 10.h),
                         RichText(
                           text: TextSpan(
                             style: context.textTheme.bodyLarge!.copyWith(
                               fontWeight: FontWeight.w500,
                             ),
                             children: [
-                              const TextSpan(text: teamFormationYr),
+                              TextSpan(text: context.appLocale.teamFormation),
                               TextSpan(
-                                text: ' ()',
+                                text:
+                                    ' (${currentLocale == yo ? context.enLocale.teamFormation : context.yoLocale.teamFormation})',
                                 style: context.textTheme.bodySmall!.copyWith(
                                   fontSize: 13.5.sp,
                                   fontWeight: FontWeight.w300,
@@ -429,14 +452,14 @@ class _PlayerScreen extends HookWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               SelectFilledCategoryWidget(
-                                title: automaticYr,
+                                title: context.appLocale.automatic,
                                 isSelected:
                                     isTeamFormationAutomatic.value == true,
                                 onTap: () =>
                                     isTeamFormationAutomatic.value = true,
                               ),
                               SelectFilledCategoryWidget(
-                                title: manualYr,
+                                title: context.appLocale.manual,
                                 isSelected:
                                     isTeamFormationAutomatic.value == false,
                                 onTap: () =>
@@ -453,7 +476,7 @@ class _PlayerScreen extends HookWidget {
               const Spacer(),
               Center(
                 child: Button(
-                  label: isMultiPlayer ? context.appLocale.multiPlayer : '',
+                  label: isMultiPlayer ? context.appLocale.createGameRoom : '',
                   width: mqr.width * 0.85,
                   isLoading: isLoading.value,
                   onPressed: () {
@@ -480,14 +503,22 @@ class _PlayerScreen extends HookWidget {
                     }
 
                     if (isMultiPlayer) {
-                      context.pushNamed(
-                        GameRoomCreatedScreen.id,
-                        extra: {
-                          'isTeamMode': isTeamMode.value,
-                          'isTeamFormationAutomatic':
-                              isTeamFormationAutomatic.value ?? false,
-                        },
-                      );
+                      if (isTeamMode.value == null) {
+                        ToastMessage.showWarning(
+                          context: context,
+                          text: context.appLocale.pleaseSelectTeamMode,
+                        );
+                        return;
+                      }
+
+                      if (isTeamMode.value == true &&
+                          isTeamFormationAutomatic.value == null) {
+                        ToastMessage.showWarning(
+                          context: context,
+                          text: context.appLocale.pleaseSelectTeamFormationMode,
+                        );
+                        return;
+                      }
                     }
                     context.read<ResetUserStatsCubit>().resetUserStats();
                   },
