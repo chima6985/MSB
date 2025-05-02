@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:masoyinbo_mobile/extension/context_extension.dart';
 import 'package:masoyinbo_mobile/gen/fonts.gen.dart';
+import 'package:masoyinbo_mobile/ui/components/notification_item.dart';
 import 'package:masoyinbo_mobile/ui/ui.dart';
 
 class NotificationScreen extends HookWidget {
@@ -79,52 +80,26 @@ class NotificationScreen extends HookWidget {
               ),
             ],
             if (showSecondScreen.value) ...[
-              Padding(
-                padding: EdgeInsets.only(left: 24.h, right: 24.h),
-                child: Column(
-                  children: [
-                    Row(
-                      children: [
-                        CircleAvatar(
-                          radius: 16,
-                          backgroundColor: AppColors.blueE6,
-                          child: AppAssets.images.svgs.heartAdd.svg(),
-                        ),
-                        const Spacer(
-                          flex: 1,
-                        ),
-                        Column(
-                          children: [
-                            Text(
-                              context.appLocale.gameInvite,
-                              style: context.textTheme.titleLarge,
-                            ),
-                          ],
-                        ),
-                        const Spacer(
-                          flex: 8,
-                        ),
-                        Text(
-                          '2hr ago',
-                          style: context.textTheme.titleMedium!
-                              .copyWith(fontFamily: FontFamily.kanit),
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      width: 16.h,
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(left: 48.h),
-                      child: Text(
-                        context.appLocale.practiceInvite,
-                      ),
-                    ),
-                    SizedBox(
-                      height: 24.h,
-                    ),
-                  ],
-                ),
+              NotificationItem(
+                icon: AppAssets.images.svgs.heartAdd.svg(),
+                title: 'Game Invite',
+                time: '2hr ago',
+                message:
+                    'You have been invited to join a game. Go to the  game set up to join your friends. Have fun',
+              ),
+              NotificationItem(
+                icon: AppAssets.images.svgs.infoCircle.svg(),
+                title: 'System update',
+                time: '2hr ago',
+                message:
+                    'We would be running a system update of the application by 12am midnight on 16 February, 2025',
+              ),
+              NotificationItem(
+                icon: AppAssets.images.svgs.heartAdd.svg(),
+                title: 'Game Invite',
+                time: '2hr ago',
+                message:
+                    'You have been invited to join a game. Go to the  game set up to join your friends. Have fun',
               ),
             ],
           ],
