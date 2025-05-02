@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_redundant_argument_values
+
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:masoyinbo_mobile/extension/context_extension.dart';
@@ -15,8 +17,6 @@ class NotificationScreen extends HookWidget {
     return Scaffold(
       body: DecoratedContainer(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             SizedBox(height: context.topPadding),
             Stack(
@@ -40,7 +40,9 @@ class NotificationScreen extends HookWidget {
                 ),
               ],
             ),
-            SizedBox(height: 162.h),
+            SizedBox(
+              height: 32.h,
+            ),
             if (!showSecondScreen.value) ...[
               Center(
                 child: CircleAvatar(
@@ -77,41 +79,52 @@ class NotificationScreen extends HookWidget {
               ),
             ],
             if (showSecondScreen.value) ...[
-              Column(
-                children: [
-                  Column(
-                    children: [
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(left: 24),
-                            child: CircleAvatar(
-                              radius: 16,
-                              backgroundColor: AppColors.blueE6,
-                              child: AppAssets.images.svgs.heartAdd.svg(),
+              Padding(
+                padding: EdgeInsets.only(left: 24.h, right: 24.h),
+                child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        CircleAvatar(
+                          radius: 16,
+                          backgroundColor: AppColors.blueE6,
+                          child: AppAssets.images.svgs.heartAdd.svg(),
+                        ),
+                        const Spacer(
+                          flex: 1,
+                        ),
+                        Column(
+                          children: [
+                            Text(
+                              context.appLocale.gameInvite,
+                              style: context.textTheme.titleLarge,
                             ),
-                          ),
-                          SizedBox(
-                            width: 16.h,
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                context.appLocale.gameInvite,
-                                style: context.textTheme.titleLarge!,
-                              ),
-                              Text(
-                                context.appLocale.practiceInvite,
-                              ),
-                            ],
-                          )
-                        ],
+                          ],
+                        ),
+                        const Spacer(
+                          flex: 8,
+                        ),
+                        Text(
+                          '2hr ago',
+                          style: context.textTheme.titleMedium!
+                              .copyWith(fontFamily: FontFamily.kanit),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      width: 16.h,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(left: 48.h),
+                      child: Text(
+                        context.appLocale.practiceInvite,
                       ),
-                    ],
-                  ),
-                ],
+                    ),
+                    SizedBox(
+                      height: 24.h,
+                    ),
+                  ],
+                ),
               ),
             ],
           ],
