@@ -445,8 +445,6 @@ class __PlayQuestionScreenState extends State<__PlayQuestionScreen>
                                           final answer =
                                               currentQuestion?.answer;
 
-                                          print(currentQuestion);
-
                                           if (answer?.isNotEmpty ?? false) {
                                             if (currentQuestion
                                                     ?.shuffleAnswers ==

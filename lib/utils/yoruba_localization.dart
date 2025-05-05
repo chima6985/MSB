@@ -285,81 +285,81 @@ class YoMaterialLocalizations extends GlobalMaterialLocalizations {
 
   // #docregion getters
   @override
-  String get moreButtonTooltip => r'More';
+  String get moreButtonTooltip => 'More';
 
   @override
   String get aboutListTileTitleRaw => r'About $applicationName';
 
   @override
-  String get alertDialogLabel => r'Alert';
+  String get alertDialogLabel => 'Alert';
   // #enddocregion getters
 
   @override
-  String get anteMeridiemAbbreviation => r'AM';
+  String get anteMeridiemAbbreviation => 'AM';
 
   @override
-  String get backButtonTooltip => r'Back';
+  String get backButtonTooltip => 'Back';
 
   @override
-  String get cancelButtonLabel => r'CANCEL';
+  String get cancelButtonLabel => 'CANCEL';
 
   @override
-  String get closeButtonLabel => r'CLOSE';
+  String get closeButtonLabel => 'CLOSE';
 
   @override
-  String get closeButtonTooltip => r'Close';
+  String get closeButtonTooltip => 'Close';
 
   @override
-  String get collapsedIconTapHint => r'Expand';
+  String get collapsedIconTapHint => 'Expand';
 
   @override
-  String get continueButtonLabel => r'CONTINUE';
+  String get continueButtonLabel => 'CONTINUE';
 
   @override
-  String get copyButtonLabel => r'COPY';
+  String get copyButtonLabel => 'COPY';
 
   @override
-  String get cutButtonLabel => r'CUT';
+  String get cutButtonLabel => 'CUT';
 
   @override
-  String get deleteButtonTooltip => r'Delete';
+  String get deleteButtonTooltip => 'Delete';
 
   @override
-  String get dialogLabel => r'Dialog';
+  String get dialogLabel => 'Dialog';
 
   @override
-  String get drawerLabel => r'Navigation menu';
+  String get drawerLabel => 'Navigation menu';
 
   @override
-  String get expandedIconTapHint => r'Collapse';
+  String get expandedIconTapHint => 'Collapse';
 
   @override
-  String get firstPageTooltip => r'First page';
+  String get firstPageTooltip => 'First page';
 
   @override
-  String get hideAccountsLabel => r'Hide accounts';
+  String get hideAccountsLabel => 'Hide accounts';
 
   @override
-  String get lastPageTooltip => r'Last page';
+  String get lastPageTooltip => 'Last page';
 
   @override
-  String get licensesPageTitle => r'Licenses';
+  String get licensesPageTitle => 'Licenses';
 
   @override
-  String get modalBarrierDismissLabel => r'Dismiss';
+  String get modalBarrierDismissLabel => 'Dismiss';
 
   @override
-  String get nextMonthTooltip => r'Next month';
+  String get nextMonthTooltip => 'Next month';
 
   @override
-  String get nextPageTooltip => r'Next page';
+  String get nextPageTooltip => 'Next page';
 
   @override
-  String get okButtonLabel => r'OK';
+  String get okButtonLabel => 'OK';
 
   @override
   // A custom drawer tooltip message.
-  String get openAppDrawerTooltip => r'Custom Navigation Menu Tooltip';
+  String get openAppDrawerTooltip => 'Custom Navigation Menu Tooltip';
 
   // #docregion raw
   @override
@@ -371,25 +371,25 @@ class YoMaterialLocalizations extends GlobalMaterialLocalizations {
   // #enddocregion raw
 
   @override
-  String get pasteButtonLabel => r'PASTE';
+  String get pasteButtonLabel => 'PASTE';
 
   @override
-  String get popupMenuLabel => r'Popup menu';
+  String get popupMenuLabel => 'Popup menu';
 
   @override
-  String get menuBarMenuLabel => r'Menu Bar Label';
+  String get menuBarMenuLabel => 'Menu Bar Label';
 
   @override
-  String get postMeridiemAbbreviation => r'PM';
+  String get postMeridiemAbbreviation => 'PM';
 
   @override
-  String get previousMonthTooltip => r'Previous month';
+  String get previousMonthTooltip => 'Previous month';
 
   @override
-  String get previousPageTooltip => r'Previous page';
+  String get previousPageTooltip => 'Previous page';
 
   @override
-  String get refreshIndicatorSemanticLabel => r'Refresh';
+  String get refreshIndicatorSemanticLabel => 'Refresh';
 
   @override
   String? get remainingTextFieldCharacterCountFew => null;
@@ -398,7 +398,7 @@ class YoMaterialLocalizations extends GlobalMaterialLocalizations {
   String? get remainingTextFieldCharacterCountMany => null;
 
   @override
-  String get remainingTextFieldCharacterCountOne => r'1 character remaining';
+  String get remainingTextFieldCharacterCountOne => '1 character remaining';
 
   @override
   String get remainingTextFieldCharacterCountOther =>
@@ -408,37 +408,37 @@ class YoMaterialLocalizations extends GlobalMaterialLocalizations {
   String? get remainingTextFieldCharacterCountTwo => null;
 
   @override
-  String get remainingTextFieldCharacterCountZero => r'No characters remaining';
+  String get remainingTextFieldCharacterCountZero => 'No characters remaining';
 
   @override
-  String get reorderItemDown => r'Move down';
+  String get reorderItemDown => 'Move down';
 
   @override
-  String get reorderItemLeft => r'Move left';
+  String get reorderItemLeft => 'Move left';
 
   @override
-  String get reorderItemRight => r'Move right';
+  String get reorderItemRight => 'Move right';
 
   @override
-  String get reorderItemToEnd => r'Move to the end';
+  String get reorderItemToEnd => 'Move to the end';
 
   @override
-  String get reorderItemToStart => r'Move to the start';
+  String get reorderItemToStart => 'Move to the start';
 
   @override
-  String get reorderItemUp => r'Move up';
+  String get reorderItemUp => 'Move up';
 
   @override
-  String get rowsPerPageTitle => r'Rows per page:';
+  String get rowsPerPageTitle => 'Rows per page:';
 
   @override
   ScriptCategory get scriptCategory => ScriptCategory.englishLike;
 
   @override
-  String get searchFieldLabel => r'Search';
+  String get searchFieldLabel => 'Search';
 
   @override
-  String get selectAllButtonLabel => r'SELECT ALL';
+  String get selectAllButtonLabel => 'SELECT ALL';
 
   @override
   String? get selectedRowCountTitleFew => null;
@@ -447,7 +447,7 @@ class YoMaterialLocalizations extends GlobalMaterialLocalizations {
   String? get selectedRowCountTitleMany => null;
 
   @override
-  String get selectedRowCountTitleOne => r'1 item selected';
+  String get selectedRowCountTitleOne => '1 item selected';
 
   @override
   String get selectedRowCountTitleOther => r'$selectedRowCount items selected';
@@ -456,16 +456,16 @@ class YoMaterialLocalizations extends GlobalMaterialLocalizations {
   String? get selectedRowCountTitleTwo => null;
 
   @override
-  String get selectedRowCountTitleZero => r'No items selected';
+  String get selectedRowCountTitleZero => 'No items selected';
 
   @override
-  String get showAccountsLabel => r'Show accounts';
+  String get showAccountsLabel => 'Show accounts';
 
   @override
-  String get showMenuTooltip => r'Show menu';
+  String get showMenuTooltip => 'Show menu';
 
   @override
-  String get signedInLabel => r'Signed in';
+  String get signedInLabel => 'Signed in';
 
   @override
   String get tabLabelRaw => r'Tab $tabIndex of $tabCount';
@@ -474,13 +474,13 @@ class YoMaterialLocalizations extends GlobalMaterialLocalizations {
   TimeOfDayFormat get timeOfDayFormatRaw => TimeOfDayFormat.h_colon_mm_space_a;
 
   @override
-  String get timePickerHourModeAnnouncement => r'Select hours';
+  String get timePickerHourModeAnnouncement => 'Select hours';
 
   @override
-  String get timePickerMinuteModeAnnouncement => r'Select minutes';
+  String get timePickerMinuteModeAnnouncement => 'Select minutes';
 
   @override
-  String get viewLicensesButtonLabel => r'VIEW LICENSES';
+  String get viewLicensesButtonLabel => 'VIEW LICENSES';
 
   @override
   List<String> get narrowWeekdays => const <String>[
@@ -500,31 +500,31 @@ class YoMaterialLocalizations extends GlobalMaterialLocalizations {
       _YoMaterialLocalizationsDelegate();
 
   @override
-  String get calendarModeButtonLabel => r'Switch to calendar';
+  String get calendarModeButtonLabel => 'Switch to calendar';
 
   @override
-  String get dateHelpText => r'mm/dd/yyyy';
+  String get dateHelpText => 'mm/dd/yyyy';
 
   @override
-  String get dateInputLabel => r'Enter Date';
+  String get dateInputLabel => 'Enter Date';
 
   @override
-  String get dateOutOfRangeLabel => r'Out of range.';
+  String get dateOutOfRangeLabel => 'Out of range.';
 
   @override
-  String get datePickerHelpText => r'SELECT DATE';
+  String get datePickerHelpText => 'SELECT DATE';
 
   @override
   String get dateRangeEndDateSemanticLabelRaw => r'End date $fullDate';
 
   @override
-  String get dateRangeEndLabel => r'End Date';
+  String get dateRangeEndLabel => 'End Date';
 
   @override
   String get dateRangePickerHelpText => 'SELECT RANGE';
 
   @override
-  String get dateRangeStartDateSemanticLabelRaw => 'Start date \$fullDate';
+  String get dateRangeStartDateSemanticLabelRaw => r'Start date $fullDate';
 
   @override
   String get dateRangeStartLabel => 'Start Date';
@@ -551,7 +551,7 @@ class YoMaterialLocalizations extends GlobalMaterialLocalizations {
   String get invalidTimeLabel => 'Enter a valid time';
 
   @override
-  String get licensesPackageDetailTextOther => '\$licenseCount licenses';
+  String get licensesPackageDetailTextOther => r'$licenseCount licenses';
 
   @override
   String get saveButtonLabel => 'SAVE';
