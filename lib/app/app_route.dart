@@ -137,9 +137,9 @@ final router = GoRouter(
       builder: (context, state) => const NotificationsScreen(),
     ),
     GoRoute(
-      name: NotificationSettingsScreen.id,
+      name: NotificationSettingScreen.id,
       path: '/notificationSettingsScreen',
-      builder: (context, state) => const NotificationSettingsScreen(),
+      builder: (context, state) => const NotificationSettingScreen(),
     ),
     GoRoute(
       name: LanguageScreen.id,

@@ -7,10 +7,10 @@ import 'package:masoyinbo_mobile/extension/context_extension.dart';
 import 'package:masoyinbo_mobile/gen/fonts.gen.dart';
 import 'package:masoyinbo_mobile/ui/ui.dart';
 
-class NotificationScreen extends HookWidget {
-  const NotificationScreen({super.key});
+class NotificationsScreen extends HookWidget {
+  const NotificationsScreen({super.key});
 
-  static const String id = 'notificationScreen';
+  static const String id = 'notificationsScreen';
 
   @override
   Widget build(BuildContext context) {

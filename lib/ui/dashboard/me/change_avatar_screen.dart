@@ -9,48 +9,51 @@ import 'package:masoyinbo_mobile/ui/ui.dart';
 import 'package:masoyinbo_mobile/utils/utils.dart';
 
 class ChangeAvatarScreen extends HookWidget {
-  ChangeAvatarScreen({
+  const ChangeAvatarScreen({
     super.key,
   });
-  static const String id = 'changeAvatarScreen';
 
-  final List<String> maleAvatars = [
-    AppAssets.images.jpegs.man1.path,
-    AppAssets.images.jpegs.man2.path,
-    AppAssets.images.jpegs.man3.path,
-    AppAssets.images.jpegs.man4.path,
-    AppAssets.images.jpegs.man5.path,
-    AppAssets.images.jpegs.man6.path,
-    AppAssets.images.jpegs.man7.path,
-    AppAssets.images.jpegs.man8.path,
-    AppAssets.images.jpegs.man9.path,
-    AppAssets.images.jpegs.man10.path,
-    AppAssets.images.jpegs.man11.path,
-    AppAssets.images.jpegs.man12.path,
-  ];
-  final List<String> femaleAvatars = [
-    AppAssets.images.jpegs.woman1.path,
-    AppAssets.images.jpegs.woman2.path,
-    AppAssets.images.jpegs.woman3.path,
-    AppAssets.images.jpegs.woman4.path,
-    AppAssets.images.jpegs.woman5.path,
-    AppAssets.images.jpegs.woman6.path,
-    AppAssets.images.jpegs.woman7.path,
-    AppAssets.images.jpegs.woman8.path,
-    AppAssets.images.jpegs.woman9.path,
-    AppAssets.images.jpegs.woman10.path,
-    AppAssets.images.jpegs.woman11.path,
-    AppAssets.images.jpegs.woman12.path,
-  ];
+  static const String id = 'changeAvatarScreen';
 
   @override
   Widget build(BuildContext context) {
     final mqr = MediaQuery.of(context).size;
     final selectedProfileAvatar = useState<String?>(null);
-    // final isSelected = useState<int?>(null);
     final user = context.watch<UserCubit>().state.user;
     final isMale = user?.gender == 'Male';
+
+    final maleAvatars = [
+      AppAssets.images.jpegs.man1.path,
+      AppAssets.images.jpegs.man2.path,
+      AppAssets.images.jpegs.man3.path,
+      AppAssets.images.jpegs.man4.path,
+      AppAssets.images.jpegs.man5.path,
+      AppAssets.images.jpegs.man6.path,
+      AppAssets.images.jpegs.man7.path,
+      AppAssets.images.jpegs.man8.path,
+      AppAssets.images.jpegs.man9.path,
+      AppAssets.images.jpegs.man10.path,
+      AppAssets.images.jpegs.man11.path,
+      AppAssets.images.jpegs.man12.path,
+    ];
+
+    final femaleAvatars = [
+      AppAssets.images.jpegs.woman1.path,
+      AppAssets.images.jpegs.woman2.path,
+      AppAssets.images.jpegs.woman3.path,
+      AppAssets.images.jpegs.woman4.path,
+      AppAssets.images.jpegs.woman5.path,
+      AppAssets.images.jpegs.woman6.path,
+      AppAssets.images.jpegs.woman7.path,
+      AppAssets.images.jpegs.woman8.path,
+      AppAssets.images.jpegs.woman9.path,
+      AppAssets.images.jpegs.woman10.path,
+      AppAssets.images.jpegs.woman11.path,
+      AppAssets.images.jpegs.woman12.path,
+    ];
+
     final avatars = isMale ? maleAvatars : femaleAvatars;
+
     return Scaffold(
       body: DecoratedContainer(
         child: SingleChildScrollView(
@@ -124,17 +127,6 @@ class ChangeAvatarScreen extends HookWidget {
                               ),
                             )
                             .toList(),
-
-                        //  List.generate(avatars.length, (index) {
-                        //   return _AvatarWidget(
-                        //     imagePath: avatars[index],
-                        //    onTap: () {
-                        //     selectedProfileAvatar.value = avatars[index];
-                        //     isSelected.value = index;
-                        //    },
-                        //    isSelected: isSelected.value == index,
-                        //    );
-                        // })
                       ),
                     ),
                     SizedBox(height: 75.h),
