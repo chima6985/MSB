@@ -333,7 +333,12 @@
   "notTimed":"Ko si akoko",
   "itsQuietInHere":"Awọn oniwe-idakẹjẹ ni ibi", 
   "keepPracticing":"Tẹsiwaju adaṣe, ati pe a yoo jẹ ki o mọ nigbati \n nkan tuntun ba wa—bii olurannileti ẹkọ tabi \nq ipenija lati ọdọ ọrẹ kan!",
+  "textCopied":"Ti daakọ ọrọ!",
+  "couldNotCopy":"Ko le daakọ",
+  "refreshingPlayers":"Onitura awọn ẹrọ orin",
+  "waitingForGameMasterToSetupGame":"Dúró fún olórí eré láti ṣètò eré",
 
-  
+
+
   "example": "example"
 }

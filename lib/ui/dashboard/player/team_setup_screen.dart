@@ -522,7 +522,7 @@ class _TeamSetupScreenState extends State<TeamSetupScreen> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 26),
               child: Button(
-                label: setTeamYr,
+                label: context.appLocale.setTeam,
                 color: isManualReady ? AppColors.greyDB : null,
                 borderColor: isManualReady ? AppColors.greyDB : null,
                 labelColor: isManualReady ? AppColors.black15 : null,

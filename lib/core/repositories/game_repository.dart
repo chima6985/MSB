@@ -271,9 +271,9 @@ class GameRepository {
 
   /// Get game details
   ///
-  /// Returns [void] on success.
+  /// Returns [GameDetails] on success.
   /// Throws [GameException] when operation fails.
-  Future<void> getGameDetails({
+  Future<GameDetails> getGameDetails({
     required String gameCode,
     required String token,
   }) async {
@@ -284,12 +284,12 @@ class GameRepository {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer $token',
       };
-      return await APIHelper.request<void>(
+      return await APIHelper.request<GameDetails>(
         request: _client.get(
           Uri.parse(url),
           headers: headers,
         ),
-        onSuccessMap: (value) {},
+        onSuccessMap: GameDetails.fromJson,
       );
     } on APIException catch (e) {
       throw GameException(message: e.message);
@@ -351,7 +351,7 @@ class GameRepository {
   ///
   /// Returns [void] on success.
   /// Throws [GameException] when operation fails.
-  Future<void> getAllPlayersEndpoint({
+  Future<List<Player>> getAllPlayers({
     required String gameCode,
     required String token,
   }) async {
@@ -362,12 +362,14 @@ class GameRepository {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer $token',
       };
-      return await APIHelper.request<void>(
+      return await APIHelper.request<List<Player>>(
         request: _client.get(
           Uri.parse(url),
           headers: headers,
         ),
-        onSuccessMap: (value) {},
+        onSuccessMap: (value) {
+          return [];
+        },
       );
     } on APIException catch (e) {
       throw GameException(message: e.message);

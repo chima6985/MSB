@@ -266,7 +266,7 @@ final router = GoRouter(
         final paramHandler = state.extra is Map ? state.extra as Map? : {};
         return GameRoomScreen(
           gameCode: paramHandler?['gameCode'],
-          isMultiplayer: paramHandler?['isMultiplayer'] ?? false,
+          isGameMaster: paramHandler?['isGameMaster'] ?? false,
           isTeamMode: paramHandler?['isTeamMode'] ?? false,
           isTeamFormationAutomatic:
               paramHandler?['isTeamFormationAutomatic'] ?? false,

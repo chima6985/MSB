@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:masoyinbo_mobile/extension/context_extension.dart';
 import 'package:masoyinbo_mobile/gen/fonts.gen.dart';
 import 'package:masoyinbo_mobile/ui/ui.dart';
+import 'package:masoyinbo_mobile/utils/utils.dart';
 import 'package:share_plus/share_plus.dart';
 
 class GameRoomCreatedScreen extends StatelessWidget {
@@ -68,11 +69,30 @@ class GameRoomCreatedScreen extends StatelessWidget {
                       style: context.textTheme.bodyMedium,
                     ),
                     const SizedBox(height: 20),
-                    Text(
-                      gameCode,
-                      textAlign: TextAlign.center,
-                      style: context.textTheme.bodyLarge!.copyWith(
-                        fontWeight: FontWeight.w500,
+                    InkWell(
+                      onTap: () =>
+                          Functions.copyTextToClipBoard(context, gameCode),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8),
+                        child: Center(
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Text(
+                                gameCode,
+                                textAlign: TextAlign.center,
+                                style: context.textTheme.bodyLarge!.copyWith(
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                              const SizedBox(width: 5),
+                              Icon(
+                                Iconsax.copy,
+                                size: 17.sp,
+                              ),
+                            ],
+                          ),
+                        ),
                       ),
                     ),
                     const SizedBox(height: 15),
@@ -101,7 +121,7 @@ class GameRoomCreatedScreen extends StatelessWidget {
                         GameRoomScreen.id,
                         extra: {
                           'gameCode': gameCode,
-                          'isMultiplayer': true,
+                          'isGameMaster': true,
                           'isTeamMode': isTeamMode,
                           'isTeamFormationAutomatic': isTeamFormationAutomatic,
                         },

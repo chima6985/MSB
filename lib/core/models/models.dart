@@ -1,4 +1,6 @@
 export 'answer_response_model.dart';
+export 'game_details_model.dart';
+export 'player_model.dart';
 export 'player_stat_model.dart';
 export 'question_model.dart';
 export 'section_difficulty_model.dart';

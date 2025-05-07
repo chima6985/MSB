@@ -23,49 +23,23 @@ class AllPlayersCubit extends Cubit<AllPlayersState> {
   /// Auth Bloc.
   final AuthBloc _authBloc;
 
-  Timer? _timer;
-
-  /// Start polling getAllPlayersEndpoint every 10 seconds
-  Future<void> startPolling({required String gameCode}) async {
-    _timer?.cancel();
-
-    await getAllPlayersEndpoint(gameCode: gameCode);
-
-    _timer = Timer.periodic(const Duration(seconds: 10), (_) {
-      getAllPlayersEndpoint(gameCode: gameCode);
-    });
-  }
-
-  /// Stop polling
-  void stopPolling() {
-    print('here');
-    _timer?.cancel();
-    _timer = null;
-  }
-
   /// Get all players
-  Future<void> getAllPlayersEndpoint({
+  Future<void> getAllPlayers({
     required String gameCode,
   }) async {
     try {
       emit(const _Loading());
       final user = UserHelper.fetchUser(authBloc: _authBloc);
       if (user == null) return;
-      await _gameRepository.getAllPlayersEndpoint(
+      final apiResponse = await _gameRepository.getAllPlayers(
         gameCode: gameCode,
         token: user.token,
       );
-      emit(const _Loaded());
+      emit(_Loaded(players: apiResponse));
     } on GameException catch (e) {
       emit(_Error(error: e.message));
     } on AuthException catch (e) {
       _authBloc.add(AuthEvent.authSignOut(message: e.message));
     }
-  }
-
-  @override
-  Future<void> close() {
-    stopPolling();
-    return super.close();
   }
 }

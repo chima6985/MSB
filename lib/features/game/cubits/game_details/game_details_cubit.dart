@@ -29,11 +29,11 @@ class GameDetailsCubit extends Cubit<GameDetailsState> {
       emit(const _Loading());
       final user = UserHelper.fetchUser(authBloc: _authBloc);
       if (user == null) return;
-      await _gameRepository.getGameDetails(
+      final apiResponse = await _gameRepository.getGameDetails(
         gameCode: gameCode,
         token: user.token,
       );
-      emit(const _Loaded());
+      emit(_Loaded(gameDetails: apiResponse));
     } on GameException catch (e) {
       emit(_Error(error: e.message));
     } on AuthException catch (e) {

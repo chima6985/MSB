@@ -200,34 +200,6 @@ const bookmarksEn = 'Bookmarks';
 const searchBookMarksYr = 'Search bookmarks';
 const searchBookMarksEn = 'Search bookmarks';
 
-const gameSetupYr = 'Iṣètò eré';
-const gameSetupEn = 'Game Set-up';
-
-const gamePreparedByFriendYr = 'Èyí ní eré tí ọ̀rẹ re ti ṣètò';
-const gamePreparedByFriendEn =
-    'Here is the game set-up as prepared by your friend';
-
-const enterGameRoomYr = 'Wo̩ Iyàrá eré';
-const enterGameRoomEn = 'Enter Game Room';
-
-const leaveYr = 'Kúrò ';
-const leaveEn = 'Leave';
-
-const gameCategoryYr = 'Game category';
-const gameCategoryEn = 'Game category';
-
-const gameDifficultyYr = 'Game difficulty';
-const gameDifficultyEn = 'Game difficulty';
-
-const teamModeYr = 'Abala yíyan ìsò̩gbè';
-const teamModeEn = 'Team mode';
-
-const gameRoomYr = 'Game Room';
-const gameRoomEn = 'Game Room';
-
-const leaveGameRoomYr = 'Kúrò ní iyàrá';
-const leaveGameRoomEn = 'Leave Game Room';
-
 const leavePracticeYr = 'Bé̩è̩ni, paati';
 const leavePracticeEn = 'Yes, leave';
 
@@ -322,12 +294,6 @@ const inviteFriendsToYourGameYr =
     'Pe àwo̩n ò̩ré̩ wá sí iyàrá eré nípa pínpín eré nà tàbí fífún wo̩n ní ìlànà àátò̩ sí eré nà';
 const inviteFriendsToYourGameEn =
     'Invite friends to your game room by sharing the game or giving them the game code.';
-
-const modifyGameSetupYr = 'Modify Game Setup';
-const modifyGameSetupEn = 'Modify Game Setup';
-
-const setTeamYr = 'Yan ìsò̩gbè';
-const setTeamEn = 'Set Team';
 
 const attentionYr = 'Àkíyèsí pàtàkì';
 const attentionEn = 'Attention';

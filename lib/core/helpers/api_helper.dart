@@ -58,7 +58,6 @@ class APIHelper {
           return onSuccessMap(data);
         } else if (onSuccessList != null) {
           final utf8Response = utf8.decode(response.bodyBytes);
-
           final list =
               (jsonDecode(utf8Response) as List).cast<Map<String, dynamic>>();
           return onSuccessList(list);

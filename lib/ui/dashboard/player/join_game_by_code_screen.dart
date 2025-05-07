@@ -36,11 +36,14 @@ class _JoinGameByCodeScreen extends HookWidget {
       listener: (context, state) {
         state.maybeWhen(
           loading: () => isLoading.value = true,
-          loaded: () {
+          loaded: (gameDetails) {
             isLoading.value = false;
             showModalBottomSheet(
               context: context,
-              builder: (context) => const GameSetupModal(),
+              builder: (context) => GameSetupModal(
+                gameDetails: gameDetails,
+                gameCode: gameCodeController.text.trim(),
+              ),
               isScrollControlled: true,
               shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.only(

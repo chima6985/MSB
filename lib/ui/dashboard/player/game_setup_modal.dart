@@ -1,15 +1,45 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:masoyinbo_mobile/app/app.dart';
+import 'package:masoyinbo_mobile/core/models/game_details_model.dart';
 import 'package:masoyinbo_mobile/extension/extension.dart';
 import 'package:masoyinbo_mobile/features/features.dart';
 import 'package:masoyinbo_mobile/gen/fonts.gen.dart';
 import 'package:masoyinbo_mobile/ui/ui.dart';
 import 'package:masoyinbo_mobile/utils/utils.dart';
 
-class GameSetupModal extends HookWidget {
-  const GameSetupModal({super.key});
+class GameSetupModal extends StatelessWidget {
+  const GameSetupModal({
+    super.key,
+    required this.gameDetails,
+    required this.gameCode,
+  });
+
+  final GameDetails gameDetails;
+  final String gameCode;
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) => JoinGameRoomCubit(
+        authBloc: context.read(),
+      ),
+      child: _GameSetupModal(
+        gameDetails: gameDetails,
+        gameCode: gameCode,
+      ),
+    );
+  }
+}
+
+class _GameSetupModal extends HookWidget {
+  const _GameSetupModal({
+    required this.gameDetails,
+    required this.gameCode,
+  });
+
+  final GameDetails gameDetails;
+  final String gameCode;
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +52,15 @@ class GameSetupModal extends HookWidget {
             isLoading.value = false;
             context
               ..pop(context)
-              ..pushNamed(GameRoomScreen.id);
+              ..pushNamed(
+                GameRoomScreen.id,
+                extra: {
+                  'gameCode': gameCode,
+                  'isGameMaster': false,
+                  'isTeamMode': gameDetails.teamMode,
+                  'isTeamFormationAutomatic': false,
+                },
+              );
           },
           error: (error) {
             isLoading.value = false;
@@ -49,7 +87,7 @@ class GameSetupModal extends HookWidget {
             ),
             const SizedBox(height: 5),
             Text(
-              gameSetupYr,
+              context.appLocale.gameSetup,
               textAlign: TextAlign.center,
               style: context.textTheme.bodyLarge!.copyWith(
                 fontFamily: FontFamily.margarine,
@@ -62,38 +100,41 @@ class GameSetupModal extends HookWidget {
                 child: Column(
                   children: [
                     Text(
-                      gamePreparedByFriendYr,
+                      context.appLocale.gamePreparedByFriend,
                       textAlign: TextAlign.center,
                       style: context.textTheme.bodyMedium!.copyWith(
                         fontWeight: FontWeight.w300,
                       ),
                     ),
                     SizedBox(height: 32.h),
-                    const _GameModeTextFieldWidget(
-                      titleField: gameCategoryYr,
-                      text: 'Proverbs',
+                    _GameModeTextFieldWidget(
+                      titleField: context.appLocale.gameCategory,
+                      text: gameDetails.section.titleCase(),
                     ),
-                    const _GameModeTextFieldWidget(
-                      titleField: gameDifficultyYr,
-                      text: 'Hard',
+                    _GameModeTextFieldWidget(
+                      titleField: context.appLocale.gameDifficulty,
+                      text: gameDetails.difficulty.titleCase(),
                     ),
-                    const _GameModeTextFieldWidget(
-                      titleField: teamModeYr,
-                      text: 'On',
+                    _GameModeTextFieldWidget(
+                      titleField: context.appLocale.teamMode,
+                      text: gameDetails.teamMode
+                          ? context.appLocale.on
+                          : context.appLocale.off,
                     ),
                   ],
                 ),
               ),
             ),
             Button(
-              label: enterGameRoomYr,
-              onPressed: () => context
-                ..pop(context)
-                ..pushNamed(GameRoomScreen.id),
+              label: context.appLocale.enterGameRoom,
+              isLoading: isLoading.value,
+              onPressed: () => context.read<JoinGameRoomCubit>().joinGameRoom(
+                    gameCode: gameCode,
+                  ),
             ),
             const SizedBox(height: 24),
             Button(
-              label: leaveYr,
+              label: context.appLocale.leave,
               isOutlined: true,
               labelColor: AppColors.black15,
               onPressed: () => context..pop(context),

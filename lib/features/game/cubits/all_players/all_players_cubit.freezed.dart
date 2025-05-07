@@ -16,28 +16,29 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$AllPlayersState {
+  List<Player>? get players => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function() loading,
-    required TResult Function() loaded,
-    required TResult Function(String? error) error,
+    required TResult Function(List<Player> players) initial,
+    required TResult Function(List<Player>? players) loading,
+    required TResult Function(List<Player> players) loaded,
+    required TResult Function(List<Player>? players, String? error) error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
-    TResult? Function()? loading,
-    TResult? Function()? loaded,
-    TResult? Function(String? error)? error,
+    TResult? Function(List<Player> players)? initial,
+    TResult? Function(List<Player>? players)? loading,
+    TResult? Function(List<Player> players)? loaded,
+    TResult? Function(List<Player>? players, String? error)? error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function()? loading,
-    TResult Function()? loaded,
-    TResult Function(String? error)? error,
+    TResult Function(List<Player> players)? initial,
+    TResult Function(List<Player>? players)? loading,
+    TResult Function(List<Player> players)? loaded,
+    TResult Function(List<Player>? players, String? error)? error,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -66,6 +67,12 @@ mixin _$AllPlayersState {
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
+
+  /// Create a copy of AllPlayersState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $AllPlayersStateCopyWith<AllPlayersState> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -73,6 +80,8 @@ abstract class $AllPlayersStateCopyWith<$Res> {
   factory $AllPlayersStateCopyWith(
           AllPlayersState value, $Res Function(AllPlayersState) then) =
       _$AllPlayersStateCopyWithImpl<$Res, AllPlayersState>;
+  @useResult
+  $Res call({List<Player> players});
 }
 
 /// @nodoc
@@ -87,13 +96,29 @@ class _$AllPlayersStateCopyWithImpl<$Res, $Val extends AllPlayersState>
 
   /// Create a copy of AllPlayersState
   /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? players = null,
+  }) {
+    return _then(_value.copyWith(
+      players: null == players
+          ? _value.players!
+          : players // ignore: cast_nullable_to_non_nullable
+              as List<Player>,
+    ) as $Val);
+  }
 }
 
 /// @nodoc
-abstract class _$$InitialImplCopyWith<$Res> {
+abstract class _$$InitialImplCopyWith<$Res>
+    implements $AllPlayersStateCopyWith<$Res> {
   factory _$$InitialImplCopyWith(
           _$InitialImpl value, $Res Function(_$InitialImpl) then) =
       __$$InitialImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({List<Player> players});
 }
 
 /// @nodoc
@@ -106,60 +131,93 @@ class __$$InitialImplCopyWithImpl<$Res>
 
   /// Create a copy of AllPlayersState
   /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? players = null,
+  }) {
+    return _then(_$InitialImpl(
+      players: null == players
+          ? _value._players
+          : players // ignore: cast_nullable_to_non_nullable
+              as List<Player>,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$InitialImpl implements _Initial {
-  const _$InitialImpl();
+  const _$InitialImpl({final List<Player> players = const <Player>[]})
+      : _players = players;
+
+  final List<Player> _players;
+  @override
+  @JsonKey()
+  List<Player> get players {
+    if (_players is EqualUnmodifiableListView) return _players;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_players);
+  }
 
   @override
   String toString() {
-    return 'AllPlayersState.initial()';
+    return 'AllPlayersState.initial(players: $players)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$InitialImpl);
+        (other.runtimeType == runtimeType &&
+            other is _$InitialImpl &&
+            const DeepCollectionEquality().equals(other._players, _players));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(_players));
+
+  /// Create a copy of AllPlayersState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$InitialImplCopyWith<_$InitialImpl> get copyWith =>
+      __$$InitialImplCopyWithImpl<_$InitialImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function() loading,
-    required TResult Function() loaded,
-    required TResult Function(String? error) error,
+    required TResult Function(List<Player> players) initial,
+    required TResult Function(List<Player>? players) loading,
+    required TResult Function(List<Player> players) loaded,
+    required TResult Function(List<Player>? players, String? error) error,
   }) {
-    return initial();
+    return initial(players);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
-    TResult? Function()? loading,
-    TResult? Function()? loaded,
-    TResult? Function(String? error)? error,
+    TResult? Function(List<Player> players)? initial,
+    TResult? Function(List<Player>? players)? loading,
+    TResult? Function(List<Player> players)? loaded,
+    TResult? Function(List<Player>? players, String? error)? error,
   }) {
-    return initial?.call();
+    return initial?.call(players);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function()? loading,
-    TResult Function()? loaded,
-    TResult Function(String? error)? error,
+    TResult Function(List<Player> players)? initial,
+    TResult Function(List<Player>? players)? loading,
+    TResult Function(List<Player> players)? loaded,
+    TResult Function(List<Player>? players, String? error)? error,
     required TResult orElse(),
   }) {
     if (initial != null) {
-      return initial();
+      return initial(players);
     }
     return orElse();
   }
@@ -203,14 +261,28 @@ class _$InitialImpl implements _Initial {
 }
 
 abstract class _Initial implements AllPlayersState {
-  const factory _Initial() = _$InitialImpl;
+  const factory _Initial({final List<Player> players}) = _$InitialImpl;
+
+  @override
+  List<Player> get players;
+
+  /// Create a copy of AllPlayersState
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$InitialImplCopyWith<_$InitialImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$LoadingImplCopyWith<$Res> {
+abstract class _$$LoadingImplCopyWith<$Res>
+    implements $AllPlayersStateCopyWith<$Res> {
   factory _$$LoadingImplCopyWith(
           _$LoadingImpl value, $Res Function(_$LoadingImpl) then) =
       __$$LoadingImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({List<Player>? players});
 }
 
 /// @nodoc
@@ -223,60 +295,93 @@ class __$$LoadingImplCopyWithImpl<$Res>
 
   /// Create a copy of AllPlayersState
   /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? players = freezed,
+  }) {
+    return _then(_$LoadingImpl(
+      players: freezed == players
+          ? _value._players
+          : players // ignore: cast_nullable_to_non_nullable
+              as List<Player>?,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$LoadingImpl implements _Loading {
-  const _$LoadingImpl();
+  const _$LoadingImpl({final List<Player>? players}) : _players = players;
+
+  final List<Player>? _players;
+  @override
+  List<Player>? get players {
+    final value = _players;
+    if (value == null) return null;
+    if (_players is EqualUnmodifiableListView) return _players;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
 
   @override
   String toString() {
-    return 'AllPlayersState.loading()';
+    return 'AllPlayersState.loading(players: $players)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$LoadingImpl);
+        (other.runtimeType == runtimeType &&
+            other is _$LoadingImpl &&
+            const DeepCollectionEquality().equals(other._players, _players));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(_players));
+
+  /// Create a copy of AllPlayersState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$LoadingImplCopyWith<_$LoadingImpl> get copyWith =>
+      __$$LoadingImplCopyWithImpl<_$LoadingImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function() loading,
-    required TResult Function() loaded,
-    required TResult Function(String? error) error,
+    required TResult Function(List<Player> players) initial,
+    required TResult Function(List<Player>? players) loading,
+    required TResult Function(List<Player> players) loaded,
+    required TResult Function(List<Player>? players, String? error) error,
   }) {
-    return loading();
+    return loading(players);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
-    TResult? Function()? loading,
-    TResult? Function()? loaded,
-    TResult? Function(String? error)? error,
+    TResult? Function(List<Player> players)? initial,
+    TResult? Function(List<Player>? players)? loading,
+    TResult? Function(List<Player> players)? loaded,
+    TResult? Function(List<Player>? players, String? error)? error,
   }) {
-    return loading?.call();
+    return loading?.call(players);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function()? loading,
-    TResult Function()? loaded,
-    TResult Function(String? error)? error,
+    TResult Function(List<Player> players)? initial,
+    TResult Function(List<Player>? players)? loading,
+    TResult Function(List<Player> players)? loaded,
+    TResult Function(List<Player>? players, String? error)? error,
     required TResult orElse(),
   }) {
     if (loading != null) {
-      return loading();
+      return loading(players);
     }
     return orElse();
   }
@@ -320,14 +425,28 @@ class _$LoadingImpl implements _Loading {
 }
 
 abstract class _Loading implements AllPlayersState {
-  const factory _Loading() = _$LoadingImpl;
+  const factory _Loading({final List<Player>? players}) = _$LoadingImpl;
+
+  @override
+  List<Player>? get players;
+
+  /// Create a copy of AllPlayersState
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$LoadingImplCopyWith<_$LoadingImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$LoadedImplCopyWith<$Res> {
+abstract class _$$LoadedImplCopyWith<$Res>
+    implements $AllPlayersStateCopyWith<$Res> {
   factory _$$LoadedImplCopyWith(
           _$LoadedImpl value, $Res Function(_$LoadedImpl) then) =
       __$$LoadedImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({List<Player> players});
 }
 
 /// @nodoc
@@ -340,60 +459,92 @@ class __$$LoadedImplCopyWithImpl<$Res>
 
   /// Create a copy of AllPlayersState
   /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? players = null,
+  }) {
+    return _then(_$LoadedImpl(
+      players: null == players
+          ? _value._players
+          : players // ignore: cast_nullable_to_non_nullable
+              as List<Player>,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$LoadedImpl implements _Loaded {
-  const _$LoadedImpl();
+  const _$LoadedImpl({required final List<Player> players})
+      : _players = players;
+
+  final List<Player> _players;
+  @override
+  List<Player> get players {
+    if (_players is EqualUnmodifiableListView) return _players;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_players);
+  }
 
   @override
   String toString() {
-    return 'AllPlayersState.loaded()';
+    return 'AllPlayersState.loaded(players: $players)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$LoadedImpl);
+        (other.runtimeType == runtimeType &&
+            other is _$LoadedImpl &&
+            const DeepCollectionEquality().equals(other._players, _players));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(_players));
+
+  /// Create a copy of AllPlayersState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$LoadedImplCopyWith<_$LoadedImpl> get copyWith =>
+      __$$LoadedImplCopyWithImpl<_$LoadedImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function() loading,
-    required TResult Function() loaded,
-    required TResult Function(String? error) error,
+    required TResult Function(List<Player> players) initial,
+    required TResult Function(List<Player>? players) loading,
+    required TResult Function(List<Player> players) loaded,
+    required TResult Function(List<Player>? players, String? error) error,
   }) {
-    return loaded();
+    return loaded(players);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
-    TResult? Function()? loading,
-    TResult? Function()? loaded,
-    TResult? Function(String? error)? error,
+    TResult? Function(List<Player> players)? initial,
+    TResult? Function(List<Player>? players)? loading,
+    TResult? Function(List<Player> players)? loaded,
+    TResult? Function(List<Player>? players, String? error)? error,
   }) {
-    return loaded?.call();
+    return loaded?.call(players);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function()? loading,
-    TResult Function()? loaded,
-    TResult Function(String? error)? error,
+    TResult Function(List<Player> players)? initial,
+    TResult Function(List<Player>? players)? loading,
+    TResult Function(List<Player> players)? loaded,
+    TResult Function(List<Player>? players, String? error)? error,
     required TResult orElse(),
   }) {
     if (loaded != null) {
-      return loaded();
+      return loaded(players);
     }
     return orElse();
   }
@@ -437,16 +588,28 @@ class _$LoadedImpl implements _Loaded {
 }
 
 abstract class _Loaded implements AllPlayersState {
-  const factory _Loaded() = _$LoadedImpl;
+  const factory _Loaded({required final List<Player> players}) = _$LoadedImpl;
+
+  @override
+  List<Player> get players;
+
+  /// Create a copy of AllPlayersState
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$LoadedImplCopyWith<_$LoadedImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$ErrorImplCopyWith<$Res> {
+abstract class _$$ErrorImplCopyWith<$Res>
+    implements $AllPlayersStateCopyWith<$Res> {
   factory _$$ErrorImplCopyWith(
           _$ErrorImpl value, $Res Function(_$ErrorImpl) then) =
       __$$ErrorImplCopyWithImpl<$Res>;
+  @override
   @useResult
-  $Res call({String? error});
+  $Res call({List<Player>? players, String? error});
 }
 
 /// @nodoc
@@ -462,9 +625,14 @@ class __$$ErrorImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? players = freezed,
     Object? error = freezed,
   }) {
     return _then(_$ErrorImpl(
+      players: freezed == players
+          ? _value._players
+          : players // ignore: cast_nullable_to_non_nullable
+              as List<Player>?,
       error: freezed == error
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
@@ -476,14 +644,25 @@ class __$$ErrorImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$ErrorImpl implements _Error {
-  const _$ErrorImpl({this.error});
+  const _$ErrorImpl({final List<Player>? players, this.error})
+      : _players = players;
+
+  final List<Player>? _players;
+  @override
+  List<Player>? get players {
+    final value = _players;
+    if (value == null) return null;
+    if (_players is EqualUnmodifiableListView) return _players;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
 
   @override
   final String? error;
 
   @override
   String toString() {
-    return 'AllPlayersState.error(error: $error)';
+    return 'AllPlayersState.error(players: $players, error: $error)';
   }
 
   @override
@@ -491,11 +670,13 @@ class _$ErrorImpl implements _Error {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ErrorImpl &&
+            const DeepCollectionEquality().equals(other._players, _players) &&
             (identical(other.error, error) || other.error == error));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, error);
+  int get hashCode => Object.hash(
+      runtimeType, const DeepCollectionEquality().hash(_players), error);
 
   /// Create a copy of AllPlayersState
   /// with the given fields replaced by the non-null parameter values.
@@ -508,36 +689,36 @@ class _$ErrorImpl implements _Error {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function() loading,
-    required TResult Function() loaded,
-    required TResult Function(String? error) error,
+    required TResult Function(List<Player> players) initial,
+    required TResult Function(List<Player>? players) loading,
+    required TResult Function(List<Player> players) loaded,
+    required TResult Function(List<Player>? players, String? error) error,
   }) {
-    return error(this.error);
+    return error(players, this.error);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
-    TResult? Function()? loading,
-    TResult? Function()? loaded,
-    TResult? Function(String? error)? error,
+    TResult? Function(List<Player> players)? initial,
+    TResult? Function(List<Player>? players)? loading,
+    TResult? Function(List<Player> players)? loaded,
+    TResult? Function(List<Player>? players, String? error)? error,
   }) {
-    return error?.call(this.error);
+    return error?.call(players, this.error);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function()? loading,
-    TResult Function()? loaded,
-    TResult Function(String? error)? error,
+    TResult Function(List<Player> players)? initial,
+    TResult Function(List<Player>? players)? loading,
+    TResult Function(List<Player> players)? loaded,
+    TResult Function(List<Player>? players, String? error)? error,
     required TResult orElse(),
   }) {
     if (error != null) {
-      return error(this.error);
+      return error(players, this.error);
     }
     return orElse();
   }
@@ -581,12 +762,16 @@ class _$ErrorImpl implements _Error {
 }
 
 abstract class _Error implements AllPlayersState {
-  const factory _Error({final String? error}) = _$ErrorImpl;
+  const factory _Error({final List<Player>? players, final String? error}) =
+      _$ErrorImpl;
 
+  @override
+  List<Player>? get players;
   String? get error;
 
   /// Create a copy of AllPlayersState
   /// with the given fields replaced by the non-null parameter values.
+  @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ErrorImplCopyWith<_$ErrorImpl> get copyWith =>
       throw _privateConstructorUsedError;

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:masoyinbo_mobile/extension/extension.dart';
 import 'package:masoyinbo_mobile/ui/ui.dart';
 import 'package:masoyinbo_mobile/utils/utils.dart';
@@ -58,5 +59,22 @@ class Functions {
           context.yoLocale.goodEvening,
       ];
     }
+  }
+
+  /// Function to copy text to clipboard
+  static void copyTextToClipBoard(BuildContext context, String s) {
+    Clipboard.setData(ClipboardData(text: s)).then((value) {
+      if (!context.mounted) return;
+      ToastMessage.showSuccess(
+        context: context,
+        text: context.appLocale.textCopied,
+      );
+    }).catchError((e) {
+      if (!context.mounted) return;
+      ToastMessage.showSuccess(
+        context: context,
+        text: context.appLocale.couldNotCopy,
+      );
+    });
   }
 }

@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:masoyinbo_mobile/app/app.dart';
@@ -6,18 +9,19 @@ import 'package:masoyinbo_mobile/features/features.dart';
 import 'package:masoyinbo_mobile/gen/fonts.gen.dart';
 import 'package:masoyinbo_mobile/ui/dashboard/player/team_all_set_modal.dart';
 import 'package:masoyinbo_mobile/ui/ui.dart';
+import 'package:masoyinbo_mobile/utils/utils.dart';
 
 class GameRoomScreen extends StatelessWidget {
   const GameRoomScreen({
     super.key,
     required this.gameCode,
-    this.isMultiplayer = false,
+    this.isGameMaster = false,
     this.isTeamMode = false,
     this.isTeamFormationAutomatic = false,
   });
 
   final String gameCode;
-  final bool isMultiplayer;
+  final bool isGameMaster;
   final bool isTeamMode;
   final bool isTeamFormationAutomatic;
 
@@ -31,7 +35,7 @@ class GameRoomScreen extends StatelessWidget {
       ),
       child: _GameRoomScreen(
         gameCode: gameCode,
-        isMultiplayer: isMultiplayer,
+        isGameMaster: isGameMaster,
         isTeamMode: isTeamMode,
         isTeamFormationAutomatic: isTeamFormationAutomatic,
       ),
@@ -42,13 +46,13 @@ class GameRoomScreen extends StatelessWidget {
 class _GameRoomScreen extends StatefulWidget {
   const _GameRoomScreen({
     required this.gameCode,
-    required this.isMultiplayer,
+    required this.isGameMaster,
     required this.isTeamMode,
     required this.isTeamFormationAutomatic,
   });
 
   final String gameCode;
-  final bool isMultiplayer;
+  final bool isGameMaster;
   final bool isTeamMode;
   final bool isTeamFormationAutomatic;
 
@@ -57,6 +61,8 @@ class _GameRoomScreen extends StatefulWidget {
 }
 
 class _GameRoomScreenState extends State<_GameRoomScreen> {
+  bool isRefreshingPlayers = false;
+
   @override
   void initState() {
     super.initState();
@@ -67,221 +73,312 @@ class _GameRoomScreenState extends State<_GameRoomScreen> {
     //     }
     //   });
     // }
-    context.read<AllPlayersCubit>().startPolling(gameCode: widget.gameCode);
+    startPolling(gameCode: widget.gameCode);
+  }
+
+  Timer? _timer;
+
+  /// Start polling getAllPlayersEndpoint every 10 seconds
+  Future<void> startPolling({required String gameCode}) async {
+    _timer?.cancel();
+
+    await context.read<AllPlayersCubit>().getAllPlayers(gameCode: gameCode);
+
+    // Game master ? => polling is 10 secs on prod and 20 seconds on debug
+    // Invitee ? => polling is 15 secs on prod and 20 seconds on debug
+    _timer = Timer.periodic(
+        Duration(
+          seconds: kDebugMode ? 20 : (widget.isGameMaster ? 10 : 15),
+        ), (_) {
+      if (router.state.uri.path.replaceAll('/', '') == GameRoomScreen.id) {
+        context.read<AllPlayersCubit>().getAllPlayers(gameCode: gameCode);
+      }
+    });
+  }
+
+  /// Stop polling
+  void stopPolling() {
+    _timer?.cancel();
+    _timer = null;
   }
 
   @override
   void dispose() {
-    context.read<AllPlayersCubit>().close();
+    stopPolling();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: DecoratedContainer(
-        isAnimate: true,
-        canPop: false,
-        child: Column(
-          children: [
-            SizedBox(height: context.topPadding),
-            Stack(
+    return BlocConsumer<AllPlayersCubit, AllPlayersState>(
+      listener: (context, state) {
+        state.maybeWhen(
+          loading: (players) => setState(() => isRefreshingPlayers = true),
+          error: (players, error) {
+            setState(() => isRefreshingPlayers = false);
+            ToastMessage.showError(
+              context: context,
+              text: error ?? '',
+            );
+          },
+          orElse: () => setState(() => isRefreshingPlayers = false),
+        );
+      },
+      builder: (context, state) {
+        final players = state.players ?? [];
+        return Scaffold(
+          body: DecoratedContainer(
+            isAnimate: true,
+            canPop: false,
+            child: Column(
               children: [
-                CustomBackButton(
-                  onTap: () => showModalBottomSheet(
-                    context: context,
-                    builder: (context) => !widget.isMultiplayer
-                        ? const ConfirmLeaveActionModal()
-                        : ConfirmLeaveActionModal(
-                            onTapIntent: () => Navigator.popUntil(
+                SizedBox(height: context.topPadding),
+                Stack(
+                  children: [
+                    CustomBackButton(
+                      onTap: () => showModalBottomSheet(
+                        context: context,
+                        builder: (context) => !widget.isGameMaster
+                            ? const ConfirmLeaveActionModal()
+                            : ConfirmLeaveActionModal(
+                                onTapIntent: () => Navigator.popUntil(
+                                  context,
+                                  (route) =>
+                                      route.settings.name == PlayerScreen.id,
+                                ),
+                              ),
+                        isScrollControlled: true,
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(24),
+                            topRight: Radius.circular(24),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 7),
+                      child: Center(
+                        child: Text(
+                          context.appLocale.gameRoom,
+                          style: context.textTheme.titleLarge!.copyWith(
+                            fontFamily: FontFamily.margarine,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 36),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 23),
+                    child: Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              widget.gameCode,
+                              style: context.textTheme.bodyLarge!.copyWith(
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            Text(
+                              players.length.toString(),
+                              style: context.textTheme.bodyLarge!.copyWith(
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 8),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              context.appLocale.gameCode,
+                              style: context.textTheme.bodySmall!.copyWith(
+                                fontStyle: FontStyle.italic,
+                                fontWeight: FontWeight.w300,
+                                fontSize: 12.5.sp,
+                              ),
+                            ),
+                            Text(
+                              'Players',
+                              style: context.textTheme.bodySmall!.copyWith(
+                                fontStyle: FontStyle.italic,
+                                fontWeight: FontWeight.w300,
+                                fontSize: 12.5.sp,
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: 24.h),
+                        Expanded(
+                          child: Align(
+                            alignment: Alignment.topLeft,
+                            child: Wrap(
+                              spacing: 65.w,
+                              runSpacing: 15.w,
+                              children: [
+                                // GameRoomProfileWidget(
+                                //   isGameMaster: true,
+                                //   image:
+                                //       AppAssets.images.jpegs.profileImage1.path,
+                                //   name: 'Master',
+                                // ),
+                                // GameRoomProfileWidget(
+                                //   image: AppAssets.images.jpegs.profileImage.path,
+                                //   name: 'You',
+                                // ),
+                                // GameRoomProfileWidget(
+                                //   image:
+                                //       AppAssets.images.jpegs.profileImage1.path,
+                                //   name: 'Tosin',
+                                // ),
+                                // GameRoomProfileWidget(
+                                //   image: AppAssets.images.jpegs.profileImage.path,
+                                //   name: 'P4',
+                                // ),
+                                // GameRoomProfileWidget(
+                                //   image:
+                                //       AppAssets.images.jpegs.profileImage1.path,
+                                //   name: 'Lateefah',
+                                // ),
+                                // GameRoomProfileWidget(
+                                //   image: AppAssets.images.jpegs.profileImage.path,
+                                //   name: 'Viko',
+                                // ),
+                                // GameRoomProfileWidget(
+                                //   image:
+                                //       AppAssets.images.jpegs.profileImage1.path,
+                                //   name: 'Angel',
+                                // ),
+                                // GameRoomProfileWidget(
+                                //   image: AppAssets.images.jpegs.profileImage.path,
+                                //   name: 'Kido',
+                                // ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        if (isRefreshingPlayers) ...[
+                          const SizedBox(height: 20),
+                          Row(
+                            children: [
+                              Text(
+                                context.appLocale.refreshingPlayers,
+                                style: context.textTheme.bodySmall!.copyWith(
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 13.sp,
+                                  fontStyle: FontStyle.italic,
+                                ),
+                              ),
+                              const TypeWriterProgressTextIndicator(
+                                animationSeconds: 1,
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 20),
+                        ],
+                        if (widget.isGameMaster) ...[
+                          Button(
+                            label: widget.isTeamMode
+                                ? context.appLocale.setTeam
+                                : context.appLocale.startPlaying,
+                            onPressed: () {
+                              if (widget.isTeamMode && players.length < 5) {
+                                ToastMessage.showWarning(
+                                  context: context,
+                                  text:
+                                      'Atleast 5 players must be in game room to continue with team mode',
+                                );
+                                return;
+                              }
+                              if (!widget.isTeamMode && players.length < 2) {
+                                ToastMessage.showWarning(
+                                  context: context,
+                                  text:
+                                      'Atleast 2 players must be in game room to start game',
+                                );
+                                return;
+                              }
+                              showModalBottomSheet(
+                                context: context,
+                                builder: (context) => widget.isTeamMode
+                                    ? SetTeamModal(
+                                        isTeamFormationAutomatic:
+                                            widget.isTeamFormationAutomatic,
+                                      )
+                                    : const TeamAllSetModal(),
+                                isScrollControlled: true,
+                                shape: const RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(24),
+                                    topRight: Radius.circular(24),
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
+                          const SizedBox(height: 24),
+                          Button(
+                            label: context.appLocale.modifyGameSetup,
+                            isOutlined: true,
+                            labelColor: AppColors.black15,
+                            onPressed: () => Navigator.popUntil(
                               context,
                               (route) => route.settings.name == PlayerScreen.id,
                             ),
                           ),
-                    isScrollControlled: true,
-                    shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(24),
-                        topRight: Radius.circular(24),
-                      ),
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 7),
-                  child: Center(
-                    child: Text(
-                      gameRoomYr,
-                      style: context.textTheme.titleLarge!.copyWith(
-                        fontFamily: FontFamily.margarine,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 36),
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 23),
-                child: Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          widget.gameCode,
-                          style: context.textTheme.bodyLarge!.copyWith(
-                            fontWeight: FontWeight.w500,
+                        ] else ...[
+                          Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Flexible(
+                                child: Text(
+                                  widget.isTeamMode
+                                      ? context.appLocale
+                                          .waitingForGameMasterToSetupTeam
+                                      : context.appLocale
+                                          .waitingForGameMasterToStartTheGame,
+                                  style: context.textTheme.bodySmall!.copyWith(
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 13.sp,
+                                  ),
+                                ),
+                              ),
+                              const TypeWriterProgressTextIndicator(),
+                            ],
                           ),
-                        ),
-                        Text(
-                          '8',
-                          style: context.textTheme.bodyLarge!.copyWith(
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 8),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'Game code',
-                          style: context.textTheme.bodySmall!.copyWith(
-                            fontStyle: FontStyle.italic,
-                            fontWeight: FontWeight.w300,
-                            fontSize: 12.5.sp,
-                          ),
-                        ),
-                        Text(
-                          'Players',
-                          style: context.textTheme.bodySmall!.copyWith(
-                            fontStyle: FontStyle.italic,
-                            fontWeight: FontWeight.w300,
-                            fontSize: 12.5.sp,
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 24.h),
-                    Expanded(
-                      child: Align(
-                        alignment: Alignment.topLeft,
-                        child: Wrap(
-                          spacing: 65.w,
-                          runSpacing: 15.w,
-                          children: [
-                            GameRoomProfileWidget(
-                              isGameMaster: true,
-                              image: AppAssets.images.jpegs.profileImage1.path,
-                              name: 'Master',
-                            ),
-                            GameRoomProfileWidget(
-                              image: AppAssets.images.jpegs.profileImage.path,
-                              name: 'You',
-                            ),
-                            GameRoomProfileWidget(
-                              image: AppAssets.images.jpegs.profileImage1.path,
-                              name: 'Tosin',
-                            ),
-                            GameRoomProfileWidget(
-                              image: AppAssets.images.jpegs.profileImage.path,
-                              name: 'P4',
-                            ),
-                            GameRoomProfileWidget(
-                              image: AppAssets.images.jpegs.profileImage1.path,
-                              name: 'Lateefah',
-                            ),
-                            GameRoomProfileWidget(
-                              image: AppAssets.images.jpegs.profileImage.path,
-                              name: 'Viko',
-                            ),
-                            GameRoomProfileWidget(
-                              image: AppAssets.images.jpegs.profileImage1.path,
-                              name: 'Angel',
-                            ),
-                            GameRoomProfileWidget(
-                              image: AppAssets.images.jpegs.profileImage.path,
-                              name: 'Kido',
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    if (widget.isMultiplayer) ...[
-                      Button(
-                        label: widget.isTeamMode
-                            ? setTeamYr
-                            : context.appLocale.startPlaying,
-                        onPressed: () => showModalBottomSheet(
-                          context: context,
-                          builder: (context) => widget.isTeamMode
-                              ? SetTeamModal(
-                                  isTeamFormationAutomatic:
-                                      widget.isTeamFormationAutomatic,
-                                )
-                              : const TeamAllSetModal(),
-                          isScrollControlled: true,
-                          shape: const RoundedRectangleBorder(
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(24),
-                              topRight: Radius.circular(24),
-                            ),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(height: 24),
-                      Button(
-                        label: modifyGameSetupYr,
-                        isOutlined: true,
-                        labelColor: AppColors.black15,
-                        onPressed: () => Navigator.popUntil(
-                          context,
-                          (route) => route.settings.name == PlayerScreen.id,
-                        ),
-                      ),
-                    ] else ...[
-                      Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Flexible(
-                            child: Text(
-                              'Waiting for the game master to set up the team',
-                              style: context.textTheme.bodySmall!.copyWith(
-                                fontWeight: FontWeight.w500,
-                                fontSize: 13.sp,
+                          const SizedBox(height: 40),
+                          Button(
+                            label: context.appLocale.leaveGameRoom,
+                            onPressed: () => showModalBottomSheet(
+                              context: context,
+                              builder: (context) =>
+                                  const ConfirmLeaveActionModal(),
+                              isScrollControlled: true,
+                              shape: const RoundedRectangleBorder(
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(24),
+                                  topRight: Radius.circular(24),
+                                ),
                               ),
                             ),
                           ),
-                          const TypeWriterProgressTextIndicator(),
                         ],
-                      ),
-                      const SizedBox(height: 40),
-                      Button(
-                        label: leaveGameRoomYr,
-                        onPressed: () => showModalBottomSheet(
-                          context: context,
-                          builder: (context) => const ConfirmLeaveActionModal(),
-                          isScrollControlled: true,
-                          shape: const RoundedRectangleBorder(
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(24),
-                              topRight: Radius.circular(24),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ],
+                      ],
+                    ),
+                  ),
                 ),
-              ),
+                SizedBox(height: context.btmPadding),
+              ],
             ),
-            SizedBox(height: context.btmPadding),
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
   }
 }

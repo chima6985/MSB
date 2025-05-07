@@ -8,11 +8,13 @@ class TypeWriterProgressTextIndicator extends StatefulWidget {
     this.fontWeight = FontWeight.w500,
     this.isItalic = false,
     this.color = AppColors.black15,
+    this.animationSeconds = 4,
   });
 
   final FontWeight? fontWeight;
   final bool isItalic;
   final Color color;
+  final int animationSeconds;
 
   @override
   State<TypeWriterProgressTextIndicator> createState() =>
@@ -29,7 +31,7 @@ class _TypeWriterProgressTextIndicatorState
   void initState() {
     super.initState();
     controller = AnimationController(
-      duration: const Duration(seconds: 4),
+      duration: Duration(seconds: widget.animationSeconds),
       vsync: this,
     )..repeat();
 
