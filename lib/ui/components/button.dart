@@ -9,6 +9,7 @@ class Button extends StatelessWidget {
     required this.onPressed,
     this.onLongPress,
     this.labelColor = AppColors.white,
+    this.loadingIndicatorColor = AppColors.white,
     this.child,
     this.color,
     this.width,
@@ -23,6 +24,7 @@ class Button extends StatelessWidget {
   final void Function() onPressed;
   final void Function()? onLongPress;
   final Color? labelColor;
+  final Color loadingIndicatorColor;
   final Color? color;
   final Widget? child;
   final double verticalPadding;
@@ -59,7 +61,7 @@ class Button extends StatelessWidget {
           width: width ?? mqr.width,
           child: Center(
             child: isLoading
-                ? const CustomSpinner()
+                ? CustomSpinner(color: loadingIndicatorColor)
                 : Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16),
                     child: FittedBox(

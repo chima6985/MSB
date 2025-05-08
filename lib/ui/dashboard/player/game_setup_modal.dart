@@ -20,10 +20,19 @@ class GameSetupModal extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => JoinGameRoomCubit(
-        authBloc: context.read(),
-      ),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => LeaveGameRoomCubit(
+            authBloc: context.read(),
+          ),
+        ),
+        BlocProvider(
+          create: (context) => JoinGameRoomCubit(
+            authBloc: context.read(),
+          ),
+        ),
+      ],
       child: _GameSetupModal(
         gameDetails: gameDetails,
         gameCode: gameCode,
@@ -44,34 +53,59 @@ class _GameSetupModal extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final isLoading = useState(false);
-    return BlocListener<JoinGameRoomCubit, JoinGameRoomState>(
-      listener: (context, state) {
-        state.maybeWhen(
-          loading: () => isLoading.value = true,
-          loaded: () {
-            isLoading.value = false;
-            context
-              ..pop(context)
-              ..pushNamed(
-                GameRoomScreen.id,
-                extra: {
-                  'gameCode': gameCode,
-                  'isGameMaster': false,
-                  'isTeamMode': gameDetails.teamMode,
-                  'isTeamFormationAutomatic': false,
-                },
-              );
-          },
-          error: (error) {
-            isLoading.value = false;
-            ToastMessage.showError(
-              context: context,
-              text: error ?? '',
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<LeaveGameRoomCubit, LeaveGameRoomState>(
+          listener: (context, state) {
+            state.maybeWhen(
+              loading: () => isLoading.value = true,
+              loaded: () {
+                isLoading.value = false;
+                context.read<JoinGameRoomCubit>().joinGameRoom(
+                      gameCode: gameCode,
+                    );
+              },
+              error: (error) {
+                isLoading.value = false;
+                ToastMessage.showError(
+                  context: context,
+                  text: error ?? '',
+                );
+              },
+              orElse: () => isLoading.value = false,
             );
           },
-          orElse: () => isLoading.value = false,
-        );
-      },
+        ),
+        BlocListener<JoinGameRoomCubit, JoinGameRoomState>(
+          listener: (context, state) {
+            state.maybeWhen(
+              loading: () => isLoading.value = true,
+              loaded: () {
+                isLoading.value = false;
+                context
+                  ..pop(context)
+                  ..pushNamed(
+                    GameRoomScreen.id,
+                    extra: {
+                      'gameCode': gameCode,
+                      'isGameMaster': false,
+                      'isTeamMode': gameDetails.teamMode,
+                      'isTeamFormationAutomatic': false,
+                    },
+                  );
+              },
+              error: (error) {
+                isLoading.value = false;
+                ToastMessage.showError(
+                  context: context,
+                  text: error ?? '',
+                );
+              },
+              orElse: () => isLoading.value = false,
+            );
+          },
+        ),
+      ],
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Column(
@@ -128,9 +162,8 @@ class _GameSetupModal extends HookWidget {
             Button(
               label: context.appLocale.enterGameRoom,
               isLoading: isLoading.value,
-              onPressed: () => context.read<JoinGameRoomCubit>().joinGameRoom(
-                    gameCode: gameCode,
-                  ),
+              onPressed: () =>
+                  context.read<LeaveGameRoomCubit>().leaveGameRoom(),
             ),
             const SizedBox(height: 24),
             Button(

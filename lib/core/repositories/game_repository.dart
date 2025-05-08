@@ -71,6 +71,9 @@ class GameRepository {
   String _getAllPlayersEndpoint(String gameCode) =>
       '$_baseUrl/game/multi-player/$gameCode/get-all-players';
 
+  /// Leave game room endpoint
+  String _leaveGameRoomEndpoint() => '$_baseUrl/game/multiplayer/leave-game';
+
   /// Get sections and difficulty
   ///
   /// Returns void on success.
@@ -370,6 +373,36 @@ class GameRepository {
         onSuccessMap: (value) {
           return [];
         },
+      );
+    } on APIException catch (e) {
+      throw GameException(message: e.message);
+    } on AuthException catch (e) {
+      throw AuthException(message: e.message);
+    } catch (e) {
+      throw const GameException();
+    }
+  }
+
+  /// Leave game room
+  ///
+  /// Returns [void] on success.
+  /// Throws [GameException] when operation fails.
+  Future<void> leaveGameRoom({
+    required String token,
+  }) async {
+    try {
+      final url = _leaveGameRoomEndpoint();
+      final headers = {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      };
+      return await APIHelper.request<void>(
+        request: _client.delete(
+          Uri.parse(url),
+          headers: headers,
+        ),
+        onSuccessMap: (value) {},
       );
     } on APIException catch (e) {
       throw GameException(message: e.message);
