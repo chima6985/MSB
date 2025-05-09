@@ -337,7 +337,14 @@
   "couldNotCopy":"Ko le daakọ",
   "refreshingPlayers":"Onitura awọn ẹrọ orin",
   "waitingForGameMasterToSetupGame":"Dúró fún olórí eré láti ṣètò eré",
-
+  "player": "{count, plural, =0{Awọn ẹrọ orin} =1{Elere} other{Awọn ẹrọ orin}}",
+  "@player": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
 
 
   "example": "example"

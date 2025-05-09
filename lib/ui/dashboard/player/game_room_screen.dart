@@ -205,7 +205,7 @@ class _GameRoomScreenState extends State<_GameRoomScreen> {
                               ),
                             ),
                             Text(
-                              'Players',
+                              context.appLocale.player(players.length),
                               style: context.textTheme.bodySmall!.copyWith(
                                 fontStyle: FontStyle.italic,
                                 fontWeight: FontWeight.w300,
@@ -221,45 +221,16 @@ class _GameRoomScreenState extends State<_GameRoomScreen> {
                             child: Wrap(
                               spacing: 65.w,
                               runSpacing: 15.w,
-                              children: [
-                                // GameRoomProfileWidget(
-                                //   isGameMaster: true,
-                                //   image:
-                                //       AppAssets.images.jpegs.profileImage1.path,
-                                //   name: 'Master',
-                                // ),
-                                // GameRoomProfileWidget(
-                                //   image: AppAssets.images.jpegs.profileImage.path,
-                                //   name: 'You',
-                                // ),
-                                // GameRoomProfileWidget(
-                                //   image:
-                                //       AppAssets.images.jpegs.profileImage1.path,
-                                //   name: 'Tosin',
-                                // ),
-                                // GameRoomProfileWidget(
-                                //   image: AppAssets.images.jpegs.profileImage.path,
-                                //   name: 'P4',
-                                // ),
-                                // GameRoomProfileWidget(
-                                //   image:
-                                //       AppAssets.images.jpegs.profileImage1.path,
-                                //   name: 'Lateefah',
-                                // ),
-                                // GameRoomProfileWidget(
-                                //   image: AppAssets.images.jpegs.profileImage.path,
-                                //   name: 'Viko',
-                                // ),
-                                // GameRoomProfileWidget(
-                                //   image:
-                                //       AppAssets.images.jpegs.profileImage1.path,
-                                //   name: 'Angel',
-                                // ),
-                                // GameRoomProfileWidget(
-                                //   image: AppAssets.images.jpegs.profileImage.path,
-                                //   name: 'Kido',
-                                // ),
-                              ],
+                              children: players
+                                  .map(
+                                    (p) => GameRoomProfileWidget(
+                                      isGameMaster: true,
+                                      image: AppAssets
+                                          .images.jpegs.profileImage1.path,
+                                      name: 'Master',
+                                    ),
+                                  )
+                                  .toList(),
                             ),
                           ),
                         ),

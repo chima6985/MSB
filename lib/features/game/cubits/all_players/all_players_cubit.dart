@@ -28,7 +28,7 @@ class AllPlayersCubit extends Cubit<AllPlayersState> {
     required String gameCode,
   }) async {
     try {
-      emit(const _Loading());
+      emit(_Loading(players: state.players));
       final user = UserHelper.fetchUser(authBloc: _authBloc);
       if (user == null) return;
       final apiResponse = await _gameRepository.getAllPlayers(
@@ -37,7 +37,7 @@ class AllPlayersCubit extends Cubit<AllPlayersState> {
       );
       emit(_Loaded(players: apiResponse));
     } on GameException catch (e) {
-      emit(_Error(error: e.message));
+      emit(_Error(players: state.players, error: e.message));
     } on AuthException catch (e) {
       _authBloc.add(AuthEvent.authSignOut(message: e.message));
     }
