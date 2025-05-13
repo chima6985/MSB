@@ -139,8 +139,8 @@ class _GameRoomScreenState extends State<_GameRoomScreen> {
                       onTap: () => showModalBottomSheet(
                         context: context,
                         builder: (context) => !widget.isGameMaster
-                            ? const ConfirmLeaveActionModal()
-                            : ConfirmLeaveActionModal(
+                            ? const ConfirmLeaveGameRoomModal()
+                            : ConfirmLeaveGameRoomModal(
                                 onTapIntent: () => Navigator.popUntil(
                                   context,
                                   (route) =>
@@ -298,10 +298,42 @@ class _GameRoomScreenState extends State<_GameRoomScreen> {
                             label: context.appLocale.modifyGameSetup,
                             isOutlined: true,
                             labelColor: AppColors.black15,
-                            onPressed: () => Navigator.popUntil(
-                              context,
-                              (route) => route.settings.name == PlayerScreen.id,
-                            ),
+                            onPressed: () => showModalBottomSheet<String?>(
+                              context: context,
+                              builder: (context) =>
+                                  ModifyGameSetupConfirmationModal(
+                                gameCode: widget.gameCode,
+                              ),
+                              isScrollControlled: true,
+                              shape: const RoundedRectangleBorder(
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(24),
+                                  topRight: Radius.circular(24),
+                                ),
+                              ),
+                            ).then((value) {
+                              if (value != null &&
+                                  value == 'modify_current_room') {
+                                if (!context.mounted) return;
+                                showModalBottomSheet(
+                                  context: context,
+                                  builder: (context) => ModifyCurrentRoomModal(
+                                    gameCode: widget.gameCode,
+                                    isTeamMode: widget.isTeamMode,
+                                    isTeamFormationAutomatic: widget.isTeamMode
+                                        ? widget.isTeamFormationAutomatic
+                                        : null,
+                                  ),
+                                  isScrollControlled: true,
+                                  shape: const RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(24),
+                                      topRight: Radius.circular(24),
+                                    ),
+                                  ),
+                                );
+                              }
+                            }),
                           ),
                         ] else ...[
                           Row(
@@ -329,7 +361,7 @@ class _GameRoomScreenState extends State<_GameRoomScreen> {
                             onPressed: () => showModalBottomSheet(
                               context: context,
                               builder: (context) =>
-                                  const ConfirmLeaveActionModal(),
+                                  const ConfirmLeaveGameRoomModal(),
                               isScrollControlled: true,
                               shape: const RoundedRectangleBorder(
                                 borderRadius: BorderRadius.only(

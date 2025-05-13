@@ -68,7 +68,7 @@ class TeamAllSetScreen extends HookWidget {
                 CustomBackButton(
                   onTap: () => showModalBottomSheet(
                     context: context,
-                    builder: (context) => const ConfirmLeaveActionModal(),
+                    builder: (context) => const ConfirmLeaveGameRoomModal(),
                     isScrollControlled: true,
                     shape: const RoundedRectangleBorder(
                       borderRadius: BorderRadius.only(

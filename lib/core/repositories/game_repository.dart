@@ -74,6 +74,10 @@ class GameRepository {
   /// Leave game room endpoint
   String _leaveGameRoomEndpoint() => '$_baseUrl/game/multiplayer/leave-game';
 
+  /// Leave game room endpoint
+  String _modifyGameRoomEndpoint(String gameId) =>
+      '$_baseUrl/game/multi-player/modify-game-room/$gameId';
+
   /// Get sections and difficulty
   ///
   /// Returns void on success.
@@ -402,6 +406,44 @@ class GameRepository {
         request: _client.delete(
           Uri.parse(url),
           headers: headers,
+        ),
+        onSuccessMap: (value) {},
+      );
+    } on APIException catch (e) {
+      throw GameException(message: e.message);
+    } on AuthException catch (e) {
+      throw AuthException(message: e.message);
+    } catch (e) {
+      throw const GameException();
+    }
+  }
+
+  /// Modify game room
+  ///
+  /// Returns [void] on success.
+  /// Throws [GameException] when operation fails.
+  Future<void> modifyGameRoom({
+    required String gameCode,
+    required bool teamMode,
+    required String teamFormation,
+    required String token,
+  }) async {
+    try {
+      final url = _modifyGameRoomEndpoint(gameCode);
+      final headers = {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      };
+      final body = {
+        'team_mode': teamMode,
+        if (teamMode) 'team_formation': teamFormation,
+      };
+      return await APIHelper.request<void>(
+        request: _client.post(
+          Uri.parse(url),
+          headers: headers,
+          body: jsonEncode(body),
         ),
         onSuccessMap: (value) {},
       );

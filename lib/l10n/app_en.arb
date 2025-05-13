@@ -344,7 +344,14 @@
       }
     }
   },
+  "wouldYouLikeToModifyTheGameSetUp": "Would you like to modify the set up of a new room or this current room?",
+  "modifyingANewRoomWillKickYouOut": "Modifying a new room will kick you out this current room permanently",
+  "modifyNewRoom":"Modify new room",
+  "modifyCurrentRoom":"Modify Current Room",
+  "modifyCurrentRoom_":"Modify current room",
+  "confirmChanges":"Confirm changes",
+  "noChangesMadeToGameSettings":"No changes made to current game settings",
 
-  
+
   "example": "example"
 }

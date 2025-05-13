@@ -1,9 +1,12 @@
 export 'choose_multi_player_mode_modal.dart';
 export 'confirm_leave_action_modal.dart';
+export 'confirm_leave_game_room_modal.dart';
 export 'game_room_created_screen.dart';
 export 'game_room_screen.dart';
 export 'game_setup_modal.dart';
 export 'join_game_by_code_screen.dart';
+export 'modify_current_room_modal.dart';
+export 'modify_game_setup_confirmation_modal.dart';
 export 'new_game_screen.dart';
 export 'performance_modals.dart';
 export 'play_question_screen.dart';

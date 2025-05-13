@@ -4,6 +4,7 @@ export 'cubits/game_details/game_details_cubit.dart';
 export 'cubits/get_question/get_question_cubit.dart';
 export 'cubits/join_game_room/join_game_room_cubit.dart';
 export 'cubits/leave_game/leave_game_room_cubit.dart';
+export 'cubits/modify_game_room/modify_game_room_cubit.dart';
 export 'cubits/module_and_difficulty/module_and_difficulty_cubit.dart';
 export 'cubits/player_rewards/player_rewards_cubit.dart';
 export 'cubits/reset_user_stats/reset_user_stats_cubit.dart';
