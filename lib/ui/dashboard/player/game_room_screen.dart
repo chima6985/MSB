@@ -29,10 +29,19 @@ class GameRoomScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => AllPlayersCubit(
-        authBloc: context.read(),
-      ),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => AllPlayersCubit(
+            authBloc: context.read(),
+          ),
+        ),
+        BlocProvider(
+          create: (context) => StartGameCubit(
+            authBloc: context.read(),
+          ),
+        ),
+      ],
       child: _GameRoomScreen(
         gameCode: gameCode,
         isGameMaster: isGameMaster,
@@ -106,13 +115,13 @@ class _GameRoomScreenState extends State<_GameRoomScreen> {
   Future<void> isGameStartedPolling({required String gameCode}) async {
     _gameStartTimer?.cancel();
 
-    await context.read<AllPlayersCubit>().getAllPlayers(gameCode: gameCode);
+    // await context.read<AllPlayersCubit>().getAllPlayers(gameCode: gameCode);
 
     //polling is 7 secs on prod and 15 seconds on debug
     _gameStartTimer =
         Timer.periodic(const Duration(seconds: kDebugMode ? 15 : 7), (_) {
       if (router.state.uri.path.replaceAll('/', '') == GameRoomScreen.id) {
-        context.read<AllPlayersCubit>().getAllPlayers(gameCode: gameCode);
+        // context.read<AllPlayersCubit>().getAllPlayers(gameCode: gameCode);
       }
     });
   }
@@ -137,6 +146,9 @@ class _GameRoomScreenState extends State<_GameRoomScreen> {
       listener: (context, state) {
         state.maybeWhen(
           loading: () => setState(() => isStartingGame = true),
+          loaded: () {
+            setState(() => isStartingGame = false);
+          },
           error: (error) {
             setState(() => isStartingGame = false);
             ToastMessage.showError(

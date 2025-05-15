@@ -80,7 +80,7 @@ class GameRepository {
 
   /// Start game endpoint
   String _startGameEndpoint(String gameCode) =>
-      '$_baseUrl//game/multiplayer/$gameCode/start-game';
+      '$_baseUrl/game/multiplayer/$gameCode/start-game';
 
   /// Get sections and difficulty
   ///
