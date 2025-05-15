@@ -1,11 +1,11 @@
 import 'package:masoyinbo_mobile/app/app.dart';
+import 'package:masoyinbo_mobile/ui/ui.dart';
 
 final surveyDeleteOptions = [
   cantAffordAPremiumAccountEn,
   tooManyAdsEn,
   yourubaIsDifficultToLearnEn,
 ];
-
 
 const yo = 'yo';
 const en = 'en';
@@ -171,3 +171,33 @@ Map<int, String> yoNumberSystem = {
   49: 'Ẹ̀sánlélógójì',
   50: 'Àádọ́ta',
 };
+
+final maleAvatars = [
+  AppAssets.images.jpegs.man1.path,
+  AppAssets.images.jpegs.man2.path,
+  AppAssets.images.jpegs.man3.path,
+  AppAssets.images.jpegs.man4.path,
+  AppAssets.images.jpegs.man5.path,
+  AppAssets.images.jpegs.man6.path,
+  AppAssets.images.jpegs.man7.path,
+  AppAssets.images.jpegs.man8.path,
+  AppAssets.images.jpegs.man9.path,
+  AppAssets.images.jpegs.man10.path,
+  AppAssets.images.jpegs.man11.path,
+  AppAssets.images.jpegs.man12.path,
+];
+
+final femaleAvatars = [
+  AppAssets.images.jpegs.woman1.path,
+  AppAssets.images.jpegs.woman2.path,
+  AppAssets.images.jpegs.woman3.path,
+  AppAssets.images.jpegs.woman4.path,
+  AppAssets.images.jpegs.woman5.path,
+  AppAssets.images.jpegs.woman6.path,
+  AppAssets.images.jpegs.woman7.path,
+  AppAssets.images.jpegs.woman8.path,
+  AppAssets.images.jpegs.woman9.path,
+  AppAssets.images.jpegs.woman10.path,
+  AppAssets.images.jpegs.woman11.path,
+  AppAssets.images.jpegs.woman12.path,
+];

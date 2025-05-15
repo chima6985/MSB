@@ -8,150 +8,163 @@ import 'package:masoyinbo_mobile/gen/fonts.gen.dart';
 import 'package:masoyinbo_mobile/ui/ui.dart';
 import 'package:masoyinbo_mobile/utils/utils.dart';
 
-class ChangeAvatarScreen extends HookWidget {
-  const ChangeAvatarScreen({
-    super.key,
-  });
+class ChangeAvatarScreen extends StatelessWidget {
+  const ChangeAvatarScreen({super.key});
 
   static const String id = 'changeAvatarScreen';
 
   @override
   Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) => UpdateUserCubit(
+        authBloc: context.read(),
+        userCubit: context.read(),
+      ),
+      child: const _ChangeAvatarScreen(),
+    );
+  }
+}
+
+class _ChangeAvatarScreen extends HookWidget {
+  const _ChangeAvatarScreen();
+
+  @override
+  Widget build(BuildContext context) {
     final mqr = MediaQuery.of(context).size;
+    final isLoading = useState(false);
     final selectedProfileAvatar = useState<String?>(null);
     final user = context.watch<UserCubit>().state.user;
     final isMale = user?.gender == 'Male';
 
-    final maleAvatars = [
-      AppAssets.images.jpegs.man1.path,
-      AppAssets.images.jpegs.man2.path,
-      AppAssets.images.jpegs.man3.path,
-      AppAssets.images.jpegs.man4.path,
-      AppAssets.images.jpegs.man5.path,
-      AppAssets.images.jpegs.man6.path,
-      AppAssets.images.jpegs.man7.path,
-      AppAssets.images.jpegs.man8.path,
-      AppAssets.images.jpegs.man9.path,
-      AppAssets.images.jpegs.man10.path,
-      AppAssets.images.jpegs.man11.path,
-      AppAssets.images.jpegs.man12.path,
-    ];
-
-    final femaleAvatars = [
-      AppAssets.images.jpegs.woman1.path,
-      AppAssets.images.jpegs.woman2.path,
-      AppAssets.images.jpegs.woman3.path,
-      AppAssets.images.jpegs.woman4.path,
-      AppAssets.images.jpegs.woman5.path,
-      AppAssets.images.jpegs.woman6.path,
-      AppAssets.images.jpegs.woman7.path,
-      AppAssets.images.jpegs.woman8.path,
-      AppAssets.images.jpegs.woman9.path,
-      AppAssets.images.jpegs.woman10.path,
-      AppAssets.images.jpegs.woman11.path,
-      AppAssets.images.jpegs.woman12.path,
-    ];
-
     final avatars = isMale ? maleAvatars : femaleAvatars;
 
-    return Scaffold(
-      body: DecoratedContainer(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              SizedBox(height: context.topPadding),
-              Stack(
+    return BlocListener<UpdateUserCubit, UpdateUserState>(
+      listener: (context, state) {
+        state.maybeWhen(
+          updating: () => isLoading.value = true,
+          updated: () {
+            isLoading.value = false;
+            ToastMessage.showSuccess(
+              context: context,
+              text: context.appLocale.successfullyUpdatedImageAvatar,
+            );
+            context.pop(true);
+          },
+          error: (error) {
+            isLoading.value = false;
+            ToastMessage.showError(
+              context: context,
+              text: error ?? '',
+            );
+          },
+          orElse: () => isLoading.value = false,
+        );
+      },
+      child: Scaffold(
+        body: DecoratedContainer(
+          canPop: !isLoading.value,
+          child: AbsorbPointer(
+            absorbing: isLoading.value,
+            child: SingleChildScrollView(
+              child: Column(
                 children: [
-                  const CustomBackButton(),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 7),
-                    child: Center(
-                      child: Text(
-                        changeYourAvatarEn,
-                        style: context.textTheme.titleLarge!.copyWith(
-                          fontFamily: FontFamily.margarine,
+                  SizedBox(height: context.topPadding),
+                  Stack(
+                    children: [
+                      const CustomBackButton(),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 7),
+                        child: Center(
+                          child: Text(
+                            context.appLocale.changeYourAvatar,
+                            style: context.textTheme.titleLarge!.copyWith(
+                              fontFamily: FontFamily.margarine,
+                            ),
+                          ),
                         ),
                       ),
+                    ],
+                  ),
+                  SizedBox(height: 25.h),
+                  Container(
+                    alignment: Alignment.bottomCenter,
+                    width: mqr.width,
+                    height: mqr.height * 0.23,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image:
+                            AppAssets.images.jpegs.darkDecoratedBg.provider(),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    child: selectedProfileAvatar.value != null
+                        ? Image.asset(
+                            selectedProfileAvatar.value ?? '',
+                            width: 150.sp,
+                            height: 150.sp,
+                          )
+                        : null,
+                  ),
+                  SizedBox(height: 32.h),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 24),
+                    child: Column(
+                      children: [
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            selectAnAvatarOfYourChoiceEn,
+                            style: context.textTheme.bodyMedium!.copyWith(
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 24.h),
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Wrap(
+                            spacing: 13.w,
+                            runSpacing: 16.w,
+                            children: avatars
+                                .map(
+                                  (avatar) => _AvatarWidget(
+                                    imagePath: avatar,
+                                    onTap: () {
+                                      selectedProfileAvatar.value = avatar;
+                                    },
+                                    isSelected:
+                                        selectedProfileAvatar.value == avatar,
+                                  ),
+                                )
+                                .toList(),
+                          ),
+                        ),
+                        SizedBox(height: 75.h),
+                        Button(
+                          width: mqr.width * 0.8,
+                          label: context.appLocale.update,
+                          isLoading: isLoading.value,
+                          onPressed: () {
+                            if (selectedProfileAvatar.value == null) {
+                              ToastMessage.showWarning(
+                                context: context,
+                                text: context.appLocale.pleaseSelectAnAvatar,
+                              );
+                            } else {
+                              context.read<UpdateUserCubit>().updateUserImage(
+                                    imagePath:
+                                        selectedProfileAvatar.value ?? '',
+                                  );
+                            }
+                          },
+                        ),
+                      ],
                     ),
                   ),
+                  SizedBox(height: context.btmPadding),
                 ],
               ),
-              SizedBox(height: 25.h),
-              Container(
-                alignment: Alignment.bottomCenter,
-                width: mqr.width,
-                height: mqr.height * 0.23,
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: AppAssets.images.jpegs.darkDecoratedBg.provider(),
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                child: selectedProfileAvatar.value != null
-                    ? Image.asset(
-                        selectedProfileAvatar.value ?? '',
-                        width: 150.sp,
-                        height: 150.sp,
-                      )
-                    : null,
-              ),
-              SizedBox(height: 32.h),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 24),
-                child: Column(
-                  children: [
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        selectAnAvatarOfYourChoiceEn,
-                        style: context.textTheme.bodyMedium!.copyWith(
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: 24.h),
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: Wrap(
-                        spacing: 13.w,
-                        runSpacing: 16.w,
-                        children: avatars
-                            .map(
-                              (avatar) => _AvatarWidget(
-                                imagePath: avatar,
-                                onTap: () {
-                                  selectedProfileAvatar.value = avatar;
-                                },
-                                isSelected:
-                                    selectedProfileAvatar.value == avatar,
-                              ),
-                            )
-                            .toList(),
-                      ),
-                    ),
-                    SizedBox(height: 75.h),
-                    Button(
-                      width: mqr.width * 0.8,
-                      label: updateEn,
-                      onPressed: () {
-                        if (selectedProfileAvatar.value != null) {
-                          ToastMessage.showSuccess(
-                            context: context,
-                            text: 'Avatar has been updated',
-                          );
-                        } else {
-                          ToastMessage.showError(
-                            context: context,
-                            text: 'Pleae select an avatar',
-                          );
-                        }
-                      },
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(height: context.btmPadding),
-            ],
+            ),
           ),
         ),
       ),

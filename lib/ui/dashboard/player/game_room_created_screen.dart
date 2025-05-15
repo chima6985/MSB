@@ -78,9 +78,6 @@ class _GameRoomCreatedScreen extends HookWidget {
                   context: context,
                   text: error ?? '',
                 );
-                context.read<JoinGameRoomCubit>().joinGameRoom(
-                      gameCode: gameCode,
-                    );
               },
               orElse: () => isLoading.value = false,
             );

@@ -8,4 +8,5 @@ export 'cubits/modify_game_room/modify_game_room_cubit.dart';
 export 'cubits/module_and_difficulty/module_and_difficulty_cubit.dart';
 export 'cubits/player_rewards/player_rewards_cubit.dart';
 export 'cubits/reset_user_stats/reset_user_stats_cubit.dart';
+export 'cubits/start_game/start_game_cubit.dart';
 export 'cubits/submit_answer/submit_answer_cubit.dart';

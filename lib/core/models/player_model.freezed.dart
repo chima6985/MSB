@@ -25,6 +25,12 @@ mixin _$Player {
   @JsonKey(name: 'user_id')
   String get difficulty => throw _privateConstructorUsedError;
   String get username => throw _privateConstructorUsedError;
+  @JsonKey(name: 'is_game_master')
+  bool get isGameMaster => throw _privateConstructorUsedError;
+  @JsonKey(name: 'is_team_leader')
+  bool get isTeamLeader => throw _privateConstructorUsedError;
+  @JsonKey(name: 'image_url')
+  String? get imageUrl => throw _privateConstructorUsedError;
 
   /// Serializes this Player to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -43,7 +49,10 @@ abstract class $PlayerCopyWith<$Res> {
   $Res call(
       {@JsonKey(name: 'game_player_id') String section,
       @JsonKey(name: 'user_id') String difficulty,
-      String username});
+      String username,
+      @JsonKey(name: 'is_game_master') bool isGameMaster,
+      @JsonKey(name: 'is_team_leader') bool isTeamLeader,
+      @JsonKey(name: 'image_url') String? imageUrl});
 }
 
 /// @nodoc
@@ -64,6 +73,9 @@ class _$PlayerCopyWithImpl<$Res, $Val extends Player>
     Object? section = null,
     Object? difficulty = null,
     Object? username = null,
+    Object? isGameMaster = null,
+    Object? isTeamLeader = null,
+    Object? imageUrl = freezed,
   }) {
     return _then(_value.copyWith(
       section: null == section
@@ -78,6 +90,18 @@ class _$PlayerCopyWithImpl<$Res, $Val extends Player>
           ? _value.username
           : username // ignore: cast_nullable_to_non_nullable
               as String,
+      isGameMaster: null == isGameMaster
+          ? _value.isGameMaster
+          : isGameMaster // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isTeamLeader: null == isTeamLeader
+          ? _value.isTeamLeader
+          : isTeamLeader // ignore: cast_nullable_to_non_nullable
+              as bool,
+      imageUrl: freezed == imageUrl
+          ? _value.imageUrl
+          : imageUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -92,7 +116,10 @@ abstract class _$$PlayerImplCopyWith<$Res> implements $PlayerCopyWith<$Res> {
   $Res call(
       {@JsonKey(name: 'game_player_id') String section,
       @JsonKey(name: 'user_id') String difficulty,
-      String username});
+      String username,
+      @JsonKey(name: 'is_game_master') bool isGameMaster,
+      @JsonKey(name: 'is_team_leader') bool isTeamLeader,
+      @JsonKey(name: 'image_url') String? imageUrl});
 }
 
 /// @nodoc
@@ -111,6 +138,9 @@ class __$$PlayerImplCopyWithImpl<$Res>
     Object? section = null,
     Object? difficulty = null,
     Object? username = null,
+    Object? isGameMaster = null,
+    Object? isTeamLeader = null,
+    Object? imageUrl = freezed,
   }) {
     return _then(_$PlayerImpl(
       section: null == section
@@ -125,6 +155,18 @@ class __$$PlayerImplCopyWithImpl<$Res>
           ? _value.username
           : username // ignore: cast_nullable_to_non_nullable
               as String,
+      isGameMaster: null == isGameMaster
+          ? _value.isGameMaster
+          : isGameMaster // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isTeamLeader: null == isTeamLeader
+          ? _value.isTeamLeader
+          : isTeamLeader // ignore: cast_nullable_to_non_nullable
+              as bool,
+      imageUrl: freezed == imageUrl
+          ? _value.imageUrl
+          : imageUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -135,7 +177,10 @@ class _$PlayerImpl implements _Player {
   const _$PlayerImpl(
       {@JsonKey(name: 'game_player_id') this.section = '',
       @JsonKey(name: 'user_id') this.difficulty = '',
-      this.username = ''});
+      this.username = '',
+      @JsonKey(name: 'is_game_master') this.isGameMaster = false,
+      @JsonKey(name: 'is_team_leader') this.isTeamLeader = false,
+      @JsonKey(name: 'image_url') this.imageUrl = ''});
 
   factory _$PlayerImpl.fromJson(Map<String, dynamic> json) =>
       _$$PlayerImplFromJson(json);
@@ -149,10 +194,19 @@ class _$PlayerImpl implements _Player {
   @override
   @JsonKey()
   final String username;
+  @override
+  @JsonKey(name: 'is_game_master')
+  final bool isGameMaster;
+  @override
+  @JsonKey(name: 'is_team_leader')
+  final bool isTeamLeader;
+  @override
+  @JsonKey(name: 'image_url')
+  final String? imageUrl;
 
   @override
   String toString() {
-    return 'Player(section: $section, difficulty: $difficulty, username: $username)';
+    return 'Player(section: $section, difficulty: $difficulty, username: $username, isGameMaster: $isGameMaster, isTeamLeader: $isTeamLeader, imageUrl: $imageUrl)';
   }
 
   @override
@@ -164,12 +218,19 @@ class _$PlayerImpl implements _Player {
             (identical(other.difficulty, difficulty) ||
                 other.difficulty == difficulty) &&
             (identical(other.username, username) ||
-                other.username == username));
+                other.username == username) &&
+            (identical(other.isGameMaster, isGameMaster) ||
+                other.isGameMaster == isGameMaster) &&
+            (identical(other.isTeamLeader, isTeamLeader) ||
+                other.isTeamLeader == isTeamLeader) &&
+            (identical(other.imageUrl, imageUrl) ||
+                other.imageUrl == imageUrl));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, section, difficulty, username);
+  int get hashCode => Object.hash(runtimeType, section, difficulty, username,
+      isGameMaster, isTeamLeader, imageUrl);
 
   /// Create a copy of Player
   /// with the given fields replaced by the non-null parameter values.
@@ -191,7 +252,10 @@ abstract class _Player implements Player {
   const factory _Player(
       {@JsonKey(name: 'game_player_id') final String section,
       @JsonKey(name: 'user_id') final String difficulty,
-      final String username}) = _$PlayerImpl;
+      final String username,
+      @JsonKey(name: 'is_game_master') final bool isGameMaster,
+      @JsonKey(name: 'is_team_leader') final bool isTeamLeader,
+      @JsonKey(name: 'image_url') final String? imageUrl}) = _$PlayerImpl;
 
   factory _Player.fromJson(Map<String, dynamic> json) = _$PlayerImpl.fromJson;
 
@@ -203,6 +267,15 @@ abstract class _Player implements Player {
   String get difficulty;
   @override
   String get username;
+  @override
+  @JsonKey(name: 'is_game_master')
+  bool get isGameMaster;
+  @override
+  @JsonKey(name: 'is_team_leader')
+  bool get isTeamLeader;
+  @override
+  @JsonKey(name: 'image_url')
+  String? get imageUrl;
 
   /// Create a copy of Player
   /// with the given fields replaced by the non-null parameter values.

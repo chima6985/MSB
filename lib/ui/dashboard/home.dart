@@ -382,18 +382,33 @@ class Home extends HookWidget {
                                 if (user == null) {
                                   Functions.showModalAuth(context);
                                 } else {
-                                  showModalBottomSheet(
-                                    context: context,
-                                    builder: (context) =>
-                                        const ChooseMutliPlayerModeModal(),
-                                    isScrollControlled: true,
-                                    shape: const RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.only(
-                                        topLeft: Radius.circular(24),
-                                        topRight: Radius.circular(24),
+                                  if (user.image.isEmpty) {
+                                    showModalBottomSheet(
+                                      context: context,
+                                      builder: (context) =>
+                                          const SetAvatarModal(),
+                                      isScrollControlled: true,
+                                      shape: const RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.only(
+                                          topLeft: Radius.circular(24),
+                                          topRight: Radius.circular(24),
+                                        ),
                                       ),
-                                    ),
-                                  );
+                                    );
+                                  } else {
+                                    showModalBottomSheet(
+                                      context: context,
+                                      builder: (context) =>
+                                          const ChooseMutliPlayerModeModal(),
+                                      isScrollControlled: true,
+                                      shape: const RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.only(
+                                          topLeft: Radius.circular(24),
+                                          topRight: Radius.circular(24),
+                                        ),
+                                      ),
+                                    );
+                                  }
                                 }
                               },
                             ),

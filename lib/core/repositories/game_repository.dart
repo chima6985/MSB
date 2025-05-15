@@ -78,6 +78,10 @@ class GameRepository {
   String _modifyGameRoomEndpoint(String gameId) =>
       '$_baseUrl/game/multi-player/modify-game-room/$gameId';
 
+  /// Start game endpoint
+  String _startGameEndpoint(String gameCode) =>
+      '$_baseUrl//game/multiplayer/$gameCode/start-game';
+
   /// Get sections and difficulty
   ///
   /// Returns void on success.
@@ -444,6 +448,37 @@ class GameRepository {
           Uri.parse(url),
           headers: headers,
           body: jsonEncode(body),
+        ),
+        onSuccessMap: (value) {},
+      );
+    } on APIException catch (e) {
+      throw GameException(message: e.message);
+    } on AuthException catch (e) {
+      throw AuthException(message: e.message);
+    } catch (e) {
+      throw const GameException();
+    }
+  }
+
+  /// Start game
+  ///
+  /// Returns [void] on success.
+  /// Throws [GameException] when operation fails.
+  Future<void> startGame({
+    required String gameCode,
+    required String token,
+  }) async {
+    try {
+      final url = _startGameEndpoint(gameCode);
+      final headers = {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      };
+      return await APIHelper.request<void>(
+        request: _client.post(
+          Uri.parse(url),
+          headers: headers,
         ),
         onSuccessMap: (value) {},
       );

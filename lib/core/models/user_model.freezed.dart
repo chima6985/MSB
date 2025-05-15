@@ -26,6 +26,7 @@ mixin _$User {
   String get email => throw _privateConstructorUsedError;
   String get username => throw _privateConstructorUsedError;
   String get gender => throw _privateConstructorUsedError;
+  String get image => throw _privateConstructorUsedError;
   @JsonKey(name: 'is_completed')
   bool get isCompleted => throw _privateConstructorUsedError;
   @JsonKey(name: 'is_survey_completed')
@@ -51,6 +52,7 @@ abstract class $UserCopyWith<$Res> {
       String email,
       String username,
       String gender,
+      String image,
       @JsonKey(name: 'is_completed') bool isCompleted,
       @JsonKey(name: 'is_survey_completed') bool isSurveyCompleted});
 }
@@ -75,6 +77,7 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
     Object? email = null,
     Object? username = null,
     Object? gender = null,
+    Object? image = null,
     Object? isCompleted = null,
     Object? isSurveyCompleted = null,
   }) {
@@ -98,6 +101,10 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
       gender: null == gender
           ? _value.gender
           : gender // ignore: cast_nullable_to_non_nullable
+              as String,
+      image: null == image
+          ? _value.image
+          : image // ignore: cast_nullable_to_non_nullable
               as String,
       isCompleted: null == isCompleted
           ? _value.isCompleted
@@ -124,6 +131,7 @@ abstract class _$$UserImplCopyWith<$Res> implements $UserCopyWith<$Res> {
       String email,
       String username,
       String gender,
+      String image,
       @JsonKey(name: 'is_completed') bool isCompleted,
       @JsonKey(name: 'is_survey_completed') bool isSurveyCompleted});
 }
@@ -145,6 +153,7 @@ class __$$UserImplCopyWithImpl<$Res>
     Object? email = null,
     Object? username = null,
     Object? gender = null,
+    Object? image = null,
     Object? isCompleted = null,
     Object? isSurveyCompleted = null,
   }) {
@@ -169,6 +178,10 @@ class __$$UserImplCopyWithImpl<$Res>
           ? _value.gender
           : gender // ignore: cast_nullable_to_non_nullable
               as String,
+      image: null == image
+          ? _value.image
+          : image // ignore: cast_nullable_to_non_nullable
+              as String,
       isCompleted: null == isCompleted
           ? _value.isCompleted
           : isCompleted // ignore: cast_nullable_to_non_nullable
@@ -190,6 +203,7 @@ class _$UserImpl implements _User {
       this.email = '',
       this.username = '',
       this.gender = '',
+      this.image = '',
       @JsonKey(name: 'is_completed') this.isCompleted = false,
       @JsonKey(name: 'is_survey_completed') this.isSurveyCompleted = false});
 
@@ -212,6 +226,9 @@ class _$UserImpl implements _User {
   @JsonKey()
   final String gender;
   @override
+  @JsonKey()
+  final String image;
+  @override
   @JsonKey(name: 'is_completed')
   final bool isCompleted;
   @override
@@ -220,7 +237,7 @@ class _$UserImpl implements _User {
 
   @override
   String toString() {
-    return 'User(id: $id, token: $token, email: $email, username: $username, gender: $gender, isCompleted: $isCompleted, isSurveyCompleted: $isSurveyCompleted)';
+    return 'User(id: $id, token: $token, email: $email, username: $username, gender: $gender, image: $image, isCompleted: $isCompleted, isSurveyCompleted: $isSurveyCompleted)';
   }
 
   @override
@@ -234,6 +251,7 @@ class _$UserImpl implements _User {
             (identical(other.username, username) ||
                 other.username == username) &&
             (identical(other.gender, gender) || other.gender == gender) &&
+            (identical(other.image, image) || other.image == image) &&
             (identical(other.isCompleted, isCompleted) ||
                 other.isCompleted == isCompleted) &&
             (identical(other.isSurveyCompleted, isSurveyCompleted) ||
@@ -243,7 +261,7 @@ class _$UserImpl implements _User {
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, id, token, email, username,
-      gender, isCompleted, isSurveyCompleted);
+      gender, image, isCompleted, isSurveyCompleted);
 
   /// Create a copy of User
   /// with the given fields replaced by the non-null parameter values.
@@ -268,6 +286,7 @@ abstract class _User implements User {
           final String email,
           final String username,
           final String gender,
+          final String image,
           @JsonKey(name: 'is_completed') final bool isCompleted,
           @JsonKey(name: 'is_survey_completed') final bool isSurveyCompleted}) =
       _$UserImpl;
@@ -285,6 +304,8 @@ abstract class _User implements User {
   String get username;
   @override
   String get gender;
+  @override
+  String get image;
   @override
   @JsonKey(name: 'is_completed')
   bool get isCompleted;

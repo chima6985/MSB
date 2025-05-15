@@ -1,8 +1,11 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:masoyinbo_mobile/extension/extension.dart';
 import 'package:masoyinbo_mobile/ui/ui.dart';
 import 'package:masoyinbo_mobile/utils/utils.dart';
+import 'package:path_provider/path_provider.dart';
 
 class Functions {
   static void autoScroll({
@@ -76,5 +79,19 @@ class Functions {
         text: context.appLocale.couldNotCopy,
       );
     });
+  }
+
+  /// Function to get image avatar asset from assets
+  static Future<String> getImageFileFromAssets(
+    String assetPath,
+    String fileName,
+  ) async {
+    final byteData = await rootBundle.load(assetPath);
+
+    final tempDir = await getTemporaryDirectory();
+    final file = File('${tempDir.path}/$fileName');
+
+    await file.writeAsBytes(byteData.buffer.asUint8List());
+    return file.path;
   }
 }

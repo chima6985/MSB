@@ -1,7 +1,10 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'package:http_parser/http_parser.dart';
 import 'package:masoyinbo_mobile/core/core.dart';
+import 'package:masoyinbo_mobile/utils/utils.dart';
+import 'package:mime/mime.dart';
 
 /// {@template user_repository_exception}
 /// General exception for [UserRepository] methods.
@@ -44,6 +47,12 @@ class UserRepository {
 
   /// Update password endpoint
   String _updatePasswordEndpoint() => '$_baseUrl/user/update-password';
+
+  /// Update user endpoint
+  String _updateUserEndpoint() => '$_baseUrl/user/auth/update';
+
+  /// Upload file endpoint
+  String _uploadFileEndpoint() => '$_baseUrl/user/auth/upload';
 
   /// Complete onboarding
   ///
@@ -182,6 +191,130 @@ class UserRepository {
           body: jsonEncode(body),
         ),
         onSuccessMap: (value) {},
+      );
+    } on APIException catch (e) {
+      throw UserException(message: e.message);
+    } on AuthException catch (e) {
+      throw AuthException(message: e.message);
+    } catch (e) {
+      throw const UserException();
+    }
+  }
+
+  /// Update user image
+  ///
+  /// Returns void on success.
+  /// Throws [UserException] when operation fails.
+  Future<void> updateUser({
+    required String username,
+    required String gender,
+    required String token,
+  }) async {
+    try {
+      final url = _updateUserEndpoint();
+      final headers = {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      };
+      final body = {
+        'username': username,
+        'gender': gender,
+      };
+      return await APIHelper.request<void>(
+        request: _client.patch(
+          Uri.parse(url),
+          headers: headers,
+          body: jsonEncode(body),
+        ),
+        onSuccessMap: (value) {},
+      );
+    } on APIException catch (e) {
+      throw UserException(message: e.message);
+    } on AuthException catch (e) {
+      throw AuthException(message: e.message);
+    } catch (e) {
+      throw const UserException();
+    }
+  }
+
+  /// Update user image
+  ///
+  /// Returns void on success.
+  /// Throws [UserException] when operation fails.
+  Future<void> updateUserImage({
+    required String image,
+    required String token,
+  }) async {
+    try {
+      final url = _updateUserEndpoint();
+      final headers = {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      };
+      final body = {'image': image};
+      return await APIHelper.request<void>(
+        request: _client.patch(
+          Uri.parse(url),
+          headers: headers,
+          body: jsonEncode(body),
+        ),
+        onSuccessMap: (value) {},
+      );
+    } on APIException catch (e) {
+      throw UserException(message: e.message);
+    } on AuthException catch (e) {
+      throw AuthException(message: e.message);
+    } catch (e) {
+      throw const UserException();
+    }
+  }
+
+  /// Upload file
+  ///
+  /// Returns void on success.
+  /// Throws [UserException] when operation fails.
+  Future<String?> uploadFile({
+    required String filePath,
+    required String token,
+  }) async {
+    try {
+      final url = _uploadFileEndpoint();
+      final headers = {
+        'Accept': 'application/json',
+        'Content-Type': 'multipart/form-data',
+        'Authorization': 'Bearer $token',
+      };
+      final fileProviderPath =
+          await Functions.getImageFileFromAssets(filePath, 'avatar.jpg');
+      final contentType = lookupMimeType(fileProviderPath);
+
+      final file = await http.MultipartFile.fromPath(
+        'image',
+        fileProviderPath,
+        contentType: MediaType(
+          contentType?.split('/').first ?? 'image',
+          contentType?.split('/').last ?? 'png',
+        ),
+      );
+      final request = http.MultipartRequest('POST', Uri.parse(url));
+      request.headers.addAll(headers);
+      request.files.add(file);
+      return await APIHelper.request<String?>(
+        request: http.Response.fromStream(await request.send()),
+        onSuccessMap: (value) {
+          if (value.containsKey('files')) {
+            final file = value['files'] as List;
+            if (file.isNotEmpty) {
+              // ignore: avoid_dynamic_calls
+              return file.first['url'];
+            } else {
+              return null;
+            }
+          }
+          return null;
+        },
       );
     } on APIException catch (e) {
       throw UserException(message: e.message);

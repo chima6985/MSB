@@ -12,6 +12,7 @@ _$UserImpl _$$UserImplFromJson(Map<String, dynamic> json) => _$UserImpl(
       email: json['email'] as String? ?? '',
       username: json['username'] as String? ?? '',
       gender: json['gender'] as String? ?? '',
+      image: json['image'] as String? ?? '',
       isCompleted: json['is_completed'] as bool? ?? false,
       isSurveyCompleted: json['is_survey_completed'] as bool? ?? false,
     );
@@ -23,6 +24,7 @@ Map<String, dynamic> _$$UserImplToJson(_$UserImpl instance) =>
       'email': instance.email,
       'username': instance.username,
       'gender': instance.gender,
+      'image': instance.image,
       'is_completed': instance.isCompleted,
       'is_survey_completed': instance.isSurveyCompleted,
     };

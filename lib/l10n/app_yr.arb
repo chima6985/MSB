@@ -347,12 +347,15 @@
   },
   "wouldYouLikeToModifyTheGameSetUp": "Ṣe iwọ yoo fẹ lati ṣatunṣe iṣeto ti yara tuntun tabi yara lọwọlọwọ yii?",
   "modifyingANewRoomWillKickYouOut": "Iyipada yara tuntun yoo ta ọ jade yara lọwọlọwọ yii patapata",
-  "modifyNewRoom":"Ṣe atunṣe yara tuntun",
-  "modifyCurrentRoom":"Ṣe atunṣe yara lọwọlọwọ",
-  "modifyCurrentRoom_":"Ṣe atunṣe yara lọwọlọwọ",
-  "confirmChanges":"Jẹrisi awọn ayipada",
-  "noChangesMadeToGameSettings":"Ko si awọn ayipada ti a ṣe si awọn eto ere lọwọlọwọ",
-
+  "modifyNewRoom": "Ṣe atunṣe yara tuntun",
+  "modifyCurrentRoom": "Ṣe atunṣe yara lọwọlọwọ",
+  "modifyCurrentRoom_": "Ṣe atunṣe yara lọwọlọwọ",
+  "confirmChanges": "Jẹrisi awọn ayipada",
+  "noChangesMadeToGameSettings": "Ko si awọn ayipada ti a ṣe si awọn eto ere lọwọlọwọ",
+  "successfullyUpdatedImageAvatar": "Afata aworan ti ni imudojuiwọn ni aṣeyọri",
+  "pleaseSelectAnAvatar": "Jọwọ yan avatar kan",
+  "you": "Iwọ",
+  "master": "Oga",
 
 
   "example": "example"

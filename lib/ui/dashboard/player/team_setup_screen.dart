@@ -26,7 +26,7 @@ class _TeamSetupScreenState extends State<TeamSetupScreen> {
 
   final scrollController = ScrollController();
 
-  final groupedPlayers = <GameRoomProfileWidget>[];
+  final groupedPlayers = <GameRoomPlayerProfileWidget>[];
 
   final exampleBox = <TeamSetProfileWidget>[];
 
@@ -35,43 +35,43 @@ class _TeamSetupScreenState extends State<TeamSetupScreen> {
   //todo : work on example box and teamsGroup to be dynamic for the addition of teams
 
   final teamPlayers = [
-    GameRoomProfileWidget(
+    GameRoomPlayerProfileWidget(
       isGameMaster: true,
       image: AppAssets.images.jpegs.profileImage1.path,
       name: 'Master',
       size: 0.7,
     ),
-    GameRoomProfileWidget(
+    GameRoomPlayerProfileWidget(
       image: AppAssets.images.jpegs.profileImage.path,
       name: 'You',
       size: 0.73,
     ),
-    GameRoomProfileWidget(
+    GameRoomPlayerProfileWidget(
       image: AppAssets.images.jpegs.profileImage1.path,
       name: 'Tosin',
       size: 0.73,
     ),
-    GameRoomProfileWidget(
+    GameRoomPlayerProfileWidget(
       image: AppAssets.images.jpegs.profileImage.path,
       name: 'P4',
       size: 0.73,
     ),
-    GameRoomProfileWidget(
+    GameRoomPlayerProfileWidget(
       image: AppAssets.images.jpegs.profileImage1.path,
       name: 'Lateefah',
       size: 0.73,
     ),
-    GameRoomProfileWidget(
+    GameRoomPlayerProfileWidget(
       image: AppAssets.images.jpegs.profileImage.path,
       name: 'Viko',
       size: 0.73,
     ),
-    GameRoomProfileWidget(
+    GameRoomPlayerProfileWidget(
       image: AppAssets.images.jpegs.profileImage1.path,
       name: 'Angel',
       size: 0.73,
     ),
-    GameRoomProfileWidget(
+    GameRoomPlayerProfileWidget(
       image: AppAssets.images.jpegs.profileImage.path,
       name: 'Kido',
       size: 0.73,
@@ -235,7 +235,7 @@ class _TeamSetupScreenState extends State<TeamSetupScreen> {
                         return AbsorbPointer(
                           absorbing: groupedPlayers.contains(player) ||
                               widget.isTeamFormationAutomatic,
-                          child: Draggable<GameRoomProfileWidget>(
+                          child: Draggable<GameRoomPlayerProfileWidget>(
                             data: player,
                             feedback: player,
                             child: Opacity(
@@ -313,7 +313,7 @@ class _TeamSetupScreenState extends State<TeamSetupScreen> {
                       controller: scrollController,
                       child: Row(
                         children: [
-                          DragTarget<GameRoomProfileWidget>(
+                          DragTarget<GameRoomPlayerProfileWidget>(
                             onWillAcceptWithDetails: (details) {
                               if (exampleBox.length == 4) {
                                 ToastMessage.showError(
@@ -354,7 +354,8 @@ class _TeamSetupScreenState extends State<TeamSetupScreen> {
                                 teamNo: 1,
                                 children: exampleBox.map(
                                   (person) {
-                                    final profileWidget = GameRoomProfileWidget(
+                                    final profileWidget =
+                                        GameRoomPlayerProfileWidget(
                                       image: person.image,
                                       name: person.name,
                                       isGameMaster: exampleBox
@@ -362,7 +363,8 @@ class _TeamSetupScreenState extends State<TeamSetupScreen> {
                                           0,
                                       size: 0.73,
                                     );
-                                    return Draggable<GameRoomProfileWidget>(
+                                    return Draggable<
+                                        GameRoomPlayerProfileWidget>(
                                       data: profileWidget,
                                       feedback: profileWidget,
                                       child: Opacity(
@@ -378,7 +380,7 @@ class _TeamSetupScreenState extends State<TeamSetupScreen> {
                               );
                             },
                           ),
-                          DragTarget<GameRoomProfileWidget>(
+                          DragTarget<GameRoomPlayerProfileWidget>(
                             onWillAcceptWithDetails: (details) {
                               if (exampleBox1.length == 4) {
                                 ToastMessage.showError(
@@ -419,7 +421,8 @@ class _TeamSetupScreenState extends State<TeamSetupScreen> {
                                 teamNo: 2,
                                 children: exampleBox1.map(
                                   (person) {
-                                    final profileWidget = GameRoomProfileWidget(
+                                    final profileWidget =
+                                        GameRoomPlayerProfileWidget(
                                       image: person.image,
                                       name: person.name,
                                       isGameMaster: exampleBox1
@@ -427,7 +430,8 @@ class _TeamSetupScreenState extends State<TeamSetupScreen> {
                                           0,
                                       size: 0.73,
                                     );
-                                    return Draggable<GameRoomProfileWidget>(
+                                    return Draggable<
+                                        GameRoomPlayerProfileWidget>(
                                       data: profileWidget,
                                       feedback: profileWidget,
                                       child: Opacity(
@@ -444,7 +448,7 @@ class _TeamSetupScreenState extends State<TeamSetupScreen> {
                             },
                           ),
                           for (int i = 0; i < teamsGroup; i++)
-                            DragTarget<GameRoomProfileWidget>(
+                            DragTarget<GameRoomPlayerProfileWidget>(
                               onWillAcceptWithDetails: (details) {
                                 if (exampleBox.length == 4) {
                                   ToastMessage.showError(
@@ -486,7 +490,7 @@ class _TeamSetupScreenState extends State<TeamSetupScreen> {
                                   children: exampleBox.map(
                                     (person) {
                                       final profileWidget =
-                                          GameRoomProfileWidget(
+                                          GameRoomPlayerProfileWidget(
                                         image: person.image,
                                         name: person.name,
                                         isGameMaster: exampleBox.indexWhere(
@@ -495,7 +499,8 @@ class _TeamSetupScreenState extends State<TeamSetupScreen> {
                                             0,
                                         size: 0.73,
                                       );
-                                      return Draggable<GameRoomProfileWidget>(
+                                      return Draggable<
+                                          GameRoomPlayerProfileWidget>(
                                         data: profileWidget,
                                         feedback: profileWidget,
                                         child: Opacity(

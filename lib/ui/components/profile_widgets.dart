@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:masoyinbo_mobile/extension/extension.dart';
 import 'package:masoyinbo_mobile/ui/ui.dart';
 
-class GameRoomProfileWidget extends StatelessWidget {
-  const GameRoomProfileWidget({
+class GameRoomPlayerProfileWidget extends StatelessWidget {
+  const GameRoomPlayerProfileWidget({
     super.key,
     this.isGameMaster = false,
     required this.image,

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:masoyinbo_mobile/app/app_locator.dart';
@@ -28,36 +30,57 @@ class UpdateUserCubit extends Cubit<UpdateUserState> {
 
   /// Update user
   Future<void> updateUser({
-    String? firstName,
-    String? middleName,
-    String? lastName,
-    String? dob,
-    String? address,
-    String? city,
-    String? postalCode,
-    String? country,
-    String? verificationDocumentType,
-    String? verificationDocument,
+    required String username,
+    required String gender,
   }) async {
     try {
       emit(const _Updating());
       final user = UserHelper.fetchUser(authBloc: _authBloc);
       if (user == null) return;
-      // await _userRepository.completeOnboarding(
-      //   token: user.token,
-      //   firstName: firstName,
-      //   middleName: middleName,
-      //   lastName: lastName,
-      //   dob: dob,
-      //   address: address,
-      //   city: city,
-      //   postalCode: postalCode,
-      //   country: country,
-      //   verificationDocumentType: verificationDocumentType,
-      //   verificationDocument: verificationDocument,
-      // );
+      await _userRepository.updateUser(
+        username: username,
+        gender: gender,
+        token: user.token,
+      );
+      try {
+        await _userCubit.getUser();
+      } catch (e) {
+        log(e.toString());
+      }
       emit(const _Updated());
-      await _userCubit.getUser();
+    } on UserException catch (e) {
+      emit(
+        _Error(
+          error: e.message,
+        ),
+      );
+    } on AuthException catch (e) {
+      _authBloc.add(AuthEvent.authSignOut(message: e.message));
+    }
+  }
+
+  /// Update user image
+  Future<void> updateUserImage({
+    required String imagePath,
+  }) async {
+    try {
+      emit(const _Updating());
+      final user = UserHelper.fetchUser(authBloc: _authBloc);
+      if (user == null) return;
+      final imageUrl = await _userRepository.uploadFile(
+        filePath: imagePath,
+        token: user.token,
+      );
+      await _userRepository.updateUserImage(
+        image: imageUrl ?? '',
+        token: user.token,
+      );
+      try {
+        await _userCubit.getUser();
+      } catch (e) {
+        log(e.toString());
+      }
+      emit(const _Updated());
     } on UserException catch (e) {
       emit(
         _Error(

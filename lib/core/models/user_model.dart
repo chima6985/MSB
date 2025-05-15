@@ -11,6 +11,7 @@ class User with _$User {
     @Default('') String email,
     @Default('') String username,
     @Default('') String gender,
+    @Default('') String image,
     @JsonKey(name: 'is_completed') @Default(false) bool isCompleted,
     @JsonKey(name: 'is_survey_completed')
     @Default(false)

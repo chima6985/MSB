@@ -351,6 +351,10 @@
   "modifyCurrentRoom_":"Modify current room",
   "confirmChanges":"Confirm changes",
   "noChangesMadeToGameSettings":"No changes made to current game settings",
+  "successfullyUpdatedImageAvatar":"Successfully updated image avatar",
+  "pleaseSelectAnAvatar":"Please select an avatar",
+  "you":"You",
+  "master":"Master",
 
 
   "example": "example"

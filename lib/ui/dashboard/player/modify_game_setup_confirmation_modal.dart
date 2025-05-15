@@ -53,10 +53,6 @@ class _ModifyGameSetupConfirmationModal extends HookWidget {
               context: context,
               text: error ?? '',
             );
-            Navigator.popUntil(
-              context,
-              (route) => route.settings.name == PlayerScreen.id,
-            );
           },
           orElse: () => isLoading.value = false,
         );

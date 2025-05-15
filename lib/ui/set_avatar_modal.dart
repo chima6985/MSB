@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:masoyinbo_mobile/app/app.dart';
 import 'package:masoyinbo_mobile/extension/extension.dart';
 import 'package:masoyinbo_mobile/gen/fonts.gen.dart';
 import 'package:masoyinbo_mobile/ui/ui.dart';
+import 'package:masoyinbo_mobile/utils/utils.dart';
 
 class SetAvatarModal extends StatelessWidget {
   const SetAvatarModal({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final currentLocale = context.currentLocale;
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -23,14 +24,14 @@ class SetAvatarModal extends StatelessWidget {
             children: [
               SizedBox(height: 30.h),
               Text(
-                letsGetYouAnAvatarYr,
+                context.appLocale.letsGetYouAnAvatar,
                 style: context.textTheme.bodyLarge!.copyWith(
                   fontFamily: FontFamily.margarine,
                 ),
               ),
               const SizedBox(height: 16),
               Text(
-                addSomeTouchOfPersonalityYr,
+                context.appLocale.addSomeTouchOfPersonality,
                 textAlign: TextAlign.center,
                 style: context.textTheme.bodyMedium!.copyWith(
                   fontWeight: FontWeight.w300,
@@ -39,16 +40,34 @@ class SetAvatarModal extends StatelessWidget {
               const SizedBox(height: 32),
               Button(
                 label: '',
-                onPressed: () => context.pushNamed(ChangeAvatarScreen.id),
+                onPressed: () =>
+                    context.pushNamed(ChangeAvatarScreen.id).then((value) {
+                  if (value != null && value == true) {
+                    if (!context.mounted) return;
+                    context.pop(context);
+                    showModalBottomSheet(
+                      context: context,
+                      builder: (context) => const ChooseMutliPlayerModeModal(),
+                      isScrollControlled: true,
+                      shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(24),
+                          topRight: Radius.circular(24),
+                        ),
+                      ),
+                    );
+                  }
+                }),
                 child: RichText(
                   text: TextSpan(
                     style: context.textTheme.bodyMedium!.copyWith(
                       color: AppColors.white,
                     ),
                     children: [
-                      const TextSpan(text: setAvatarYr),
+                      TextSpan(text: context.appLocale.setAvatar),
                       TextSpan(
-                        text: ' ($setAvatarEn)',
+                        text:
+                            ' (${currentLocale == yo ? context.enLocale.setAvatar : context.yoLocale.setAvatar})',
                         style: context.textTheme.bodySmall!.copyWith(
                           color: AppColors.white,
                           fontWeight: FontWeight.w300,
@@ -67,7 +86,7 @@ class SetAvatarModal extends StatelessWidget {
                   context.pop(context);
                   showModalBottomSheet(
                     context: context,
-                    builder: (context) => const DailyReminderModal(),
+                    builder: (context) => const ChooseMutliPlayerModeModal(),
                     isScrollControlled: true,
                     shape: const RoundedRectangleBorder(
                       borderRadius: BorderRadius.only(
@@ -81,9 +100,10 @@ class SetAvatarModal extends StatelessWidget {
                   text: TextSpan(
                     style: context.textTheme.bodyMedium,
                     children: [
-                      const TextSpan(text: iWillDoThisLaterYr),
+                      TextSpan(text: context.appLocale.iWillDoThisLater),
                       TextSpan(
-                        text: ' ($iWillDoThisLaterEn)',
+                        text:
+                            ' (${currentLocale == yo ? context.enLocale.iWillDoThisLater : context.yoLocale.iWillDoThisLater})',
                         style: context.textTheme.bodySmall!.copyWith(
                           fontWeight: FontWeight.w300,
                         ),

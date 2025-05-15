@@ -43,11 +43,8 @@ const passwordEn2 = 'Password';
 const currentPasswordEn = 'Current password';
 const newPasswordEn = 'New password';
 const reEnterNewPasswordEn = 'Re-enter new password';
-const changeYourAvatarEn = 'Change your Avatar';
 const updateChangesEn = 'Update Changes';
-const updateEn = 'Update';
 
-const forgotPasswordEn = 'Forgot Password?';
 
 const selectAnAvatarOfYourChoiceEn = 'Select an avatar of your choice';
 const premiumPlanEn = 'Premium Plan';
@@ -148,20 +145,6 @@ const getReadyToTestYourSkillsEn =
 
 const learnWhileYouPlayYr = 'Kẹ́kọ̀ọ́ nígba tí o bá ń seré lọ́wọ́';
 const learnWhileYouPlayEn = 'Learn while you play';
-
-const letsGetYouAnAvatarYr = 'Jẹ ka fún ẹ ní àwòrán “avatar”';
-const letsGetYouAnAvatarEn = 'Let’s get you an avatar!';
-
-const addSomeTouchOfPersonalityYr =
-    'Fi àwo̩n ohun díè̩ kún ìrínisí re̩ pè̩lú avatar. O lè s̩e èyí nísìyí tàbí tóbáyá.';
-const addSomeTouchOfPersonalityEn =
-    'Add some touch of personality to your profile with an avatar. You can do ths now or later';
-
-const setAvatarYr = 'Ṣètò “avatar”';
-const setAvatarEn = 'Set avatar';
-
-const iWillDoThisLaterYr = 'Màá ṣe èyí tóbáyá';
-const iWillDoThisLaterEn = 'I will do this later';
 
 const remindMeYr = 'Rán mi létí';
 const remindMeEn = 'Remind me';
