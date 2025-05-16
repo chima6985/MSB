@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:masoyinbo_mobile/extension/extension.dart';
 import 'package:masoyinbo_mobile/ui/ui.dart';
@@ -34,10 +35,17 @@ class GameRoomPlayerProfileWidget extends StatelessWidget {
             backgroundColor:
                 isGameMaster ? AppColors.whiteFB : AppColors.greyB6,
             radius: 32,
-            child: Image.asset(
-              image,
-              width: 45.w,
+            child: SizedBox(
               height: 45.w,
+              width: 45.w,
+              child: CachedNetworkImage(
+                imageUrl: image,
+                errorWidget: (context, _, error) => Icon(
+                  Iconsax.user4,
+                  size: 27.w,
+                  color: AppColors.blue12,
+                ),
+              ),
             ),
           ),
           const SizedBox(height: 10),

@@ -274,8 +274,7 @@ class _GameRoomScreenState extends State<_GameRoomScreen> {
                                     .map(
                                       (player) => GameRoomPlayerProfileWidget(
                                         isGameMaster: player.isGameMaster,
-                                        image: AppAssets
-                                            .images.jpegs.profileImage1.path,
+                                        image: player.imageUrl ?? '',
                                         name: player.username == user?.username
                                             ? context.appLocale.you
                                             : player.isGameMaster
