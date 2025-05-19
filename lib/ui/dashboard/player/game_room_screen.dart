@@ -16,14 +16,14 @@ class GameRoomScreen extends StatelessWidget {
     super.key,
     required this.gameCode,
     this.isGameMaster = false,
-    this.isTeamMode = false,
-    this.isTeamFormationAutomatic = false,
+    this.isTeamMode,
+    this.isTeamFormationAutomatic,
   });
 
   final String gameCode;
   final bool isGameMaster;
-  final bool isTeamMode;
-  final bool isTeamFormationAutomatic;
+  final bool? isTeamMode;
+  final bool? isTeamFormationAutomatic;
 
   static const String id = 'gameRoomScreen';
 
@@ -31,6 +31,11 @@ class GameRoomScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
+        BlocProvider(
+          create: (context) => ModifyGameRoomCubit(
+            authBloc: context.read(),
+          ),
+        ),
         BlocProvider(
           create: (context) => AllPlayersCubit(
             authBloc: context.read(),
@@ -56,14 +61,14 @@ class _GameRoomScreen extends StatefulWidget {
   const _GameRoomScreen({
     required this.gameCode,
     required this.isGameMaster,
-    required this.isTeamMode,
-    required this.isTeamFormationAutomatic,
+    this.isTeamMode,
+    this.isTeamFormationAutomatic,
   });
 
   final String gameCode;
   final bool isGameMaster;
-  final bool isTeamMode;
-  final bool isTeamFormationAutomatic;
+  final bool? isTeamMode;
+  final bool? isTeamFormationAutomatic;
 
   @override
   State<_GameRoomScreen> createState() => _GameRoomScreenState();
@@ -73,9 +78,18 @@ class _GameRoomScreenState extends State<_GameRoomScreen> {
   bool isRefreshingPlayers = false;
   bool isStartingGame = false;
 
+  bool? isNewTeamMode;
+  bool? isNewTeamFormationAutomatic;
+
   @override
   void initState() {
     super.initState();
+    setState(
+      () {
+        isNewTeamMode = widget.isTeamMode;
+        isNewTeamFormationAutomatic = widget.isTeamFormationAutomatic;
+      },
+    );
     // if (!isMultiplayer) {
     //   Future.delayed(5.seconds).then((_) {
     //     if (context.mounted) {
@@ -142,23 +156,47 @@ class _GameRoomScreenState extends State<_GameRoomScreen> {
   @override
   Widget build(BuildContext context) {
     final user = context.watch<UserCubit>().state.user;
-    return BlocListener<StartGameCubit, StartGameState>(
-      listener: (context, state) {
-        state.maybeWhen(
-          loading: () => setState(() => isStartingGame = true),
-          loaded: () {
-            setState(() => isStartingGame = false);
-          },
-          error: (error) {
-            setState(() => isStartingGame = false);
-            ToastMessage.showError(
-              context: context,
-              text: error ?? '',
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<ModifyGameRoomCubit, ModifyGameRoomState>(
+          listener: (context, state) {
+            state.maybeWhen(
+              loaded: (modifiedGame) {
+                
+                setState(
+                  () {
+                    isNewTeamMode = modifiedGame.teamMode;
+                    isNewTeamFormationAutomatic = modifiedGame.teamFormation;
+                  },
+                );
+                ToastMessage.showSuccess(
+                  context: context,
+                  text: context.appLocale.gameRooSetupUpdatedSuccessfully,
+                );
+              },
+              orElse: () {},
             );
           },
-          orElse: () => setState(() => isRefreshingPlayers = false),
-        );
-      },
+        ),
+        BlocListener<StartGameCubit, StartGameState>(
+          listener: (context, state) {
+            state.maybeWhen(
+              loading: () => setState(() => isStartingGame = true),
+              loaded: () {
+                setState(() => isStartingGame = false);
+              },
+              error: (error) {
+                setState(() => isStartingGame = false);
+                ToastMessage.showError(
+                  context: context,
+                  text: error ?? '',
+                );
+              },
+              orElse: () => setState(() => isRefreshingPlayers = false),
+            );
+          },
+        ),
+      ],
       child: BlocConsumer<AllPlayersCubit, AllPlayersState>(
         listener: (context, state) {
           state.maybeWhen(
@@ -307,12 +345,12 @@ class _GameRoomScreenState extends State<_GameRoomScreen> {
                           ],
                           if (widget.isGameMaster) ...[
                             Button(
-                              label: widget.isTeamMode
+                              label: isNewTeamMode == true
                                   ? context.appLocale.setTeam
                                   : context.appLocale.startPlaying,
                               isLoading: isStartingGame,
                               onPressed: () {
-                                if (!widget.isTeamMode) {
+                                if (isNewTeamMode == false) {
                                   if (players.length < 2) {
                                     ToastMessage.showWarning(
                                       context: context,
@@ -325,7 +363,8 @@ class _GameRoomScreenState extends State<_GameRoomScreen> {
                                         .read<StartGameCubit>()
                                         .startGame(gameCode: widget.gameCode);
                                   }
-                                } else {
+                                }
+                                if (isNewTeamMode == true) {
                                   if (players.length < 5) {
                                     ToastMessage.showWarning(
                                       context: context,
@@ -336,12 +375,14 @@ class _GameRoomScreenState extends State<_GameRoomScreen> {
                                   } else {
                                     showModalBottomSheet(
                                       context: context,
-                                      builder: (context) => widget.isTeamMode
-                                          ? SetTeamModal(
-                                              isTeamFormationAutomatic: widget
-                                                  .isTeamFormationAutomatic,
-                                            )
-                                          : const TeamAllSetModal(),
+                                      builder: (context) =>
+                                          isNewTeamMode == true
+                                              ? SetTeamModal(
+                                                  isTeamFormationAutomatic:
+                                                      isNewTeamFormationAutomatic ??
+                                                          false,
+                                                )
+                                              : const TeamAllSetModal(),
                                       isScrollControlled: true,
                                       shape: const RoundedRectangleBorder(
                                         borderRadius: BorderRadius.only(
@@ -378,14 +419,15 @@ class _GameRoomScreenState extends State<_GameRoomScreen> {
                                   if (!context.mounted) return;
                                   showModalBottomSheet(
                                     context: context,
-                                    builder: (context) =>
-                                        ModifyCurrentRoomModal(
-                                      gameCode: widget.gameCode,
-                                      isTeamMode: widget.isTeamMode,
-                                      isTeamFormationAutomatic:
-                                          widget.isTeamMode
-                                              ? widget.isTeamFormationAutomatic
-                                              : null,
+                                    builder: (_) => BlocProvider.value(
+                                      value:
+                                          context.read<ModifyGameRoomCubit>(),
+                                      child: ModifyCurrentRoomModal(
+                                        gameCode: widget.gameCode,
+                                        isTeamMode: isNewTeamMode,
+                                        isTeamFormationAutomatic:
+                                            isNewTeamFormationAutomatic,
+                                      ),
                                     ),
                                     isScrollControlled: true,
                                     shape: const RoundedRectangleBorder(
@@ -404,7 +446,7 @@ class _GameRoomScreenState extends State<_GameRoomScreen> {
                               children: [
                                 Flexible(
                                   child: Text(
-                                    widget.isTeamMode
+                                    isNewTeamMode == true
                                         ? context.appLocale
                                             .waitingForGameMasterToSetupTeam
                                         : context.appLocale

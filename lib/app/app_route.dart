@@ -267,9 +267,8 @@ final router = GoRouter(
         return GameRoomScreen(
           gameCode: paramHandler?['gameCode'],
           isGameMaster: paramHandler?['isGameMaster'] ?? false,
-          isTeamMode: paramHandler?['isTeamMode'] ?? false,
-          isTeamFormationAutomatic:
-              paramHandler?['isTeamFormationAutomatic'] ?? false,
+          isTeamMode: paramHandler?['isTeamMode'],
+          isTeamFormationAutomatic: paramHandler?['isTeamFormationAutomatic'],
         );
       },
     ),
@@ -290,9 +289,8 @@ final router = GoRouter(
         final paramHandler = state.extra is Map ? state.extra as Map? : {};
         return GameRoomCreatedScreen(
           gameCode: paramHandler?['gameCode'],
-          isTeamMode: paramHandler?['isTeamMode'] ?? false,
-          isTeamFormationAutomatic:
-              paramHandler?['isTeamFormationAutomatic'] ?? false,
+          isTeamMode: paramHandler?['isTeamMode'],
+          isTeamFormationAutomatic: paramHandler?['isTeamFormationAutomatic'],
         );
       },
     ),

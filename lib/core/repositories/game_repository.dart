@@ -424,9 +424,9 @@ class GameRepository {
 
   /// Modify game room
   ///
-  /// Returns [void] on success.
+  /// Returns [ModifiedGame] on success.
   /// Throws [GameException] when operation fails.
-  Future<void> modifyGameRoom({
+  Future<ModifiedGame> modifyGameRoom({
     required String gameCode,
     required bool teamMode,
     required String teamFormation,
@@ -440,16 +440,16 @@ class GameRepository {
         'Authorization': 'Bearer $token',
       };
       final body = {
-        'team_mode': teamMode,
-        if (teamMode) 'team_formation': teamFormation,
+        'teamMode': teamMode,
+        if (teamMode) 'teamFormation': teamFormation,
       };
-      return await APIHelper.request<void>(
+      return await APIHelper.request<ModifiedGame>(
         request: _client.post(
           Uri.parse(url),
           headers: headers,
           body: jsonEncode(body),
         ),
-        onSuccessMap: (value) {},
+        onSuccessMap: ModifiedGame.fromJson,
       );
     } on APIException catch (e) {
       throw GameException(message: e.message);

@@ -96,8 +96,7 @@ class _PlayerScreen extends HookWidget {
                   extra: {
                     'gameCode': gameCode,
                     'isTeamMode': isTeamMode.value,
-                    'isTeamFormationAutomatic':
-                        isTeamFormationAutomatic.value ?? false,
+                    'isTeamFormationAutomatic': isTeamFormationAutomatic.value,
                   },
                 );
               },

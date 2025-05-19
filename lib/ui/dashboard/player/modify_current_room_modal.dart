@@ -7,71 +7,32 @@ import 'package:masoyinbo_mobile/gen/fonts.gen.dart';
 import 'package:masoyinbo_mobile/ui/ui.dart';
 import 'package:masoyinbo_mobile/utils/utils.dart';
 
-class ModifyCurrentRoomModal extends StatelessWidget {
+class ModifyCurrentRoomModal extends HookWidget {
   const ModifyCurrentRoomModal({
     super.key,
     required this.gameCode,
-    required this.isTeamMode,
-    required this.isTeamFormationAutomatic,
+    this.isTeamMode,
+    this.isTeamFormationAutomatic,
   });
 
   final String gameCode;
-  final bool isTeamMode;
-  final bool? isTeamFormationAutomatic;
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => ModifyGameRoomCubit(
-        authBloc: context.read(),
-      ),
-      child: _ModifyCurrentRoomModal(
-        gameCode: gameCode,
-        isTeamMode: isTeamMode,
-        isTeamFormationAutomatic: isTeamFormationAutomatic,
-      ),
-    );
-  }
-}
-
-class _ModifyCurrentRoomModal extends HookWidget {
-  const _ModifyCurrentRoomModal({
-    required this.gameCode,
-    required this.isTeamMode,
-    required this.isTeamFormationAutomatic,
-  });
-
-  final String gameCode;
-  final bool isTeamMode;
+  final bool? isTeamMode;
   final bool? isTeamFormationAutomatic;
 
   @override
   Widget build(BuildContext context) {
     final currentLocale = context.currentLocale;
     final isLoading = useState(false);
-    final newTeamMode = useState<bool>(isTeamMode);
+    final newTeamMode = useState<bool?>(isTeamMode);
     final newTeamFormationAutomatic = useState<bool?>(isTeamFormationAutomatic);
-
-    useEffect(
-      () {
-        if (isTeamMode == false) {
-          newTeamFormationAutomatic.value = null;
-        }
-        return null;
-      },
-      [],
-    );
 
     return BlocListener<ModifyGameRoomCubit, ModifyGameRoomState>(
       listener: (context, state) {
         state.maybeWhen(
           loading: () => isLoading.value = true,
-          loaded: () {
+          loaded: (val) {
             isLoading.value = false;
-            Navigator.popUntil(
-              context,
-              (route) => route.settings.name == PlayerScreen.id,
-            );
+            context.pop();
           },
           error: (error) {
             isLoading.value = false;
@@ -254,7 +215,7 @@ class _ModifyCurrentRoomModal extends HookWidget {
                 }
                 context.read<ModifyGameRoomCubit>().modifyGameRoom(
                       gameCode: gameCode,
-                      teamMode: newTeamMode.value,
+                      teamMode: newTeamMode.value ?? false,
                       teamFormation: (newTeamFormationAutomatic.value ?? false)
                           ? 'automatic'
                           : 'manual',

@@ -20,7 +20,7 @@ mixin _$ModifyGameRoomState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function() loaded,
+    required TResult Function(ModifiedGame modifiedGame) loaded,
     required TResult Function(String? error) error,
   }) =>
       throw _privateConstructorUsedError;
@@ -28,7 +28,7 @@ mixin _$ModifyGameRoomState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function()? loaded,
+    TResult? Function(ModifiedGame modifiedGame)? loaded,
     TResult? Function(String? error)? error,
   }) =>
       throw _privateConstructorUsedError;
@@ -36,7 +36,7 @@ mixin _$ModifyGameRoomState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function()? loaded,
+    TResult Function(ModifiedGame modifiedGame)? loaded,
     TResult Function(String? error)? error,
     required TResult orElse(),
   }) =>
@@ -132,7 +132,7 @@ class _$InitialImpl implements _Initial {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function() loaded,
+    required TResult Function(ModifiedGame modifiedGame) loaded,
     required TResult Function(String? error) error,
   }) {
     return initial();
@@ -143,7 +143,7 @@ class _$InitialImpl implements _Initial {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function()? loaded,
+    TResult? Function(ModifiedGame modifiedGame)? loaded,
     TResult? Function(String? error)? error,
   }) {
     return initial?.call();
@@ -154,7 +154,7 @@ class _$InitialImpl implements _Initial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function()? loaded,
+    TResult Function(ModifiedGame modifiedGame)? loaded,
     TResult Function(String? error)? error,
     required TResult orElse(),
   }) {
@@ -249,7 +249,7 @@ class _$LoadingImpl implements _Loading {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function() loaded,
+    required TResult Function(ModifiedGame modifiedGame) loaded,
     required TResult Function(String? error) error,
   }) {
     return loading();
@@ -260,7 +260,7 @@ class _$LoadingImpl implements _Loading {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function()? loaded,
+    TResult? Function(ModifiedGame modifiedGame)? loaded,
     TResult? Function(String? error)? error,
   }) {
     return loading?.call();
@@ -271,7 +271,7 @@ class _$LoadingImpl implements _Loading {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function()? loaded,
+    TResult Function(ModifiedGame modifiedGame)? loaded,
     TResult Function(String? error)? error,
     required TResult orElse(),
   }) {
@@ -328,6 +328,10 @@ abstract class _$$LoadedImplCopyWith<$Res> {
   factory _$$LoadedImplCopyWith(
           _$LoadedImpl value, $Res Function(_$LoadedImpl) then) =
       __$$LoadedImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({ModifiedGame modifiedGame});
+
+  $ModifiedGameCopyWith<$Res> get modifiedGame;
 }
 
 /// @nodoc
@@ -340,36 +344,72 @@ class __$$LoadedImplCopyWithImpl<$Res>
 
   /// Create a copy of ModifyGameRoomState
   /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? modifiedGame = null,
+  }) {
+    return _then(_$LoadedImpl(
+      modifiedGame: null == modifiedGame
+          ? _value.modifiedGame
+          : modifiedGame // ignore: cast_nullable_to_non_nullable
+              as ModifiedGame,
+    ));
+  }
+
+  /// Create a copy of ModifyGameRoomState
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $ModifiedGameCopyWith<$Res> get modifiedGame {
+    return $ModifiedGameCopyWith<$Res>(_value.modifiedGame, (value) {
+      return _then(_value.copyWith(modifiedGame: value));
+    });
+  }
 }
 
 /// @nodoc
 
 class _$LoadedImpl implements _Loaded {
-  const _$LoadedImpl();
+  const _$LoadedImpl({required this.modifiedGame});
+
+  @override
+  final ModifiedGame modifiedGame;
 
   @override
   String toString() {
-    return 'ModifyGameRoomState.loaded()';
+    return 'ModifyGameRoomState.loaded(modifiedGame: $modifiedGame)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$LoadedImpl);
+        (other.runtimeType == runtimeType &&
+            other is _$LoadedImpl &&
+            (identical(other.modifiedGame, modifiedGame) ||
+                other.modifiedGame == modifiedGame));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, modifiedGame);
+
+  /// Create a copy of ModifyGameRoomState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$LoadedImplCopyWith<_$LoadedImpl> get copyWith =>
+      __$$LoadedImplCopyWithImpl<_$LoadedImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function() loaded,
+    required TResult Function(ModifiedGame modifiedGame) loaded,
     required TResult Function(String? error) error,
   }) {
-    return loaded();
+    return loaded(modifiedGame);
   }
 
   @override
@@ -377,10 +417,10 @@ class _$LoadedImpl implements _Loaded {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function()? loaded,
+    TResult? Function(ModifiedGame modifiedGame)? loaded,
     TResult? Function(String? error)? error,
   }) {
-    return loaded?.call();
+    return loaded?.call(modifiedGame);
   }
 
   @override
@@ -388,12 +428,12 @@ class _$LoadedImpl implements _Loaded {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function()? loaded,
+    TResult Function(ModifiedGame modifiedGame)? loaded,
     TResult Function(String? error)? error,
     required TResult orElse(),
   }) {
     if (loaded != null) {
-      return loaded();
+      return loaded(modifiedGame);
     }
     return orElse();
   }
@@ -437,7 +477,16 @@ class _$LoadedImpl implements _Loaded {
 }
 
 abstract class _Loaded implements ModifyGameRoomState {
-  const factory _Loaded() = _$LoadedImpl;
+  const factory _Loaded({required final ModifiedGame modifiedGame}) =
+      _$LoadedImpl;
+
+  ModifiedGame get modifiedGame;
+
+  /// Create a copy of ModifyGameRoomState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$LoadedImplCopyWith<_$LoadedImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -510,7 +559,7 @@ class _$ErrorImpl implements _Error {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function() loaded,
+    required TResult Function(ModifiedGame modifiedGame) loaded,
     required TResult Function(String? error) error,
   }) {
     return error(this.error);
@@ -521,7 +570,7 @@ class _$ErrorImpl implements _Error {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function()? loaded,
+    TResult? Function(ModifiedGame modifiedGame)? loaded,
     TResult? Function(String? error)? error,
   }) {
     return error?.call(this.error);
@@ -532,7 +581,7 @@ class _$ErrorImpl implements _Error {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function()? loaded,
+    TResult Function(ModifiedGame modifiedGame)? loaded,
     TResult Function(String? error)? error,
     required TResult orElse(),
   }) {

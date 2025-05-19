@@ -31,13 +31,13 @@ class ModifyGameRoomCubit extends Cubit<ModifyGameRoomState> {
       emit(const _Loading());
       final user = UserHelper.fetchUser(authBloc: _authBloc);
       if (user == null) return;
-      await _gameRepository.modifyGameRoom(
+      final apiResponse = await _gameRepository.modifyGameRoom(
         gameCode: gameCode,
         teamMode: teamMode,
         teamFormation: teamFormation,
         token: user.token,
       );
-      emit(const _Loaded());
+      emit(_Loaded(modifiedGame: apiResponse));
     } on GameException catch (e) {
       emit(_Error(error: e.message));
     } on AuthException catch (e) {
