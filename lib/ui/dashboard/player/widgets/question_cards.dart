@@ -83,6 +83,7 @@ class QuestionCard extends StatelessWidget {
                       ? currentAltQuestionText
                       : currentQuestionText,
                   textAlign: TextAlign.center,
+                  textScaler: TextScaler.noScaling,
                   style: context.textTheme.bodyMedium!.copyWith(
                     fontWeight: FontWeight.w500,
                   ),
@@ -93,6 +94,7 @@ class QuestionCard extends StatelessWidget {
                       ? currentQuestionText
                       : currentAltQuestionText,
                   textAlign: TextAlign.start,
+                  textScaler: TextScaler.noScaling,
                   style: context.textTheme.bodySmall!.copyWith(
                     fontStyle: FontStyle.italic,
                     fontWeight: FontWeight.w300,
@@ -198,6 +200,7 @@ class FlippedQuestionCard extends StatelessWidget {
                 Text(
                   context.appLocale.responseToTheQuestionIs,
                   textAlign: TextAlign.center,
+                  textScaler: TextScaler.noScaling,
                   style: context.textTheme.bodyMedium!.copyWith(
                     fontWeight: FontWeight.w500,
                   ),
@@ -208,6 +211,7 @@ class FlippedQuestionCard extends StatelessWidget {
                       ? context.enLocale.responseToTheQuestionIs
                       : context.yoLocale.responseToTheQuestionIs,
                   textAlign: TextAlign.start,
+                  textScaler: TextScaler.noScaling,
                   style: context.textTheme.bodySmall!.copyWith(
                     fontStyle: FontStyle.italic,
                     fontWeight: FontWeight.w300,
@@ -217,6 +221,7 @@ class FlippedQuestionCard extends StatelessWidget {
                 Text(
                   correctAnswer,
                   textAlign: TextAlign.start,
+                  textScaler: TextScaler.noScaling,
                   style: context.textTheme.bodySmall!.copyWith(
                     fontSize: 13.sp,
                     fontWeight: FontWeight.w500,

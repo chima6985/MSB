@@ -44,6 +44,7 @@ class PlayScreen extends HookWidget {
             SizedBox(height: 20.h),
             Text(
               context.appLocale.timeForKnowledgeReview,
+              textScaler: TextScaler.noScaling,
               style: context.textTheme.titleLarge!.copyWith(
                 color: AppColors.white,
                 fontFamily: FontFamily.margarine,

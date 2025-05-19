@@ -16,6 +16,7 @@ export 'player_screen.dart';
 export 'ran_out_of_lives_screen.dart';
 export 'score_board_screen.dart';
 export 'set_team_modal.dart';
+export 'start_game_modal.dart';
 export 'team_all_set_screen.dart';
 export 'team_leader_confirmation_modal.dart';
 export 'team_setup_screen.dart';

@@ -35,6 +35,7 @@ class LanguageScreen extends HookWidget {
                       child: Center(
                         child: Text(
                            context.appLocale.language,
+                           textScaler: TextScaler.noScaling,
                           style: context.textTheme.titleLarge!.copyWith(
                             fontFamily: FontFamily.margarine,
                           ),
@@ -50,6 +51,7 @@ class LanguageScreen extends HookWidget {
                     children: [
                       Text(
                         selectPreferredLanguage2En,
+                        textScaler: TextScaler.noScaling,
                         style: context.textTheme.bodyMedium!.copyWith(
                           fontSize: 13.5.sp,
                         ),
@@ -61,6 +63,7 @@ class LanguageScreen extends HookWidget {
                           Text(
                             context.appLocale.yoruba,
                             textAlign: TextAlign.center,
+                            textScaler: TextScaler.noScaling,
                             style: context.textTheme.bodyMedium!.copyWith(
                               fontWeight: FontWeight.w300,
                             ),
@@ -79,6 +82,7 @@ class LanguageScreen extends HookWidget {
                           Text(
                             context.appLocale.english,
                             textAlign: TextAlign.center,
+                            textScaler: TextScaler.noScaling,
                             style: context.textTheme.bodyMedium!.copyWith(
                               fontWeight: FontWeight.w300,
                             ),

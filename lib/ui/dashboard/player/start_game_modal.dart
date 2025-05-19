@@ -7,43 +7,29 @@ import 'package:masoyinbo_mobile/gen/fonts.gen.dart';
 import 'package:masoyinbo_mobile/ui/ui.dart';
 import 'package:masoyinbo_mobile/utils/utils.dart';
 
-class ConfirmLeaveGameRoomModal extends StatelessWidget {
-  const ConfirmLeaveGameRoomModal({
+class StartGameModal extends HookWidget {
+  const StartGameModal({
     super.key,
-    this.onTapIntent,
+    required this.gameCode,
   });
 
-  final VoidCallback? onTapIntent;
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => LeaveGameRoomCubit(
-        authBloc: context.read(),
-      ),
-      child: _ConfirmLeaveGameRoomModal(onTapIntent: onTapIntent),
-    );
-  }
-}
-
-class _ConfirmLeaveGameRoomModal extends HookWidget {
-  const _ConfirmLeaveGameRoomModal({
-    this.onTapIntent,
-  });
-
-  final VoidCallback? onTapIntent;
+  final String gameCode;
 
   @override
   Widget build(BuildContext context) {
     final isLoading = useState(false);
-    return BlocListener<LeaveGameRoomCubit, LeaveGameRoomState>(
+    return BlocListener<StartGameCubit, StartGameState>(
       listener: (context, state) {
         state.maybeWhen(
           loading: () => isLoading.value = true,
-          loaded: onTapIntent ??
-              () => context
-                ..pop(context)
-                ..pop(context),
+          loaded: () {
+            isLoading.value = false;
+            context
+              ..pop()
+              ..pushNamed(
+                QuizLoaderScreen.id,
+              );
+          },
           error: (error) {
             isLoading.value = false;
             ToastMessage.showError(
@@ -76,7 +62,7 @@ class _ConfirmLeaveGameRoomModal extends HookWidget {
             ),
             const SizedBox(height: 5),
             Text(
-              context.appLocale.confirmAction,
+              context.appLocale.attention,
               textAlign: TextAlign.center,
               textScaler: TextScaler.noScaling,
               style: context.textTheme.bodyLarge!.copyWith(
@@ -84,32 +70,45 @@ class _ConfirmLeaveGameRoomModal extends HookWidget {
               ),
             ),
             SizedBox(height: 32.h),
-            AppAssets.images.jpegs.exitDoor.image(scale: 4),
-            SizedBox(height: 16.h),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15),
               child: Text(
-                context.appLocale.sureToLeaveGame,
+                context.appLocale.startingGameClosesDoorForSinglePlayer,
                 textAlign: TextAlign.center,
                 textScaler: TextScaler.noScaling,
                 style: context.textTheme.bodyMedium!.copyWith(
                   fontWeight: FontWeight.w300,
+                  height: 1.8.h,
                 ),
               ),
             ),
-            SizedBox(height: 62.h),
+            const SizedBox(height: 20),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15),
+              child: Text(
+                context.appLocale.startGameOnlyWhenYouHaveAllPlayersIn,
+                textAlign: TextAlign.center,
+                textScaler: TextScaler.noScaling,
+                style: context.textTheme.bodyMedium!.copyWith(
+                  fontWeight: FontWeight.w400,
+                  fontStyle: FontStyle.italic,
+                  color: AppColors.yellowFF,
+                ),
+              ),
+            ),
+            SizedBox(height: 40.h),
             Button(
-              label: context.appLocale.leaveRoom,
+              label: context.appLocale.yesStartPlaying,
               isLoading: isLoading.value,
               onPressed: () =>
-                  context.read<LeaveGameRoomCubit>().leaveGameRoom(),
+                  context.read<StartGameCubit>().startGame(gameCode: gameCode),
             ),
             const SizedBox(height: 24),
             Button(
-              label: context.appLocale.dontLeave,
+              label: context.appLocale.goBackToRoom,
               isOutlined: true,
               labelColor: AppColors.black15,
-              onPressed: () => context..pop(context),
+              onPressed: () => context.pop(context),
             ),
             SizedBox(height: context.btmPadding),
           ],

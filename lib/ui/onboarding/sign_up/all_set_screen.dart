@@ -30,6 +30,7 @@ class AllSetScreen extends StatelessWidget {
             Text(
               context.appLocale.letsGo,
               textAlign: TextAlign.center,
+              textScaler: TextScaler.noScaling,
               style: context.textTheme.titleLarge!.copyWith(
                 fontFamily: FontFamily.margarine,
                 height: 1.8,
@@ -41,6 +42,7 @@ class AllSetScreen extends StatelessWidget {
               child: Text(
                 context.appLocale.allSetExplanation,
                 textAlign: TextAlign.center,
+                textScaler: TextScaler.noScaling,
                 style: context.textTheme.bodySmall!.copyWith(
                   height: 1.8,
                   letterSpacing: 0.3,

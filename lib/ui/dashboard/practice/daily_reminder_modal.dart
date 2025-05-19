@@ -24,6 +24,7 @@ class DailyReminderModal extends StatelessWidget {
               SizedBox(height: 30.h),
               Text(
                 setReminderYr,
+                textScaler: TextScaler.noScaling,
                 style: context.textTheme.bodyLarge!.copyWith(
                   fontFamily: FontFamily.margarine,
                 ),
@@ -32,6 +33,7 @@ class DailyReminderModal extends StatelessWidget {
               Text(
                 getDailyReminderYr,
                 textAlign: TextAlign.center,
+                textScaler: TextScaler.noScaling,
                 style: context.textTheme.bodyMedium!.copyWith(
                   fontWeight: FontWeight.w300,
                 ),

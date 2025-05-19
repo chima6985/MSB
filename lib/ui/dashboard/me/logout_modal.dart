@@ -26,6 +26,7 @@ class LogoutModal extends StatelessWidget {
           const SizedBox(height: 5),
           Text(
             context.appLocale.logout,
+            textScaler: TextScaler.noScaling,
             style: context.textTheme.bodyLarge!.copyWith(
               fontFamily: FontFamily.margarine,
             ),
@@ -36,6 +37,7 @@ class LogoutModal extends StatelessWidget {
             child: Text(
               areYouSureYouWantToContinueEn,
               textAlign: TextAlign.center,
+              textScaler: TextScaler.noScaling,
               style: context.textTheme.bodyMedium!.copyWith(
                 fontWeight: FontWeight.w300,
               ),

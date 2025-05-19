@@ -91,6 +91,7 @@ class _PersonalizeSignUpScreen extends HookWidget {
                   SizedBox(height: 24.h),
                   Text(
                     context.appLocale.createAccount,
+                    textScaler: TextScaler.noScaling,
                     style: context.textTheme.titleLarge!.copyWith(
                       fontFamily: FontFamily.margarine,
                       height: 1.8,
@@ -99,6 +100,7 @@ class _PersonalizeSignUpScreen extends HookWidget {
                   const SizedBox(height: 8),
                   Text(
                     context.appLocale.personalizeYourAccountFurther,
+                    textScaler: TextScaler.noScaling,
                     style: context.textTheme.bodyMedium!.copyWith(
                       fontStyle: FontStyle.italic,
                       height: 1.4,

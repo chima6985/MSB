@@ -44,6 +44,7 @@ class ScoreBoardScreen extends StatelessWidget {
                   child: Text(
                     scoreboardYr,
                     textAlign: TextAlign.center,
+                    textScaler: TextScaler.noScaling,
                     style: context.textTheme.titleLarge!.copyWith(
                       fontFamily: FontFamily.margarine,
                       height: 1.8,

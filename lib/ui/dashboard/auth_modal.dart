@@ -28,6 +28,7 @@ class AuthModal extends StatelessWidget {
             child: Text(
               signUpYr,
               textAlign: TextAlign.center,
+              textScaler: TextScaler.noScaling,
               style: context.textTheme.bodyLarge!.copyWith(
                 fontWeight: FontWeight.w500,
                 fontFamily: FontFamily.margarine,
@@ -44,6 +45,7 @@ class AuthModal extends StatelessWidget {
             child: Text(
               unlockingFullExperienceYr,
               textAlign: TextAlign.center,
+              textScaler: TextScaler.noScaling,
               style: context.textTheme.bodyMedium!.copyWith(
                 fontWeight: FontWeight.w300,
               ),

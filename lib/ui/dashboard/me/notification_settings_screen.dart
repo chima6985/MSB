@@ -32,6 +32,7 @@ class NotificationSettingScreen extends HookWidget {
                     child: Center(
                       child: Text(
                         context.appLocale.notifications,
+                        textScaler: TextScaler.noScaling,
                         style: context.textTheme.titleLarge!.copyWith(
                           fontFamily: FontFamily.margarine,
                         ),

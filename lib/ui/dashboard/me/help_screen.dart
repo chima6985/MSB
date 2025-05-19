@@ -26,6 +26,7 @@ class HelpScreen extends HookWidget {
                   child: Center(
                     child: Text(
                        context.appLocale.help,
+                       textScaler: TextScaler.noScaling,
                       style: context.textTheme.titleLarge!.copyWith(
                         fontFamily: FontFamily.margarine,
                       ),
@@ -41,6 +42,7 @@ class HelpScreen extends HookWidget {
                 children: [
                   Text(
                     needHelpEn,
+                    textScaler: TextScaler.noScaling,
                     style: context.textTheme.bodyMedium!.copyWith(
                       fontSize: 13.sp,
                     ),
@@ -91,10 +93,12 @@ class _HelpWidget extends StatelessWidget {
       ),
       title: Text(
         title,
+        textScaler: TextScaler.noScaling,
         style: context.textTheme.bodyMedium!.copyWith(),
       ),
       subtitle: Text(
         subtitle,
+        textScaler: TextScaler.noScaling,
         style: context.textTheme.bodySmall!.copyWith(
           fontWeight: FontWeight.w300,
         ),

@@ -29,7 +29,8 @@ class DeleteAccountScreen extends HookWidget {
                   padding: const EdgeInsets.only(top: 7),
                   child: Center(
                     child: Text(
-                       context.appLocale.deleteAccount,
+                      context.appLocale.deleteAccount,
+                      textScaler: TextScaler.noScaling,
                       style: context.textTheme.titleLarge!.copyWith(
                         fontFamily: FontFamily.margarine,
                       ),
@@ -46,16 +47,19 @@ class DeleteAccountScreen extends HookWidget {
                 children: [
                   Text(
                     sureToDeleteAccountYr,
+                    textScaler: TextScaler.noScaling,
                     style: context.textTheme.titleLarge,
                   ),
                   SizedBox(height: 24.h),
                   Text(
                     whatHappensWhenYouDeleteYr,
+                    textScaler: TextScaler.noScaling,
                     style: context.textTheme.bodyMedium,
                   ),
                   SizedBox(height: 13.h),
                   Text(
                     learningProgressDeleteAccountEn,
+                    textScaler: TextScaler.noScaling,
                     style: context.textTheme.bodyMedium!.copyWith(
                       fontWeight: FontWeight.w300,
                     ),
@@ -63,6 +67,7 @@ class DeleteAccountScreen extends HookWidget {
                   SizedBox(height: 14.h),
                   Text(
                     profileAndSettingsEn,
+                    textScaler: TextScaler.noScaling,
                     style: context.textTheme.bodyMedium!.copyWith(
                       fontWeight: FontWeight.w300,
                     ),
@@ -70,6 +75,7 @@ class DeleteAccountScreen extends HookWidget {
                   SizedBox(height: 24.h),
                   Text(
                     actionCannotBeUndoneEn,
+                    textScaler: TextScaler.noScaling,
                     style: context.textTheme.bodyMedium!.copyWith(
                       fontWeight: FontWeight.w300,
                     ),

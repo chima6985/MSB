@@ -171,6 +171,7 @@ class _SurveyScreen extends HookWidget {
                         Text(
                           surveyMainText[currentIndex.value],
                           textAlign: TextAlign.center,
+                          textScaler: TextScaler.noScaling,
                           style: context.textTheme.titleLarge!.copyWith(
                             fontFamily: FontFamily.margarine,
                             height: 1.8,
@@ -180,6 +181,7 @@ class _SurveyScreen extends HookWidget {
                         Text(
                           surveySubText[currentIndex.value],
                           textAlign: TextAlign.center,
+                          textScaler: TextScaler.noScaling,
                           style: context.textTheme.bodySmall!.copyWith(
                             fontStyle: FontStyle.italic,
                             height: 1.4,
@@ -271,6 +273,7 @@ class _SurveyScreen extends HookWidget {
                                                   offset: const Offset(0, -1),
                                                   child: Text(
                                                     surveyAgeRange.label,
+                                                    textScaler: TextScaler.noScaling,
                                                     style: context
                                                         .textTheme.bodySmall!
                                                         .copyWith(

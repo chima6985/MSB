@@ -35,6 +35,7 @@ class EnterYourPasswordModal extends HookWidget {
           const SizedBox(height: 5),
           Text(
             enterYourPasswordEn,
+            textScaler: TextScaler.noScaling,
             style: context.textTheme.bodyLarge!.copyWith(
               fontFamily: FontFamily.margarine,
             ),
@@ -45,6 +46,7 @@ class EnterYourPasswordModal extends HookWidget {
             child: Text(
               toCompleteYourDeletionProcess,
               textAlign: TextAlign.center,
+              textScaler: TextScaler.noScaling,
               style: context.textTheme.bodyMedium!.copyWith(
                 fontWeight: FontWeight.w300,
               ),
@@ -136,6 +138,7 @@ class AccountDeletedModal extends StatelessWidget {
           const SizedBox(height: 35),
           Text(
             deleteMyAccountEn,
+            textScaler: TextScaler.noScaling,
             style: context.textTheme.bodyLarge!.copyWith(
               fontFamily: FontFamily.margarine,
             ),
@@ -146,6 +149,7 @@ class AccountDeletedModal extends StatelessWidget {
             child: Text(
               thankYouForUsingOurProductEn,
               textAlign: TextAlign.center,
+              textScaler: TextScaler.noScaling,
               style: context.textTheme.bodyMedium!.copyWith(
                 fontWeight: FontWeight.w300,
               ),

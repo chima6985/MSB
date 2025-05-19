@@ -26,6 +26,7 @@ class ModuleIntroScreen extends StatelessWidget {
               Text(
                 title,
                 textAlign: TextAlign.center,
+                textScaler: TextScaler.noScaling,
                 style: context.textTheme.titleLarge!.copyWith(
                   fontFamily: FontFamily.margarine,
                   height: 1.8,
@@ -40,6 +41,7 @@ class ModuleIntroScreen extends StatelessWidget {
               Text(
                 inThisModuleScreenEn,
                 textAlign: TextAlign.center,
+                textScaler: TextScaler.noScaling,
                 style: context.textTheme.bodySmall!.copyWith(
                   height: 1.8,
                   letterSpacing: 0.3,

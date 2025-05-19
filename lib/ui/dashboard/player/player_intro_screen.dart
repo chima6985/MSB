@@ -69,6 +69,7 @@ class _PlayerIntroScreen extends HookWidget {
                   ? context.appLocale.welcomeToPracticeMode
                   : context.appLocale.welcomeToSinglePlayerMode,
               textAlign: TextAlign.center,
+              textScaler: TextScaler.noScaling,
               style: context.textTheme.titleLarge!.copyWith(
                 fontFamily: FontFamily.margarine,
                 height: 1.8,
@@ -83,6 +84,7 @@ class _PlayerIntroScreen extends HookWidget {
                     : context.enLocale
                         .practicePrep(questions.length.toString()),
                 textAlign: TextAlign.center,
+                textScaler: TextScaler.noScaling,
                 style: context.textTheme.bodySmall!.copyWith(
                   fontSize: 12.5.sp,
                   height: 1.8,
@@ -101,6 +103,7 @@ class _PlayerIntroScreen extends HookWidget {
                         lives.toString(),
                       ),
                 textAlign: TextAlign.center,
+                textScaler: TextScaler.noScaling,
                 style: context.textTheme.bodySmall!.copyWith(
                   fontSize: 12.5.sp,
                   height: 1.8,
@@ -118,6 +121,7 @@ class _PlayerIntroScreen extends HookWidget {
               },
               child: Text(
                 'See translation',
+                textScaler: TextScaler.noScaling,
                 style: context.textTheme.bodySmall!.copyWith(
                   height: 1.8,
                   letterSpacing: 0.3,

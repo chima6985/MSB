@@ -28,6 +28,7 @@ class ModulesScreen extends HookWidget {
                     child: Center(
                       child: Text(
                         'Alphabets',
+                        textScaler: TextScaler.noScaling,
                         style: context.textTheme.titleLarge!.copyWith(
                           fontFamily: FontFamily.margarine,
                         ),

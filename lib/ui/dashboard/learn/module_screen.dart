@@ -32,6 +32,7 @@ class ModuleScreen extends StatelessWidget {
                     child: Center(
                       child: Text(
                         title,
+                        textScaler: TextScaler.noScaling,
                         style: context.textTheme.bodyLarge!.copyWith(
                           fontFamily: FontFamily.margarine,
                         ),

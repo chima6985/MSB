@@ -25,6 +25,7 @@ class SetAvatarModal extends StatelessWidget {
               SizedBox(height: 30.h),
               Text(
                 context.appLocale.letsGetYouAnAvatar,
+                textScaler: TextScaler.noScaling,
                 style: context.textTheme.bodyLarge!.copyWith(
                   fontFamily: FontFamily.margarine,
                 ),
@@ -33,6 +34,7 @@ class SetAvatarModal extends StatelessWidget {
               Text(
                 context.appLocale.addSomeTouchOfPersonality,
                 textAlign: TextAlign.center,
+                textScaler: TextScaler.noScaling,
                 style: context.textTheme.bodyMedium!.copyWith(
                   fontWeight: FontWeight.w300,
                 ),

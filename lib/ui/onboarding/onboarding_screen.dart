@@ -33,6 +33,7 @@ class OnboardingScreen extends StatelessWidget {
                     currentLocale == 'yo'
                         ? context.yoLocale.yourGetAwayToYouruba
                         : context.enLocale.yourGetAwayToYouruba,
+                    textScaler: TextScaler.noScaling,
                     style: context.textTheme.titleLarge!.copyWith(
                       fontFamily: FontFamily.margarine,
                       height: 1.8,
@@ -45,6 +46,7 @@ class OnboardingScreen extends StatelessWidget {
                       currentLocale == 'yo'
                           ? context.enLocale.yourGetAwayToYouruba
                           : context.yoLocale.yourGetAwayToYouruba,
+                      textScaler: TextScaler.noScaling,
                       style: context.textTheme.bodySmall!.copyWith(
                         fontStyle: FontStyle.italic,
                         height: 1.4,
@@ -69,6 +71,7 @@ class OnboardingScreen extends StatelessWidget {
                         children: [
                           Text(
                             context.appLocale.letsGetStarted,
+                            textScaler: TextScaler.noScaling,
                             style: context.textTheme.bodyMedium!.copyWith(
                               color: AppColors.white,
                               fontWeight: FontWeight.w500,

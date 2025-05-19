@@ -46,6 +46,7 @@ class PaymentScreen extends HookWidget {
                   ),
                   child: Text(
                     premiumPlanEn,
+                    textScaler: TextScaler.noScaling,
                     style: context.textTheme.bodyMedium,
                   ),
                 ),
@@ -69,6 +70,7 @@ class PaymentScreen extends HookWidget {
                                 alignment: Alignment.centerLeft,
                                 child: Text(
                                   withPremiumPlansEn,
+                                  textScaler: TextScaler.noScaling,
                                   style: context.textTheme.bodyMedium,
                                 ),
                               ),
@@ -114,6 +116,7 @@ class PaymentScreen extends HookWidget {
                                   const SizedBox(height: 12),
                                   Text(
                                     cancelAnytimeEn,
+                                    textScaler: TextScaler.noScaling,
                                     style:
                                         context.textTheme.bodyMedium!.copyWith(
                                       fontFamily: FontFamily.margarine,
@@ -182,6 +185,7 @@ class _PaymentPlanModal extends HookWidget {
           const SizedBox(height: 5),
           Text(
             paymentPlansEn,
+            textScaler: TextScaler.noScaling,
             style: context.textTheme.bodyLarge!.copyWith(
               fontFamily: FontFamily.margarine,
             ),
@@ -189,6 +193,7 @@ class _PaymentPlanModal extends HookWidget {
           const SizedBox(height: 32),
           Text(
             choosePreferredPaymentPlanEn,
+            textScaler: TextScaler.noScaling,
             style: context.textTheme.bodyMedium!.copyWith(
               fontWeight: FontWeight.w300,
             ),
@@ -259,6 +264,7 @@ class _PaymentPlanWidget extends StatelessWidget {
                     children: [
                       Text(
                         planName,
+                        textScaler: TextScaler.noScaling,
                         style: context.textTheme.bodyMedium,
                       ),
                       RichText(
@@ -288,6 +294,7 @@ class _PaymentPlanWidget extends StatelessWidget {
                     children: [
                       Text(
                         planDesc,
+                        textScaler: TextScaler.noScaling,
                         style: context.textTheme.bodySmall!.copyWith(
                           fontWeight: FontWeight.w300,
                           fontSize: 11.5.sp,
@@ -306,6 +313,7 @@ class _PaymentPlanWidget extends StatelessWidget {
                           ),
                           child: Text(
                             'Save 10%',
+                            textScaler: TextScaler.noScaling,
                             style: context.textTheme.bodyMedium!.copyWith(
                               fontWeight: FontWeight.w300,
                               color: AppColors.white,
@@ -362,6 +370,7 @@ class _PremiumInfoWidget extends StatelessWidget {
                   Text(
                     subtitle,
                     textAlign: TextAlign.left,
+                    textScaler: TextScaler.noScaling,
                     style: context.textTheme.bodySmall!.copyWith(
                       fontWeight: FontWeight.w300,
                       fontSize: 13.sp,

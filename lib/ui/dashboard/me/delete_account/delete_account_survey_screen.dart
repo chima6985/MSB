@@ -34,6 +34,7 @@ class DeleteAccountSurveyScreen extends HookWidget {
                     child: Center(
                       child: Text(
                         context.appLocale.deleteAccount,
+                        textScaler: TextScaler.noScaling,
                         style: context.textTheme.titleLarge!.copyWith(
                           fontFamily: FontFamily.margarine,
                         ),
@@ -50,11 +51,13 @@ class DeleteAccountSurveyScreen extends HookWidget {
                   children: [
                     Text(
                       quickSurveyEn,
+                      textScaler: TextScaler.noScaling,
                       style: context.textTheme.titleLarge,
                     ),
                     SizedBox(height: 24.h),
                     Text(
                       weHateToSeeYouGoEn,
+                      textScaler: TextScaler.noScaling,
                       style: context.textTheme.bodyMedium!.copyWith(
                         fontWeight: FontWeight.w300,
                       ),
@@ -197,6 +200,7 @@ class _SurveyOptionWidget extends StatelessWidget {
                 ),
                 Text(
                   text,
+                  textScaler: TextScaler.noScaling,
                   style: textTheme.bodyMedium,
                 ),
               ],

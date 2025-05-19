@@ -67,6 +67,7 @@ class PerformanceModal extends StatelessWidget {
               Text(
                 modalMainText[type] ?? '',
                 textAlign: TextAlign.center,
+                textScaler: TextScaler.noScaling,
                 style: context.textTheme.bodyMedium!.copyWith(
                   fontWeight: FontWeight.w400,
                 ),
@@ -77,6 +78,7 @@ class PerformanceModal extends StatelessWidget {
           Text(
             modalSubText[type] ?? '',
             textAlign: TextAlign.center,
+            textScaler: TextScaler.noScaling,
             style: context.textTheme.bodyMedium!.copyWith(
               fontWeight: FontWeight.w300,
             ),

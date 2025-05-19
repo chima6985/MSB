@@ -33,6 +33,7 @@ class ChooseMutliPlayerModeModal extends StatelessWidget {
             child: Text(
               context.appLocale.multiPlayer,
               textAlign: TextAlign.center,
+              textScaler: TextScaler.noScaling,
               style: context.textTheme.bodyLarge!.copyWith(
                 fontWeight: FontWeight.w500,
                 fontFamily: FontFamily.margarine,
@@ -45,6 +46,7 @@ class ChooseMutliPlayerModeModal extends StatelessWidget {
             child: Text(
               context.appLocale.chooseAnExistingGame,
               textAlign: TextAlign.center,
+              textScaler: TextScaler.noScaling,
               style: context.textTheme.bodyMedium!.copyWith(
                 fontWeight: FontWeight.w300,
               ),

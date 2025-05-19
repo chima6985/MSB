@@ -38,6 +38,7 @@ class SetTeamModal extends StatelessWidget {
           Text(
             attentionYr,
             textAlign: TextAlign.center,
+            textScaler: TextScaler.noScaling,
             style: context.textTheme.bodyLarge!.copyWith(
               fontFamily: FontFamily.margarine,
             ),
@@ -48,6 +49,7 @@ class SetTeamModal extends StatelessWidget {
             child: Text(
               goingAheadToSetTeamYr,
               textAlign: TextAlign.center,
+              textScaler: TextScaler.noScaling,
               style: context.textTheme.bodyMedium!.copyWith(
                 fontWeight: FontWeight.w300,
               ),
@@ -59,6 +61,7 @@ class SetTeamModal extends StatelessWidget {
             child: Text(
               setTeamOnlyPlayersInYr,
               textAlign: TextAlign.center,
+              textScaler: TextScaler.noScaling,
               style: context.textTheme.bodyMedium!.copyWith(
                 fontWeight: FontWeight.w400,
                 fontStyle: FontStyle.italic,

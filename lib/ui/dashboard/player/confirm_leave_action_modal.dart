@@ -37,6 +37,7 @@ class ConfirmLeaveActionModal extends StatelessWidget {
           Text(
             context.appLocale.confirmAction,
             textAlign: TextAlign.center,
+            textScaler: TextScaler.noScaling,
             style: context.textTheme.bodyLarge!.copyWith(
               fontFamily: FontFamily.margarine,
             ),
@@ -49,6 +50,7 @@ class ConfirmLeaveActionModal extends StatelessWidget {
             child: Text(
               context.appLocale.sureToLeaveGame,
               textAlign: TextAlign.center,
+              textScaler: TextScaler.noScaling,
               style: context.textTheme.bodyMedium!.copyWith(
                 fontWeight: FontWeight.w300,
               ),
@@ -110,6 +112,7 @@ class ConfirmPracticeLeaveActionModal extends StatelessWidget {
           Text(
             context.appLocale.closePractice,
             textAlign: TextAlign.center,
+            textScaler: TextScaler.noScaling,
             style: context.textTheme.bodyLarge!.copyWith(
               fontFamily: FontFamily.margarine,
             ),
@@ -120,6 +123,7 @@ class ConfirmPracticeLeaveActionModal extends StatelessWidget {
             child: Text(
               context.appLocale.ongoingPracticeProgressWillBeLost,
               textAlign: TextAlign.center,
+              textScaler: TextScaler.noScaling,
               style: context.textTheme.bodyMedium!.copyWith(
                 fontWeight: FontWeight.w300,
               ),

@@ -123,6 +123,7 @@ class _GameSetupModal extends HookWidget {
             Text(
               context.appLocale.gameSetup,
               textAlign: TextAlign.center,
+              textScaler: TextScaler.noScaling,
               style: context.textTheme.bodyLarge!.copyWith(
                 fontFamily: FontFamily.margarine,
               ),
@@ -136,6 +137,7 @@ class _GameSetupModal extends HookWidget {
                     Text(
                       context.appLocale.gamePreparedByFriend,
                       textAlign: TextAlign.center,
+                      textScaler: TextScaler.noScaling,
                       style: context.textTheme.bodyMedium!.copyWith(
                         fontWeight: FontWeight.w300,
                       ),
@@ -198,12 +200,14 @@ class _GameModeTextFieldWidget extends StatelessWidget {
           children: [
             Text(
               titleField,
+              textScaler: TextScaler.noScaling,
               style: context.textTheme.bodyMedium!.copyWith(
                 fontWeight: FontWeight.w300,
               ),
             ),
             Text(
               text,
+              textScaler: TextScaler.noScaling,
               textAlign: TextAlign.center,
               style: context.textTheme.bodyMedium!.copyWith(
                 fontWeight: FontWeight.w500,

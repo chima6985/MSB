@@ -47,6 +47,7 @@ class TeamAllSetModal extends StatelessWidget {
           Text(
             allThingsSetYr,
             textAlign: TextAlign.center,
+            textScaler: TextScaler.noScaling,
             style: context.textTheme.bodyLarge!.copyWith(
               fontFamily: FontFamily.margarine,
             ),
@@ -57,6 +58,7 @@ class TeamAllSetModal extends StatelessWidget {
             child: Text(
               eachPlayerGameInstructionYr,
               textAlign: TextAlign.center,
+              textScaler: TextScaler.noScaling,
               style: context.textTheme.bodyMedium!.copyWith(
                 fontWeight: FontWeight.w300,
               ),
@@ -68,6 +70,7 @@ class TeamAllSetModal extends StatelessWidget {
             child: Text(
               teamLeadersChoiceInstructionYr,
               textAlign: TextAlign.center,
+              textScaler: TextScaler.noScaling,
               style: context.textTheme.bodyMedium!.copyWith(
                 fontWeight: FontWeight.w400,
                 fontStyle: FontStyle.italic,

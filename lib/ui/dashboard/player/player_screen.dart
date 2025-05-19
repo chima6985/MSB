@@ -199,6 +199,7 @@ class _PlayerScreen extends HookWidget {
                         children: [
                           Text(
                             pageTitle,
+                            textScaler: TextScaler.noScaling,
                             style: context.textTheme.titleLarge!.copyWith(
                               fontFamily: FontFamily.margarine,
                             ),

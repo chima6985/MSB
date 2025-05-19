@@ -86,7 +86,7 @@
   "startLessons": "Bẹ̀rẹ̀ ipele",
   "takeQuiz": "Dán ìmọ̀ mi wò",
   "timeForKnowledgeReview": "Asìkò fún àtúnyẹ̀wò ìmọ̀",
-  "questionIsComing": "ìbéèrè re̩ ń bò̩",
+  "loadingYourQuiz": "ìbéèrè re̩ ń bò̩",
   "pleaseWaitForQuestions": "Dúró  bí a s̩e ń s̩ètò àwo̩n ìbéèrè  e",
   "completedLessons": "Awọn ẹkọ ti o pari",
   "coinEarned": "EYO JE",
@@ -157,7 +157,8 @@
     }
   },
   "startPractice": "Bẹ̀rẹ ifikọ́ra",
-  "startPlaying": "Bẹ̀rẹ̀ eré",
+  "startPlaying": "Bẹẹni, bẹ̀rẹ̀ eré",
+  "yesStartPlaying": "Bẹ̀rẹ̀ eré",
   "question": "Ìbéèrè",
   "noMoreOpportunities": "Kòsí ànfàní mọ",
   "ifYouDontSucceedThisTime": "Ti o ko ba ṣaṣeyọri ni akoko yii, o le gbiyanju lẹẹkansi",
@@ -357,6 +358,9 @@
   "you": "Iwọ",
   "master": "Oga",
   "gameRooSetupUpdatedSuccessfully":"Iṣeto yara ere ti ni imudojuiwọn ni aṣeyọri",
+  "startingGameClosesDoorForSinglePlayer":"Ti o ba bẹrẹ ere ni bayi, eyi yoo ti ilẹkun si yara ere ati pe awọn oṣere tuntun kii yoo ni anfani lati darapọ mọ.",
+  "startGameOnlyWhenYouHaveAllPlayersIn":"Bẹrẹ ere nikan nigbati o ba ni gbogbo awọn oṣere rẹ",
+
 
 
   "example": "example"

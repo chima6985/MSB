@@ -36,6 +36,7 @@ class GameRoomCreatedScreen extends HookWidget {
                   child: Text(
                     context.appLocale.gameRoomCreated,
                     textAlign: TextAlign.center,
+                    textScaler: TextScaler.noScaling,
                     style: context.textTheme.titleLarge!.copyWith(
                       fontFamily: FontFamily.margarine,
                       height: 1.8,
@@ -69,6 +70,7 @@ class GameRoomCreatedScreen extends HookWidget {
                     Text(
                       context.appLocale.inviteFriendsToYourGame,
                       textAlign: TextAlign.center,
+                      textScaler: TextScaler.noScaling,
                       style: context.textTheme.bodyMedium,
                     ),
                     const SizedBox(height: 20),
@@ -84,6 +86,7 @@ class GameRoomCreatedScreen extends HookWidget {
                               Text(
                                 gameCode,
                                 textAlign: TextAlign.center,
+                                textScaler: TextScaler.noScaling,
                                 style: context.textTheme.bodyLarge!.copyWith(
                                   fontWeight: FontWeight.w500,
                                 ),
@@ -102,6 +105,7 @@ class GameRoomCreatedScreen extends HookWidget {
                     Text(
                       context.appLocale.isYourGameCode,
                       textAlign: TextAlign.center,
+                      textScaler: TextScaler.noScaling,
                       style: context.textTheme.bodyMedium!.copyWith(
                         fontWeight: FontWeight.w300,
                         fontStyle: FontStyle.italic,

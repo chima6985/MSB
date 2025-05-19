@@ -30,6 +30,7 @@ class PasswordScreen extends HookWidget {
                   child: Center(
                     child: Text(
                       passwordEn2,
+                      textScaler: TextScaler.noScaling,
                       style: context.textTheme.titleLarge!.copyWith(
                         fontFamily: FontFamily.margarine,
                       ),

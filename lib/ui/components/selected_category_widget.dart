@@ -166,6 +166,7 @@ class SelectCategoryWidget2 extends StatelessWidget {
                   backgroundColor: AppColors.blue12,
                   child: Text(
                     voteIndicator ?? '',
+                    textScaler: TextScaler.noScaling,
                     style: context.textTheme.bodySmall!
                         .copyWith(color: AppColors.white),
                   ),

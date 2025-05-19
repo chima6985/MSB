@@ -43,6 +43,7 @@ class ActionButton extends StatelessWidget {
             Text(
               label,
               textAlign: TextAlign.start,
+              textScaler: TextScaler.noScaling,
               style: context.textTheme.bodySmall!.copyWith(
                 fontWeight: FontWeight.w300,
               ),

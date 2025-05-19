@@ -120,10 +120,7 @@ final router = GoRouter(
       name: QuizLoaderScreen.id,
       path: '/quizLoaderScreen',
       builder: (context, state) {
-        final paramHandler = state.extra is Map ? state.extra as Map? : {};
-        return QuizLoaderScreen(
-          navigateTo: paramHandler?['navigateTo'],
-        );
+        return QuizLoaderScreen();
       },
     ),
     GoRoute(

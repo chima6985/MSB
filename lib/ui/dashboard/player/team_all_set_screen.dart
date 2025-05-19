@@ -83,6 +83,7 @@ class TeamAllSetScreen extends HookWidget {
                   child: Center(
                     child: Text(
                       teamAllSetYr,
+                      textScaler: TextScaler.noScaling,
                       style: context.textTheme.titleLarge!.copyWith(
                         fontFamily: FontFamily.margarine,
                       ),
@@ -104,6 +105,7 @@ class TeamAllSetScreen extends HookWidget {
                         children: [
                           Text(
                             'Manual',
+                            textScaler: TextScaler.noScaling,
                             style: context.textTheme.bodyLarge!.copyWith(
                               fontWeight: FontWeight.w500,
                             ),
@@ -133,6 +135,7 @@ class TeamAllSetScreen extends HookWidget {
                             ),
                             child: Text(
                               'Team 1',
+                              textScaler: TextScaler.noScaling,
                               style: context.textTheme.bodyLarge!.copyWith(
                                 fontWeight: FontWeight.w500,
                               ),
@@ -149,6 +152,7 @@ class TeamAllSetScreen extends HookWidget {
                         children: [
                           Text(
                             'Team formation',
+                            textScaler: TextScaler.noScaling,
                             style: context.textTheme.bodySmall!.copyWith(
                               fontStyle: FontStyle.italic,
                               fontWeight: FontWeight.w300,
@@ -157,6 +161,7 @@ class TeamAllSetScreen extends HookWidget {
                           ),
                           Text(
                             'My Team',
+                            textScaler: TextScaler.noScaling,
                             style: context.textTheme.bodySmall!.copyWith(
                               fontStyle: FontStyle.italic,
                               fontWeight: FontWeight.w300,
@@ -184,6 +189,7 @@ class TeamAllSetScreen extends HookWidget {
                       child: Text(
                         eachPlayerInstructionYr,
                         textAlign: TextAlign.center,
+                        textScaler: TextScaler.noScaling,
                         style: context.textTheme.bodyMedium!.copyWith(
                           fontWeight: FontWeight.w300,
                         ),
@@ -195,6 +201,7 @@ class TeamAllSetScreen extends HookWidget {
                       child: Text(
                         systemRecognizesTeamLeadersChoicesYr,
                         textAlign: TextAlign.center,
+                        textScaler: TextScaler.noScaling,
                         style: context.textTheme.bodyMedium!.copyWith(
                           fontStyle: FontStyle.italic,
                         ),
@@ -208,6 +215,7 @@ class TeamAllSetScreen extends HookWidget {
                         Flexible(
                           child: Text(
                             waitingForGameMasterToStartTheGameYr,
+                            textScaler: TextScaler.noScaling,
                             style: context.textTheme.bodySmall!.copyWith(
                               fontSize: 13.sp,
                             ),
@@ -280,6 +288,7 @@ class TeamFormationWidget extends StatelessWidget {
           const SizedBox(height: 8),
           Text(
             'Team $teamNo',
+            textScaler: TextScaler.noScaling,
             style: context.textTheme.bodySmall!.copyWith(
               fontWeight: FontWeight.w500,
             ),

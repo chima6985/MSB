@@ -28,6 +28,7 @@ class NewGameScreen extends StatelessWidget {
                   child: Text(
                     'New Game',
                     textAlign: TextAlign.center,
+                    textScaler: TextScaler.noScaling,
                     style: context.textTheme.titleLarge!.copyWith(
                       fontFamily: FontFamily.margarine,
                       height: 1.8,
@@ -62,6 +63,7 @@ class NewGameScreen extends StatelessWidget {
                       Text(
                         aboutToPlayAgainWithSameSettingsYr,
                         textAlign: TextAlign.center,
+                        textScaler: TextScaler.noScaling,
                         style: context.textTheme.bodyMedium,
                       )
                     else

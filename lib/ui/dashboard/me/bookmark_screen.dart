@@ -28,6 +28,7 @@ class BookmarkScreen extends HookWidget {
                     child: Center(
                       child: Text(
                         bookmarksEn,
+                        textScaler: TextScaler.noScaling,
                         style: context.textTheme.titleLarge!.copyWith(
                           fontFamily: FontFamily.margarine,
                         ),

@@ -81,6 +81,7 @@ class _JoinGameByCodeScreen extends HookWidget {
                           children: [
                             Text(
                               context.appLocale.joinGameRoom,
+                              textScaler: TextScaler.noScaling,
                               style: context.textTheme.titleLarge!.copyWith(
                                 fontFamily: FontFamily.margarine,
                               ),

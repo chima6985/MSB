@@ -51,6 +51,7 @@ class DashboardIndexScreen extends HookWidget {
             ? AppBar(
                 title: Text(
                   context.appLocale.me,
+                  textScaler: TextScaler.noScaling,
                   style: context.textTheme.titleLarge!.copyWith(
                     fontFamily: FontFamily.margarine,
                   ),

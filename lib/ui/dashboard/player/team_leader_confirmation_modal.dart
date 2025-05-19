@@ -26,6 +26,7 @@ class TeamLeaderConfirmationModal extends StatelessWidget {
           Text(
             teamLeaderYr,
             textAlign: TextAlign.center,
+            textScaler: TextScaler.noScaling,
             style: context.textTheme.bodyLarge!.copyWith(
               fontFamily: FontFamily.margarine,
             ),
@@ -38,6 +39,7 @@ class TeamLeaderConfirmationModal extends StatelessWidget {
             child: Text(
               context.appLocale.sureToLeaveGame,
               textAlign: TextAlign.center,
+              textScaler: TextScaler.noScaling,
               style: context.textTheme.bodyMedium!.copyWith(
                 fontWeight: FontWeight.w300,
               ),
@@ -87,6 +89,7 @@ class TeamNameModal extends HookWidget {
           const SizedBox(height: 5),
           Text(
             teamNameYr,
+            textScaler: TextScaler.noScaling,
             style: context.textTheme.bodyLarge!.copyWith(
               fontFamily: FontFamily.margarine,
             ),

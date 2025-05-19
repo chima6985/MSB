@@ -66,6 +66,7 @@ class _TypeWriterProgressTextIndicatorState
         builder: (context, child) {
           return Text(
             indicatorText,
+            textScaler: TextScaler.noScaling,
             style: context.textTheme.bodyLarge!.copyWith(
               fontStyle: widget.isItalic ? FontStyle.italic : null,
               fontWeight: widget.fontWeight,

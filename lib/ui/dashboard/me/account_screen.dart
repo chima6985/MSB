@@ -48,6 +48,7 @@ class AccountScreen extends HookWidget {
                   child: Center(
                     child: Text(
                       context.appLocale.account,
+                      textScaler: TextScaler.noScaling,
                       style: context.textTheme.titleLarge!.copyWith(
                         fontFamily: FontFamily.margarine,
                       ),
@@ -96,6 +97,7 @@ class AccountScreen extends HookWidget {
                             value: gender,
                             child: Text(
                               gender,
+                              textScaler: TextScaler.noScaling,
                               style: context.textTheme.bodyLarge,
                             ),
                           ),

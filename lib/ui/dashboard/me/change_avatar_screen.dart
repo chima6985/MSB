@@ -77,6 +77,7 @@ class _ChangeAvatarScreen extends HookWidget {
                         child: Center(
                           child: Text(
                             context.appLocale.changeYourAvatar,
+                            textScaler: TextScaler.noScaling,
                             style: context.textTheme.titleLarge!.copyWith(
                               fontFamily: FontFamily.margarine,
                             ),
@@ -114,6 +115,7 @@ class _ChangeAvatarScreen extends HookWidget {
                           alignment: Alignment.centerLeft,
                           child: Text(
                             selectAnAvatarOfYourChoiceEn,
+                            textScaler: TextScaler.noScaling,
                             style: context.textTheme.bodyMedium!.copyWith(
                               fontWeight: FontWeight.w400,
                             ),

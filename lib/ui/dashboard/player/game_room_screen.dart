@@ -41,11 +41,6 @@ class GameRoomScreen extends StatelessWidget {
             authBloc: context.read(),
           ),
         ),
-        BlocProvider(
-          create: (context) => StartGameCubit(
-            authBloc: context.read(),
-          ),
-        ),
       ],
       child: _GameRoomScreen(
         gameCode: gameCode,
@@ -136,6 +131,9 @@ class _GameRoomScreenState extends State<_GameRoomScreen> {
         Timer.periodic(const Duration(seconds: kDebugMode ? 15 : 7), (_) {
       if (router.state.uri.path.replaceAll('/', '') == GameRoomScreen.id) {
         // context.read<AllPlayersCubit>().getAllPlayers(gameCode: gameCode);
+        // context.pushNamed(
+        //   QuizLoaderScreen.id,
+        // );
       }
     });
   }
@@ -158,11 +156,33 @@ class _GameRoomScreenState extends State<_GameRoomScreen> {
     final user = context.watch<UserCubit>().state.user;
     return MultiBlocListener(
       listeners: [
+        // BlocListener<StartGameCubit, StartGameState>(
+        //   listener: (context, state) {
+        //     state.maybeWhen(
+        //       loading: () => setState(() => isStartingGame = true),
+        //       loaded: () {
+        //         setState(() => isStartingGame = false);
+        //         context
+        //           ..pop()
+        //           ..pushNamed(
+        //             QuizLoaderScreen.id,
+        //           );
+        //       },
+        //       error: (error) {
+        //         setState(() => isStartingGame = false);
+        //         ToastMessage.showError(
+        //           context: context,
+        //           text: error ?? '',
+        //         );
+        //       },
+        //       orElse: () => setState(() => isRefreshingPlayers = false),
+        //     );
+        //   },
+        // ),
         BlocListener<ModifyGameRoomCubit, ModifyGameRoomState>(
           listener: (context, state) {
             state.maybeWhen(
               loaded: (modifiedGame) {
-                
                 setState(
                   () {
                     isNewTeamMode = modifiedGame.teamMode;
@@ -175,24 +195,6 @@ class _GameRoomScreenState extends State<_GameRoomScreen> {
                 );
               },
               orElse: () {},
-            );
-          },
-        ),
-        BlocListener<StartGameCubit, StartGameState>(
-          listener: (context, state) {
-            state.maybeWhen(
-              loading: () => setState(() => isStartingGame = true),
-              loaded: () {
-                setState(() => isStartingGame = false);
-              },
-              error: (error) {
-                setState(() => isStartingGame = false);
-                ToastMessage.showError(
-                  context: context,
-                  text: error ?? '',
-                );
-              },
-              orElse: () => setState(() => isRefreshingPlayers = false),
             );
           },
         ),
@@ -248,6 +250,7 @@ class _GameRoomScreenState extends State<_GameRoomScreen> {
                         child: Center(
                           child: Text(
                             context.appLocale.gameRoom,
+                            textScaler: TextScaler.noScaling,
                             style: context.textTheme.titleLarge!.copyWith(
                               fontFamily: FontFamily.margarine,
                             ),
@@ -267,12 +270,14 @@ class _GameRoomScreenState extends State<_GameRoomScreen> {
                             children: [
                               Text(
                                 widget.gameCode,
+                                textScaler: TextScaler.noScaling,
                                 style: context.textTheme.bodyLarge!.copyWith(
                                   fontWeight: FontWeight.w500,
                                 ),
                               ),
                               Text(
                                 players.length.toString(),
+                                textScaler: TextScaler.noScaling,
                                 style: context.textTheme.bodyLarge!.copyWith(
                                   fontWeight: FontWeight.w500,
                                 ),
@@ -285,6 +290,7 @@ class _GameRoomScreenState extends State<_GameRoomScreen> {
                             children: [
                               Text(
                                 context.appLocale.gameCode,
+                                textScaler: TextScaler.noScaling,
                                 style: context.textTheme.bodySmall!.copyWith(
                                   fontStyle: FontStyle.italic,
                                   fontWeight: FontWeight.w300,
@@ -293,6 +299,7 @@ class _GameRoomScreenState extends State<_GameRoomScreen> {
                               ),
                               Text(
                                 context.appLocale.player(players.length),
+                                textScaler: TextScaler.noScaling,
                                 style: context.textTheme.bodySmall!.copyWith(
                                   fontStyle: FontStyle.italic,
                                   fontWeight: FontWeight.w300,
@@ -330,6 +337,7 @@ class _GameRoomScreenState extends State<_GameRoomScreen> {
                               children: [
                                 Text(
                                   context.appLocale.refreshingPlayers,
+                                  textScaler: TextScaler.noScaling,
                                   style: context.textTheme.bodySmall!.copyWith(
                                     fontWeight: FontWeight.w500,
                                     fontSize: 13.sp,
@@ -359,9 +367,24 @@ class _GameRoomScreenState extends State<_GameRoomScreen> {
                                     );
                                   } else {
                                     // start game
-                                    context
-                                        .read<StartGameCubit>()
-                                        .startGame(gameCode: widget.gameCode);
+                                    showModalBottomSheet(
+                                      context: context,
+                                      builder: (_) => BlocProvider(
+                                        create: (context) => StartGameCubit(
+                                          authBloc: context.read(),
+                                        ),
+                                        child: StartGameModal(
+                                          gameCode: widget.gameCode,
+                                        ),
+                                      ),
+                                      isScrollControlled: true,
+                                      shape: const RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.only(
+                                          topLeft: Radius.circular(24),
+                                          topRight: Radius.circular(24),
+                                        ),
+                                      ),
+                                    );
                                   }
                                 }
                                 if (isNewTeamMode == true) {
@@ -451,6 +474,7 @@ class _GameRoomScreenState extends State<_GameRoomScreen> {
                                             .waitingForGameMasterToSetupTeam
                                         : context.appLocale
                                             .waitingForGameMasterToStartTheGame,
+                                    textScaler: TextScaler.noScaling,
                                     style:
                                         context.textTheme.bodySmall!.copyWith(
                                       fontWeight: FontWeight.w500,

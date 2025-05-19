@@ -81,6 +81,7 @@ class _ModifyGameSetupConfirmationModal extends HookWidget {
             Text(
               context.appLocale.modifyGameSetup,
               textAlign: TextAlign.center,
+              textScaler: TextScaler.noScaling,
               style: context.textTheme.bodyLarge!.copyWith(
                 fontFamily: FontFamily.margarine,
               ),
@@ -91,6 +92,7 @@ class _ModifyGameSetupConfirmationModal extends HookWidget {
               child: Text(
                 context.appLocale.wouldYouLikeToModifyTheGameSetUp,
                 textAlign: TextAlign.center,
+                textScaler: TextScaler.noScaling,
                 style: context.textTheme.bodyMedium!.copyWith(
                   fontWeight: FontWeight.w300,
                 ),
@@ -102,6 +104,7 @@ class _ModifyGameSetupConfirmationModal extends HookWidget {
               child: Text(
                 context.appLocale.modifyingANewRoomWillKickYouOut,
                 textAlign: TextAlign.center,
+                textScaler: TextScaler.noScaling,
                 style: context.textTheme.bodyMedium!.copyWith(
                   fontWeight: FontWeight.w400,
                   fontStyle: FontStyle.italic,

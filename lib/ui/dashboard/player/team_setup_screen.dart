@@ -109,6 +109,7 @@ class _TeamSetupScreenState extends State<TeamSetupScreen> {
                   child: Center(
                     child: Text(
                       teamSetUpYr,
+                      textScaler: TextScaler.noScaling,
                       style: context.textTheme.titleLarge!.copyWith(
                         fontFamily: FontFamily.margarine,
                       ),
@@ -134,12 +135,14 @@ class _TeamSetupScreenState extends State<TeamSetupScreen> {
                               widget.isTeamFormationAutomatic
                                   ? 'Automatic'
                                   : 'Manual',
+                              textScaler: TextScaler.noScaling,
                               style: context.textTheme.bodyLarge!.copyWith(
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
                             Text(
                               'Team formation',
+                              textScaler: TextScaler.noScaling,
                               style: context.textTheme.bodySmall!.copyWith(
                                 fontStyle: FontStyle.italic,
                                 fontWeight: FontWeight.w300,
@@ -209,6 +212,7 @@ class _TeamSetupScreenState extends State<TeamSetupScreen> {
                       children: [
                         Text(
                           clickAndDragFriendsIntoTeamYr,
+                          textScaler: TextScaler.noScaling,
                           style: context.textTheme.bodySmall!.copyWith(
                             fontStyle: FontStyle.italic,
                             fontWeight: FontWeight.w500,
@@ -217,6 +221,7 @@ class _TeamSetupScreenState extends State<TeamSetupScreen> {
                         SizedBox(height: 4.h),
                         Text(
                           firstTeamMemberTeamLeaderYr,
+                          textScaler: TextScaler.noScaling,
                           style: context.textTheme.bodySmall!.copyWith(
                             fontStyle: FontStyle.italic,
                             fontWeight: FontWeight.w500,
@@ -594,6 +599,7 @@ class _ManualTeamFormationWidget extends StatelessWidget {
           const SizedBox(height: 8),
           Text(
             'Team $teamNo',
+            textScaler: TextScaler.noScaling,
             style: context.textTheme.bodySmall!.copyWith(
               fontWeight: FontWeight.w500,
             ),

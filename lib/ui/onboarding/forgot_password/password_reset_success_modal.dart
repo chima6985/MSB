@@ -24,6 +24,7 @@ class PasswordResetSuccessModal extends StatelessWidget {
           const SizedBox(height: 5),
           Text(
             context.appLocale.yourPasswordHasBeenSet,
+            textScaler: TextScaler.noScaling,
             style: context.textTheme.bodyLarge!.copyWith(
               fontFamily: FontFamily.margarine,
             ),
@@ -38,6 +39,7 @@ class PasswordResetSuccessModal extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 15),
             child: Text(
               context.appLocale.successfullyCreatedNewPassword,
+              textScaler: TextScaler.noScaling,
               textAlign: TextAlign.center,
               style: context.textTheme.bodyMedium!.copyWith(
                 fontWeight: FontWeight.w300,

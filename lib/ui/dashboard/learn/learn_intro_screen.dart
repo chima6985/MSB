@@ -21,6 +21,7 @@ class LearnIntroScreen extends StatelessWidget {
               Text(
                 context.appLocale.alphabets,
                 textAlign: TextAlign.center,
+                textScaler: TextScaler.noScaling,
                 style: context.textTheme.titleLarge!.copyWith(
                   fontFamily: FontFamily.margarine,
                   height: 1.8,
@@ -35,6 +36,7 @@ class LearnIntroScreen extends StatelessWidget {
               Text(
                 alphabetLesson,
                 textAlign: TextAlign.center,
+                textScaler: TextScaler.noScaling,
                 style: context.textTheme.bodySmall!.copyWith(
                   height: 1.8,
                   letterSpacing: 0.3,

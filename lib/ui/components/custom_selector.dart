@@ -49,6 +49,7 @@ class MultiGroupedSelector extends StatelessWidget {
                       offset: const Offset(0, -1),
                       child: Text(
                         option,
+                        textScaler: TextScaler.noScaling,
                         style: context.textTheme.bodySmall!.copyWith(
                           fontSize: 13.sp,
                         ),

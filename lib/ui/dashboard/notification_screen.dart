@@ -32,6 +32,7 @@ class NotificationsScreen extends HookWidget {
                       },
                       child: Text(
                         context.appLocale.notifications,
+                        textScaler: TextScaler.noScaling,
                         style: context.textTheme.titleLarge!.copyWith(
                           fontFamily: FontFamily.margarine,
                         ),
@@ -59,12 +60,14 @@ class NotificationsScreen extends HookWidget {
                     children: [
                       Text(
                         context.appLocale.itsQuietInHere,
+                        textScaler: TextScaler.noScaling,
                         style: context.textTheme.titleLarge,
                       ),
                       SizedBox(height: 16.h),
                       Text(
                         context.appLocale.keepPracticing,
                         textAlign: TextAlign.center,
+                        textScaler: TextScaler.noScaling,
                         style: context.textTheme.bodyMedium!.copyWith(
                           fontWeight: FontWeight.w300,
                         ),
@@ -138,12 +141,14 @@ class _NotificationItem extends StatelessWidget {
           ),
           subtitle: Text(
             message,
+            textScaler: TextScaler.noScaling,
             style: context.textTheme.bodySmall!.copyWith(
               fontWeight: FontWeight.w300,
             ),
           ),
           trailing: Text(
             time,
+            textScaler: TextScaler.noScaling,
             style: context.textTheme.bodySmall!.copyWith(
               fontFamily: FontFamily.kanit,
               fontWeight: FontWeight.w500,

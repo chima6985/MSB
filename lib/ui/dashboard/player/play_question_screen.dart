@@ -314,6 +314,7 @@ class __PlayQuestionScreenState extends State<__PlayQuestionScreen>
                                   child: Text(
                                     title,
                                     textAlign: TextAlign.center,
+                                    textScaler: TextScaler.noScaling,
                                     style:
                                         context.textTheme.titleLarge!.copyWith(
                                       fontFamily: FontFamily.margarine,
@@ -347,6 +348,8 @@ class __PlayQuestionScreenState extends State<__PlayQuestionScreen>
                                                       ? yoSectionName
                                                       : enSectionName,
                                                   textAlign: TextAlign.center,
+                                                  textScaler:
+                                                      TextScaler.noScaling,
                                                   style: context
                                                       .textTheme.bodyMedium!
                                                       .copyWith(
@@ -361,6 +364,8 @@ class __PlayQuestionScreenState extends State<__PlayQuestionScreen>
                                                       ? enSectionName
                                                       : yoSectionName,
                                                   textAlign: TextAlign.start,
+                                                  textScaler:
+                                                      TextScaler.noScaling,
                                                   style: context
                                                       .textTheme.bodySmall!
                                                       .copyWith(
@@ -500,6 +505,9 @@ class __PlayQuestionScreenState extends State<__PlayQuestionScreen>
                                                                         .question,
                                                             textAlign: TextAlign
                                                                 .center,
+                                                            textScaler:
+                                                                TextScaler
+                                                                    .noScaling,
                                                             style: context
                                                                 .textTheme
                                                                 .bodyMedium!
@@ -528,6 +536,9 @@ class __PlayQuestionScreenState extends State<__PlayQuestionScreen>
                                                                         .question,
                                                             textAlign:
                                                                 TextAlign.start,
+                                                            textScaler:
+                                                                TextScaler
+                                                                    .noScaling,
                                                             style: context
                                                                 .textTheme
                                                                 .bodySmall!
@@ -605,6 +616,9 @@ class __PlayQuestionScreenState extends State<__PlayQuestionScreen>
                                                                         .value
                                                                         .seconds ??
                                                                     '',
+                                                                textScaler:
+                                                                    TextScaler
+                                                                        .noScaling,
                                                                 style: context
                                                                     .textTheme
                                                                     .bodyMedium!
@@ -696,6 +710,8 @@ class __PlayQuestionScreenState extends State<__PlayQuestionScreen>
                                                       '* Select your answers from the options below',
                                                       textAlign:
                                                           TextAlign.start,
+                                                      textScaler:
+                                                          TextScaler.noScaling,
                                                       style: context
                                                           .textTheme.bodySmall!
                                                           .copyWith(
@@ -814,6 +830,9 @@ class __PlayQuestionScreenState extends State<__PlayQuestionScreen>
                                                             waitingForTeamLeaderToSubmitFinalAnswerYr,
                                                             textAlign:
                                                                 TextAlign.start,
+                                                            textScaler:
+                                                                TextScaler
+                                                                    .noScaling,
                                                             style: context
                                                                 .textTheme
                                                                 .bodySmall!
@@ -1023,6 +1042,9 @@ class __PlayQuestionScreenState extends State<__PlayQuestionScreen>
                                                                           '',
                                                                         )[i] ??
                                                                         '',
+                                                                    textScaler:
+                                                                        TextScaler
+                                                                            .noScaling,
                                                                     style: context
                                                                         .textTheme
                                                                         .bodyLarge!
@@ -1040,6 +1062,8 @@ class __PlayQuestionScreenState extends State<__PlayQuestionScreen>
                                                         '* Long press on a tile to move and form the word',
                                                         textAlign:
                                                             TextAlign.start,
+                                                        textScaler: TextScaler
+                                                            .noScaling,
                                                         style: context.textTheme
                                                             .bodySmall!
                                                             .copyWith(
@@ -1068,6 +1092,8 @@ class __PlayQuestionScreenState extends State<__PlayQuestionScreen>
                                                         '* $selectAnswersFromOptionBelowYr',
                                                         textAlign:
                                                             TextAlign.start,
+                                                        textScaler: TextScaler
+                                                            .noScaling,
                                                         style: context.textTheme
                                                             .bodySmall!
                                                             .copyWith(

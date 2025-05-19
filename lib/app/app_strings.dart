@@ -6,10 +6,6 @@ const inThisModuleScreenEn =
 
 //*Questions *//
 
-const pleaseWaitForQuestionsYr = 'Dúró  bí a s̩e ń s̩ètò àwo̩n ìbéèrè e';
-const pleaseWaitForQuestionsEn =
-    'Please, wait while we prepare your set of questions.';
-
 const completedLessonsEn = 'Completed Lessons';
 const coinEarnedYr = 'Owó ide̩ tí o ti je̩';
 const coninEarnedEn = 'COIN EARNED';

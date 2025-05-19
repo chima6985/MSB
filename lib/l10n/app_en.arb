@@ -86,7 +86,7 @@
   "startLessons": "Start Lessons",
   "takeQuiz": "Take Quiz",
   "timeForKnowledgeReview": "It’s time for a knowledge review",
-  "questionIsComing": "Loading your quiz",
+  "loadingYourQuiz": "Loading your quiz",
   "pleaseWaitForQuestions": "Please, wait while we prepare your set of questions.",
   "completedLessons": "Completed Lessons",
   "coinEarned": "COIN EARNED",
@@ -158,6 +158,7 @@
   },
   "startPractice": "Start Practice",
   "startPlaying": "Start Playing",
+  "yesStartPlaying": "Yes, start playing",
   "question": "Question",
   "noMoreOpportunities": "No more opportunities",
   "ifYouDontSucceedThisTime": "If you don't succeed this time, you can try again",
@@ -356,7 +357,8 @@
   "you":"You",
   "master":"Master",
   "gameRooSetupUpdatedSuccessfully":"Game room setup updated successfully",
-
+  "startingGameClosesDoorForSinglePlayer":"If you start the game now, this will close the door to the game room and new players won’t be able to join. ",
+  "startGameOnlyWhenYouHaveAllPlayersIn":"Start the game only when you have all of your players in",
 
   "example": "example"
 }

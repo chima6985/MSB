@@ -51,6 +51,7 @@ class GameRoomPlayerProfileWidget extends StatelessWidget {
           const SizedBox(height: 10),
           Text(
             name,
+            textScaler: TextScaler.noScaling,
             style: context.textTheme.bodySmall!.copyWith(
               fontWeight: FontWeight.w500,
             ),
@@ -103,6 +104,7 @@ class TeamSetProfileWidget extends StatelessWidget {
             fit: BoxFit.scaleDown,
             child: Text(
               name,
+              textScaler: TextScaler.noScaling,
               style: context.textTheme.titleSmall!.copyWith(
                 fontWeight: FontWeight.w400,
               ),

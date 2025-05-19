@@ -27,6 +27,7 @@ class SettingsScreen extends HookWidget {
                     child: Center(
                       child: Text(
                         context.appLocale.settings,
+                        textScaler: TextScaler.noScaling,
                         style: context.textTheme.titleLarge!.copyWith(
                           fontFamily: FontFamily.margarine,
                         ),
@@ -177,6 +178,7 @@ class _SettingsWidget extends StatelessWidget {
           minLeadingWidth: 12,
           title: Text(
             title,
+            textScaler: TextScaler.noScaling,
             style: context.textTheme.bodyMedium!.copyWith(
               color: foregroundColor,
             ),

@@ -70,6 +70,7 @@ class ModifyCurrentRoomModal extends HookWidget {
               child: Text(
                 context.appLocale.modifyCurrentRoom,
                 textAlign: TextAlign.center,
+                textScaler: TextScaler.noScaling,
                 style: context.textTheme.bodyLarge!.copyWith(
                   fontFamily: FontFamily.margarine,
                 ),

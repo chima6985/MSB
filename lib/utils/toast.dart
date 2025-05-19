@@ -148,6 +148,7 @@ class ToastWidget extends StatelessWidget {
             Expanded(
               child: Text(
                 text,
+                textScaler: TextScaler.noScaling,
                 style: textTheme.bodyMedium!.copyWith(
                   fontWeight: FontWeight.w400,
                   letterSpacing: -0.28,
