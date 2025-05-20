@@ -4,11 +4,11 @@ import 'package:masoyinbo_mobile/app/app_locator.dart';
 import 'package:masoyinbo_mobile/core/core.dart';
 import 'package:masoyinbo_mobile/features/features.dart';
 
-part 'start_game_state.dart';
-part 'start_game_cubit.freezed.dart';
+part 'is_game_started_state.dart';
+part 'is_game_started_cubit.freezed.dart';
 
-class StartGameCubit extends Cubit<StartGameState> {
-  StartGameCubit({
+class IsGameStartedCubit extends Cubit<IsGameStartedState> {
+  IsGameStartedCubit({
     GameRepository? gameRepository,
     required AuthBloc authBloc,
   })  : _gameRepository = gameRepository ?? locator<GameRepository>(),
@@ -21,19 +21,19 @@ class StartGameCubit extends Cubit<StartGameState> {
   /// Auth Bloc.
   final AuthBloc _authBloc;
 
-  /// Start game
-  Future<void> startGame({
+  /// Check if game has started
+  Future<void> isGameStarted({
     required String gameCode,
   }) async {
     try {
       emit(const _Loading());
       final user = UserHelper.fetchUser(authBloc: _authBloc);
       if (user == null) return;
-      await _gameRepository.startGame(
+      final apiResponse = await _gameRepository.isGameStarted(
         gameCode: gameCode,
         token: user.token,
       );
-      emit(const _Loaded());
+      emit(_Loaded(isGameStarted: apiResponse));
     } on GameException catch (e) {
       emit(_Error(error: e.message));
     } on AuthException catch (e) {

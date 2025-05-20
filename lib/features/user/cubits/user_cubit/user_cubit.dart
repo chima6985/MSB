@@ -32,9 +32,9 @@ class UserCubit extends Cubit<UserState> {
     final user = AppStorage.getUser();
     try {
       if (user != null) {
-        final currentUser = await _userRepository.getUser(token: user.token);
-        AppStorage.saveUser(currentUser);
-        emit(_Loaded(user: currentUser));
+        final apiResponse = await _userRepository.getUser(token: user.token);
+        AppStorage.saveUser(apiResponse);
+        emit(_Loaded(user: apiResponse));
       } else {
         _authBloc.add(const AuthEvent.authAppStarted());
       }

@@ -13,6 +13,16 @@ class QuizLoaderScreen extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    // useEffect(
+    //   () {
+    //     context
+    //         .read<PlayerRewardsCubit>()
+    //         .getPlayerRewards(isPractice: isPractice);
+    //     return null;
+    //   },
+    //   [],
+    // );
+
     final mqr = MediaQuery.of(context).size;
     return PopScope(
       canPop: false,

@@ -15,6 +15,7 @@ _$UserImpl _$$UserImplFromJson(Map<String, dynamic> json) => _$UserImpl(
       image: json['image'] as String? ?? '',
       isCompleted: json['is_completed'] as bool? ?? false,
       isSurveyCompleted: json['is_survey_completed'] as bool? ?? false,
+      totalCoins: (json['total_coins'] as num?)?.toInt() ?? 0,
     );
 
 Map<String, dynamic> _$$UserImplToJson(_$UserImpl instance) =>
@@ -27,4 +28,5 @@ Map<String, dynamic> _$$UserImplToJson(_$UserImpl instance) =>
       'image': instance.image,
       'is_completed': instance.isCompleted,
       'is_survey_completed': instance.isSurveyCompleted,
+      'total_coins': instance.totalCoins,
     };

@@ -359,6 +359,15 @@
   "gameRooSetupUpdatedSuccessfully":"Game room setup updated successfully",
   "startingGameClosesDoorForSinglePlayer":"If you start the game now, this will close the door to the game room and new players won’t be able to join. ",
   "startGameOnlyWhenYouHaveAllPlayersIn":"Start the game only when you have all of your players in",
+  "joinMyGameRoomOnMsb":"🎉 Join my game room on Masoyinbo with the code {gameCode}",
+  "@joinMyGameRoomOnMsb": {
+		"placeholders": {
+			"gameCode": {
+				"type": "String"
+			}
+		}
+	},
+
 
   "example": "example"
 }

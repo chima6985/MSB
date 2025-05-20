@@ -41,6 +41,11 @@ class GameRoomScreen extends StatelessWidget {
             authBloc: context.read(),
           ),
         ),
+        BlocProvider(
+          create: (context) => IsGameStartedCubit(
+            authBloc: context.read(),
+          ),
+        ),
       ],
       child: _GameRoomScreen(
         gameCode: gameCode,
@@ -85,13 +90,6 @@ class _GameRoomScreenState extends State<_GameRoomScreen> {
         isNewTeamFormationAutomatic = widget.isTeamFormationAutomatic;
       },
     );
-    // if (!isMultiplayer) {
-    //   Future.delayed(5.seconds).then((_) {
-    //     if (context.mounted) {
-    //       context.pushReplacementNamed(TeamAllSetScreen.id);
-    //     }
-    //   });
-    // }
     startPlayerPolling(gameCode: widget.gameCode);
     if (!widget.isGameMaster) {
       isGameStartedPolling(gameCode: widget.gameCode);
@@ -124,16 +122,13 @@ class _GameRoomScreenState extends State<_GameRoomScreen> {
   Future<void> isGameStartedPolling({required String gameCode}) async {
     _gameStartTimer?.cancel();
 
-    // await context.read<AllPlayersCubit>().getAllPlayers(gameCode: gameCode);
+    await context.read<IsGameStartedCubit>().isGameStarted(gameCode: gameCode);
 
-    //polling is 7 secs on prod and 15 seconds on debug
+    //polling is 7 secs on prod and 6 seconds on debug
     _gameStartTimer =
-        Timer.periodic(const Duration(seconds: kDebugMode ? 15 : 7), (_) {
+        Timer.periodic(const Duration(seconds: kDebugMode ? 15 : 6), (_) {
       if (router.state.uri.path.replaceAll('/', '') == GameRoomScreen.id) {
-        // context.read<AllPlayersCubit>().getAllPlayers(gameCode: gameCode);
-        // context.pushNamed(
-        //   QuizLoaderScreen.id,
-        // );
+        context.read<IsGameStartedCubit>().isGameStarted(gameCode: gameCode);
       }
     });
   }
@@ -156,29 +151,26 @@ class _GameRoomScreenState extends State<_GameRoomScreen> {
     final user = context.watch<UserCubit>().state.user;
     return MultiBlocListener(
       listeners: [
-        // BlocListener<StartGameCubit, StartGameState>(
-        //   listener: (context, state) {
-        //     state.maybeWhen(
-        //       loading: () => setState(() => isStartingGame = true),
-        //       loaded: () {
-        //         setState(() => isStartingGame = false);
-        //         context
-        //           ..pop()
-        //           ..pushNamed(
-        //             QuizLoaderScreen.id,
-        //           );
-        //       },
-        //       error: (error) {
-        //         setState(() => isStartingGame = false);
-        //         ToastMessage.showError(
-        //           context: context,
-        //           text: error ?? '',
-        //         );
-        //       },
-        //       orElse: () => setState(() => isRefreshingPlayers = false),
-        //     );
-        //   },
-        // ),
+        BlocListener<IsGameStartedCubit, IsGameStartedState>(
+          listener: (context, state) {
+            state.maybeWhen(
+              loading: () => setState(() => isStartingGame = true),
+              loaded: (value) {
+                if (value) {
+                  context.pushNamed(QuizLoaderScreen.id);
+                }
+              },
+              error: (error) {
+                setState(() => isStartingGame = false);
+                ToastMessage.showError(
+                  context: context,
+                  text: error ?? '',
+                );
+              },
+              orElse: () => setState(() => isRefreshingPlayers = false),
+            );
+          },
+        ),
         BlocListener<ModifyGameRoomCubit, ModifyGameRoomState>(
           listener: (context, state) {
             state.maybeWhen(
@@ -359,7 +351,7 @@ class _GameRoomScreenState extends State<_GameRoomScreen> {
                               isLoading: isStartingGame,
                               onPressed: () {
                                 if (isNewTeamMode == false) {
-                                  if (players.length < 2) {
+                                  if (players.length > 2) {
                                     ToastMessage.showWarning(
                                       context: context,
                                       text:

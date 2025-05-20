@@ -62,11 +62,14 @@ class Home extends HookWidget {
             SizedBox(height: 16.h),
             Row(
               children: [
-                Text(
-                  greetings.first,
-                  textScaler: TextScaler.noScaling,
-                  style: context.textTheme.titleLarge!.copyWith(
-                    fontFamily: FontFamily.margarine,
+                GestureDetector(
+                  onTap: () => context.read<UserCubit>().getUser(),
+                  child: Text(
+                    greetings.first,
+                    textScaler: TextScaler.noScaling,
+                    style: context.textTheme.titleLarge!.copyWith(
+                      fontFamily: FontFamily.margarine,
+                    ),
                   ),
                 ),
                 const Spacer(),
@@ -91,7 +94,7 @@ class Home extends HookWidget {
                         ),
                         const SizedBox(width: 4),
                         Text(
-                          '0',
+                          user?.totalCoins.toString() ?? '0',
                           textScaler: TextScaler.noScaling,
                           style: context.textTheme.bodyMedium!.copyWith(
                             color: AppColors.goldCE,

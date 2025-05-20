@@ -31,6 +31,8 @@ mixin _$User {
   bool get isCompleted => throw _privateConstructorUsedError;
   @JsonKey(name: 'is_survey_completed')
   bool get isSurveyCompleted => throw _privateConstructorUsedError;
+  @JsonKey(name: 'total_coins')
+  int get totalCoins => throw _privateConstructorUsedError;
 
   /// Serializes this User to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -54,7 +56,8 @@ abstract class $UserCopyWith<$Res> {
       String gender,
       String image,
       @JsonKey(name: 'is_completed') bool isCompleted,
-      @JsonKey(name: 'is_survey_completed') bool isSurveyCompleted});
+      @JsonKey(name: 'is_survey_completed') bool isSurveyCompleted,
+      @JsonKey(name: 'total_coins') int totalCoins});
 }
 
 /// @nodoc
@@ -80,6 +83,7 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
     Object? image = null,
     Object? isCompleted = null,
     Object? isSurveyCompleted = null,
+    Object? totalCoins = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -114,6 +118,10 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
           ? _value.isSurveyCompleted
           : isSurveyCompleted // ignore: cast_nullable_to_non_nullable
               as bool,
+      totalCoins: null == totalCoins
+          ? _value.totalCoins
+          : totalCoins // ignore: cast_nullable_to_non_nullable
+              as int,
     ) as $Val);
   }
 }
@@ -133,7 +141,8 @@ abstract class _$$UserImplCopyWith<$Res> implements $UserCopyWith<$Res> {
       String gender,
       String image,
       @JsonKey(name: 'is_completed') bool isCompleted,
-      @JsonKey(name: 'is_survey_completed') bool isSurveyCompleted});
+      @JsonKey(name: 'is_survey_completed') bool isSurveyCompleted,
+      @JsonKey(name: 'total_coins') int totalCoins});
 }
 
 /// @nodoc
@@ -156,6 +165,7 @@ class __$$UserImplCopyWithImpl<$Res>
     Object? image = null,
     Object? isCompleted = null,
     Object? isSurveyCompleted = null,
+    Object? totalCoins = null,
   }) {
     return _then(_$UserImpl(
       id: null == id
@@ -190,6 +200,10 @@ class __$$UserImplCopyWithImpl<$Res>
           ? _value.isSurveyCompleted
           : isSurveyCompleted // ignore: cast_nullable_to_non_nullable
               as bool,
+      totalCoins: null == totalCoins
+          ? _value.totalCoins
+          : totalCoins // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -205,7 +219,8 @@ class _$UserImpl implements _User {
       this.gender = '',
       this.image = '',
       @JsonKey(name: 'is_completed') this.isCompleted = false,
-      @JsonKey(name: 'is_survey_completed') this.isSurveyCompleted = false});
+      @JsonKey(name: 'is_survey_completed') this.isSurveyCompleted = false,
+      @JsonKey(name: 'total_coins') this.totalCoins = 0});
 
   factory _$UserImpl.fromJson(Map<String, dynamic> json) =>
       _$$UserImplFromJson(json);
@@ -234,10 +249,13 @@ class _$UserImpl implements _User {
   @override
   @JsonKey(name: 'is_survey_completed')
   final bool isSurveyCompleted;
+  @override
+  @JsonKey(name: 'total_coins')
+  final int totalCoins;
 
   @override
   String toString() {
-    return 'User(id: $id, token: $token, email: $email, username: $username, gender: $gender, image: $image, isCompleted: $isCompleted, isSurveyCompleted: $isSurveyCompleted)';
+    return 'User(id: $id, token: $token, email: $email, username: $username, gender: $gender, image: $image, isCompleted: $isCompleted, isSurveyCompleted: $isSurveyCompleted, totalCoins: $totalCoins)';
   }
 
   @override
@@ -255,13 +273,15 @@ class _$UserImpl implements _User {
             (identical(other.isCompleted, isCompleted) ||
                 other.isCompleted == isCompleted) &&
             (identical(other.isSurveyCompleted, isSurveyCompleted) ||
-                other.isSurveyCompleted == isSurveyCompleted));
+                other.isSurveyCompleted == isSurveyCompleted) &&
+            (identical(other.totalCoins, totalCoins) ||
+                other.totalCoins == totalCoins));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, id, token, email, username,
-      gender, image, isCompleted, isSurveyCompleted);
+      gender, image, isCompleted, isSurveyCompleted, totalCoins);
 
   /// Create a copy of User
   /// with the given fields replaced by the non-null parameter values.
@@ -281,15 +301,15 @@ class _$UserImpl implements _User {
 
 abstract class _User implements User {
   const factory _User(
-          {final String id,
-          @JsonKey(name: 'access_token') final String token,
-          final String email,
-          final String username,
-          final String gender,
-          final String image,
-          @JsonKey(name: 'is_completed') final bool isCompleted,
-          @JsonKey(name: 'is_survey_completed') final bool isSurveyCompleted}) =
-      _$UserImpl;
+      {final String id,
+      @JsonKey(name: 'access_token') final String token,
+      final String email,
+      final String username,
+      final String gender,
+      final String image,
+      @JsonKey(name: 'is_completed') final bool isCompleted,
+      @JsonKey(name: 'is_survey_completed') final bool isSurveyCompleted,
+      @JsonKey(name: 'total_coins') final int totalCoins}) = _$UserImpl;
 
   factory _User.fromJson(Map<String, dynamic> json) = _$UserImpl.fromJson;
 
@@ -312,6 +332,9 @@ abstract class _User implements User {
   @override
   @JsonKey(name: 'is_survey_completed')
   bool get isSurveyCompleted;
+  @override
+  @JsonKey(name: 'total_coins')
+  int get totalCoins;
 
   /// Create a copy of User
   /// with the given fields replaced by the non-null parameter values.

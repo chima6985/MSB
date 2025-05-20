@@ -45,6 +45,11 @@ class GameRoomPlayerProfileWidget extends StatelessWidget {
                   size: 27.w,
                   color: AppColors.blue12,
                 ),
+                progressIndicatorBuilder: (context, _, val) => Icon(
+                  Iconsax.user4,
+                  size: 27.w,
+                  color: AppColors.blue12,
+                ),
               ),
             ),
           ),

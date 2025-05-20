@@ -357,10 +357,17 @@
   "pleaseSelectAnAvatar": "Jọwọ yan avatar kan",
   "you": "Iwọ",
   "master": "Oga",
-  "gameRooSetupUpdatedSuccessfully":"Iṣeto yara ere ti ni imudojuiwọn ni aṣeyọri",
-  "startingGameClosesDoorForSinglePlayer":"Ti o ba bẹrẹ ere ni bayi, eyi yoo ti ilẹkun si yara ere ati pe awọn oṣere tuntun kii yoo ni anfani lati darapọ mọ.",
-  "startGameOnlyWhenYouHaveAllPlayersIn":"Bẹrẹ ere nikan nigbati o ba ni gbogbo awọn oṣere rẹ",
-
+  "gameRooSetupUpdatedSuccessfully": "Iṣeto yara ere ti ni imudojuiwọn ni aṣeyọri",
+  "startingGameClosesDoorForSinglePlayer": "Ti o ba bẹrẹ ere ni bayi, eyi yoo ti ilẹkun si yara ere ati pe awọn oṣere tuntun kii yoo ni anfani lati darapọ mọ.",
+  "startGameOnlyWhenYouHaveAllPlayersIn": "Bẹrẹ ere nikan nigbati o ba ni gbogbo awọn oṣere rẹ",
+  "joinMyGameRoomOnMsb": "🎉 Darapọ mọ yara ere mi lori Masoyinbo pẹlu koodu naa {gameCode}",
+  "@joinMyGameRoomOnMsb": {
+    "placeholders": {
+      "gameCode": {
+        "type": "String"
+      }
+    }
+  },
 
 
   "example": "example"

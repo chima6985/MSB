@@ -16,6 +16,7 @@ class User with _$User {
     @JsonKey(name: 'is_survey_completed')
     @Default(false)
     bool isSurveyCompleted,
+    @JsonKey(name: 'total_coins') @Default(0) int totalCoins,
   }) = _User;
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);

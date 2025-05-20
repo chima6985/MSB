@@ -116,7 +116,7 @@ class GameRoomCreatedScreen extends HookWidget {
                     Button(
                       label: context.appLocale.shareGame,
                       onPressed: () => Share.share(
-                        'Join my game room on Masoyinbo with //',
+                        context.appLocale.joinMyGameRoomOnMsb(gameCode),
                       ),
                     ),
                     const SizedBox(height: 24),

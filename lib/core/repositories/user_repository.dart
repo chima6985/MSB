@@ -43,7 +43,7 @@ class UserRepository {
   String _answerUserSurveyEndpoint() => '$_baseUrl/user/auth/user-survey';
 
   /// Get user endpoint
-  String _getUserEndpoint() => '$_baseUrl/user/profile';
+  String _getUserEndpoint() => '$_baseUrl/game/get-user';
 
   /// Update password endpoint
   String _updatePasswordEndpoint() => '$_baseUrl/user/update-password';
@@ -150,8 +150,8 @@ class UserRepository {
           headers: headers,
         ),
         onSuccessMap: (value) {
-          final user = value['user'] as Map<String, dynamic>;
-          user['token'] = token;
+          final user = value;
+          user['access_token'] = token;
           return User.fromJson(user);
         },
       );

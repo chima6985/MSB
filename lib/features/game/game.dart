@@ -2,6 +2,7 @@ export 'cubits/all_players/all_players_cubit.dart';
 export 'cubits/create_game_room/create_game_room_cubit.dart';
 export 'cubits/game_details/game_details_cubit.dart';
 export 'cubits/get_question/get_question_cubit.dart';
+export 'cubits/is_game_started/is_game_started_cubit.dart';
 export 'cubits/join_game_room/join_game_room_cubit.dart';
 export 'cubits/leave_game/leave_game_room_cubit.dart';
 export 'cubits/modify_game_room/modify_game_room_cubit.dart';

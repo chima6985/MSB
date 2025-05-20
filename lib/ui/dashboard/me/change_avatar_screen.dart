@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -35,6 +36,7 @@ class _ChangeAvatarScreen extends HookWidget {
     final selectedProfileAvatar = useState<String?>(null);
     final user = context.watch<UserCubit>().state.user;
     final isMale = user?.gender == 'Male';
+    final image = user?.image ?? '';
 
     final avatars = isMale ? maleAvatars : femaleAvatars;
 
@@ -87,24 +89,44 @@ class _ChangeAvatarScreen extends HookWidget {
                     ],
                   ),
                   SizedBox(height: 25.h),
-                  Container(
-                    alignment: Alignment.bottomCenter,
-                    width: mqr.width,
-                    height: mqr.height * 0.23,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image:
-                            AppAssets.images.jpegs.darkDecoratedBg.provider(),
-                        fit: BoxFit.cover,
+                  Hero(
+                    tag: 'profile_image',
+                    child: Container(
+                      alignment: Alignment.bottomCenter,
+                      width: mqr.width,
+                      height: mqr.height * 0.23,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image:
+                              AppAssets.images.jpegs.darkDecoratedBg.provider(),
+                          fit: BoxFit.cover,
+                        ),
                       ),
+                      child: selectedProfileAvatar.value != null
+                          ? Image.asset(
+                              selectedProfileAvatar.value ?? '',
+                              width: 150.sp,
+                              height: 150.sp,
+                            )
+                          : image.isNotEmpty
+                              ? CachedNetworkImage(
+                                  imageUrl: user?.image ?? '',
+                                  width: 150.sp,
+                                  height: 150.sp,
+                                  errorWidget: (context, _, error) => Icon(
+                                    Iconsax.user4,
+                                    size: 27.w,
+                                    color: AppColors.white,
+                                  ),
+                                  progressIndicatorBuilder: (context, _, val) =>
+                                      Icon(
+                                    Iconsax.user4,
+                                    size: 27.w,
+                                    color: AppColors.white,
+                                  ),
+                                )
+                              : null,
                     ),
-                    child: selectedProfileAvatar.value != null
-                        ? Image.asset(
-                            selectedProfileAvatar.value ?? '',
-                            width: 150.sp,
-                            height: 150.sp,
-                          )
-                        : null,
                   ),
                   SizedBox(height: 32.h),
                   Padding(

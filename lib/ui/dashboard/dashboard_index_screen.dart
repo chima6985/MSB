@@ -26,6 +26,7 @@ class DashboardIndexScreen extends HookWidget {
     useEffect(
       () {
         context.read<ModuleAndDifficultyCubit>().getSectionsAndDifficulty();
+        context.read<UserCubit>().getUser();
         return null;
       },
       [],
