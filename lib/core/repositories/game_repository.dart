@@ -516,8 +516,8 @@ class GameRepository {
           headers: headers,
         ),
         onSuccessMap: (value) {
-          if (value.keys.contains('game_status')) {
-            final isGameStarted = value['game_status'] as bool;
+          if (value.keys.contains('status')) {
+            final isGameStarted = value['status'] as bool;
             return isGameStarted;
           }
           return false;

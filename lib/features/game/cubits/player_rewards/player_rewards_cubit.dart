@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:masoyinbo_mobile/app/app_locator.dart';
@@ -11,8 +13,10 @@ class PlayerRewardsCubit extends Cubit<PlayerRewardsState> {
   PlayerRewardsCubit({
     GameRepository? gameRepository,
     required AuthBloc authBloc,
+    required UserCubit userCubit,
   })  : _gameRepository = gameRepository ?? locator<GameRepository>(),
         _authBloc = authBloc,
+        _userCubit = userCubit,
         super(const _Initial());
 
   /// GameRepository repository.
@@ -20,6 +24,9 @@ class PlayerRewardsCubit extends Cubit<PlayerRewardsState> {
 
   /// Auth Bloc.
   final AuthBloc _authBloc;
+
+  /// User Cubit.
+  final UserCubit _userCubit;
 
   /// Get player rewards
   Future<void> getPlayerRewards({
@@ -33,6 +40,11 @@ class PlayerRewardsCubit extends Cubit<PlayerRewardsState> {
         isPractice: isPractice,
         token: user.token,
       );
+      try {
+        await _userCubit.getUser();
+      } catch (e) {
+        log(e.toString());
+      }
       emit(_Loaded(playerStat: apiResponse));
     } on GameException catch (e) {
       emit(_Error(error: e.message));

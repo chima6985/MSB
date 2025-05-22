@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:masoyinbo_mobile/extension/context_extension.dart';
+import 'package:masoyinbo_mobile/features/user/cubits/user_cubit/user_cubit.dart';
 import 'package:masoyinbo_mobile/gen/fonts.gen.dart';
 import 'package:masoyinbo_mobile/ui/ui.dart';
 import 'package:masoyinbo_mobile/utils/utils.dart';
 
-class RanOutOfLivesScreen extends StatelessWidget {
+class RanOutOfLivesScreen extends HookWidget {
   const RanOutOfLivesScreen({super.key});
 
   static const String id = 'ranOutOfLivesScreen';
@@ -12,6 +15,15 @@ class RanOutOfLivesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final currentLocale = context.currentLocale;
+
+    useEffect(
+      () {
+        context.read<UserCubit>().getUser();
+        return null;
+      },
+      [],
+    );
+    
     return Scaffold(
       body: DecoratedContainer(
         enablePadding: true,

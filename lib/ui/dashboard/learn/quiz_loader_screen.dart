@@ -13,6 +13,8 @@ class QuizLoaderScreen extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final mqr = MediaQuery.of(context).size;
+    
     // useEffect(
     //   () {
     //     context
@@ -23,7 +25,6 @@ class QuizLoaderScreen extends HookWidget {
     //   [],
     // );
 
-    final mqr = MediaQuery.of(context).size;
     return PopScope(
       canPop: false,
       child: Scaffold(

@@ -73,36 +73,33 @@ class Home extends HookWidget {
                   ),
                 ),
                 const Spacer(),
-                InkWell(
-                  onTap: () => context.pushNamed(NotificationsScreen.id),
-                  child: Container(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-                    decoration: BoxDecoration(
-                      color: AppColors.goldFC.withValues(alpha: 0.1),
-                      borderRadius: BorderRadius.circular(20),
-                      border: Border.all(
-                        color: AppColors.goldCE,
+                Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                  decoration: BoxDecoration(
+                    color: AppColors.goldFC.withValues(alpha: 0.1),
+                    borderRadius: BorderRadius.circular(20),
+                    border: Border.all(
+                      color: AppColors.goldCE,
+                    ),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      AppAssets.images.jpegs.coin2.image(
+                        width: 24.w,
+                        height: 24.w,
                       ),
-                    ),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        AppAssets.images.jpegs.coin2.image(
-                          width: 24.w,
-                          height: 24.w,
+                      const SizedBox(width: 4),
+                      Text(
+                        user?.totalCoins.toString() ?? '0',
+                        textScaler: TextScaler.noScaling,
+                        style: context.textTheme.bodyMedium!.copyWith(
+                          color: AppColors.goldCE,
+                          fontWeight: FontWeight.w600,
                         ),
-                        const SizedBox(width: 4),
-                        Text(
-                          user?.totalCoins.toString() ?? '0',
-                          textScaler: TextScaler.noScaling,
-                          style: context.textTheme.bodyMedium!.copyWith(
-                            color: AppColors.goldCE,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
                 const SizedBox(width: 18),

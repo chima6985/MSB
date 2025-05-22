@@ -23,6 +23,7 @@ class PlayerGameAnalyticsScreen extends StatelessWidget {
     return BlocProvider(
       create: (context) => PlayerRewardsCubit(
         authBloc: context.read(),
+        userCubit: context.read(),
       ),
       child: _PlayerGameAnalyticsScreen(isPractice: isPractice),
     );

@@ -351,7 +351,7 @@ class _GameRoomScreenState extends State<_GameRoomScreen> {
                               isLoading: isStartingGame,
                               onPressed: () {
                                 if (isNewTeamMode == false) {
-                                  if (players.length > 2) {
+                                  if (players.length < 2) {
                                     ToastMessage.showWarning(
                                       context: context,
                                       text:
