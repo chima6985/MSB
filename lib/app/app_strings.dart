@@ -232,15 +232,6 @@ const successNailedItYr =
     'Ati s̩às̩eyorí,  gbogbo yín e̩kú is̩é̩ takun takun 🎉💡';
 const successNailedItEn = ' We nailed it—great job, everyone! 🎉💡';
 
-const failedZaggedYr = 'ó dá bí pé ati jágbó nígbà tó ye ká jánà! 🙁';
-const failedZaggedEn = 'Looks like we zigged when we should’ve zagged!';
-
-const nicelyDoneYr = 'Èyí dára!';
-const nicelyDoneEn = 'Nicely done!';
-
-const oppsYr = 'Yeee!';
-const oppsEn = 'Oopsies!';
-
 const scoreboardYr = 'Scoreboard';
 const scoreboardEn = 'Scoreboard';
 
@@ -330,8 +321,4 @@ const unlockingFullExperienceYr =
 const unlockingFullExperienceEn =
     'Unlock the full experience! Sign up now to explore more features and take full control of your journey';
 
-const anOtpSentToEmailYr = 'OTP has been sent to your email';
-const anOtpSentToEmailEn = 'OTP has been sent to your email';
-
 const otpVerifiedSuccessfullyYr = 'OTP verified successfully';
-const otpVerifiedSuccessfullyEn = 'OTP verified successfully';

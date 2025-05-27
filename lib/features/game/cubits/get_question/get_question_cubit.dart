@@ -79,19 +79,17 @@ class GetQuestionCubit extends Cubit<GetQuestionState> {
 
   /// Get multi-player question
   Future<void> getMultiPlayerQuestion({
-    required String difficulty,
-    required String section,
+    required String gameCode,
   }) async {
     try {
       emit(const _Loading());
       final user = UserHelper.fetchUser(authBloc: _authBloc);
       if (user == null) return;
-      final apiResponse = await _gameRepository.getQuestions(
-        difficulty: difficulty,
-        section: section,
+      final apiResponse = await _gameRepository.getMultiPlayerQuestion(
+        gameCode: gameCode,
         token: user.token,
       );
-      emit(_Loaded(questions: apiResponse['questions']));
+      emit(_Loaded(questions: apiResponse));
     } on GameException catch (e) {
       emit(_Error(error: e.message));
     } on AuthException catch (e) {

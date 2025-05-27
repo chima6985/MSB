@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -149,6 +150,11 @@ class _GameRoomScreenState extends State<_GameRoomScreen> {
   @override
   Widget build(BuildContext context) {
     final user = context.watch<UserCubit>().state.user;
+    final player = context.watch<AllPlayersCubit>().state.whenOrNull(
+          loaded: (players) => players.firstWhereOrNull(
+            (p) => p.username == (user?.username ?? ''),
+          ),
+        );
     return MultiBlocListener(
       listeners: [
         BlocListener<IsGameStartedCubit, IsGameStartedState>(
@@ -157,7 +163,16 @@ class _GameRoomScreenState extends State<_GameRoomScreen> {
               loading: () => setState(() => isStartingGame = true),
               loaded: (value) {
                 if (value) {
-                  context.pushNamed(QuizLoaderScreen.id);
+                  context.pushNamed(
+                    QuizLoaderScreen.id,
+                    extra: {
+                      'gameCode': widget.gameCode,
+                      'isTeamLeader': player?.isTeamLeader ?? false,
+                      'isMultiPlayer': true,
+                      'isGameMaster': widget.isGameMaster,
+                      'isTeamMode': isNewTeamMode,
+                    },
+                  );
                 }
               },
               error: (error) {

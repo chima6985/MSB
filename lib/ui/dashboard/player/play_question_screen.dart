@@ -21,6 +21,7 @@ class PlayQuestionScreen extends StatelessWidget {
     this.isTeamLeader = false,
     this.isMultiPlayer = false,
     this.isGameMaster = false,
+    this.isTeamMode = false,
     this.questionSection,
     this.totalLives,
   });
@@ -30,7 +31,8 @@ class PlayQuestionScreen extends StatelessWidget {
       isSinglePlayer,
       isTeamLeader,
       isMultiPlayer,
-      isGameMaster;
+      isGameMaster,
+      isTeamMode;
   final Section? questionSection;
   final int? totalLives;
 
@@ -49,6 +51,7 @@ class PlayQuestionScreen extends StatelessWidget {
         isTeamLeader: isTeamLeader,
         isMultiPlayer: isMultiPlayer,
         isGameMaster: isGameMaster,
+        isTeamMode: isTeamMode,
         questionSection: questionSection,
         totalLives: totalLives,
       ),
@@ -64,6 +67,7 @@ class __PlayQuestionScreen extends StatefulWidget {
     this.isTeamLeader = false,
     this.isMultiPlayer = false,
     this.isGameMaster = false,
+    this.isTeamMode = false,
     this.questionSection,
     this.totalLives,
   });
@@ -73,7 +77,8 @@ class __PlayQuestionScreen extends StatefulWidget {
       isSinglePlayer,
       isTeamLeader,
       isMultiPlayer,
-      isGameMaster;
+      isGameMaster,
+      isTeamMode;
   final Section? questionSection;
   final int? totalLives;
 
@@ -252,7 +257,43 @@ class __PlayQuestionScreenState extends State<__PlayQuestionScreen>
                   );
                 }
               }
-            } else {}
+            } else {
+              // multiplayer section
+              setState(() => isLoading = false);
+              showModalBottomSheet(
+                context: context,
+                isDismissible: false,
+                barrierColor: AppColors.transparent,
+                builder: (context) {
+                  // Auto-dismiss modal after 2 seconds
+                  Future.delayed(2.seconds, () {
+                    if (!context.mounted) return;
+                    if (Navigator.of(context).canPop()) {
+                      Navigator.of(context).pop();
+                    }
+                  });
+                  return PerformanceModal(
+                    type: answer.message.toLowerCase().contains('incorrect')
+                        ? 'failure'
+                        : 'success',
+                  );
+                },
+              ).then((_) {
+                if ((currentQuestionIndex + 1) < questions.length) {
+                  // questions can still be served
+                  setState(() => currentQuestionIndex++);
+                  answerController.clear();
+                  timerCountDownController?.start();
+                } else {
+                  // ran out of questions, push user to game stats
+                  if (!context.mounted) return;
+                  context.pushReplacementNamed(
+                    PlayerGameAnalyticsScreen.id,
+                    extra: {'isPractice': isPracticeMode},
+                  );
+                }
+              });
+            }
           },
           error: (error) {
             timerCountDownController?.start();
@@ -678,6 +719,9 @@ class __PlayQuestionScreenState extends State<__PlayQuestionScreen>
                                                             currentAltQuestionText,
                                                         currentQuestionText:
                                                             currentQuestionText,
+                                                        audioPath:
+                                                            currentQuestion
+                                                                ?.audioPath,
                                                         onFlipPressed: () {
                                                           answerController
                                                               .text = 'flipped';
@@ -695,6 +739,9 @@ class __PlayQuestionScreenState extends State<__PlayQuestionScreen>
                                                         isPracticeMode:
                                                             isPracticeMode,
                                                         answer: answer,
+                                                        audioPath:
+                                                            currentQuestion
+                                                                ?.audioPath,
                                                       ),
                                               ),
                                               SizedBox(
@@ -702,9 +749,10 @@ class __PlayQuestionScreenState extends State<__PlayQuestionScreen>
                                                     (!showFrontSide ? 40.h : 0),
                                               ),
                                               if (showFrontSide) ...[
-                                                if (isMultiPlayerMode ||
-                                                    isMultiPlayerTeamLeaderMode ||
-                                                    isMultiPlayerGameMasterMode) ...[
+                                                if ((isMultiPlayerMode ||
+                                                        isMultiPlayerTeamLeaderMode ||
+                                                        isMultiPlayerGameMasterMode) &&
+                                                    widget.isTeamMode) ...[
                                                   Center(
                                                     child: Text(
                                                       '* Select your answers from the options below',
@@ -1201,8 +1249,11 @@ class __PlayQuestionScreenState extends State<__PlayQuestionScreen>
                                                         : 0.7,
                                                     child: Button(
                                                       width: mqr.width * 0.8,
-                                                      label: context
-                                                          .appLocale.next,
+                                                      label: isMultiPlayerMode
+                                                          ? context
+                                                              .appLocale.submit
+                                                          : context
+                                                              .appLocale.next,
                                                       isLoading: isLoading,
                                                       onPressed: () {
                                                         if (answerController

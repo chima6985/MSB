@@ -1,7 +1,6 @@
 import 'package:custom_timer/custom_timer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:masoyinbo_mobile/app/app.dart';
 import 'package:masoyinbo_mobile/extension/context_extension.dart';
 import 'package:masoyinbo_mobile/features/features.dart';
 import 'package:masoyinbo_mobile/gen/fonts.gen.dart';
@@ -83,7 +82,7 @@ class _ConfirmEmailScreenState extends State<_ConfirmEmailScreen>
               verified: () {
                 ToastMessage.showSuccess(
                   context: context,
-                  text: otpVerifiedSuccessfullyYr,
+                  text: context.appLocale.otpVerifiedSuccessfully,
                 );
                 context.goNamed(
                   PersonalizeSignUpScreen.id,

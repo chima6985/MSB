@@ -86,6 +86,10 @@ class GameRepository {
   String _isGameStartedEndpoint(String gameCode) =>
       '$_baseUrl/game/multiplayer/$gameCode/is-game-started';
 
+  /// Get multiplayer question endpoint
+  String _getMultiPlayerQuestions(String gameCode) =>
+      '$_baseUrl/game/multiplayer/$gameCode/get-question';
+
   /// Get sections and difficulty
   ///
   /// Returns void on success.
@@ -139,6 +143,41 @@ class GameRepository {
           headers: headers,
         ),
         onSuccessMap: (value) => value,
+      );
+    } on APIException catch (e) {
+      throw GameException(message: e.message);
+    } on AuthException catch (e) {
+      throw AuthException(message: e.message);
+    } catch (e) {
+      throw const GameException();
+    }
+  }
+
+  /// Get questions
+  ///
+  /// Returns [List<Question>] on success.
+  /// Throws [GameException] when operation fails.
+  Future<List<Question>> getMultiPlayerQuestion({
+    required String gameCode,
+    required String token,
+  }) async {
+    try {
+      final url = _getMultiPlayerQuestions(gameCode);
+      final headers = {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      };
+      return await APIHelper.request<List<Question>>(
+        request: _client.get(
+          Uri.parse(url),
+          headers: headers,
+        ),
+        onSuccessList: (value) {
+          return (value as List)
+              .map((item) => Question.fromJson(item))
+              .toList();
+        },
       );
     } on APIException catch (e) {
       throw GameException(message: e.message);

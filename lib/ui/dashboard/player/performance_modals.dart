@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:masoyinbo_mobile/app/app.dart';
 import 'package:masoyinbo_mobile/extension/extension.dart';
 import 'package:masoyinbo_mobile/ui/ui.dart';
 
@@ -19,18 +18,18 @@ class PerformanceModal extends StatelessWidget {
     };
 
     final modalMainText = {
-      'success': nicelyDoneYr,
-      'failure': oppsYr,
+      'success': context.appLocale.nicelyDone,
+      'failure': context.appLocale.opps,
     };
 
     final modalSubText = {
-      'success': successNailedItYr,
-      'failure': failedZaggedYr,
+      'success': context.appLocale.successNailedIt,
+      'failure': context.appLocale.failedZagged,
     };
 
     final buttonLabel = {
       'success': context.appLocale.next,
-      'failure': '${context.appLocale.next}!',
+      'failure': '${context.appLocale.noted}!',
     };
 
     final buttonLabelColor = {

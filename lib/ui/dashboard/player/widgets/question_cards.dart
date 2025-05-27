@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:just_audio/just_audio.dart';
 import 'package:masoyinbo_mobile/core/models/question_model.dart';
 import 'package:masoyinbo_mobile/extension/extension.dart';
 import 'package:masoyinbo_mobile/ui/ui.dart';
@@ -16,6 +17,7 @@ class QuestionCard extends StatelessWidget {
     required this.livesRemaining,
     required this.currentAltQuestionText,
     required this.currentQuestionText,
+    this.audioPath,
     this.onFlipPressed,
   });
 
@@ -27,6 +29,7 @@ class QuestionCard extends StatelessWidget {
   final int livesRemaining;
   final String currentAltQuestionText;
   final String currentQuestionText;
+  final String? audioPath;
   final VoidCallback? onFlipPressed;
 
   @override
@@ -103,15 +106,7 @@ class QuestionCard extends StatelessWidget {
                 SizedBox(height: 80.h),
                 Row(
                   children: [
-                    ActionButton(
-                      label: 'Listen',
-                      isEnabled: true,
-                      icon: AppAssets.images.svgs.listen.svg(
-                        width: 17.sp,
-                        height: 17.sp,
-                      ),
-                      onTap: () {},
-                    ),
+                    AudioButton(audioPath: audioPath),
                     const SizedBox(width: 24),
                     ActionButton(
                       label: 'Speak',
@@ -155,19 +150,21 @@ class FlippedQuestionCard extends StatelessWidget {
     required this.currentQuestionIndex,
     required this.totalNoOfQuestions,
     required this.isPracticeMode,
+    this.audioPath,
     required this.answer,
   });
 
   final int currentQuestionIndex;
   final int totalNoOfQuestions;
   final bool isPracticeMode;
+  final String? audioPath;
   final List<AnswerFormat>? answer;
 
   @override
   Widget build(BuildContext context) {
     final currentLocale = context.currentLocale;
     final correctAnswer =
-        (answer != null) ? answer?.first.answer.value?.titleCase() ?? '' : '';
+        (answer != null) ? answer?.first.answer.value?.capitalize() ?? '' : '';
     return Container(
       padding: const EdgeInsets.symmetric(
         vertical: 24,
@@ -230,15 +227,7 @@ class FlippedQuestionCard extends StatelessWidget {
                 SizedBox(height: 35.h),
                 Row(
                   children: [
-                    ActionButton(
-                      label: 'Listen',
-                      isEnabled: true,
-                      icon: AppAssets.images.svgs.listen.svg(
-                        width: 17.sp,
-                        height: 17.sp,
-                      ),
-                      onTap: () {},
-                    ),
+                    AudioButton(audioPath: audioPath),
                     const SizedBox(width: 24),
                     ActionButton(
                       label: 'Speak',
@@ -272,6 +261,46 @@ class FlippedQuestionCard extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+class AudioButton extends StatefulWidget {
+  const AudioButton({
+    super.key,
+    required this.audioPath,
+  });
+
+  final String? audioPath;
+
+  @override
+  State<AudioButton> createState() => _AudioButtonState();
+}
+
+class _AudioButtonState extends State<AudioButton> {
+  final player = AudioPlayer();
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.audioPath != null && widget.audioPath!.isNotEmpty) {
+      player.setUrl(widget.audioPath ?? '');
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return ActionButton(
+      label: 'Listen',
+      isEnabled: widget.audioPath != null && widget.audioPath!.isNotEmpty,
+      icon: AppAssets.images.svgs.listen.svg(
+        width: 17.sp,
+        height: 17.sp,
+      ),
+      onTap: () {
+        if (widget.audioPath == null || widget.audioPath!.isEmpty) return;
+        player.play();
+      },
     );
   }
 }

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:masoyinbo_mobile/app/app.dart';
 import 'package:masoyinbo_mobile/core/core.dart';
 import 'package:masoyinbo_mobile/extension/context_extension.dart';
 import 'package:masoyinbo_mobile/features/auth/auth.dart';
@@ -42,7 +41,7 @@ class _ForgotPasswordScreen extends HookWidget {
             isLoading.value = false;
             ToastMessage.showSuccess(
               context: context,
-              text: anOtpSentToEmailYr,
+              text: context.appLocale.anOtpSentToEmail,
             );
             context.pushNamed(
               ForgotPasswordOtpScreen.id,

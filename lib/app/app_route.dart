@@ -120,7 +120,14 @@ final router = GoRouter(
       name: QuizLoaderScreen.id,
       path: '/quizLoaderScreen',
       builder: (context, state) {
-        return QuizLoaderScreen();
+        final paramHandler = state.extra is Map ? state.extra as Map? : {};
+        return QuizLoaderScreen(
+          gameCode: paramHandler?['gameCode'],
+          isGameMaster: paramHandler?['isGameMaster'],
+          isMultiPlayer: paramHandler?['isMultiPlayer'],
+          isTeamLeader: paramHandler?['isTeamLeader'],
+          isTeamMode: paramHandler?['isTeamMode'],
+        );
       },
     ),
     GoRoute(
@@ -241,6 +248,7 @@ final router = GoRouter(
           isTeamLeader: paramHandler?['isTeamLeader'] ?? false,
           isMultiPlayer: paramHandler?['isMultiPlayer'] ?? false,
           isGameMaster: paramHandler?['isGameMaster'] ?? false,
+          isTeamMode: paramHandler?['isTeamMode'] ?? false,
           questionSection: paramHandler?['questionSection'],
           totalLives: paramHandler?['totalLives'],
         );
