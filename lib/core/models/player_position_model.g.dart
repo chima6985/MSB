@@ -11,6 +11,7 @@ _$PlayerPositionImpl _$$PlayerPositionImplFromJson(Map<String, dynamic> json) =>
       userId: json['userId'] as String? ?? '',
       username: json['username'] as String? ?? '',
       points: (json['points'] as num?)?.toInt() ?? 0,
+      coins: (json['coins'] as num?)?.toInt() ?? 0,
       position: (json['position'] as num?)?.toInt() ?? 0,
     );
 
@@ -20,5 +21,6 @@ Map<String, dynamic> _$$PlayerPositionImplToJson(
       'userId': instance.userId,
       'username': instance.username,
       'points': instance.points,
+      'coins': instance.coins,
       'position': instance.position,
     };

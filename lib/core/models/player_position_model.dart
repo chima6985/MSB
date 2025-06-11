@@ -9,6 +9,7 @@ class PlayerPosition with _$PlayerPosition {
     @Default('') String userId,
     @Default('') String username,
     @Default(0) int points,
+    @Default(0) int coins,
     @Default(0) int position,
   }) = _PlayerPosition;
 

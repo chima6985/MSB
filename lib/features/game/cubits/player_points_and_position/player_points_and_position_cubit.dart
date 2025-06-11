@@ -33,6 +33,8 @@ class PlayerPointsAndPositionCubit extends Cubit<PlayerPointsAndPositionState> {
         gameCode: gameCode,
         token: user.token,
       );
+      // sort players by position
+      apiResponse.sort((a, b) => a.position.compareTo(b.position));
       emit(_Loaded(players: apiResponse));
     } on GameException catch (e) {
       emit(

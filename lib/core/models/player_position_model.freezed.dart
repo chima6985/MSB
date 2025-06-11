@@ -23,6 +23,7 @@ mixin _$PlayerPosition {
   String get userId => throw _privateConstructorUsedError;
   String get username => throw _privateConstructorUsedError;
   int get points => throw _privateConstructorUsedError;
+  int get coins => throw _privateConstructorUsedError;
   int get position => throw _privateConstructorUsedError;
 
   /// Serializes this PlayerPosition to a JSON map.
@@ -41,7 +42,8 @@ abstract class $PlayerPositionCopyWith<$Res> {
           PlayerPosition value, $Res Function(PlayerPosition) then) =
       _$PlayerPositionCopyWithImpl<$Res, PlayerPosition>;
   @useResult
-  $Res call({String userId, String username, int points, int position});
+  $Res call(
+      {String userId, String username, int points, int coins, int position});
 }
 
 /// @nodoc
@@ -62,6 +64,7 @@ class _$PlayerPositionCopyWithImpl<$Res, $Val extends PlayerPosition>
     Object? userId = null,
     Object? username = null,
     Object? points = null,
+    Object? coins = null,
     Object? position = null,
   }) {
     return _then(_value.copyWith(
@@ -76,6 +79,10 @@ class _$PlayerPositionCopyWithImpl<$Res, $Val extends PlayerPosition>
       points: null == points
           ? _value.points
           : points // ignore: cast_nullable_to_non_nullable
+              as int,
+      coins: null == coins
+          ? _value.coins
+          : coins // ignore: cast_nullable_to_non_nullable
               as int,
       position: null == position
           ? _value.position
@@ -93,7 +100,8 @@ abstract class _$$PlayerPositionImplCopyWith<$Res>
       __$$PlayerPositionImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String userId, String username, int points, int position});
+  $Res call(
+      {String userId, String username, int points, int coins, int position});
 }
 
 /// @nodoc
@@ -112,6 +120,7 @@ class __$$PlayerPositionImplCopyWithImpl<$Res>
     Object? userId = null,
     Object? username = null,
     Object? points = null,
+    Object? coins = null,
     Object? position = null,
   }) {
     return _then(_$PlayerPositionImpl(
@@ -126,6 +135,10 @@ class __$$PlayerPositionImplCopyWithImpl<$Res>
       points: null == points
           ? _value.points
           : points // ignore: cast_nullable_to_non_nullable
+              as int,
+      coins: null == coins
+          ? _value.coins
+          : coins // ignore: cast_nullable_to_non_nullable
               as int,
       position: null == position
           ? _value.position
@@ -142,6 +155,7 @@ class _$PlayerPositionImpl implements _PlayerPosition {
       {this.userId = '',
       this.username = '',
       this.points = 0,
+      this.coins = 0,
       this.position = 0});
 
   factory _$PlayerPositionImpl.fromJson(Map<String, dynamic> json) =>
@@ -158,11 +172,14 @@ class _$PlayerPositionImpl implements _PlayerPosition {
   final int points;
   @override
   @JsonKey()
+  final int coins;
+  @override
+  @JsonKey()
   final int position;
 
   @override
   String toString() {
-    return 'PlayerPosition(userId: $userId, username: $username, points: $points, position: $position)';
+    return 'PlayerPosition(userId: $userId, username: $username, points: $points, coins: $coins, position: $position)';
   }
 
   @override
@@ -174,6 +191,7 @@ class _$PlayerPositionImpl implements _PlayerPosition {
             (identical(other.username, username) ||
                 other.username == username) &&
             (identical(other.points, points) || other.points == points) &&
+            (identical(other.coins, coins) || other.coins == coins) &&
             (identical(other.position, position) ||
                 other.position == position));
   }
@@ -181,7 +199,7 @@ class _$PlayerPositionImpl implements _PlayerPosition {
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode =>
-      Object.hash(runtimeType, userId, username, points, position);
+      Object.hash(runtimeType, userId, username, points, coins, position);
 
   /// Create a copy of PlayerPosition
   /// with the given fields replaced by the non-null parameter values.
@@ -205,6 +223,7 @@ abstract class _PlayerPosition implements PlayerPosition {
       {final String userId,
       final String username,
       final int points,
+      final int coins,
       final int position}) = _$PlayerPositionImpl;
 
   factory _PlayerPosition.fromJson(Map<String, dynamic> json) =
@@ -216,6 +235,8 @@ abstract class _PlayerPosition implements PlayerPosition {
   String get username;
   @override
   int get points;
+  @override
+  int get coins;
   @override
   int get position;
 

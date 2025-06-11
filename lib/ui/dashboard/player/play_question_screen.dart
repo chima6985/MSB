@@ -321,7 +321,7 @@ class __PlayQuestionScreenState extends State<__PlayQuestionScreen>
       },
       child: Scaffold(
         body: PopScope(
-          canPop: !isLoading,
+          canPop: false,
           child: Stack(
             alignment: Alignment.bottomCenter,
             children: [

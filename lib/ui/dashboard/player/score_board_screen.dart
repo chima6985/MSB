@@ -68,8 +68,8 @@ class _ScoreBoardScreenState extends State<_ScoreBoardScreen> {
         .read<PlayerPointsAndPositionCubit>()
         .getPlayerPointsAndPosition(gameCode: gameCode);
 
-    //polling is 6 secs on prod and 15 seconds on debug
-    _timer = Timer.periodic(const Duration(seconds: kDebugMode ? 15 : 6), (_) {
+    //polling is 5 secs on prod and 15 seconds on debug
+    _timer = Timer.periodic(const Duration(seconds: kDebugMode ? 15 : 5), (_) {
       context
           .read<PlayerPointsAndPositionCubit>()
           .getPlayerPointsAndPosition(gameCode: gameCode);
@@ -277,7 +277,7 @@ class _ScoreboardList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: SingleChildScrollView(
-        padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
+        padding: const EdgeInsets.fromLTRB(21, 16, 21, 0),
         child: Column(
           children: players
               .map(
@@ -340,19 +340,42 @@ class _ScoreboardPositionWidget extends StatelessWidget {
                     color: borderColor[player.position] ?? AppColors.green62,
                   ),
                 ),
-                child: Column(
+                child: Row(
                   children: [
-                    Row(
+                    Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
                           player.username,
                           textScaler: TextScaler.noScaling,
                           style: context.textTheme.bodyMedium!.copyWith(
-                            fontSize: 13.5.sp,
+                            fontSize: 14.sp,
                             fontWeight: FontWeight.w500,
                           ),
                         ),
+                        // Visibility(
+                        //   visible: false,
+                        //   child: Flexible(
+                        //     child: Text(
+                        //       'Olamide, Pelumi, Morolayo, Tobiloba',
+                        //       textScaler: TextScaler.noScaling,
+                        //       maxLines: 1,
+                        //       overflow: TextOverflow.ellipsis,
+                        //       style: context.textTheme.bodySmall!.copyWith(
+                        //         fontStyle: FontStyle.italic,
+                        //         fontWeight: FontWeight.w300,
+                        //         color: AppColors.black15.withValues(alpha: 0.7),
+                        //       ),
+                        //     ),
+                        //   ),
+                        // ),
+                      ],
+                    ),
+                    const SizedBox(width: 10),
+                    const Spacer(),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
                         Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
@@ -362,7 +385,8 @@ class _ScoreboardPositionWidget extends StatelessWidget {
                             ),
                             const SizedBox(width: 4),
                             Text(
-                              '200',
+                              player.coins.toString(),
+                              textAlign: TextAlign.center,
                               textScaler: TextScaler.noScaling,
                               style: context.textTheme.bodyMedium!.copyWith(
                                 color: AppColors.goldCE,
@@ -370,28 +394,6 @@ class _ScoreboardPositionWidget extends StatelessWidget {
                               ),
                             ),
                           ],
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 10),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Visibility(
-                          visible: false,
-                          child: Flexible(
-                            child: Text(
-                              'Olamide, Pelumi, Morolayo, Tobiloba',
-                              textScaler: TextScaler.noScaling,
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              style: context.textTheme.bodySmall!.copyWith(
-                                fontStyle: FontStyle.italic,
-                                fontWeight: FontWeight.w300,
-                                color: AppColors.black15.withValues(alpha: 0.7),
-                              ),
-                            ),
-                          ),
                         ),
                         SizedBox(width: 25.w),
                         Text(
@@ -408,39 +410,44 @@ class _ScoreboardPositionWidget extends StatelessWidget {
                 ),
               ),
             ),
-            Positioned(
-              left: -13.5.w,
-              top: -20.3.w,
-              child: player.position <= 3
-                  ? Image.asset(
-                      image[player.position] ?? '',
-                      scale: 4.2,
-                    )
-                  : Container(
-                      decoration: BoxDecoration(
-                        color: AppColors.blueE7,
-                        border: Border.all(
-                          width: 0.4,
-                          color: AppColors.greyDB,
-                        ),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 8.5,
-                          vertical: 4.5,
-                        ),
-                        child: Text(
-                          player.position.toString(),
-                          textScaler: TextScaler.noScaling,
-                          style: context.textTheme.bodyMedium!.copyWith(
-                            fontSize: 13.5.sp,
-                            fontWeight: FontWeight.w500,
-                            color: AppColors.blue12,
-                          ),
-                        ),
+            if ([1, 2, 3].contains(player.position))
+              Positioned(
+                left: -13.5.w,
+                top: -20.3.w,
+                child: Image.asset(
+                  image[player.position] ?? '',
+                  scale: 4.2,
+                ),
+              )
+            else
+              Positioned(
+                top: -10.w,
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: AppColors.blueE7,
+                    shape: BoxShape.circle,
+                    border: Border.all(
+                      width: 0.4,
+                      color: AppColors.greyDB,
+                    ),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 7,
+                      vertical: 3,
+                    ),
+                    child: Text(
+                      player.position.toString(),
+                      textScaler: TextScaler.noScaling,
+                      style: context.textTheme.bodyMedium!.copyWith(
+                        fontSize: 13.5.sp,
+                        fontWeight: FontWeight.w500,
+                        color: AppColors.blue12,
                       ),
                     ),
-            ),
+                  ),
+                ),
+              ),
           ],
         ),
         SizedBox(height: 32.h),
