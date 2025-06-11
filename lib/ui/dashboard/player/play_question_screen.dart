@@ -271,7 +271,7 @@ class __PlayQuestionScreenState extends State<__PlayQuestionScreen>
                 barrierColor: AppColors.transparent,
                 builder: (context) {
                   // Auto-dismiss modal after 2 seconds
-                  Future.delayed(1.7.seconds, () {
+                  Future.delayed(1.5.seconds, () {
                     if (!context.mounted) return;
                     if (Navigator.of(context).canPop()) {
                       Navigator.of(context).pop();

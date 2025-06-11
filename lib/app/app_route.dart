@@ -341,7 +341,7 @@ final router = GoRouter(
       path: '/playersGameAnalyticsScreen',
       builder: (context, state) {
         final paramHandler = state.extra is Map ? state.extra as Map? : {};
-        return ScoreBoardScreen(
+        return PlayersGameAnalyticsScreen(
           gameCode: paramHandler?['gameCode'],
         );
       },

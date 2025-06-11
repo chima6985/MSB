@@ -88,9 +88,7 @@ class PerformanceModal extends StatelessWidget {
             labelColor: buttonLabelColor[type] ?? AppColors.white,
             color: buttonColor[type],
             borderColor: buttonColor[type],
-            onPressed: () => context.pop(context),
-            onLongPress: () =>
-                context.pushReplacementNamed(ScoreBoardScreen.id),
+            onPressed: () {},
           ),
           SizedBox(height: context.btmPadding),
         ],

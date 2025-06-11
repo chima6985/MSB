@@ -3,12 +3,12 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:masoyinbo_mobile/core/models/player_position_model.dart';
 import 'package:masoyinbo_mobile/extension/context_extension.dart';
 import 'package:masoyinbo_mobile/features/features.dart';
 import 'package:masoyinbo_mobile/gen/fonts.gen.dart';
 import 'package:masoyinbo_mobile/ui/ui.dart';
 import 'package:masoyinbo_mobile/utils/utils.dart';
-import 'package:share_plus/share_plus.dart';
 
 class ScoreBoardScreen extends StatelessWidget {
   const ScoreBoardScreen({
@@ -90,38 +90,52 @@ class _ScoreBoardScreenState extends State<_ScoreBoardScreen> {
 
   @override
   Widget build(BuildContext context) {
-    context
-        .read<PlayerPointsAndPositionCubit>()
-        .getPlayerPointsAndPosition(gameCode: widget.gameCode);
+    final mqr = MediaQuery.of(context).size;
     final currentLocale = context.currentLocale;
+    final isLoading =
+        context.watch<PlayerPointsAndPositionCubit>().state.maybeMap(
+              loading: (_) => true,
+              orElse: () => false,
+            );
     return Scaffold(
       body: DecoratedContainer(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(height: context.topPadding),
             Stack(
+              alignment: Alignment.centerRight,
               children: [
-                Align(
-                  alignment: Alignment.topRight,
-                  child: Padding(
-                    padding: const EdgeInsets.only(right: 16),
-                    child: InkWell(
-                      onTap: () => Share.share('See my team topping'),
-                      customBorder: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(4),
-                      ),
-                      splashColor: AppColors.black15.withValues(alpha: 0.1),
-                      highlightColor: AppColors.black15.withValues(alpha: 0.1),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 8,
-                          horizontal: 6,
+                Padding(
+                  padding: const EdgeInsets.only(right: 16),
+                  child: isLoading
+                      ? GestureDetector(
+                          onTap: () {
+                            context
+                                .read<PlayerPointsAndPositionCubit>()
+                                .getPlayerPointsAndPosition(
+                                  gameCode: widget.gameCode,
+                                );
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.all(4),
+                            child: const Icon(
+                              Icons.cached,
+                            )
+                                .animate(
+                                  onPlay: (controller) => controller.repeat(),
+                                )
+                                .rotate(
+                                  duration: 800.ms,
+                                  curve: Curves.easeInOut,
+                                ),
+                          ),
+                        )
+                      : const Padding(
+                          padding: EdgeInsets.all(4),
+                          child: Icon(
+                            Icons.cached,
+                          ),
                         ),
-                        child: AppAssets.images.svgs.share.svg(),
-                      ),
-                    ),
-                  ),
                 ),
                 Center(
                   child: Text(
@@ -138,83 +152,140 @@ class _ScoreBoardScreenState extends State<_ScoreBoardScreen> {
             ),
             SizedBox(height: 35.h),
             Expanded(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 24),
-                child: Column(
-                  children: [
-                    const SizedBox(height: 16),
-                    _ScoreboardPositionWidget(
-                      image: AppAssets.images.jpegs.scoreboardPosition1.path,
-                      color: AppColors.greenE7,
-                      borderColor: AppColors.green62,
-                    ),
-                    _ScoreboardPositionWidget(
-                      image: AppAssets.images.jpegs.scoreboardPosition2.path,
-                      color: AppColors.lemonF6,
-                      borderColor: AppColors.lemonC3,
-                    ),
-                    _ScoreboardPositionWidget(
-                      image: AppAssets.images.jpegs.scoreboardPositoin3.path,
-                      color: AppColors.greenE7,
-                      borderColor: AppColors.green62.withValues(alpha: 0.4),
-                    ),
-                    const Spacer(),
-                    const SizedBox(height: 24),
-                    Button(
-                      label: '',
-                      onPressed: () => Navigator.popUntil(
-                        context,
-                        (route) => route.settings.name == GameRoomScreen.id,
-                      ),
-                      child: RichText(
-                        text: TextSpan(
-                          style: context.textTheme.bodyMedium!
-                              .copyWith(color: AppColors.white),
-                          children: [
-                            TextSpan(text: context.appLocale.playAgain),
-                            TextSpan(
-                              text:
-                                  ' (${currentLocale == yo ? context.enLocale.playAgain : context.yoLocale.playAgain})',
-                              style: context.textTheme.bodySmall!.copyWith(
-                                color: AppColors.white,
-                                fontWeight: FontWeight.w300,
+              child: BlocBuilder<PlayerPointsAndPositionCubit,
+                  PlayerPointsAndPositionState>(
+                builder: (context, state) {
+                  return state.maybeWhen(
+                    error: (players, error) {
+                      return (players != null && players.isNotEmpty)
+                          ? _ScoreboardList(players: players)
+                          : Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 16,
+                                  ),
+                                  child: Text(
+                                    error ?? '',
+                                    textScaler: TextScaler.noScaling,
+                                    textAlign: TextAlign.center,
+                                    style: context.textTheme.bodyLarge,
+                                  ),
+                                ),
+                                const SizedBox(height: 20),
+                                Button(
+                                  width: mqr.width * 0.4,
+                                  label: context.appLocale.retry,
+                                  onPressed: () => context
+                                      .read<PlayerPointsAndPositionCubit>()
+                                      .getPlayerPointsAndPosition(
+                                        gameCode: widget.gameCode,
+                                      ),
+                                ),
+                              ],
+                            );
+                    },
+                    loading: (players) =>
+                        (players != null && players.isNotEmpty)
+                            ? _ScoreboardList(players: players)
+                            : const Center(
+                                child: CustomSpinner(color: AppColors.black),
                               ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 24),
-                    Button(
-                      label: '',
-                      isOutlined: true,
-                      labelColor: AppColors.black15,
-                      onPressed: () {
-                        context.read<LeaveGameRoomCubit>().leaveGameRoom();
-                        context.goNamed(DashboardIndexScreen.id);
-                      },
-                      child: RichText(
-                        text: TextSpan(
-                          style: context.textTheme.bodyMedium,
-                          children: [
-                            TextSpan(text: context.appLocale.goHome),
-                            TextSpan(
-                              text:
-                                  ' (${currentLocale == yo ? context.enLocale.goHome : context.yoLocale.goHome})',
-                              style: context.textTheme.bodySmall!.copyWith(
-                                fontWeight: FontWeight.w300,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: context.btmPadding),
-                  ],
-                ),
+                    orElse: SizedBox.new,
+                    loaded: (players) {
+                      return _ScoreboardList(players: players);
+                    },
+                  );
+                },
               ),
             ),
+            const SizedBox(height: 24),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Button(
+                    label: '',
+                    onPressed: () => Navigator.popUntil(
+                      context,
+                      (route) => route.settings.name == GameRoomScreen.id,
+                    ),
+                    child: RichText(
+                      text: TextSpan(
+                        style: context.textTheme.bodyMedium!
+                            .copyWith(color: AppColors.white),
+                        children: [
+                          TextSpan(text: context.appLocale.playAgain),
+                          TextSpan(
+                            text:
+                                ' (${currentLocale == yo ? context.enLocale.playAgain : context.yoLocale.playAgain})',
+                            style: context.textTheme.bodySmall!.copyWith(
+                              color: AppColors.white,
+                              fontWeight: FontWeight.w300,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 24),
+                  Button(
+                    label: '',
+                    isOutlined: true,
+                    labelColor: AppColors.black15,
+                    onPressed: () {
+                      context.read<LeaveGameRoomCubit>().leaveGameRoom();
+                      context.goNamed(DashboardIndexScreen.id);
+                    },
+                    child: RichText(
+                      text: TextSpan(
+                        style: context.textTheme.bodyMedium,
+                        children: [
+                          TextSpan(text: context.appLocale.goHome),
+                          TextSpan(
+                            text:
+                                ' (${currentLocale == yo ? context.enLocale.goHome : context.yoLocale.goHome})',
+                            style: context.textTheme.bodySmall!.copyWith(
+                              fontWeight: FontWeight.w300,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(height: context.btmPadding),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class _ScoreboardList extends StatelessWidget {
+  const _ScoreboardList({
+    required this.players,
+  });
+
+  final List<PlayerPosition> players;
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: SingleChildScrollView(
+        padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
+        child: Column(
+          children: players
+              .map(
+                (player) => _ScoreboardPositionWidget(
+                  player: player,
+                ),
+              )
+              .toList(),
         ),
       ),
     );
@@ -223,18 +294,33 @@ class _ScoreBoardScreenState extends State<_ScoreBoardScreen> {
 
 class _ScoreboardPositionWidget extends StatelessWidget {
   const _ScoreboardPositionWidget({
-    required this.image,
-    required this.color,
-    required this.borderColor,
+    required this.player,
   });
 
-  final String image;
-  final Color color;
-  final Color borderColor;
+  final PlayerPosition player;
 
   @override
   Widget build(BuildContext context) {
     final mqr = MediaQuery.of(context).size;
+
+    final image = {
+      1: AppAssets.images.jpegs.scoreboardPosition1.path,
+      2: AppAssets.images.jpegs.scoreboardPosition2.path,
+      3: AppAssets.images.jpegs.scoreboardPositoin3.path,
+    };
+
+    final color = {
+      1: AppColors.greenE7,
+      2: AppColors.lemonF6,
+      3: AppColors.greenE7,
+    };
+
+    final borderColor = {
+      1: AppColors.green62,
+      2: AppColors.lemonC3,
+      3: AppColors.green62.withValues(alpha: 0.4),
+    };
+
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -248,10 +334,10 @@ class _ScoreboardPositionWidget extends StatelessWidget {
                 padding: const EdgeInsets.fromLTRB(19, 7, 11, 10),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(8),
-                  color: color,
+                  color: color[player.position] ?? AppColors.greenE7,
                   border: Border.all(
                     width: 0.4,
-                    color: borderColor,
+                    color: borderColor[player.position] ?? AppColors.green62,
                   ),
                 ),
                 child: Column(
@@ -260,7 +346,7 @@ class _ScoreboardPositionWidget extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          'Team Name',
+                          player.username,
                           textScaler: TextScaler.noScaling,
                           style: context.textTheme.bodyMedium!.copyWith(
                             fontSize: 13.5.sp,
@@ -291,22 +377,25 @@ class _ScoreboardPositionWidget extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Flexible(
-                          child: Text(
-                            'Olamide, Pelumi, Morolayo, Tobiloba',
-                            textScaler: TextScaler.noScaling,
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: context.textTheme.bodySmall!.copyWith(
-                              fontStyle: FontStyle.italic,
-                              fontWeight: FontWeight.w300,
-                              color: AppColors.black15.withValues(alpha: 0.7),
+                        Visibility(
+                          visible: false,
+                          child: Flexible(
+                            child: Text(
+                              'Olamide, Pelumi, Morolayo, Tobiloba',
+                              textScaler: TextScaler.noScaling,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: context.textTheme.bodySmall!.copyWith(
+                                fontStyle: FontStyle.italic,
+                                fontWeight: FontWeight.w300,
+                                color: AppColors.black15.withValues(alpha: 0.7),
+                              ),
                             ),
                           ),
                         ),
                         SizedBox(width: 25.w),
                         Text(
-                          '999',
+                          player.points.toString(),
                           textScaler: TextScaler.noScaling,
                           style: context.textTheme.bodyMedium!.copyWith(
                             fontSize: 13.5.sp,
@@ -322,10 +411,35 @@ class _ScoreboardPositionWidget extends StatelessWidget {
             Positioned(
               left: -13.5.w,
               top: -20.3.w,
-              child: Image.asset(
-                image,
-                scale: 4.2,
-              ),
+              child: player.position <= 3
+                  ? Image.asset(
+                      image[player.position] ?? '',
+                      scale: 4.2,
+                    )
+                  : Container(
+                      decoration: BoxDecoration(
+                        color: AppColors.blueE7,
+                        border: Border.all(
+                          width: 0.4,
+                          color: AppColors.greyDB,
+                        ),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 8.5,
+                          vertical: 4.5,
+                        ),
+                        child: Text(
+                          player.position.toString(),
+                          textScaler: TextScaler.noScaling,
+                          style: context.textTheme.bodyMedium!.copyWith(
+                            fontSize: 13.5.sp,
+                            fontWeight: FontWeight.w500,
+                            color: AppColors.blue12,
+                          ),
+                        ),
+                      ),
+                    ),
             ),
           ],
         ),

@@ -677,7 +677,7 @@ class GameRepository {
           headers: headers,
         ),
         onSuccessMap: (value) {
-          final players = value['data'] as List;
+          final players = value['players'] as List;
           return players.map((item) => PlayerPosition.fromJson(item)).toList();
         },
       );
