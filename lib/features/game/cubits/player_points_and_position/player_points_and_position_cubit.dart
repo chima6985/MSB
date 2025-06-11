@@ -4,11 +4,11 @@ import 'package:masoyinbo_mobile/app/app_locator.dart';
 import 'package:masoyinbo_mobile/core/core.dart';
 import 'package:masoyinbo_mobile/features/features.dart';
 
-part 'reset_user_stats_state.dart';
-part 'reset_user_stats_cubit.freezed.dart';
+part 'player_points_and_position_state.dart';
+part 'player_points_and_position_cubit.freezed.dart';
 
-class ResetUserStatsCubit extends Cubit<ResetUserStatsState> {
-  ResetUserStatsCubit({
+class PlayerPointsAndPositionCubit extends Cubit<PlayerPointsAndPositionState> {
+  PlayerPointsAndPositionCubit({
     GameRepository? gameRepository,
     required AuthBloc authBloc,
   })  : _gameRepository = gameRepository ?? locator<GameRepository>(),
@@ -21,29 +21,19 @@ class ResetUserStatsCubit extends Cubit<ResetUserStatsState> {
   /// Auth Bloc.
   final AuthBloc _authBloc;
 
-  /// Reset user stats [practice and single player]
-  Future<void> resetUserStats() async {
+  /// Get player points and position
+  Future<void> getPlayerPointsAndPosition({
+    required String gameCode,
+  }) async {
     try {
       emit(const _Loading());
       final user = UserHelper.fetchUser(authBloc: _authBloc);
       if (user == null) return;
-      await _gameRepository.backToHome(token: user.token);
-      emit(const _Loaded());
-    } on GameException catch (e) {
-      emit(_Error(error: e.message));
-    } on AuthException catch (e) {
-      _authBloc.add(AuthEvent.authSignOut(message: e.message));
-    }
-  }
-
-  /// Reset user stats [practice and single player]
-  Future<void> resetMultiplayerGameStats() async {
-    try {
-      emit(const _Loading());
-      final user = UserHelper.fetchUser(authBloc: _authBloc);
-      if (user == null) return;
-      await _gameRepository.resetMultiplayerGameStats(token: user.token);
-      emit(const _Loaded());
+      final apiResponse = await _gameRepository.getPlayerPointsAndPosition(
+        gameCode: gameCode,
+        token: user.token,
+      );
+      emit(_Loaded(players: apiResponse));
     } on GameException catch (e) {
       emit(_Error(error: e.message));
     } on AuthException catch (e) {

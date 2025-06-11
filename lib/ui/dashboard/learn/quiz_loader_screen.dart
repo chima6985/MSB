@@ -54,6 +54,7 @@ class QuizLoaderScreen extends HookWidget {
                 'isMultiPlayer': isMultiPlayer,
                 'isGameMaster': isGameMaster,
                 'isTeamMode': isTeamMode,
+                'gameCode': gameCode,
               },
             );
           },
@@ -83,29 +84,21 @@ class QuizLoaderScreen extends HookWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                GestureDetector(
-                  onTap: () {
-                    context.read<GetQuestionCubit>().getMultiPlayerQuestion(
-                          gameCode: gameCode ?? '',
-                        );
-                  },
-                  child: AppAssets.images.jpegs.masoyinboLogo
-                      .image(
-                        width: 85.w,
-                        height: 85.w,
-                      )
-                      .animate(
-                        onPlay: (controller) =>
-                            controller.repeat(reverse: true),
-                        delay: 1.seconds,
-                      )
-                      .scale(
-                        duration: 1.65.seconds,
-                        begin: const Offset(1.1, 1.1),
-                        end: const Offset(0.9, 0.9),
-                        curve: Curves.easeInCubic,
-                      ),
-                ),
+                AppAssets.images.jpegs.masoyinboLogo
+                    .image(
+                      width: 85.w,
+                      height: 85.w,
+                    )
+                    .animate(
+                      onPlay: (controller) => controller.repeat(reverse: true),
+                      delay: 1.seconds,
+                    )
+                    .scale(
+                      duration: 1.65.seconds,
+                      begin: const Offset(1.1, 1.1),
+                      end: const Offset(0.9, 0.9),
+                      curve: Curves.easeInCubic,
+                    ),
                 SizedBox(height: 24.h),
                 Row(
                   mainAxisSize: MainAxisSize.min,

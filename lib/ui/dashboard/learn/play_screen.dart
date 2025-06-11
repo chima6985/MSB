@@ -55,10 +55,7 @@ class PlayScreen extends HookWidget {
               label: context.appLocale.takeQuiz,
               onPressed: () => context
                 ..pop()
-                ..pushNamed(
-                  QuizLoaderScreen.id,
-                  extra: {'navigateTo': navigateTo},
-                ),
+                ..pushNamed(QuizLoaderScreen.id),
             ),
             SizedBox(height: 20.h),
             Button(

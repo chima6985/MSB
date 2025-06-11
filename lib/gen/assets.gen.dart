@@ -40,6 +40,10 @@ class $AssetsImagesJpegsGen {
   AssetGenImage get bgPattern =>
       const AssetGenImage('assets/images/jpegs/bg_pattern.png');
 
+  /// File path: assets/images/jpegs/blush_emoji.png
+  AssetGenImage get blushEmoji =>
+      const AssetGenImage('assets/images/jpegs/blush_emoji.png');
+
   /// File path: assets/images/jpegs/books.png
   AssetGenImage get books =>
       const AssetGenImage('assets/images/jpegs/books.png');
@@ -298,6 +302,7 @@ class $AssetsImagesJpegsGen {
         alphabet,
         bawoniHello,
         bgPattern,
+        blushEmoji,
         books,
         chat,
         coin2,
@@ -396,6 +401,9 @@ class $AssetsImagesSvgsGen {
   /// File path: assets/images/svgs/error.svg
   SvgGenImage get error => const SvgGenImage('assets/images/svgs/error.svg');
 
+  /// File path: assets/images/svgs/flag.svg
+  SvgGenImage get flag => const SvgGenImage('assets/images/svgs/flag.svg');
+
   /// File path: assets/images/svgs/flip.svg
   SvgGenImage get flip => const SvgGenImage('assets/images/svgs/flip.svg');
 
@@ -464,6 +472,10 @@ class $AssetsImagesSvgsGen {
   SvgGenImage get notification =>
       const SvgGenImage('assets/images/svgs/notification.svg');
 
+  /// File path: assets/images/svgs/questionAnswer.svg
+  SvgGenImage get questionAnswer =>
+      const SvgGenImage('assets/images/svgs/questionAnswer.svg');
+
   /// File path: assets/images/svgs/share.svg
   SvgGenImage get share => const SvgGenImage('assets/images/svgs/share.svg');
 
@@ -491,6 +503,7 @@ class $AssetsImagesSvgsGen {
         crown,
         diamondShape,
         error,
+        flag,
         flip,
         google,
         heartAdd,
@@ -510,6 +523,7 @@ class $AssetsImagesSvgsGen {
         meBold,
         message,
         notification,
+        questionAnswer,
         share,
         speak,
         success,

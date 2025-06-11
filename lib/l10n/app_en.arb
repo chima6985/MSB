@@ -368,7 +368,12 @@
 			}
 		}
 	},
-
+  "points":"Points",
+  "answeredCorrectly":"Answered correctly",
+  "shyOffTheTopSpot":"Shy of the top spot?",
+  "greatAchievement":"Great effort! An outstanding personal achievement!",
+  "niceWorkTakeLessonsFromThisExperience":"Nice work! Take the lessons from this experience and come back even stronger next time!",
+  "seeLeaderboard":"See Leaderboard",
 
   "example": "example"
 }

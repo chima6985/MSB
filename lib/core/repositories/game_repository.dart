@@ -47,14 +47,26 @@ class GameRepository {
   String _submitSinglePlayerAnswerEndpoint() =>
       '$_baseUrl/game/single-player/submit-answer';
 
+  /// Submit multiple player answer endpoint
+  String _submitMultiplePlayerAnswerEndpoint() =>
+      '$_baseUrl/game/multi-player/submit-answer';
+
   /// Back to home endpoint
   String _backToHomeEndpoint() => '$_baseUrl/game/single-player/back-to-home';
+
+  /// Reset multiplayer stats endpoint
+  String _resetMultiplayerStatsEndpoint() =>
+      '$_baseUrl/game/multiplayer/reset-player-point-and-coins';
 
   /// Get user analytics endpoint
   String _getUserAnalyticsEndpoint() => '$_baseUrl/practice/get-user-analytics';
 
   /// Get player rewards endpoint
   String _getPlayerRewards() => '$_baseUrl/game/single-player/rewards';
+
+  /// Get player rewards endpoint
+  String _getMultiPlayerPerformance() =>
+      '$_baseUrl/game/multiplayer/get-players-performance';
 
   /// Join room endpoint
   String _joinGameRoomEndpoint(String gameCode) =>
@@ -89,6 +101,10 @@ class GameRepository {
   /// Get multiplayer question endpoint
   String _getMultiPlayerQuestions(String gameCode) =>
       '$_baseUrl/game/multiplayer/$gameCode/get-question';
+
+  /// Get player points and position endpoint
+  String _getPlayerPointsAndPositionsEndpoint(String gameCode) =>
+      '$_baseUrl/game/multiplayer/$gameCode/get-player-points-and-position';
 
   /// Get sections and difficulty
   ///
@@ -197,12 +213,21 @@ class GameRepository {
     required String answer,
     required int startTime,
     required bool isPractice,
+    required bool isSinglePlayer,
+    required bool isMultiplePayer,
     required String token,
   }) async {
     try {
-      final url = isPractice
-          ? _submitPracticeAnswerEndpoint()
-          : _submitSinglePlayerAnswerEndpoint();
+      var url = '';
+      if (isPractice) {
+        url = _submitPracticeAnswerEndpoint();
+      }
+      if (isSinglePlayer) {
+        url = _submitSinglePlayerAnswerEndpoint();
+      }
+      if (isMultiplePayer) {
+        url = _submitMultiplePlayerAnswerEndpoint();
+      }
       final headers = {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
@@ -260,6 +285,36 @@ class GameRepository {
     }
   }
 
+  /// Reset multiplayer game stats
+  ///
+  /// Returns [void] on success.
+  /// Throws [GameException] when operation fails.
+  Future<void> resetMultiplayerGameStats({
+    required String token,
+  }) async {
+    try {
+      final url = _resetMultiplayerStatsEndpoint();
+      final headers = {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      };
+      return await APIHelper.request<void>(
+        request: _client.patch(
+          Uri.parse(url),
+          headers: headers,
+        ),
+        onSuccessMap: (value) {},
+      );
+    } on APIException catch (e) {
+      throw GameException(message: e.message);
+    } on AuthException catch (e) {
+      throw AuthException(message: e.message);
+    } catch (e) {
+      throw const GameException();
+    }
+  }
+
   /// Get player rewards
   ///
   /// Returns [PlayerStat] on success.
@@ -271,6 +326,36 @@ class GameRepository {
     try {
       final url =
           isPractice ? _getUserAnalyticsEndpoint() : _getPlayerRewards();
+      final headers = {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      };
+      return await APIHelper.request<PlayerStat>(
+        request: _client.get(
+          Uri.parse(url),
+          headers: headers,
+        ),
+        onSuccessMap: PlayerStat.fromJson,
+      );
+    } on APIException catch (e) {
+      throw GameException(message: e.message);
+    } on AuthException catch (e) {
+      throw AuthException(message: e.message);
+    } catch (e) {
+      throw const GameException();
+    }
+  }
+
+  /// Get multiplayer player performance
+  ///
+  /// Returns [PlayerStat] on success.
+  /// Throws [GameException] when operation fails.
+  Future<PlayerStat> getMultiplayerPlayerPerformance({
+    required String token,
+  }) async {
+    try {
+      final url = _getMultiPlayerPerformance();
       final headers = {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
@@ -560,6 +645,40 @@ class GameRepository {
             return isGameStarted;
           }
           return false;
+        },
+      );
+    } on APIException catch (e) {
+      throw GameException(message: e.message);
+    } on AuthException catch (e) {
+      throw AuthException(message: e.message);
+    } catch (e) {
+      throw const GameException();
+    }
+  }
+
+  /// Get player points and positions
+  ///
+  /// Returns [List<PlayerPosition>] on success.
+  /// Throws [GameException] when operation fails.
+  Future<List<PlayerPosition>> getPlayerPointsAndPosition({
+    required String gameCode,
+    required String token,
+  }) async {
+    try {
+      final url = _getPlayerPointsAndPositionsEndpoint(gameCode);
+      final headers = {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      };
+      return await APIHelper.request<List<PlayerPosition>>(
+        request: _client.get(
+          Uri.parse(url),
+          headers: headers,
+        ),
+        onSuccessMap: (value) {
+          final players = value['data'] as List;
+          return players.map((item) => PlayerPosition.fromJson(item)).toList();
         },
       );
     } on APIException catch (e) {

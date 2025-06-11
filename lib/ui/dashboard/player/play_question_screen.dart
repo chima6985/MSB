@@ -24,6 +24,7 @@ class PlayQuestionScreen extends StatelessWidget {
     this.isTeamMode = false,
     this.questionSection,
     this.totalLives,
+    this.gameCode,
   });
 
   final bool isPractice,
@@ -35,6 +36,7 @@ class PlayQuestionScreen extends StatelessWidget {
       isTeamMode;
   final Section? questionSection;
   final int? totalLives;
+  final String? gameCode;
 
   static const String id = 'playQuestionScreen';
 
@@ -54,6 +56,7 @@ class PlayQuestionScreen extends StatelessWidget {
         isTeamMode: isTeamMode,
         questionSection: questionSection,
         totalLives: totalLives,
+        gameCode: gameCode,
       ),
     );
   }
@@ -70,6 +73,7 @@ class __PlayQuestionScreen extends StatefulWidget {
     this.isTeamMode = false,
     this.questionSection,
     this.totalLives,
+    this.gameCode,
   });
 
   final bool isPractice,
@@ -81,6 +85,7 @@ class __PlayQuestionScreen extends StatefulWidget {
       isTeamMode;
   final Section? questionSection;
   final int? totalLives;
+  final String? gameCode;
 
   @override
   State<__PlayQuestionScreen> createState() => __PlayQuestionScreenState();
@@ -266,7 +271,7 @@ class __PlayQuestionScreenState extends State<__PlayQuestionScreen>
                 barrierColor: AppColors.transparent,
                 builder: (context) {
                   // Auto-dismiss modal after 2 seconds
-                  Future.delayed(2.seconds, () {
+                  Future.delayed(1.7.seconds, () {
                     if (!context.mounted) return;
                     if (Navigator.of(context).canPop()) {
                       Navigator.of(context).pop();
@@ -288,8 +293,10 @@ class __PlayQuestionScreenState extends State<__PlayQuestionScreen>
                   // ran out of questions, push user to game stats
                   if (!context.mounted) return;
                   context.pushReplacementNamed(
-                    PlayerGameAnalyticsScreen.id,
-                    extra: {'isPractice': isPracticeMode},
+                    PlayersGameAnalyticsScreen.id,
+                    extra: {
+                      'gameCode': widget.gameCode ?? '',
+                    },
                   );
                 }
               });
@@ -486,6 +493,10 @@ class __PlayQuestionScreenState extends State<__PlayQuestionScreen>
                                                           .capitalize() ??
                                                       ''
                                                   : '${currentQuestion?.question.capitalize()}?';
+                                          final suffixText = currentQuestion
+                                                  ?.suffix
+                                                  .capitalize() ??
+                                              '';
                                           final currentAltQuestionText =
                                               '${currentQuestion?.translateQuestion.capitalize() ?? ''}?';
                                           final answer =
@@ -627,6 +638,10 @@ class __PlayQuestionScreenState extends State<__PlayQuestionScreen>
                                                                       : 30,
                                                                   isPractice:
                                                                       isPracticeMode,
+                                                                  isSinglePlayer:
+                                                                      isSinglePlayerMode,
+                                                                  isMultiplePayer:
+                                                                      isMultiPlayerMode,
                                                                 );
                                                           }
                                                           final time = (double
@@ -719,6 +734,7 @@ class __PlayQuestionScreenState extends State<__PlayQuestionScreen>
                                                             currentAltQuestionText,
                                                         currentQuestionText:
                                                             currentQuestionText,
+                                                        suffix: suffixText,
                                                         audioPath:
                                                             currentQuestion
                                                                 ?.audioPath,
@@ -1291,6 +1307,10 @@ class __PlayQuestionScreenState extends State<__PlayQuestionScreen>
                                                                           )),
                                                               isPractice:
                                                                   isPracticeMode,
+                                                              isSinglePlayer:
+                                                                  isSinglePlayerMode,
+                                                              isMultiplePayer:
+                                                                  isMultiPlayerMode,
                                                             );
                                                         FocusManager.instance
                                                             .primaryFocus

@@ -517,8 +517,12 @@ class _PlayerScreen extends HookWidget {
                         );
                         return;
                       }
+                      context
+                          .read<ResetUserStatsCubit>()
+                          .resetMultiplayerGameStats();
+                    } else {
+                      context.read<ResetUserStatsCubit>().resetUserStats();
                     }
-                    context.read<ResetUserStatsCubit>().resetUserStats();
                   },
                   child: !isMultiPlayer
                       ? RichText(

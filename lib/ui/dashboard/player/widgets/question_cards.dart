@@ -18,6 +18,7 @@ class QuestionCard extends StatelessWidget {
     required this.currentAltQuestionText,
     required this.currentQuestionText,
     this.audioPath,
+    this.suffix,
     this.onFlipPressed,
   });
 
@@ -30,6 +31,7 @@ class QuestionCard extends StatelessWidget {
   final String currentAltQuestionText;
   final String currentQuestionText;
   final String? audioPath;
+  final String? suffix;
   final VoidCallback? onFlipPressed;
 
   @override
@@ -85,7 +87,7 @@ class QuestionCard extends StatelessWidget {
                   currentLocale == yo
                       ? currentAltQuestionText
                       : currentQuestionText,
-                  textAlign: TextAlign.center,
+                  textAlign: TextAlign.start,
                   textScaler: TextScaler.noScaling,
                   style: context.textTheme.bodyMedium!.copyWith(
                     fontWeight: FontWeight.w500,
@@ -103,7 +105,17 @@ class QuestionCard extends StatelessWidget {
                     fontWeight: FontWeight.w300,
                   ),
                 ),
-                SizedBox(height: 80.h),
+                SizedBox(height: 30.h),
+                if (suffix != null && (suffix?.isNotEmpty ?? false))
+                  Text(
+                    suffix ?? '',
+                    textAlign: TextAlign.start,
+                    textScaler: TextScaler.noScaling,
+                    style: context.textTheme.bodySmall!.copyWith(
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                SizedBox(height: 40.h),
                 Row(
                   children: [
                     AudioButton(audioPath: audioPath),
@@ -151,6 +163,7 @@ class FlippedQuestionCard extends StatelessWidget {
     required this.totalNoOfQuestions,
     required this.isPracticeMode,
     this.audioPath,
+    this.suffix,
     required this.answer,
   });
 
@@ -158,6 +171,7 @@ class FlippedQuestionCard extends StatelessWidget {
   final int totalNoOfQuestions;
   final bool isPracticeMode;
   final String? audioPath;
+  final String? suffix;
   final List<AnswerFormat>? answer;
 
   @override

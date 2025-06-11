@@ -28,6 +28,13 @@ class StartGameModal extends HookWidget {
               ..pop()
               ..pushNamed(
                 QuizLoaderScreen.id,
+                extra: {
+                  'gameCode': gameCode,
+                  // 'isTeamLeader': player?.isTeamLeader ?? false,
+                  'isMultiPlayer': true,
+                  'isGameMaster': true,
+                  'isTeamMode': false,
+                },
               );
           },
           error: (error) {

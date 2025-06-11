@@ -24,6 +24,9 @@ mixin _$PlayerStat {
   int get accuracy => throw _privateConstructorUsedError;
   int get coins => throw _privateConstructorUsedError;
   String get timeSpent => throw _privateConstructorUsedError;
+  int get points => throw _privateConstructorUsedError;
+  @JsonKey(name: 'answererd_correctly')
+  String get answeredCorrectly => throw _privateConstructorUsedError;
 
   /// Serializes this PlayerStat to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -41,7 +44,13 @@ abstract class $PlayerStatCopyWith<$Res> {
           PlayerStat value, $Res Function(PlayerStat) then) =
       _$PlayerStatCopyWithImpl<$Res, PlayerStat>;
   @useResult
-  $Res call({String message, int accuracy, int coins, String timeSpent});
+  $Res call(
+      {String message,
+      int accuracy,
+      int coins,
+      String timeSpent,
+      int points,
+      @JsonKey(name: 'answererd_correctly') String answeredCorrectly});
 }
 
 /// @nodoc
@@ -63,6 +72,8 @@ class _$PlayerStatCopyWithImpl<$Res, $Val extends PlayerStat>
     Object? accuracy = null,
     Object? coins = null,
     Object? timeSpent = null,
+    Object? points = null,
+    Object? answeredCorrectly = null,
   }) {
     return _then(_value.copyWith(
       message: null == message
@@ -81,6 +92,14 @@ class _$PlayerStatCopyWithImpl<$Res, $Val extends PlayerStat>
           ? _value.timeSpent
           : timeSpent // ignore: cast_nullable_to_non_nullable
               as String,
+      points: null == points
+          ? _value.points
+          : points // ignore: cast_nullable_to_non_nullable
+              as int,
+      answeredCorrectly: null == answeredCorrectly
+          ? _value.answeredCorrectly
+          : answeredCorrectly // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 }
@@ -93,7 +112,13 @@ abstract class _$$PlayerStatImplCopyWith<$Res>
       __$$PlayerStatImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String message, int accuracy, int coins, String timeSpent});
+  $Res call(
+      {String message,
+      int accuracy,
+      int coins,
+      String timeSpent,
+      int points,
+      @JsonKey(name: 'answererd_correctly') String answeredCorrectly});
 }
 
 /// @nodoc
@@ -113,6 +138,8 @@ class __$$PlayerStatImplCopyWithImpl<$Res>
     Object? accuracy = null,
     Object? coins = null,
     Object? timeSpent = null,
+    Object? points = null,
+    Object? answeredCorrectly = null,
   }) {
     return _then(_$PlayerStatImpl(
       message: null == message
@@ -131,6 +158,14 @@ class __$$PlayerStatImplCopyWithImpl<$Res>
           ? _value.timeSpent
           : timeSpent // ignore: cast_nullable_to_non_nullable
               as String,
+      points: null == points
+          ? _value.points
+          : points // ignore: cast_nullable_to_non_nullable
+              as int,
+      answeredCorrectly: null == answeredCorrectly
+          ? _value.answeredCorrectly
+          : answeredCorrectly // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -142,7 +177,9 @@ class _$PlayerStatImpl implements _PlayerStat {
       {this.message = '',
       this.accuracy = 0,
       this.coins = 0,
-      this.timeSpent = ''});
+      this.timeSpent = '',
+      this.points = 0,
+      @JsonKey(name: 'answererd_correctly') this.answeredCorrectly = ''});
 
   factory _$PlayerStatImpl.fromJson(Map<String, dynamic> json) =>
       _$$PlayerStatImplFromJson(json);
@@ -159,10 +196,16 @@ class _$PlayerStatImpl implements _PlayerStat {
   @override
   @JsonKey()
   final String timeSpent;
+  @override
+  @JsonKey()
+  final int points;
+  @override
+  @JsonKey(name: 'answererd_correctly')
+  final String answeredCorrectly;
 
   @override
   String toString() {
-    return 'PlayerStat(message: $message, accuracy: $accuracy, coins: $coins, timeSpent: $timeSpent)';
+    return 'PlayerStat(message: $message, accuracy: $accuracy, coins: $coins, timeSpent: $timeSpent, points: $points, answeredCorrectly: $answeredCorrectly)';
   }
 
   @override
@@ -175,13 +218,16 @@ class _$PlayerStatImpl implements _PlayerStat {
                 other.accuracy == accuracy) &&
             (identical(other.coins, coins) || other.coins == coins) &&
             (identical(other.timeSpent, timeSpent) ||
-                other.timeSpent == timeSpent));
+                other.timeSpent == timeSpent) &&
+            (identical(other.points, points) || other.points == points) &&
+            (identical(other.answeredCorrectly, answeredCorrectly) ||
+                other.answeredCorrectly == answeredCorrectly));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, message, accuracy, coins, timeSpent);
+  int get hashCode => Object.hash(runtimeType, message, accuracy, coins,
+      timeSpent, points, answeredCorrectly);
 
   /// Create a copy of PlayerStat
   /// with the given fields replaced by the non-null parameter values.
@@ -204,7 +250,10 @@ abstract class _PlayerStat implements PlayerStat {
       {final String message,
       final int accuracy,
       final int coins,
-      final String timeSpent}) = _$PlayerStatImpl;
+      final String timeSpent,
+      final int points,
+      @JsonKey(name: 'answererd_correctly')
+      final String answeredCorrectly}) = _$PlayerStatImpl;
 
   factory _PlayerStat.fromJson(Map<String, dynamic> json) =
       _$PlayerStatImpl.fromJson;
@@ -217,6 +266,11 @@ abstract class _PlayerStat implements PlayerStat {
   int get coins;
   @override
   String get timeSpent;
+  @override
+  int get points;
+  @override
+  @JsonKey(name: 'answererd_correctly')
+  String get answeredCorrectly;
 
   /// Create a copy of PlayerStat
   /// with the given fields replaced by the non-null parameter values.

@@ -12,6 +12,8 @@ _$PlayerStatImpl _$$PlayerStatImplFromJson(Map<String, dynamic> json) =>
       accuracy: (json['accuracy'] as num?)?.toInt() ?? 0,
       coins: (json['coins'] as num?)?.toInt() ?? 0,
       timeSpent: json['timeSpent'] as String? ?? '',
+      points: (json['points'] as num?)?.toInt() ?? 0,
+      answeredCorrectly: json['answererd_correctly'] as String? ?? '',
     );
 
 Map<String, dynamic> _$$PlayerStatImplToJson(_$PlayerStatImpl instance) =>
@@ -20,4 +22,6 @@ Map<String, dynamic> _$$PlayerStatImplToJson(_$PlayerStatImpl instance) =>
       'accuracy': instance.accuracy,
       'coins': instance.coins,
       'timeSpent': instance.timeSpent,
+      'points': instance.points,
+      'answererd_correctly': instance.answeredCorrectly,
     };

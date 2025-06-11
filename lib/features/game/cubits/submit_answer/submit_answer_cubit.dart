@@ -27,6 +27,8 @@ class SubmitAnswerCubit extends Cubit<SubmitAnswerState> {
     required String answer,
     required int startTime,
     required bool isPractice,
+    required bool isSinglePlayer,
+    required bool isMultiplePayer,
   }) async {
     try {
       emit(const _Loading());
@@ -37,6 +39,8 @@ class SubmitAnswerCubit extends Cubit<SubmitAnswerState> {
         answer: answer,
         startTime: startTime,
         isPractice: isPractice,
+        isSinglePlayer: isSinglePlayer,
+        isMultiplePayer: isMultiplePayer,
         token: user.token,
       );
       emit(_Loaded(answerResponse: apiRespone));

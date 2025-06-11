@@ -29,6 +29,7 @@ class PlayerRewardsCubit extends Cubit<PlayerRewardsState> {
   final UserCubit _userCubit;
 
   /// Get player rewards
+  /// Practice and Single
   Future<void> getPlayerRewards({
     required bool isPractice,
   }) async {
@@ -38,6 +39,28 @@ class PlayerRewardsCubit extends Cubit<PlayerRewardsState> {
       if (user == null) return;
       final apiResponse = await _gameRepository.getPlayerRewards(
         isPractice: isPractice,
+        token: user.token,
+      );
+      try {
+        await _userCubit.getUser();
+      } catch (e) {
+        log(e.toString());
+      }
+      emit(_Loaded(playerStat: apiResponse));
+    } on GameException catch (e) {
+      emit(_Error(error: e.message));
+    } on AuthException catch (e) {
+      _authBloc.add(AuthEvent.authSignOut(message: e.message));
+    }
+  }
+
+  /// Get multiplayer player performance
+  Future<void> getMultiplayerPlayerPerformance() async {
+    try {
+      emit(const _Loading());
+      final user = UserHelper.fetchUser(authBloc: _authBloc);
+      if (user == null) return;
+      final apiResponse = await _gameRepository.getMultiplayerPlayerPerformance(
         token: user.token,
       );
       try {

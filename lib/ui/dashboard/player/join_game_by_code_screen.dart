@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:masoyinbo_mobile/extension/extension.dart';
-import 'package:masoyinbo_mobile/features/game/cubits/game_details/game_details_cubit.dart';
+import 'package:masoyinbo_mobile/features/features.dart';
 import 'package:masoyinbo_mobile/gen/fonts.gen.dart';
 import 'package:masoyinbo_mobile/ui/ui.dart';
 import 'package:masoyinbo_mobile/utils/utils.dart';
@@ -14,10 +14,19 @@ class JoinGameByCodeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => GameDetailsCubit(
-        authBloc: context.read(),
-      ),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => ResetUserStatsCubit(
+            authBloc: context.read(),
+          ),
+        ),
+        BlocProvider(
+          create: (context) => GameDetailsCubit(
+            authBloc: context.read(),
+          ),
+        ),
+      ],
       child: const _JoinGameByCodeScreen(),
     );
   }
@@ -32,37 +41,62 @@ class _JoinGameByCodeScreen extends HookWidget {
     final gameCodeController = useTextEditingController();
     final isLoading = useState(false);
     final formKey = useState(GlobalKey<FormState>());
-    return BlocListener<GameDetailsCubit, GameDetailsState>(
-      listener: (context, state) {
-        state.maybeWhen(
-          loading: () => isLoading.value = true,
-          loaded: (gameDetails) {
-            isLoading.value = false;
-            showModalBottomSheet(
-              context: context,
-              builder: (context) => GameSetupModal(
-                gameDetails: gameDetails,
-                gameCode: gameCodeController.text.trim(),
-              ),
-              isScrollControlled: true,
-              shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(24),
-                  topRight: Radius.circular(24),
-                ),
-              ),
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<GameDetailsCubit, GameDetailsState>(
+          listener: (context, state) {
+            state.maybeWhen(
+              loading: () => isLoading.value = true,
+              loaded: (gameDetails) {
+                isLoading.value = false;
+                showModalBottomSheet(
+                  context: context,
+                  builder: (context) => GameSetupModal(
+                    gameDetails: gameDetails,
+                    gameCode: gameCodeController.text.trim(),
+                  ),
+                  isScrollControlled: true,
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(24),
+                      topRight: Radius.circular(24),
+                    ),
+                  ),
+                );
+              },
+              error: (error) {
+                isLoading.value = false;
+                ToastMessage.showError(
+                  context: context,
+                  text: error ?? '',
+                );
+              },
+              orElse: () => isLoading.value = false,
             );
           },
-          error: (error) {
-            isLoading.value = false;
-            ToastMessage.showError(
-              context: context,
-              text: error ?? '',
+        ),
+        BlocListener<ResetUserStatsCubit, ResetUserStatsState>(
+          listener: (context, state) {
+            state.maybeWhen(
+              loading: () => isLoading.value = true,
+              loaded: () {
+                isLoading.value = false;
+                context.read<GameDetailsCubit>().getGameDetails(
+                      gameCode: gameCodeController.text.trim(),
+                    );
+              },
+              error: (error) {
+                isLoading.value = false;
+                ToastMessage.showError(
+                  context: context,
+                  text: error ?? '',
+                );
+              },
+              orElse: () => isLoading.value = false,
             );
           },
-          orElse: () => isLoading.value = false,
-        );
-      },
+        ),
+      ],
       child: Scaffold(
         body: DecoratedContainer(
           canPop: !isLoading.value,
@@ -131,9 +165,10 @@ class _JoinGameByCodeScreen extends HookWidget {
                           onPressed: () {
                             if (formKey.value.currentState!.validate()) {
                               FocusManager.instance.primaryFocus?.unfocus();
-                              context.read<GameDetailsCubit>().getGameDetails(
-                                    gameCode: gameCodeController.text.trim(),
-                                  );
+
+                              context
+                                  .read<ResetUserStatsCubit>()
+                                  .resetMultiplayerGameStats();
                             }
                           },
                         ),

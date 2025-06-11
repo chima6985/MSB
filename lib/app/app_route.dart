@@ -251,6 +251,7 @@ final router = GoRouter(
           isTeamMode: paramHandler?['isTeamMode'] ?? false,
           questionSection: paramHandler?['questionSection'],
           totalLives: paramHandler?['totalLives'],
+          gameCode: paramHandler?['gameCode'],
         );
       },
     ),
@@ -285,7 +286,12 @@ final router = GoRouter(
     GoRoute(
       name: ScoreBoardScreen.id,
       path: '/scoreBoardScreen',
-      builder: (context, state) => const ScoreBoardScreen(),
+      builder: (context, state) {
+        final paramHandler = state.extra is Map ? state.extra as Map? : {};
+        return ScoreBoardScreen(
+          gameCode: paramHandler?['gameCode'],
+        );
+      },
     ),
     GoRoute(
       name: GameRoomCreatedScreen.id,
@@ -302,13 +308,7 @@ final router = GoRouter(
     GoRoute(
       name: NewGameScreen.id,
       path: '/newGameScreen',
-      builder: (context, state) {
-        final paramHandler = state.extra is Map ? state.extra as Map? : {};
-        return NewGameScreen(
-          isPlayAgainWithSameSettings:
-              paramHandler?['isPlayAgainWithSameSettings'] ?? false,
-        );
-      },
+      builder: (context, state) => const NewGameScreen(),
     ),
     GoRoute(
       name: TeamSetupScreen.id,
@@ -333,6 +333,16 @@ final router = GoRouter(
         final paramHandler = state.extra is Map ? state.extra as Map? : {};
         return PlayerGameAnalyticsScreen(
           isPractice: paramHandler?['isPractice'] ?? false,
+        );
+      },
+    ),
+    GoRoute(
+      name: PlayersGameAnalyticsScreen.id,
+      path: '/playersGameAnalyticsScreen',
+      builder: (context, state) {
+        final paramHandler = state.extra is Map ? state.extra as Map? : {};
+        return ScoreBoardScreen(
+          gameCode: paramHandler?['gameCode'],
         );
       },
     ),

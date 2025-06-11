@@ -1,16 +1,99 @@
+import 'dart:async';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:masoyinbo_mobile/app/app.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:masoyinbo_mobile/extension/context_extension.dart';
+import 'package:masoyinbo_mobile/features/features.dart';
 import 'package:masoyinbo_mobile/gen/fonts.gen.dart';
 import 'package:masoyinbo_mobile/ui/ui.dart';
+import 'package:masoyinbo_mobile/utils/utils.dart';
 import 'package:share_plus/share_plus.dart';
 
 class ScoreBoardScreen extends StatelessWidget {
-  const ScoreBoardScreen({super.key});
+  const ScoreBoardScreen({
+    super.key,
+    required this.gameCode,
+  });
+
+  final String gameCode;
+
   static const String id = 'scoreBoardScreen';
 
   @override
   Widget build(BuildContext context) {
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => PlayerPointsAndPositionCubit(
+            authBloc: context.read(),
+          ),
+        ),
+        BlocProvider(
+          create: (context) => LeaveGameRoomCubit(
+            authBloc: context.read(),
+          ),
+        ),
+      ],
+      child: _ScoreBoardScreen(gameCode: gameCode),
+    );
+  }
+}
+
+class _ScoreBoardScreen extends StatefulWidget {
+  const _ScoreBoardScreen({
+    required this.gameCode,
+  });
+
+  final String gameCode;
+
+  @override
+  State<_ScoreBoardScreen> createState() => _ScoreBoardScreenState();
+}
+
+class _ScoreBoardScreenState extends State<_ScoreBoardScreen> {
+  @override
+  void initState() {
+    super.initState();
+    isGameStartedPolling(gameCode: widget.gameCode);
+  }
+
+  Timer? _timer;
+
+  /// Start polling getAllPlayersEndpoint every 10 seconds
+  Future<void> isGameStartedPolling({required String gameCode}) async {
+    _timer?.cancel();
+
+    await context
+        .read<PlayerPointsAndPositionCubit>()
+        .getPlayerPointsAndPosition(gameCode: gameCode);
+
+    //polling is 6 secs on prod and 15 seconds on debug
+    _timer = Timer.periodic(const Duration(seconds: kDebugMode ? 15 : 6), (_) {
+      context
+          .read<PlayerPointsAndPositionCubit>()
+          .getPlayerPointsAndPosition(gameCode: gameCode);
+    });
+  }
+
+  /// Stop polling
+  void stopPolling() {
+    _timer?.cancel();
+    _timer = null;
+  }
+
+  @override
+  void dispose() {
+    stopPolling();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    context
+        .read<PlayerPointsAndPositionCubit>()
+        .getPlayerPointsAndPosition(gameCode: widget.gameCode);
+    final currentLocale = context.currentLocale;
     return Scaffold(
       body: DecoratedContainer(
         child: Column(
@@ -42,7 +125,7 @@ class ScoreBoardScreen extends StatelessWidget {
                 ),
                 Center(
                   child: Text(
-                    scoreboardYr,
+                    context.appLocale.scoreboard,
                     textAlign: TextAlign.center,
                     textScaler: TextScaler.noScaling,
                     style: context.textTheme.titleLarge!.copyWith(
@@ -78,18 +161,53 @@ class ScoreBoardScreen extends StatelessWidget {
                     const Spacer(),
                     const SizedBox(height: 24),
                     Button(
-                      label: context.appLocale.playAgain,
-                      onPressed: () => context.pushNamed(
-                        NewGameScreen.id,
-                        extra: {'isPlayAgainWithSameSettings': true},
+                      label: '',
+                      onPressed: () => Navigator.popUntil(
+                        context,
+                        (route) => route.settings.name == GameRoomScreen.id,
+                      ),
+                      child: RichText(
+                        text: TextSpan(
+                          style: context.textTheme.bodyMedium!
+                              .copyWith(color: AppColors.white),
+                          children: [
+                            TextSpan(text: context.appLocale.playAgain),
+                            TextSpan(
+                              text:
+                                  ' (${currentLocale == yo ? context.enLocale.playAgain : context.yoLocale.playAgain})',
+                              style: context.textTheme.bodySmall!.copyWith(
+                                color: AppColors.white,
+                                fontWeight: FontWeight.w300,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                     const SizedBox(height: 24),
                     Button(
-                      label: returnToLobbyYr,
+                      label: '',
                       isOutlined: true,
                       labelColor: AppColors.black15,
-                      onPressed: () => context.pushNamed(NewGameScreen.id),
+                      onPressed: () {
+                        context.read<LeaveGameRoomCubit>().leaveGameRoom();
+                        context.goNamed(DashboardIndexScreen.id);
+                      },
+                      child: RichText(
+                        text: TextSpan(
+                          style: context.textTheme.bodyMedium,
+                          children: [
+                            TextSpan(text: context.appLocale.goHome),
+                            TextSpan(
+                              text:
+                                  ' (${currentLocale == yo ? context.enLocale.goHome : context.yoLocale.goHome})',
+                              style: context.textTheme.bodySmall!.copyWith(
+                                fontWeight: FontWeight.w300,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
                     ),
                     SizedBox(height: context.btmPadding),
                   ],

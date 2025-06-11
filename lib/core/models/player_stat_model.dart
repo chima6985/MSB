@@ -10,6 +10,8 @@ class PlayerStat with _$PlayerStat {
     @Default(0) int accuracy,
     @Default(0) int coins,
     @Default('') String timeSpent,
+    @Default(0) int points,
+    @JsonKey(name: 'answererd_correctly') @Default('') String answeredCorrectly,
   }) = _PlayerStat;
 
   factory PlayerStat.fromJson(Map<String, dynamic> json) =>

@@ -228,13 +228,6 @@ const waitingForTeamLeaderToSubmitFinalAnswerEn =
 const voteYr = 'Vote';
 const voteEn = 'Vote';
 
-const successNailedItYr =
-    'Ati s̩às̩eyorí,  gbogbo yín e̩kú is̩é̩ takun takun 🎉💡';
-const successNailedItEn = ' We nailed it—great job, everyone! 🎉💡';
-
-const scoreboardYr = 'Scoreboard';
-const scoreboardEn = 'Scoreboard';
-
 const returnToLobbyYr = 'Return to Lobby';
 const returnToLobbyEn = 'Return to Lobby';
 
