@@ -99,44 +99,21 @@ class AppStorage {
     }
   }
 
-  /// Disable show biometric request
-  static void disableBiometricRequest() {
-    try {
-      _box?.put(biometricsRequestKey, true.toString());
-    } catch (e) {
-      log(e.toString());
-    }
-  }
-
-  /// Get biometrics
-  static bool getBiometricRequest() {
+  /// Get sound effect preference
+  static bool getSoundEffectPreference() {
     return bool.tryParse(
-          _box?.get(biometricsRequestKey) ?? '',
+          _box?.get(soundEffectKey) ?? '',
         ) ??
-        false;
+        true;
   }
 
-  /// Get biometrics
-  static bool getBiometrics() {
-    return bool.tryParse(
-          _box?.get(biometricsKey) ?? '',
-        ) ??
-        false;
-  }
-
-  /// Enable biometrics
-  static void enableBiometrics() {
+  /// Toggle sound effect preference
+  static void toggleSoundEffectPreference() {
     try {
-      _box?.put(biometricsKey, true.toString());
-    } catch (e) {
-      log(e.toString());
-    }
-  }
-
-  /// DIsable biometrics
-  static void disableBiometrics() {
-    try {
-      _box?.put(biometricsKey, false.toString());
+      _box?.put(
+        soundEffectKey,
+        (!getSoundEffectPreference()).toString(),
+      );
     } catch (e) {
       log(e.toString());
     }

@@ -34,6 +34,8 @@ class BottomNavButton extends StatelessWidget {
         children: [
           SvgPicture.asset(
             position == currentPosition ? buttonIconBold : buttonIcon,
+            width: 22.w,
+            height: 22.w,
           ),
           const SizedBox(height: 5),
           Text(

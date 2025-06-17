@@ -535,7 +535,11 @@ class $AssetsImagesSvgsGen {
 class AppAssets {
   const AppAssets._();
 
+  static const String fluteMusic = 'assets/flute_music.mp3';
   static const $AssetsImagesGen images = $AssetsImagesGen();
+
+  /// List of all assets
+  static List<String> get values => [fluteMusic];
 }
 
 class AssetGenImage {

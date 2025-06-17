@@ -94,6 +94,10 @@ class GameRepository {
   String _startGameEndpoint(String gameCode) =>
       '$_baseUrl/game/multiplayer/$gameCode/start-game';
 
+  /// Stop game endpoint
+  String _stopGameEndpoint(String gameCode) =>
+      '$_baseUrl/game/multiplayer/$gameCode/stop-game';
+
   /// Start game endpoint
   String _isGameStartedEndpoint(String gameCode) =>
       '$_baseUrl/game/multiplayer/$gameCode/is-game-started';
@@ -604,7 +608,38 @@ class GameRepository {
         'Authorization': 'Bearer $token',
       };
       return await APIHelper.request<void>(
-        request: _client.post(
+        request: _client.patch(
+          Uri.parse(url),
+          headers: headers,
+        ),
+        onSuccessMap: (value) {},
+      );
+    } on APIException catch (e) {
+      throw GameException(message: e.message);
+    } on AuthException catch (e) {
+      throw AuthException(message: e.message);
+    } catch (e) {
+      throw const GameException();
+    }
+  }
+
+  /// Stop game
+  ///
+  /// Returns [void] on success.
+  /// Throws [GameException] when operation fails.
+  Future<void> stopGame({
+    required String gameCode,
+    required String token,
+  }) async {
+    try {
+      final url = _stopGameEndpoint(gameCode);
+      final headers = {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      };
+      return await APIHelper.request<void>(
+        request: _client.patch(
           Uri.parse(url),
           headers: headers,
         ),

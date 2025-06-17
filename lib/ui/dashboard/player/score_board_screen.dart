@@ -14,9 +14,11 @@ class ScoreBoardScreen extends StatelessWidget {
   const ScoreBoardScreen({
     super.key,
     required this.gameCode,
+    required this.isGameMaster,
   });
 
   final String gameCode;
+  final bool isGameMaster;
 
   static const String id = 'scoreBoardScreen';
 
@@ -24,6 +26,11 @@ class ScoreBoardScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
+        BlocProvider(
+          create: (context) => StartGameCubit(
+            authBloc: context.read(),
+          ),
+        ),
         BlocProvider(
           create: (context) => PlayerPointsAndPositionCubit(
             authBloc: context.read(),
@@ -35,7 +42,10 @@ class ScoreBoardScreen extends StatelessWidget {
           ),
         ),
       ],
-      child: _ScoreBoardScreen(gameCode: gameCode),
+      child: _ScoreBoardScreen(
+        gameCode: gameCode,
+        isGameMaster: isGameMaster,
+      ),
     );
   }
 }
@@ -43,9 +53,11 @@ class ScoreBoardScreen extends StatelessWidget {
 class _ScoreBoardScreen extends StatefulWidget {
   const _ScoreBoardScreen({
     required this.gameCode,
+    required this.isGameMaster,
   });
 
   final String gameCode;
+  final bool isGameMaster;
 
   @override
   State<_ScoreBoardScreen> createState() => _ScoreBoardScreenState();
@@ -59,6 +71,7 @@ class _ScoreBoardScreenState extends State<_ScoreBoardScreen> {
   }
 
   Timer? _timer;
+  bool isPlayingAgain = false;
 
   /// Start polling getAllPlayersEndpoint every 10 seconds
   Future<void> isGameStartedPolling({required String gameCode}) async {
@@ -97,169 +110,208 @@ class _ScoreBoardScreenState extends State<_ScoreBoardScreen> {
               loading: (_) => true,
               orElse: () => false,
             );
-    return Scaffold(
-      body: DecoratedContainer(
-        child: Column(
-          children: [
-            SizedBox(height: context.topPadding),
-            Stack(
-              alignment: Alignment.centerRight,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(right: 16),
-                  child: isLoading
-                      ? GestureDetector(
-                          onTap: () {
-                            context
-                                .read<PlayerPointsAndPositionCubit>()
-                                .getPlayerPointsAndPosition(
-                                  gameCode: widget.gameCode,
-                                );
-                          },
-                          child: Padding(
-                            padding: const EdgeInsets.all(4),
-                            child: const Icon(
-                              Icons.cached,
-                            )
-                                .animate(
-                                  onPlay: (controller) => controller.repeat(),
-                                )
-                                .rotate(
-                                  duration: 800.ms,
-                                  curve: Curves.easeInOut,
-                                ),
-                          ),
-                        )
-                      : const Padding(
-                          padding: EdgeInsets.all(4),
-                          child: Icon(
-                            Icons.cached,
-                          ),
-                        ),
-                ),
-                Center(
-                  child: Text(
-                    context.appLocale.scoreboard,
-                    textAlign: TextAlign.center,
-                    textScaler: TextScaler.noScaling,
-                    style: context.textTheme.titleLarge!.copyWith(
-                      fontFamily: FontFamily.margarine,
-                      height: 1.8,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(height: 35.h),
-            Expanded(
-              child: BlocBuilder<PlayerPointsAndPositionCubit,
-                  PlayerPointsAndPositionState>(
-                builder: (context, state) {
-                  return state.maybeWhen(
-                    error: (players, error) {
-                      return (players != null && players.isNotEmpty)
-                          ? _ScoreboardList(players: players)
-                          : Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                    horizontal: 16,
-                                  ),
-                                  child: Text(
-                                    error ?? '',
-                                    textScaler: TextScaler.noScaling,
-                                    textAlign: TextAlign.center,
-                                    style: context.textTheme.bodyLarge,
-                                  ),
-                                ),
-                                const SizedBox(height: 20),
-                                Button(
-                                  width: mqr.width * 0.4,
-                                  label: context.appLocale.retry,
-                                  onPressed: () => context
-                                      .read<PlayerPointsAndPositionCubit>()
-                                      .getPlayerPointsAndPosition(
-                                        gameCode: widget.gameCode,
-                                      ),
-                                ),
-                              ],
-                            );
-                    },
-                    loading: (players) =>
-                        (players != null && players.isNotEmpty)
-                            ? _ScoreboardList(players: players)
-                            : const Center(
-                                child: CustomSpinner(color: AppColors.black),
-                              ),
-                    orElse: SizedBox.new,
-                    loaded: (players) {
-                      return _ScoreboardList(players: players);
-                    },
-                  );
-                },
-              ),
-            ),
-            const SizedBox(height: 24),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
+    return BlocListener<StartGameCubit, StartGameState>(
+      listener: (context, state) {
+        state.maybeWhen(
+          loading: () => setState(() {
+            isPlayingAgain = true;
+          }),
+          loaded: () {
+            setState(() {
+              isPlayingAgain = false;
+            });
+            Navigator.popUntil(
+              context,
+              (route) => route.settings.name == GameRoomScreen.id,
+            );
+          },
+          error: (error) {
+            setState(() {
+              isPlayingAgain = false;
+            });
+            ToastMessage.showError(
+              context: context,
+              text: error ?? '',
+            );
+          },
+          orElse: () => setState(() {
+            isPlayingAgain = false;
+          }),
+        );
+      },
+      child: Scaffold(
+        body: DecoratedContainer(
+          child: Column(
+            children: [
+              SizedBox(height: context.topPadding),
+              Stack(
+                alignment: Alignment.centerRight,
                 children: [
-                  Button(
-                    label: '',
-                    onPressed: () => Navigator.popUntil(
-                      context,
-                      (route) => route.settings.name == GameRoomScreen.id,
-                    ),
-                    child: RichText(
-                      text: TextSpan(
-                        style: context.textTheme.bodyMedium!
-                            .copyWith(color: AppColors.white),
-                        children: [
-                          TextSpan(text: context.appLocale.playAgain),
-                          TextSpan(
-                            text:
-                                ' (${currentLocale == yo ? context.enLocale.playAgain : context.yoLocale.playAgain})',
-                            style: context.textTheme.bodySmall!.copyWith(
-                              color: AppColors.white,
-                              fontWeight: FontWeight.w300,
+                  Padding(
+                    padding: const EdgeInsets.only(right: 16),
+                    child: isLoading
+                        ? GestureDetector(
+                            onTap: () {
+                              context
+                                  .read<PlayerPointsAndPositionCubit>()
+                                  .getPlayerPointsAndPosition(
+                                    gameCode: widget.gameCode,
+                                  );
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.all(4),
+                              child: const Icon(
+                                Icons.cached,
+                              )
+                                  .animate(
+                                    onPlay: (controller) => controller.repeat(),
+                                  )
+                                  .rotate(
+                                    duration: 800.ms,
+                                    curve: Curves.easeInOut,
+                                  ),
+                            ),
+                          )
+                        : const Padding(
+                            padding: EdgeInsets.all(4),
+                            child: Icon(
+                              Icons.cached,
                             ),
                           ),
-                        ],
-                      ),
-                    ),
                   ),
-                  const SizedBox(height: 24),
-                  Button(
-                    label: '',
-                    isOutlined: true,
-                    labelColor: AppColors.black15,
-                    onPressed: () {
-                      context.read<LeaveGameRoomCubit>().leaveGameRoom();
-                      context.goNamed(DashboardIndexScreen.id);
-                    },
-                    child: RichText(
-                      text: TextSpan(
-                        style: context.textTheme.bodyMedium,
-                        children: [
-                          TextSpan(text: context.appLocale.goHome),
-                          TextSpan(
-                            text:
-                                ' (${currentLocale == yo ? context.enLocale.goHome : context.yoLocale.goHome})',
-                            style: context.textTheme.bodySmall!.copyWith(
-                              fontWeight: FontWeight.w300,
-                            ),
-                          ),
-                        ],
+                  Center(
+                    child: Text(
+                      context.appLocale.scoreboard,
+                      textAlign: TextAlign.center,
+                      textScaler: TextScaler.noScaling,
+                      style: context.textTheme.titleLarge!.copyWith(
+                        fontFamily: FontFamily.margarine,
+                        height: 1.8,
                       ),
                     ),
                   ),
                 ],
               ),
-            ),
-            SizedBox(height: context.btmPadding),
-          ],
+              SizedBox(height: 35.h),
+              Expanded(
+                child: BlocBuilder<PlayerPointsAndPositionCubit,
+                    PlayerPointsAndPositionState>(
+                  builder: (context, state) {
+                    return state.maybeWhen(
+                      error: (players, error) {
+                        return (players != null && players.isNotEmpty)
+                            ? _ScoreboardList(players: players)
+                            : Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 16,
+                                    ),
+                                    child: Text(
+                                      error ?? '',
+                                      textScaler: TextScaler.noScaling,
+                                      textAlign: TextAlign.center,
+                                      style: context.textTheme.bodyLarge,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 20),
+                                  Button(
+                                    width: mqr.width * 0.4,
+                                    label: context.appLocale.retry,
+                                    onPressed: () => context
+                                        .read<PlayerPointsAndPositionCubit>()
+                                        .getPlayerPointsAndPosition(
+                                          gameCode: widget.gameCode,
+                                        ),
+                                  ),
+                                ],
+                              );
+                      },
+                      loading: (players) =>
+                          (players != null && players.isNotEmpty)
+                              ? _ScoreboardList(players: players)
+                              : const Center(
+                                  child: CustomSpinner(color: AppColors.black),
+                                ),
+                      orElse: SizedBox.new,
+                      loaded: (players) {
+                        return _ScoreboardList(players: players);
+                      },
+                    );
+                  },
+                ),
+              ),
+              const SizedBox(height: 24),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 24),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Button(
+                      label: '',
+                      onPressed: () {
+                        if (isPlayingAgain) return;
+                        if (widget.isGameMaster) {
+                          context.read<StartGameCubit>().stopGame(
+                                gameCode: widget.gameCode,
+                              );
+                        } else {
+                          Navigator.popUntil(
+                            context,
+                            (route) => route.settings.name == GameRoomScreen.id,
+                          );
+                        }
+                      },
+                      child: RichText(
+                        text: TextSpan(
+                          style: context.textTheme.bodyMedium!
+                              .copyWith(color: AppColors.white),
+                          children: [
+                            TextSpan(text: context.appLocale.playAgain),
+                            TextSpan(
+                              text:
+                                  ' (${currentLocale == yo ? context.enLocale.playAgain : context.yoLocale.playAgain})',
+                              style: context.textTheme.bodySmall!.copyWith(
+                                color: AppColors.white,
+                                fontWeight: FontWeight.w300,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 24),
+                    Button(
+                      label: '',
+                      isOutlined: true,
+                      labelColor: AppColors.black15,
+                      onPressed: () {
+                        context.read<LeaveGameRoomCubit>().leaveGameRoom();
+                        context.goNamed(DashboardIndexScreen.id);
+                      },
+                      child: RichText(
+                        text: TextSpan(
+                          style: context.textTheme.bodyMedium,
+                          children: [
+                            TextSpan(text: context.appLocale.goHome),
+                            TextSpan(
+                              text:
+                                  ' (${currentLocale == yo ? context.enLocale.goHome : context.yoLocale.goHome})',
+                              style: context.textTheme.bodySmall!.copyWith(
+                                fontWeight: FontWeight.w300,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(height: context.btmPadding),
+            ],
+          ),
         ),
       ),
     );

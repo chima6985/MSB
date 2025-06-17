@@ -290,6 +290,7 @@ final router = GoRouter(
         final paramHandler = state.extra is Map ? state.extra as Map? : {};
         return ScoreBoardScreen(
           gameCode: paramHandler?['gameCode'],
+          isGameMaster: paramHandler?['isGameMaster'],
         );
       },
     ),
@@ -343,6 +344,7 @@ final router = GoRouter(
         final paramHandler = state.extra is Map ? state.extra as Map? : {};
         return PlayersGameAnalyticsScreen(
           gameCode: paramHandler?['gameCode'],
+          isGameMaster: paramHandler?['isGameMaster'],
         );
       },
     ),

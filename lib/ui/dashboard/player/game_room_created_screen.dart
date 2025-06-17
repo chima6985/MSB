@@ -136,7 +136,7 @@ class GameRoomCreatedScreen extends HookWidget {
                         },
                       ),
                     ),
-                    SizedBox(height: context.btmPadding + 40.h),
+                    SizedBox(height: context.btmPadding + 20.h),
                   ],
                 ),
               ),

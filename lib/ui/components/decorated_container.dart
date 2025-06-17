@@ -46,11 +46,15 @@ class _DecoratedContainerState extends State<DecoratedContainer>
     );
 
     if (widget.isAnimate) {
-      Future.delayed(1.5.seconds, () {
-        SchedulerBinding.instance.addPostFrameCallback((_) {
-          _controller.repeat(reverse: true);
+      if (widget.isAnimate) {
+        Future.delayed(1.5.seconds, () {
+          if (!mounted) return;
+          SchedulerBinding.instance.addPostFrameCallback((_) {
+            if (!mounted) return;
+            _controller.repeat(reverse: true);
+          });
         });
-      });
+      }
     }
   }
 

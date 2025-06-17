@@ -17,7 +17,7 @@ class CustomSpinner extends StatelessWidget {
   Widget build(BuildContext context) {
     return Platform.isIOS
         ? CupertinoActivityIndicator(
-            radius: size,
+            radius: 12,
             color: color,
           )
         : SizedBox(

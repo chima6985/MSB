@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:masoyinbo_mobile/core/core.dart';
 import 'package:masoyinbo_mobile/extension/extension.dart';
 import 'package:masoyinbo_mobile/gen/fonts.gen.dart';
 import 'package:masoyinbo_mobile/ui/ui.dart';
@@ -12,7 +13,7 @@ class SettingsScreen extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isSoundEnabled = useState(false);
+    final isSoundEnabled = useState(AppStorage.getSoundEffectPreference());
     return Scaffold(
       body: DecoratedContainer(
         child: SingleChildScrollView(
@@ -63,7 +64,8 @@ class SettingsScreen extends HookWidget {
                     _SettingsWidget(
                       title: context.appLocale.notifications,
                       iconData: Iconsax.notification,
-                      onTap: () => context.pushNamed(NotificationSettingScreen.id),
+                      onTap: () =>
+                          context.pushNamed(NotificationSettingScreen.id),
                     ),
                     _SettingsWidget(
                       title: context.appLocale.paymentPlan,
@@ -82,8 +84,10 @@ class SettingsScreen extends HookWidget {
                         valueListenable: isSoundEnabled,
                         builder: (context, val, child) {
                           return CustomSwitch(
-                            onTap: (p0) =>
-                                isSoundEnabled.value = !isSoundEnabled.value,
+                            onTap: (_) {
+                              isSoundEnabled.value = !isSoundEnabled.value;
+                              AppStorage.toggleSoundEffectPreference();
+                            },
                             isEnabled: isSoundEnabled.value == true,
                           );
                         },

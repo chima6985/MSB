@@ -87,6 +87,7 @@ flutter:
   generate: true
 
   assets:
+    - assets/flute_music.mp3
     - assets/images/jpegs/
     - assets/images/svgs/
 

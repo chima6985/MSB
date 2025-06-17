@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:custom_timer/custom_timer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:just_audio/just_audio.dart';
 import 'package:masoyinbo_mobile/app/app.dart';
 import 'package:masoyinbo_mobile/core/core.dart';
 import 'package:masoyinbo_mobile/extension/extension.dart';
@@ -111,9 +112,23 @@ class __PlayQuestionScreenState extends State<__PlayQuestionScreen>
   bool showFrontSide = true;
   bool flipXAxis = true;
   final stopwatch = Stopwatch();
+  final player = AudioPlayer();
+  final isSoundEnabled = AppStorage.getSoundEffectPreference();
+
+  Future<void> playLoopingAudio() async {
+    try {
+      if (isSoundEnabled) {
+        await player.setAsset('assets/flute_music.mp3');
+        await player.setLoopMode(LoopMode.one);
+        await player.setVolume(0.3);
+        await player.play();
+      }
+    } catch (_) {}
+  }
 
   @override
   void initState() {
+    // playLoopingAudio();
     final questions = context.read<GetQuestionCubit>().state.whenOrNull(
               loaded: (questions, lives) => questions,
             ) ??
@@ -138,10 +153,10 @@ class __PlayQuestionScreenState extends State<__PlayQuestionScreen>
 
   @override
   void dispose() {
+    player.dispose();
     answerController.dispose();
     timerCountDownController?.dispose();
     stopwatch.stop();
-    // answerController.dispose();
     super.dispose();
   }
 
@@ -273,8 +288,8 @@ class __PlayQuestionScreenState extends State<__PlayQuestionScreen>
                   // Auto-dismiss modal after 2 seconds
                   Future.delayed(1.5.seconds, () {
                     if (!context.mounted) return;
-                    if (Navigator.of(context).canPop()) {
-                      Navigator.of(context).pop();
+                    if (context.canPop()) {
+                      context.pop();
                     }
                   });
                   return PerformanceModal(
@@ -296,6 +311,7 @@ class __PlayQuestionScreenState extends State<__PlayQuestionScreen>
                     PlayersGameAnalyticsScreen.id,
                     extra: {
                       'gameCode': widget.gameCode ?? '',
+                      'isGameMaster': widget.isGameMaster,
                     },
                   );
                 }
@@ -1283,6 +1299,9 @@ class __PlayQuestionScreenState extends State<__PlayQuestionScreen>
                                                           );
                                                           return;
                                                         }
+                                                        FocusManager.instance
+                                                            .primaryFocus
+                                                            ?.unfocus();
                                                         context
                                                             .read<
                                                                 SubmitAnswerCubit>()
@@ -1312,9 +1331,6 @@ class __PlayQuestionScreenState extends State<__PlayQuestionScreen>
                                                               isMultiplePayer:
                                                                   isMultiPlayerMode,
                                                             );
-                                                        FocusManager.instance
-                                                            .primaryFocus
-                                                            ?.unfocus();
 
                                                         // var isWordCorrect = false;
                                                         // for (var i = 0;

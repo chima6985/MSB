@@ -40,4 +40,24 @@ class StartGameCubit extends Cubit<StartGameState> {
       _authBloc.add(AuthEvent.authSignOut(message: e.message));
     }
   }
+
+  /// Stop game
+  Future<void> stopGame({
+    required String gameCode,
+  }) async {
+    try {
+      emit(const _Loading());
+      final user = UserHelper.fetchUser(authBloc: _authBloc);
+      if (user == null) return;
+      await _gameRepository.stopGame(
+        gameCode: gameCode,
+        token: user.token,
+      );
+      emit(const _Loaded());
+    } on GameException catch (e) {
+      emit(_Error(error: e.message));
+    } on AuthException catch (e) {
+      _authBloc.add(AuthEvent.authSignOut(message: e.message));
+    }
+  }
 }

@@ -29,6 +29,8 @@ class ActionButton extends StatelessWidget {
         child: Column(
           children: [
             Container(
+              width: 34.sp,
+              height: 34.sp,
               padding: const EdgeInsets.all(10),
               decoration: BoxDecoration(
                 shape: BoxShape.circle,

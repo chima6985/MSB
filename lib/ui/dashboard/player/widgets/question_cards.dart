@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:masoyinbo_mobile/core/models/question_model.dart';
@@ -118,7 +120,10 @@ class QuestionCard extends StatelessWidget {
                 SizedBox(height: 40.h),
                 Row(
                   children: [
-                    AudioButton(audioPath: audioPath),
+                    if (audioPath == null || (audioPath?.isEmpty ?? true))
+                      const AudioButton(audioPath: '')
+                    else
+                      AudioButton(audioPath: audioPath ?? ''),
                     const SizedBox(width: 24),
                     ActionButton(
                       label: 'Speak',
@@ -241,7 +246,10 @@ class FlippedQuestionCard extends StatelessWidget {
                 SizedBox(height: 35.h),
                 Row(
                   children: [
-                    AudioButton(audioPath: audioPath),
+                    if (audioPath == null || (audioPath?.isEmpty ?? true))
+                      const AudioButton(audioPath: '')
+                    else
+                      AudioButton(audioPath: audioPath ?? ''),
                     const SizedBox(width: 24),
                     ActionButton(
                       label: 'Speak',
@@ -285,7 +293,7 @@ class AudioButton extends StatefulWidget {
     required this.audioPath,
   });
 
-  final String? audioPath;
+  final String audioPath;
 
   @override
   State<AudioButton> createState() => _AudioButtonState();
@@ -293,28 +301,68 @@ class AudioButton extends StatefulWidget {
 
 class _AudioButtonState extends State<AudioButton> {
   final player = AudioPlayer();
+  bool isFetchedAudio = false;
+  bool playing = false;
+
+  Future<void> fetchAudio() async {
+    try {
+      log('seeking audio');
+      setState(() => playing = true);
+      await player.setUrl(widget.audioPath);
+      await player.setLoopMode(LoopMode.off);
+      await player.setVolume(0.55);
+      setState(() => isFetchedAudio = true);
+      await playAudio();
+    } catch (_) {}
+  }
+
+  Future<void> playAudio() async {
+    setState(() => playing = true);
+    await player.seek(Duration.zero);
+    await player.play().then((_) {
+      setState(() => playing = false);
+    });
+  }
 
   @override
-  void initState() {
-    super.initState();
-    if (widget.audioPath != null && widget.audioPath!.isNotEmpty) {
-      player.setUrl(widget.audioPath ?? '');
-    }
+  void dispose() {
+    player.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return ActionButton(
-      label: 'Listen',
-      isEnabled: widget.audioPath != null && widget.audioPath!.isNotEmpty,
-      icon: AppAssets.images.svgs.listen.svg(
-        width: 17.sp,
-        height: 17.sp,
+    // if (widget.audioPath.isNotEmpty) {
+    //   playAudio();
+    // }
+    return AbsorbPointer(
+      absorbing: playing,
+      child: ActionButton(
+        label: 'Listen',
+        isEnabled: widget.audioPath.isNotEmpty,
+        icon: playing
+            ? const FittedBox(
+                fit: BoxFit.scaleDown,
+                child: SizedBox(
+                  width: 12,
+                  height: 12,
+                  child: CustomSpinner(
+                    color: AppColors.blue13,
+                  ),
+                ),
+              )
+            : AppAssets.images.svgs.listen.svg(
+                width: 17.sp,
+                height: 17.sp,
+              ),
+        onTap: () async {
+          if (!isFetchedAudio) {
+            await fetchAudio();
+          } else {
+            await playAudio();
+          }
+        },
       ),
-      onTap: () {
-        if (widget.audioPath == null || widget.audioPath!.isEmpty) return;
-        player.play();
-      },
     );
   }
 }

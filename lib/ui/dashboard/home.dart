@@ -534,7 +534,6 @@ class _QuickActionsPracticeWidget extends StatelessWidget {
             )
           : Container(
               width: width,
-              height: 110.h,
               padding: const EdgeInsets.symmetric(horizontal: 8),
               decoration: BoxDecoration(
                 color: Color(bgColor).withValues(alpha: 0.5),
