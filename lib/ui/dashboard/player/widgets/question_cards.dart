@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:masoyinbo_mobile/core/models/question_model.dart';
@@ -306,7 +304,6 @@ class _AudioButtonState extends State<AudioButton> {
 
   Future<void> fetchAudio() async {
     try {
-      log('seeking audio');
       setState(() => playing = true);
       await player.setUrl(widget.audioPath);
       await player.setLoopMode(LoopMode.off);

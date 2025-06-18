@@ -33,6 +33,11 @@ class GameRoomScreen extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
+          create: (context) => ResetUserStatsCubit(
+            authBloc: context.read(),
+          ),
+        ),
+        BlocProvider(
           create: (context) => ModifyGameRoomCubit(
             authBloc: context.read(),
           ),
@@ -157,22 +162,40 @@ class _GameRoomScreenState extends State<_GameRoomScreen> {
         );
     return MultiBlocListener(
       listeners: [
+        BlocListener<ResetUserStatsCubit, ResetUserStatsState>(
+          listener: (context, state) {
+            state.maybeWhen(
+              loaded: () {
+                context.pushNamed(
+                  QuizLoaderScreen.id,
+                  extra: {
+                    'gameCode': widget.gameCode,
+                    'isTeamLeader': player?.isTeamLeader ?? false,
+                    'isMultiPlayer': true,
+                    'isGameMaster': widget.isGameMaster,
+                    'isTeamMode': isNewTeamMode,
+                  },
+                );
+              },
+              error: (error) {
+                ToastMessage.showError(
+                  context: context,
+                  text: error ?? '',
+                );
+              },
+              orElse: () {},
+            );
+          },
+        ),
         BlocListener<IsGameStartedCubit, IsGameStartedState>(
           listener: (context, state) {
             state.maybeWhen(
               loading: () => setState(() => isStartingGame = true),
               loaded: (value) {
                 if (value) {
-                  context.pushNamed(
-                    QuizLoaderScreen.id,
-                    extra: {
-                      'gameCode': widget.gameCode,
-                      'isTeamLeader': player?.isTeamLeader ?? false,
-                      'isMultiPlayer': true,
-                      'isGameMaster': widget.isGameMaster,
-                      'isTeamMode': isNewTeamMode,
-                    },
-                  );
+                  context
+                      .read<ResetUserStatsCubit>()
+                      .resetMultiplayerGameStats();
                 }
               },
               error: (error) {
@@ -376,10 +399,20 @@ class _GameRoomScreenState extends State<_GameRoomScreen> {
                                     // start game
                                     showModalBottomSheet(
                                       context: context,
-                                      builder: (_) => BlocProvider(
-                                        create: (context) => StartGameCubit(
-                                          authBloc: context.read(),
-                                        ),
+                                      builder: (_) => MultiBlocProvider(
+                                        providers: [
+                                          BlocProvider(
+                                            create: (context) =>
+                                                ResetUserStatsCubit(
+                                              authBloc: context.read(),
+                                            ),
+                                          ),
+                                          BlocProvider(
+                                            create: (context) => StartGameCubit(
+                                              authBloc: context.read(),
+                                            ),
+                                          ),
+                                        ],
                                         child: StartGameModal(
                                           gameCode: widget.gameCode,
                                         ),

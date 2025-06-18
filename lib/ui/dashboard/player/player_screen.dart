@@ -117,22 +117,10 @@ class _PlayerScreen extends HookWidget {
               loading: () => isLoading.value = true,
               loaded: () {
                 isLoading.value = false;
-                if (isMultiPlayer) {
-                  context.read<CreateGameRoomCubit>().createGameRoom(
-                        sectionId: selectedSection.value?.id ?? '',
-                        difficultyId: selectedDifficulty.value?.id ?? '',
-                        teamMode: isTeamMode.value ?? false,
-                        teamFormation: (isTeamFormationAutomatic.value ?? false)
-                            ? 'automatic'
-                            : 'manual',
-                      );
-                }
-                if (isSinglePlayer || isPractice) {
-                  context.read<GetQuestionCubit>().getSinglePlayerQuestions(
-                        difficulty: selectedDifficulty.value?.id ?? '',
-                        section: selectedSection.value?.id ?? '',
-                      );
-                }
+                context.read<GetQuestionCubit>().getSinglePlayerQuestions(
+                      difficulty: selectedDifficulty.value?.id ?? '',
+                      section: selectedSection.value?.id ?? '',
+                    );
               },
               error: (error) {
                 isLoading.value = false;
@@ -517,9 +505,15 @@ class _PlayerScreen extends HookWidget {
                         );
                         return;
                       }
-                      context
-                          .read<ResetUserStatsCubit>()
-                          .resetMultiplayerGameStats();
+                      context.read<CreateGameRoomCubit>().createGameRoom(
+                            sectionId: selectedSection.value?.id ?? '',
+                            difficultyId: selectedDifficulty.value?.id ?? '',
+                            teamMode: isTeamMode.value ?? false,
+                            teamFormation:
+                                (isTeamFormationAutomatic.value ?? false)
+                                    ? 'automatic'
+                                    : 'manual',
+                          );
                     } else {
                       context.read<ResetUserStatsCubit>().resetUserStats();
                     }

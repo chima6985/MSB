@@ -42,6 +42,7 @@ class CustomTextField extends StatelessWidget {
     this.onEditingComplete,
     this.fillColor,
     this.borderWidth = 0.4,
+    this.focusNode,
   });
 
   final String? hintText;
@@ -79,6 +80,7 @@ class CustomTextField extends StatelessWidget {
   final Function()? onEditingComplete;
   final double borderWidth;
   final Color? fillColor;
+  final FocusNode? focusNode;
 
   @override
   Widget build(BuildContext context) {
@@ -100,6 +102,7 @@ class CustomTextField extends StatelessWidget {
                 maxLength: maxLength,
                 textInputAction: textInputAction,
                 autofocus: autofocus,
+                focusNode: focusNode,
                 onSaved: onSaved,
                 onFieldSubmitted: onSubmitted,
                 onEditingComplete: onEditingComplete,

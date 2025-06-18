@@ -18,35 +18,58 @@ class StartGameModal extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final isLoading = useState(false);
-    return BlocListener<StartGameCubit, StartGameState>(
-      listener: (context, state) {
-        state.maybeWhen(
-          loading: () => isLoading.value = true,
-          loaded: () {
-            isLoading.value = false;
-            context
-              ..pop()
-              ..pushNamed(
-                QuizLoaderScreen.id,
-                extra: {
-                  'gameCode': gameCode,
-                  // 'isTeamLeader': player?.isTeamLeader ?? false,
-                  'isMultiPlayer': true,
-                  'isGameMaster': true,
-                  'isTeamMode': false,
-                },
-              );
-          },
-          error: (error) {
-            isLoading.value = false;
-            ToastMessage.showError(
-              context: context,
-              text: error ?? '',
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<StartGameCubit, StartGameState>(
+          listener: (context, state) {
+            state.maybeWhen(
+              loading: () => isLoading.value = true,
+              loaded: () {
+                isLoading.value = false;
+                context
+                  ..pop()
+                  ..pushNamed(
+                    QuizLoaderScreen.id,
+                    extra: {
+                      'gameCode': gameCode,
+                      // 'isTeamLeader': player?.isTeamLeader ?? false,
+                      'isMultiPlayer': true,
+                      'isGameMaster': true,
+                      'isTeamMode': false,
+                    },
+                  );
+              },
+              error: (error) {
+                isLoading.value = false;
+                ToastMessage.showError(
+                  context: context,
+                  text: error ?? '',
+                );
+              },
+              orElse: () => isLoading.value = false,
             );
           },
-          orElse: () => isLoading.value = false,
-        );
-      },
+        ),
+        BlocListener<ResetUserStatsCubit, ResetUserStatsState>(
+          listener: (context, state) {
+            state.maybeWhen(
+              loading: () => isLoading.value = true,
+              loaded: () {
+                isLoading.value = false;
+                context.read<StartGameCubit>().startGame(gameCode: gameCode);
+              },
+              error: (error) {
+                isLoading.value = false;
+                ToastMessage.showError(
+                  context: context,
+                  text: error ?? '',
+                );
+              },
+              orElse: () => isLoading.value = false,
+            );
+          },
+        ),
+      ],
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 20),
         decoration: const BoxDecoration(
@@ -107,8 +130,9 @@ class StartGameModal extends HookWidget {
             Button(
               label: context.appLocale.yesStartPlaying,
               isLoading: isLoading.value,
-              onPressed: () =>
-                  context.read<StartGameCubit>().startGame(gameCode: gameCode),
+              onPressed: () => context
+                  .read<ResetUserStatsCubit>()
+                  .resetMultiplayerGameStats(),
             ),
             const SizedBox(height: 24),
             Button(

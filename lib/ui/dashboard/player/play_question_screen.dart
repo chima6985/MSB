@@ -102,6 +102,7 @@ class __PlayQuestionScreenState extends State<__PlayQuestionScreen>
   final selectedMultipleOptionAnswer = 'Asiiro';
   bool? isMultipleOption;
   final answerController = TextEditingController();
+  final answerFocusNode = FocusNode();
   String? selectedFillWordOption;
   bool isMultiplayerAnswerSelected = false;
   String? imageSelector;
@@ -128,7 +129,7 @@ class __PlayQuestionScreenState extends State<__PlayQuestionScreen>
 
   @override
   void initState() {
-    // playLoopingAudio();
+    playLoopingAudio();
     final questions = context.read<GetQuestionCubit>().state.whenOrNull(
               loaded: (questions, lives) => questions,
             ) ??
@@ -1159,6 +1160,8 @@ class __PlayQuestionScreenState extends State<__PlayQuestionScreen>
                                                       'text') ...[
                                                     SizedBox(height: 20.h),
                                                     CustomTextField(
+                                                      focusNode:
+                                                          answerFocusNode,
                                                       textEditingController:
                                                           answerController,
                                                       textFieldText:
@@ -1287,7 +1290,7 @@ class __PlayQuestionScreenState extends State<__PlayQuestionScreen>
                                                           : context
                                                               .appLocale.next,
                                                       isLoading: isLoading,
-                                                      onPressed: () {
+                                                      onPressed: () async {
                                                         if (answerController
                                                             .text.isEmpty) {
                                                           ToastMessage
@@ -1299,10 +1302,19 @@ class __PlayQuestionScreenState extends State<__PlayQuestionScreen>
                                                           );
                                                           return;
                                                         }
-                                                        FocusManager.instance
-                                                            .primaryFocus
-                                                            ?.unfocus();
-                                                        context
+
+                                                        if (answerFocusNode
+                                                            .hasFocus) {
+                                                          answerFocusNode
+                                                              .unfocus();
+                                                          await Future.delayed(
+                                                            450.milliseconds,
+                                                          );
+                                                        }
+                                                        if (!context.mounted) {
+                                                          return;
+                                                        }
+                                                        await context
                                                             .read<
                                                                 SubmitAnswerCubit>()
                                                             .submitAnswer(

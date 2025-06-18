@@ -250,6 +250,7 @@ class _ScoreBoardScreenState extends State<_ScoreBoardScreen> {
                   children: [
                     Button(
                       label: '',
+                      isLoading: isPlayingAgain,
                       onPressed: () {
                         if (isPlayingAgain) return;
                         if (widget.isGameMaster) {

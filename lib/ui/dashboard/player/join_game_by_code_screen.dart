@@ -14,19 +14,10 @@ class JoinGameByCodeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(
-          create: (context) => ResetUserStatsCubit(
-            authBloc: context.read(),
-          ),
-        ),
-        BlocProvider(
-          create: (context) => GameDetailsCubit(
-            authBloc: context.read(),
-          ),
-        ),
-      ],
+    return BlocProvider(
+      create: (context) => GameDetailsCubit(
+        authBloc: context.read(),
+      ),
       child: const _JoinGameByCodeScreen(),
     );
   }
@@ -41,62 +32,37 @@ class _JoinGameByCodeScreen extends HookWidget {
     final gameCodeController = useTextEditingController();
     final isLoading = useState(false);
     final formKey = useState(GlobalKey<FormState>());
-    return MultiBlocListener(
-      listeners: [
-        BlocListener<GameDetailsCubit, GameDetailsState>(
-          listener: (context, state) {
-            state.maybeWhen(
-              loading: () => isLoading.value = true,
-              loaded: (gameDetails) {
-                isLoading.value = false;
-                showModalBottomSheet(
-                  context: context,
-                  builder: (context) => GameSetupModal(
-                    gameDetails: gameDetails,
-                    gameCode: gameCodeController.text.trim(),
-                  ),
-                  isScrollControlled: true,
-                  shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(24),
-                      topRight: Radius.circular(24),
-                    ),
-                  ),
-                );
-              },
-              error: (error) {
-                isLoading.value = false;
-                ToastMessage.showError(
-                  context: context,
-                  text: error ?? '',
-                );
-              },
-              orElse: () => isLoading.value = false,
+    return BlocListener<GameDetailsCubit, GameDetailsState>(
+      listener: (context, state) {
+        state.maybeWhen(
+          loading: () => isLoading.value = true,
+          loaded: (gameDetails) {
+            isLoading.value = false;
+            showModalBottomSheet(
+              context: context,
+              builder: (context) => GameSetupModal(
+                gameDetails: gameDetails,
+                gameCode: gameCodeController.text.trim(),
+              ),
+              isScrollControlled: true,
+              shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(24),
+                  topRight: Radius.circular(24),
+                ),
+              ),
             );
           },
-        ),
-        BlocListener<ResetUserStatsCubit, ResetUserStatsState>(
-          listener: (context, state) {
-            state.maybeWhen(
-              loading: () => isLoading.value = true,
-              loaded: () {
-                isLoading.value = false;
-                context.read<GameDetailsCubit>().getGameDetails(
-                      gameCode: gameCodeController.text.trim(),
-                    );
-              },
-              error: (error) {
-                isLoading.value = false;
-                ToastMessage.showError(
-                  context: context,
-                  text: error ?? '',
-                );
-              },
-              orElse: () => isLoading.value = false,
+          error: (error) {
+            isLoading.value = false;
+            ToastMessage.showError(
+              context: context,
+              text: error ?? '',
             );
           },
-        ),
-      ],
+          orElse: () => isLoading.value = false,
+        );
+      },
       child: Scaffold(
         body: DecoratedContainer(
           canPop: !isLoading.value,
@@ -165,10 +131,9 @@ class _JoinGameByCodeScreen extends HookWidget {
                           onPressed: () {
                             if (formKey.value.currentState!.validate()) {
                               FocusManager.instance.primaryFocus?.unfocus();
-
-                              context
-                                  .read<ResetUserStatsCubit>()
-                                  .resetMultiplayerGameStats();
+                              context.read<GameDetailsCubit>().getGameDetails(
+                                    gameCode: gameCodeController.text.trim(),
+                                  );
                             }
                           },
                         ),
