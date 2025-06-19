@@ -121,7 +121,7 @@ class __PlayQuestionScreenState extends State<__PlayQuestionScreen>
       if (isSoundEnabled) {
         await player.setAsset('assets/flute_music.mp3');
         await player.setLoopMode(LoopMode.one);
-        await player.setVolume(0.3);
+        await player.setVolume(0.005);
         await player.play();
       }
     } catch (_) {}
@@ -763,6 +763,7 @@ class __PlayQuestionScreenState extends State<__PlayQuestionScreen>
                                                                 false;
                                                           });
                                                         },
+                                                        audioPlayer: player,
                                                       )
                                                     : FlippedQuestionCard(
                                                         currentQuestionIndex:
@@ -775,6 +776,7 @@ class __PlayQuestionScreenState extends State<__PlayQuestionScreen>
                                                         audioPath:
                                                             currentQuestion
                                                                 ?.audioPath,
+                                                        audioPlayer: player,
                                                       ),
                                               ),
                                               SizedBox(

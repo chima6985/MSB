@@ -41,7 +41,7 @@ class UserCubit extends Cubit<UserState> {
     } on UserException catch (e) {
       emit(
         _Error(
-          user: user,
+          user: state.user,
           error: e.message,
         ),
       );

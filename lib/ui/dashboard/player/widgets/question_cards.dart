@@ -20,6 +20,7 @@ class QuestionCard extends StatelessWidget {
     this.audioPath,
     this.suffix,
     this.onFlipPressed,
+    required this.audioPlayer,
   });
 
   final int currentQuestionIndex;
@@ -33,6 +34,7 @@ class QuestionCard extends StatelessWidget {
   final String? audioPath;
   final String? suffix;
   final VoidCallback? onFlipPressed;
+  final AudioPlayer audioPlayer;
 
   @override
   Widget build(BuildContext context) {
@@ -119,9 +121,15 @@ class QuestionCard extends StatelessWidget {
                 Row(
                   children: [
                     if (audioPath == null || (audioPath?.isEmpty ?? true))
-                      const AudioButton(audioPath: '')
+                      AudioButton(
+                        audioPath: '',
+                        bgAudioPlayer: audioPlayer,
+                      )
                     else
-                      AudioButton(audioPath: audioPath ?? ''),
+                      AudioButton(
+                        audioPath: audioPath ?? '',
+                        bgAudioPlayer: audioPlayer,
+                      ),
                     const SizedBox(width: 24),
                     ActionButton(
                       label: 'Speak',
@@ -168,6 +176,7 @@ class FlippedQuestionCard extends StatelessWidget {
     this.audioPath,
     this.suffix,
     required this.answer,
+    required this.audioPlayer,
   });
 
   final int currentQuestionIndex;
@@ -176,6 +185,7 @@ class FlippedQuestionCard extends StatelessWidget {
   final String? audioPath;
   final String? suffix;
   final List<AnswerFormat>? answer;
+  final AudioPlayer audioPlayer;
 
   @override
   Widget build(BuildContext context) {
@@ -245,9 +255,15 @@ class FlippedQuestionCard extends StatelessWidget {
                 Row(
                   children: [
                     if (audioPath == null || (audioPath?.isEmpty ?? true))
-                      const AudioButton(audioPath: '')
+                      AudioButton(
+                        audioPath: '',
+                        bgAudioPlayer: audioPlayer,
+                      )
                     else
-                      AudioButton(audioPath: audioPath ?? ''),
+                      AudioButton(
+                        audioPath: audioPath ?? '',
+                        bgAudioPlayer: audioPlayer,
+                      ),
                     const SizedBox(width: 24),
                     ActionButton(
                       label: 'Speak',
@@ -289,9 +305,11 @@ class AudioButton extends StatefulWidget {
   const AudioButton({
     super.key,
     required this.audioPath,
+    required this.bgAudioPlayer,
   });
 
   final String audioPath;
+  final AudioPlayer bgAudioPlayer;
 
   @override
   State<AudioButton> createState() => _AudioButtonState();
@@ -315,10 +333,12 @@ class _AudioButtonState extends State<AudioButton> {
 
   Future<void> playAudio() async {
     setState(() => playing = true);
+    await widget.bgAudioPlayer.pause();
     await player.seek(Duration.zero);
     await player.play().then((_) {
       setState(() => playing = false);
     });
+    await widget.bgAudioPlayer.play();
   }
 
   @override
@@ -329,9 +349,6 @@ class _AudioButtonState extends State<AudioButton> {
 
   @override
   Widget build(BuildContext context) {
-    // if (widget.audioPath.isNotEmpty) {
-    //   playAudio();
-    // }
     return AbsorbPointer(
       absorbing: playing,
       child: ActionButton(
@@ -348,9 +365,9 @@ class _AudioButtonState extends State<AudioButton> {
                   ),
                 ),
               )
-            : AppAssets.images.svgs.listen.svg(
-                width: 17.sp,
-                height: 17.sp,
+            : Transform.scale(
+                scale: 0.7,
+                child: AppAssets.images.svgs.listen.svg(),
               ),
         onTap: () async {
           if (!isFetchedAudio) {
