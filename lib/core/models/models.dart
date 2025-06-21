@@ -1,6 +1,8 @@
 export 'answer_response_model.dart';
 export 'game_details_model.dart';
 export 'modified_game_model.dart';
+export 'module_difficulty_model.dart';
+export 'module_model.dart';
 export 'player_model.dart';
 export 'player_position_model.dart';
 export 'player_stat_model.dart';

@@ -24,6 +24,9 @@ Future<void> setUpLocator() async {
     ..registerSingleton<GameRepository>(
       GameRepository(baseUrl: baseUrl),
     )
+    ..registerSingleton<LearnRepository>(
+      LearnRepository(baseUrl: baseUrl),
+    )
     ..registerSingleton<BiometricSupport>(
       await isBiometricSupported(),
     )
