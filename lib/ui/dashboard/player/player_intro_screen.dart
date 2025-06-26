@@ -123,9 +123,10 @@ class _PlayerIntroScreen extends HookWidget {
                 'See translation',
                 textScaler: TextScaler.noScaling,
                 style: context.textTheme.bodySmall!.copyWith(
-                  height: 1.8,
+                  fontSize: 12.5.sp,
                   letterSpacing: 0.3,
                   fontStyle: FontStyle.italic,
+                  decoration: TextDecoration.underline,
                 ),
               ),
             ),

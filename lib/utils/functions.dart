@@ -1,11 +1,14 @@
 import 'dart:io';
+import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:masoyinbo_mobile/extension/extension.dart';
 import 'package:masoyinbo_mobile/ui/ui.dart';
 import 'package:masoyinbo_mobile/utils/utils.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:share_plus/share_plus.dart';
 
 class Functions {
   static void autoScroll({
@@ -93,5 +96,36 @@ class Functions {
 
     await file.writeAsBytes(byteData.buffer.asUint8List());
     return file.path;
+  }
+
+  static Future<void> captureAndShareWidget({
+    required BuildContext context,
+    required GlobalKey key,
+  }) async {
+    try {
+      final boundary =
+          key.currentContext!.findRenderObject()! as RenderRepaintBoundary;
+
+      final image = await boundary.toImage(pixelRatio: 3);
+
+      final byteData = await image.toByteData(format: ui.ImageByteFormat.png);
+      final pngBytes = byteData!.buffer.asUint8List();
+
+      final directory = await getTemporaryDirectory();
+      final imagePath = '${directory.path}/invite_image.png';
+      final imageFile = File(imagePath);
+      await imageFile.writeAsBytes(pngBytes);
+
+      await Share.shareXFiles(
+        [XFile(imagePath)],
+        text: '📚 Learn Yoruba on Masoyinbo https://www.eayoruba.com/',
+      );
+    } catch (e) {
+      if (!context.mounted) return;
+      ToastMessage.showWarning(
+        context: context,
+        text: context.appLocale.anErrorOccurredSharing,
+      );
+    }
   }
 }

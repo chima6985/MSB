@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -63,9 +64,31 @@ class AccountScreen extends HookWidget {
               child: Stack(
                 alignment: Alignment.bottomRight,
                 children: [
-                  CircleAvatar(
-                    radius: 40.sp,
-                    backgroundColor: AppColors.blue13,
+                  Hero(
+                    tag: 'profile_image',
+                    child: Container(
+                      width: 80.w,
+                      height: 80.w,
+                      clipBehavior: Clip.hardEdge,
+                      decoration: const BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: AppColors.blue13,
+                      ),
+                      padding: const EdgeInsetsDirectional.all(8),
+                      child: CachedNetworkImage(
+                        imageUrl: user?.image ?? '',
+                        errorWidget: (context, _, error) => Icon(
+                          Iconsax.user4,
+                          size: 27.w,
+                          color: AppColors.white,
+                        ),
+                        progressIndicatorBuilder: (context, _, val) => Icon(
+                          Iconsax.user4,
+                          size: 27.w,
+                          color: AppColors.white,
+                        ),
+                      ),
+                    ),
                   ),
                   CircleAvatar(
                     backgroundColor: AppColors.blueE7,
@@ -131,10 +154,31 @@ class AccountScreen extends HookWidget {
                       ),
                     ),
                   ),
-                  SizedBox(height: 100.h),
+                  SizedBox(height: 75.h),
                   Button(
                     label: updateChangesEn,
                     onPressed: () {},
+                  ),
+                  SizedBox(height: 25.h),
+                  InkWell(
+                    onTap: () => context.pushNamed(DeleteAccountScreen.id),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Icon(
+                          Iconsax.trash,
+                          color: AppColors.redFF,
+                        ),
+                        const SizedBox(width: 8),
+                        Text(
+                          context.appLocale.deleteAccount,
+                          textScaler: TextScaler.noScaling,
+                          style: context.textTheme.bodyMedium!.copyWith(
+                            color: AppColors.redFF,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),

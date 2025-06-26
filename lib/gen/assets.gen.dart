@@ -180,6 +180,10 @@ class $AssetsImagesJpegsGen {
   AssetGenImage get onboardingCircles =>
       const AssetGenImage('assets/images/jpegs/onboarding_circles.png');
 
+  /// File path: assets/images/jpegs/painted_background.png
+  AssetGenImage get paintedBackground =>
+      const AssetGenImage('assets/images/jpegs/painted_background.png');
+
   /// File path: assets/images/jpegs/profile_image.png
   AssetGenImage get profileImage =>
       const AssetGenImage('assets/images/jpegs/profile_image.png');
@@ -292,6 +296,10 @@ class $AssetsImagesJpegsGen {
   AssetGenImage get woman9 =>
       const AssetGenImage('assets/images/jpegs/woman_9.png');
 
+  /// File path: assets/images/jpegs/woman_social.png
+  AssetGenImage get womanSocial =>
+      const AssetGenImage('assets/images/jpegs/woman_social.png');
+
   /// File path: assets/images/jpegs/yoruba_group_avatar.png
   AssetGenImage get yorubaGroupAvatar =>
       const AssetGenImage('assets/images/jpegs/yoruba_group_avatar.png');
@@ -338,6 +346,7 @@ class $AssetsImagesJpegsGen {
         numbers,
         offline,
         onboardingCircles,
+        paintedBackground,
         profileImage,
         profileImage1,
         proverb,
@@ -366,6 +375,7 @@ class $AssetsImagesJpegsGen {
         woman7,
         woman8,
         woman9,
+        womanSocial,
         yorubaGroupAvatar
       ];
 }
@@ -376,6 +386,9 @@ class $AssetsImagesSvgsGen {
   /// File path: assets/images/svgs/accuracy.svg
   SvgGenImage get accuracy =>
       const SvgGenImage('assets/images/svgs/accuracy.svg');
+
+  /// File path: assets/images/svgs/apple.svg
+  SvgGenImage get apple => const SvgGenImage('assets/images/svgs/apple.svg');
 
   /// File path: assets/images/svgs/bolt.svg
   SvgGenImage get bolt => const SvgGenImage('assets/images/svgs/bolt.svg');
@@ -472,6 +485,10 @@ class $AssetsImagesSvgsGen {
   SvgGenImage get notification =>
       const SvgGenImage('assets/images/svgs/notification.svg');
 
+  /// File path: assets/images/svgs/playstore.svg
+  SvgGenImage get playstore =>
+      const SvgGenImage('assets/images/svgs/playstore.svg');
+
   /// File path: assets/images/svgs/questionAnswer.svg
   SvgGenImage get questionAnswer =>
       const SvgGenImage('assets/images/svgs/questionAnswer.svg');
@@ -496,6 +513,7 @@ class $AssetsImagesSvgsGen {
   /// List of all assets
   List<SvgGenImage> get values => [
         accuracy,
+        apple,
         bolt,
         bookmark,
         bookmarked,
@@ -523,6 +541,7 @@ class $AssetsImagesSvgsGen {
         meBold,
         message,
         notification,
+        playstore,
         questionAnswer,
         share,
         speak,

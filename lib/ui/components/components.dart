@@ -9,6 +9,7 @@ export 'decorated_container.dart';
 export 'game_lives_widget.dart';
 export 'profile_widgets.dart';
 export 'selected_category_widget.dart';
+export 'social_point_share_widget.dart';
 export 'svg_network_widget.dart';
 export 'type_writer_progress_text_indicator.dart';
 export 'unfocus.dart';
