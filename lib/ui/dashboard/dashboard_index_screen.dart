@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:masoyinbo_mobile/extension/extension.dart';
 import 'package:masoyinbo_mobile/features/features.dart';
+import 'package:masoyinbo_mobile/features/learn/learn.dart';
 import 'package:masoyinbo_mobile/gen/fonts.gen.dart';
 import 'package:masoyinbo_mobile/ui/ui.dart';
 import 'package:masoyinbo_mobile/utils/utils.dart';
@@ -27,6 +28,9 @@ class DashboardIndexScreen extends HookWidget {
       () {
         context.read<ModuleAndDifficultyCubit>().getSectionsAndDifficulty();
         context.read<UserCubit>().getUser();
+
+        //TODO: Chima -> attach the endpoint to get the learn module
+        // context.read<ModuleDifficultyCubit>().getModuleDifficulties();
         return null;
       },
       [],
